@@ -1,39 +1,11 @@
-project: ep24
+# Deprecated public compatibility alias.
+# Historical project-specific configuration is not published here.
+project: legacy
 dataset:
-  title: European Parliament election 2024 social-media corpus
+  title: Legacy research corpus template
   languages: []
   relevance:
-    mode: keyword_scope
-    scope: political/electoral
-    terms:
-      - puolue
-      - vaali
-      - eu-parlament
-      - eduskunta
-      - euroryhmä
-      - party
-      - election
-      - european parliament
-      - mep
-      - candidate
-      - partia
-      - wybory
-      - parlament europejski
-      - kandydat
-      - kokoomus
-      - perussuomalaiset
-      - sdp
-      - vasemmistoliitto
-      - keskusta
-      - pis
-      - konfederacja
-      - kaczyński
-      - tusk
-      - sikorski
-      - politiikka
-      - poliittinen
-      - politics
-      - political
+    mode: retain_unjudged
 analysis:
   laclau: true
   palonen: true
@@ -47,3 +19,6 @@ analysis:
   valueflows: false
   temporal: true
   multimodal: true
+
+# Use config/projects/legacy.yaml for new public examples. Authorized historical
+# project settings belong outside the public repository.
