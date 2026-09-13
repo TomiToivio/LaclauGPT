@@ -1,19 +1,16 @@
 # Arena 2: grassroots mobilisation around and against AI (paper §3.4)
-# PauseAI-style movements; employment, data centres, surveillance,
-# environment, cultural opposition. Sources: Zeeschuimer (TikTok, X,
-# Instagram, Threads), 4CAT datasets, digital ethnography notes.
 
 name: arena-grassroots
 paper_section: "3.4"
 topic_key: ai-grassroots
-source_platform: tiktok    # primary; X/instagram via zeeschuimer->4CAT
-language: fi               # Finland focus: is an anti-AI formation emerging? (paper 2.2)
+source_platform: tiktok
+language: fi
 countries: [FI, EU]
 
 memory_dir: null
 model: gemma4:e4b
-ollama_mode: auto          # GPU machine -> local Ollama; weak machine -> cloud
-allow_cloud_fallback: false # local routing is a hard data boundary unless explicitly changed
+ollama_mode: auto
+allow_cloud_fallback: false
 temperature: 0.0
 stages:
   summary: true
@@ -32,6 +29,9 @@ seed_actors:
   - PauseAI
   - Bernie Sanders
 seed_formations:
-  - anti-ai backlash
-  - critical ai studies
-  - x-risk doomerism
+  - accelerationism
+  - doomerism
+  - left-wing accelerationism
+  - ai safety
+  - ai critical
+  - anti-ai
