@@ -24,9 +24,12 @@ dataset:
       - PauseAI
       - Bernie Sanders
     formations:
-      - anti-ai backlash
-      - critical ai studies
-      - x-risk doomerism
+      - accelerationism
+      - doomerism
+      - left-wing accelerationism
+      - ai safety
+      - ai critical
+      - anti-ai
   model:
     text: gemma4:e4b
     vision: gemma4:e4b
