@@ -1,13 +1,12 @@
-# EP24 SAMPLE run config — 20+20 videos, full multimodal chain.
-# Runtime paths come from the launcher/environment. This public config contains
-# no user-specific checkout path, storage-project ID or private host detail.
+# Deprecated compatibility alias for a legacy sample run.
+# Study-specific countries, languages, models, codebooks, storage and HPC
+# details are intentionally not published in this public repository.
 
-name: ep24-roihu-sample
-paper_section: "3.3"
-topic_key: ep24-finland
-source_platform: video
-languages: [fi, pl, en, pt, es, it]
-countries: [FI, PL]
+name: legacy-sample
+topic_key: legacy
+source_platform: null
+languages: []
+countries: []
 
 memory_dir: null
 data_root: null
@@ -15,14 +14,14 @@ csv_dir: null
 videos_dir: null
 output_dir: null
 repo_root: null
-
-model: gemma4:31b-cloud
-ollama_mode: cloud
+model: null
+ollama_mode: local
 ollama_host: ""
-allow_cloud_fallback: true
+allow_cloud_fallback: false
 temperature: 0.0
-num_ctx: 24576
-num_predict: 4096
+num_ctx: 8192
+num_predict: 2048
+
 stages:
   summary: true
   discourse: true
@@ -34,15 +33,11 @@ analysis_switches:
   context_memory: true
   temporal: true
 
-codebook: ep24_finland
-seed_codebook_mode: human_curated
+codebook: null
+seed_codebook_mode: none
 
 improvements:
-  fresh_multimodal: true
-  keyframes_v2: true
-  screen_metadata_ocr: true
   evidence_gates: true
   abstention_allowed: true
   neutral_priming: true
   review_sidecar: true
-  mark_dont_drop: true
