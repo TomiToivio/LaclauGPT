@@ -1,0 +1,36 @@
+# Arena 3: parliamentary and electoral politics (paper §3.4)
+
+name: arena-parliamentary
+paper_section: "3.4"
+topic_key: ai-parliamentary
+source_platform: tiktok
+language: fi
+countries: [FI, EU]
+
+memory_dir: null
+model: gemma4:e4b
+ollama_mode: auto
+allow_cloud_fallback: false
+temperature: 0.0
+stages:
+  summary: true
+  discourse: true
+  populism: true
+  postprocess: true
+
+seed_signifiers:
+  - artificial intelligence
+  - ai regulation
+  - innovation
+  - employment
+  - security
+  - democracy
+seed_actors: []
+seed_formations:
+  - accelerationism
+  - doomerism
+  - left-wing accelerationism
+  - ai safety
+  - ai critical
+  - anti-ai
+governance_anchor: "Regulation (EU) 2024/1689 (AI Act)"
