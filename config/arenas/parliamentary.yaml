@@ -21,9 +21,12 @@ dataset:
       - democracy
     actors: []
     formations:
-      - anti-ai backlash
-      - left techno-optimism
       - accelerationism
+      - doomerism
+      - left-wing accelerationism
+      - ai safety
+      - ai critical
+      - anti-ai
     governance_anchors:
       - Regulation (EU) 2024/1689 (AI Act)
   model:
