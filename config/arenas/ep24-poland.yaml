@@ -1,24 +1,26 @@
-arena: ep24-poland
-project: ep24
+# Deprecated public compatibility alias for an earlier institutional arena.
+# The empirical country/project context is intentionally not published.
+arena: legacy
+project: legacy
 dataset:
-  title: EP24 Poland social-media sample
-  paper_section: "3.3"
-  topic_key: ep24-poland
-  platforms: [tiktok, instagram, video]
+  title: Legacy research arena template
+  paper_section: null
+  topic_key: legacy
+  platforms: []
   languages: []
-  countries: [Poland]
+  countries: []
   collection_notes: >-
-    Polish social-media material collected for the 2024 European Parliament
-    election study. Machine annotations are provisional and require human review.
+    Use config/arenas/legacy.yaml for public examples. Authorized historical
+    arena configuration belongs outside the public repository.
   model:
-    text: gemma4:26b
-    vision: gemma4:26b
+    text: null
+    vision: null
     ollama_mode: local
     temperature: 0.0
-    num_ctx: 24576
-    num_predict: 4096
+    num_ctx: 8192
+    num_predict: 2048
   data_policy:
     allow_cloud_fallback: false
   storage:
-    work_dir: ${LACLAUGPT_DATA_DIR}/ep24/poland
-    memory_dir: ${LACLAUGPT_DATA_DIR}/ep24/poland/memory
+    work_dir: ${LACLAUGPT_DATA_DIR}/legacy
+    memory_dir: ${LACLAUGPT_DATA_DIR}/legacy/memory
