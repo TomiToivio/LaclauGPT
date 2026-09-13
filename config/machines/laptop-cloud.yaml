@@ -1,3 +1,5 @@
+# Public template profile. Production provider/model/endpoints belong in
+# private or machine-local runtime configuration.
 machine: laptop-cloud
 backends:
   source: filesystem
@@ -16,8 +18,8 @@ services:
     enabled: false
   llm:
     mode: cloud
-    provider: ollama-cloud
-    model: gemma4:31b-cloud
+    provider: ${LACLAUGPT_CLOUD_PROVIDER:-cloud-provider}
+    model: ${LACLAUGPT_CLOUD_MODEL:-cloud-model}
   context_memory:
     enabled: true
 runtime:

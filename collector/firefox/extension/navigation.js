@@ -1,5 +1,5 @@
 /**
- * LaclauGPT Brazil Collector — tour navigation layer.
+ * LaclauGPT Collector — tour navigation layer.
  *
  * The backend owns the study configuration and returns one navigation row per
  * configured account/page URL. This script refreshes that tour before every
@@ -12,9 +12,9 @@
 (() => {
   "use strict";
 
-  // Backend address is study-profile specific (Brazil26 :8765, AI26 :8766).
-  // Stored in extension local storage as `backend_url`; the default keeps the
-  // historical Brazil26 endpoint. Set per Firefox profile (see README.md).
+  // Public default for a local collector backend. Any study-specific backend
+  // address or port must be stored in the Firefox profile/private runtime
+  // configuration rather than committed to this repository.
   const DEFAULT_BACKEND_URL = "http://127.0.0.1:8765";
   let backendUrl = DEFAULT_BACKEND_URL;
   let backendReady = browser.storage.local.get({ backend_url: DEFAULT_BACKEND_URL })
@@ -33,7 +33,7 @@
 
   async function fetchTour() {
     try {
-      await backendReady; // storage may resolve slower than the first tick
+      await backendReady;
       const response = await fetch(`${backendUrl}/tour`, { cache: "no-store" });
       if (!response.ok) return null;
       return await response.json();
@@ -50,9 +50,6 @@
   async function visitNext() {
     if (busy) return;
 
-    // Refresh on every cycle. Once the backend says the study is inactive,
-    // automatic navigation stops immediately even if the extension has been
-    // running for days.
     const tour = await fetchTour();
     const accounts = Array.isArray(tour?.accounts) ? tour.accounts : [];
     if (!tour?.active || accounts.length === 0) return;
@@ -72,10 +69,7 @@
         scrolls += 1;
         try {
           await browser.tabs.sendMessage(tab.id, { action: "scroll" });
-        } catch {
-          // Login/consent pages may not have our content script yet. Keeping
-          // the visit alive still lets the user resolve the page manually.
-        }
+        } catch {}
 
         if (scrolls >= SCROLLS_PER_VISIT) {
           clearInterval(timer);
@@ -90,9 +84,6 @@
     }
   }
 
-  // If the extension is reloaded while one of its own tour tabs survives,
-  // currentTabId is naturally lost; visits remain bounded to one new tab per
-  // interval and the old tab is harmless.
   setInterval(visitNext, VISIT_INTERVAL_MS);
   visitNext();
 })();

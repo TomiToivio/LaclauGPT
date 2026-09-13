@@ -8,22 +8,24 @@ Canonical chain:
 
 The deployment profiles below are deliberately modular. Collection, analysis, LLM access, Context Memory, visualization and Slurm execution are not assumed to live on the same host.
 
+> The profiles committed here are **public templates**, not production deployment records. Concrete model names, providers, endpoints, hostnames, ports, storage paths, credentials, schedules and allocation-specific settings belong in private or machine-local configuration.
+
 ## Supported profiles
 
 | Environment | Machine profile | Execution profile | Collector | Analysis | LLM | Dashboard | Slurm |
 |---|---|---|---:|---:|---|---:|---:|
 | Laptop collector | `laptop-collector` | `collector-only` | yes | no | none | no | no |
-| Laptop local analysis | `laptop-ollama` | `local-analysis` | no by default | yes | local Ollama `gemma4:e2b` | no by default | no |
-| Laptop cloud analysis | `laptop-cloud` | `cloud-analysis` | no by default | yes | `gemma4:31b-cloud` | no by default | no |
+| Laptop local analysis | `laptop-ollama` | `local-analysis` | no by default | yes | runtime-selected local model | no by default | no |
+| Laptop cloud analysis | `laptop-cloud` | `cloud-analysis` | no by default | yes | runtime-selected cloud model | no by default | no |
 | Linux dashboard | `linux-dashboard` | `dashboard-only` | no | no | none | yes | no |
-| Linux GPU realtime | `linux-gpu-realtime` | `realtime-fullstack` | yes | yes | local Ollama `gemma4:26b` | yes | no |
-| CSC Roihu | `roihu` | `slurm` | no | yes | local Ollama `gemma4:26b` | no | yes |
+| Linux GPU realtime | `linux-gpu-realtime` | `realtime-fullstack` | yes | yes | runtime-selected local model | yes | no |
+| Slurm/HPC analysis | `roihu` | `slurm` | no | yes | runtime-selected local model | no | yes |
 
-Model names are profile defaults, not research semantics. They can be replaced by machine-local configuration without changing the project or arena definition.
+Model/provider values in public profiles are placeholders. Operational selections must be supplied outside the public repository without changing the project or arena definition.
 
 ## 1. Laptop: browser collector only
 
-Use a laptop for researcher-driven browser collection without installing or starting Ollama, the analysis pipeline or the dashboard.
+Use a laptop for researcher-driven browser collection without installing or starting an analysis model or dashboard.
 
 ```bash
 laclaugpt profiles
@@ -42,7 +44,7 @@ laclaugpt analyze my_corpus.csv \
   --machine laptop-ollama --execution local-analysis
 ```
 
-The default local model is `gemma4:e2b` through Ollama.
+The local model is supplied through runtime or machine-local configuration.
 
 For cloud-assisted analysis:
 
@@ -52,7 +54,7 @@ laclaugpt analyze my_corpus.csv \
   --machine laptop-cloud --execution cloud-analysis
 ```
 
-The default cloud profile names `gemma4:31b-cloud`. Credentials and endpoints must come from runtime/environment configuration and must not be committed.
+Cloud provider/model selection, credentials and endpoints must come from runtime/environment configuration and must not be committed.
 
 ## 3. Linux web server: dashboard only
 
@@ -62,27 +64,27 @@ Use `linux-dashboard` + `dashboard-only` when the host only serves visualization
 laclaugpt dashboard data/annotations.jsonl --project ai26 --arena elites
 ```
 
-This profile must not require Ollama or collector dependencies. Production HTTP binding, TLS, authentication and reverse proxy configuration stay outside research semantics.
+This profile must not require an LLM or collector dependencies. Production HTTP binding, TLS, authentication and reverse proxy configuration stay outside research semantics and outside the public repository.
 
 ## 4. Linux GPU server: realtime full stack
 
-Use `linux-gpu-realtime` + `realtime-fullstack` for a persistent operational installation where collector, analysis and dashboard all run on one GPU host.
+Use `linux-gpu-realtime` + `realtime-fullstack` as the public template for a persistent installation where collector, analysis and dashboard are colocated.
 
 The profile enables:
 
 - collection;
-- local Ollama analysis with `gemma4:26b`;
+- local analysis using a runtime-selected model;
 - incremental processing;
 - dashboard visualization;
 - persistent Context Memory.
 
 Even on one host these remain separate services. They should communicate through canonical files, APIs, databases or queues rather than hidden in-process coupling. Process supervision is intentionally external so systemd, containers or another supervisor can restart components independently.
 
-Any concrete hostname, IP address, database account, filesystem path, service schedule, backup policy or other deployment-specific setting must remain in machine-local configuration outside the public repository.
+Any concrete hostname, IP address, database account, filesystem path, model deployment, service schedule, backup policy or other deployment-specific setting must remain in machine-local/private configuration outside the public repository.
 
-## 5. CSC Roihu / Slurm: analysis only
+## 5. Slurm/HPC: analysis only
 
-Use `roihu` + `slurm` for GPU batch analysis.
+Use `roihu` + `slurm` as the public Slurm/HPC template for GPU batch analysis.
 
 ```bash
 laclaugpt run \
@@ -91,7 +93,7 @@ laclaugpt run \
   --dataset my_corpus.csv
 ```
 
-The Slurm execution profile owns scheduler resources, checkpoint/retry behaviour and batch mode. The Roihu machine profile owns service/backend/runtime infrastructure. It explicitly disables collector and dashboard services and selects local Ollama `gemma4:26b`.
+The Slurm execution profile owns scheduler behavior, checkpoint/retry behavior and batch mode. The machine profile owns service/backend/runtime capabilities. It disables collector and dashboard services and expects the actual local model selection to be supplied outside the public repository.
 
 No persistent web service should be started from a Slurm job.
 
@@ -99,7 +101,7 @@ No persistent web service should be started from a Slurm job.
 
 The following invariants apply across all deployments:
 
-1. Collector-only must work without analysis, Ollama or dashboard dependencies.
+1. Collector-only must work without analysis, LLM or dashboard dependencies.
 2. Analysis-only must work without collection or visualization.
 3. Dashboard-only must consume existing canonical outputs without loading an LLM.
 4. Slurm execution must never launch a browser collector or dashboard.
@@ -109,21 +111,28 @@ The following invariants apply across all deployments:
 
 ## Configuration ownership
 
-Machine profiles own:
+Machine profiles own public capability/topology templates such as:
 
-- storage/backend selection;
+- storage/backend classes;
 - service availability;
-- LLM transport/model defaults;
-- GPU/runtime characteristics;
-- host-local service parameters.
+- LLM transport mode;
+- GPU/runtime characteristics.
+
+Private or machine-local overlays own concrete values such as:
+
+- actual model/provider selections;
+- hostnames, ports and service endpoints;
+- credentials and database accounts;
+- storage paths and allocation identifiers;
+- schedules, supervision and backup details.
 
 Execution profiles own:
 
 - manual/service/batch/realtime mode;
 - scheduler type;
 - recurrence;
-- retry/resume/checkpoint behaviour;
-- Slurm resource requests.
+- retry/resume/checkpoint behavior;
+- generic Slurm resource policy.
 
 Project and arena profiles continue to own theory, analytical modules, dataset semantics and research-specific model hints.
 
@@ -133,9 +142,9 @@ Project and arena profiles continue to own theory, analytical modules, dataset s
 
 - required services are enabled/disabled correctly;
 - dashboard-only and collector-only have no accidental LLM dependency;
-- laptop local/cloud profiles select the intended model route;
+- local/cloud profiles preserve the intended routing mode without publishing production model selections;
 - GPU realtime enables all three major services;
-- Roihu is analysis-only under Slurm;
+- the Slurm profile is analysis-only;
 - changing machine/execution topology does not change project/arena research semantics.
 
 The tests do not launch real models, browsers, dashboards or Slurm jobs.

@@ -1,5 +1,5 @@
 /**
- * LaclauGPT Brazil Collector — Firefox capture layer.
+ * LaclauGPT Collector — Firefox capture layer.
  *
  * LaclauGPT-native network capture based on the historical 2024
  * LaclauGPT TikTok Scraper: intercept relevant public platform API
@@ -15,10 +15,8 @@
 (() => {
   "use strict";
 
-  // Backend address is study-profile specific (Brazil26 :8765, AI26 :8766).
-  // Store it in extension local storage as `backend_url`; the default keeps
-  // the historical Brazil26 endpoint for backwards compatibility. Set per
-  // Firefox profile via browser.storage.local (see collector/firefox/README.md).
+  // Public default for a local collector backend. Study-specific backend
+  // addresses and ports belong in Firefox profile/private runtime settings.
   const DEFAULT_BACKEND_URL = "http://127.0.0.1:8765";
   let backendUrl = DEFAULT_BACKEND_URL;
   browser.storage.local.get({ backend_url: DEFAULT_BACKEND_URL })
@@ -28,10 +26,6 @@
     })
     .catch(() => {});
 
-  // Keep this list aligned with the endpoint families accepted by the
-  // LaclauGPT-native Python parsers. The extension only captures candidate
-  // response bodies; the backend remains responsible for deciding whether a
-  // payload actually contains collectable posts.
   const MATCHERS = {
     tiktok: /api\.tiktokv\.com|\/api\/(?:post|challenge)\/item_list|\/api\/user\/playlist|\/api\/search\/(?:item_list|general\/full)|\/api\/preload\/item_list/,
     x: /(?:^|\.)x\.com\/i\/api\/graphql|(?:^|\.)twitter\.com\/i\/api\/graphql|\/i\/api\/graphql(?:\/|\?|$)/,
@@ -70,12 +64,7 @@
         }),
       });
       if (!response.ok) {
-        console.warn(
-          "[laclaugpt-collector] backend rejected capture",
-          platform,
-          response.status,
-          apiUrl || platformUrl,
-        );
+        console.warn("[laclaugpt-collector] backend rejected capture", platform, response.status);
         return false;
       }
       return true;
@@ -86,32 +75,21 @@
   }
 
   async function sendCapture(details, platform, body, capturedPlatformUrl = "") {
-    // Prefer the page URL captured when interception started. Looking the tab
-    // up only after the response finishes is racy on SPA navigation and when
-    // the automated tour closes a tab while requests are still draining.
     const platformUrl = capturedPlatformUrl || details.documentUrl || details.originUrl || "";
-    return postCapture({
-      platform,
-      apiUrl: details.url,
-      platformUrl,
-      body,
-    });
+    return postCapture({ platform, apiUrl: details.url, platformUrl, body });
   }
 
   function captureResponse(details) {
     const platform = platformFor(details.url);
     if (!platform || ["HEAD", "OPTIONS"].includes(details.method)) return;
 
-    // Snapshot the visited page immediately, before the response stream and
-    // any later navigation can change the tab URL. This is also the provenance
-    // URL the Python backend uses for account attribution and parser context.
     const platformUrlPromise = tabUrlFor(details.tabId);
 
     let filter;
     try {
       filter = browser.webRequest.filterResponseData(details.requestId);
     } catch (error) {
-      console.warn("[laclaugpt-collector] cannot attach response filter", details.url, error);
+      console.warn("[laclaugpt-collector] cannot attach response filter", error);
       return;
     }
 
@@ -119,27 +97,17 @@
     const chunks = [];
 
     filter.ondata = event => {
-      // Keep a decoded private copy for LaclauGPT, but forward the original
-      // bytes byte-for-byte. A StreamFilter must write or disconnect the
-      // response or Firefox keeps the request open without delivering it.
       chunks.push(decoder.decode(event.data, { stream: true }));
       filter.write(event.data);
     };
 
     filter.onerror = event => {
-      console.warn(
-        "[laclaugpt-collector] response filter error",
-        platform,
-        details.url,
-        event.error,
-      );
+      console.warn("[laclaugpt-collector] response filter error", platform, event.error);
       try { filter.disconnect(); } catch {}
     };
 
     filter.onstop = async () => {
       chunks.push(decoder.decode());
-      // All bytes have already been forwarded in ondata. close() finishes the
-      // filtered stream cleanly without changing the website response.
       try { filter.close(); } catch {}
       const platformUrl = await platformUrlPromise;
       await sendCapture(details, platform, chunks.join(""), platformUrl);
@@ -148,21 +116,13 @@
 
   browser.webRequest.onHeadersReceived.addListener(
     captureResponse,
-    {
-      urls: ["<all_urls>"],
-      types: ["xmlhttprequest"],
-    },
+    { urls: ["<all_urls>"], types: ["xmlhttprequest"] },
     ["blocking"],
   );
 
-  // Embedded page-state path. content.js sends already-parsed JSON, so the
-  // local backend can use the same Python parser/normalisation/store pipeline
-  // as network captures without teaching the extension any discourse logic.
   browser.runtime.onMessage.addListener(async (message, sender) => {
     if (message?.type !== "embedded") return undefined;
-    if (!(["tiktok", "instagram"].includes(message.platform))) {
-      return { accepted: 0 };
-    }
+    if (!(["tiktok", "instagram"].includes(message.platform))) return { accepted: 0 };
 
     const payloads = Array.isArray(message.payloads) ? message.payloads : [];
     const pageUrl = sender?.tab?.url || message.page_url || "";
@@ -181,7 +141,6 @@
     return { accepted };
   });
 
-  // Keep the backend status fresh without generating collector captures.
   setInterval(() => {
     fetch(`${backendUrl}/ping`, { method: "POST" }).catch(() => {});
   }, 60000);

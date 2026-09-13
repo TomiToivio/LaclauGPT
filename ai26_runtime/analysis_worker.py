@@ -29,10 +29,9 @@ sys.path.insert(0, str(REPO))
 sys.path.insert(0, str(REPO / "ai26_runtime"))
 
 os.environ["LLM_MODE"] = "local"
-# 2026-09-11: Tomi's private Ollama instance (:11435) hosts the retiered
-# gemma4 stack (e2b/e4b/12b resident). The shared :11434 instance stalls
-# model loads behind other tenants' servers, starving small-tier calls.
-os.environ.setdefault("OLLAMA_HOST", "http://127.0.0.1:11435")
+# Public default only. Production host selection belongs in private/runtime
+# configuration and should override OLLAMA_HOST outside this repository.
+os.environ.setdefault("OLLAMA_HOST", "http://127.0.0.1:11434")
 os.environ.setdefault("OLLAMA_KEEP_ALIVE", "24h")
 os.environ.pop("LLM_ALLOW_CLOUD_FALLBACK", None)
 

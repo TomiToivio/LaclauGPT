@@ -18,9 +18,8 @@ Routing by pipeline stage (STAGE_ROUTING, canonical table below):
 
 The 12b tier carries the discourse-quality stages (discourse, populism,
 topics, temporal); the e2b/e4b tiers carry the mechanical extraction
-stages. The 26b tier is no longer routed to any stage (see retiering
-note at STAGE_ROUTING) but remains available for the long-text
-escalation override.
+stages. The 26b tier is no longer routed to any stage but remains available
+for the long-text escalation override.
 
 Document-length override: very long texts (>8000 chars) escalate e2b/e4b
 one tier to preserve evidence fidelity. GPU memory guard: if a tier does
@@ -30,6 +29,7 @@ the fallback reason.
 from __future__ import annotations
 
 import json
+import os
 import subprocess
 from functools import lru_cache
 
@@ -43,10 +43,8 @@ MODELS = {
 # Ascending capability order for fallback walks
 CAPABILITY_ORDER = ["e2b", "e4b", "12b", "26b"]
 
-# 2026-09-11 retiering: the 26b tier (25.8B Q4, ~16 GB weights) does not fit
-# any single GPU next to the other resident llama-servers and every 26b load
-# attempt stalled long enough to starve the small tiers. The 12b tier
-# (11.9B Q6, ~10.5 GB) carries the discourse-quality stages instead.
+# Public routing policy only. Host-specific capacity measurements and residency
+# decisions belong in private/runtime deployment notes, not in this module.
 STAGE_ROUTING = {
     "summary": "e4b",
     "discourse": "12b",
@@ -61,7 +59,9 @@ STAGE_ROUTING = {
 # texts longer than this escalate one tier (evidence fidelity on long posts)
 LONG_TEXT_CHARS = 8000
 
-OLLAMA_HOST = "http://127.0.0.1:11435"
+# Standard public loopback default. Production endpoints must be supplied via
+# the environment/private deployment configuration.
+OLLAMA_HOST = os.environ.get("OLLAMA_HOST", "http://127.0.0.1:11434")
 
 
 @lru_cache(maxsize=1)

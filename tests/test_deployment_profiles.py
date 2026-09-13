@@ -37,29 +37,25 @@ def test_laptop_collector_has_no_llm_analysis_or_dashboard():
     assert services["analysis"]["enabled"] is False
     assert services["dashboard"]["enabled"] is False
     assert services["llm"]["mode"] == "none"
-    assert runtime == {
-        "collector": True,
-        "analysis": False,
-        "dashboard": False,
-        "slurm": False,
-    }
+    assert runtime == {"collector": True, "analysis": False, "dashboard": False, "slurm": False}
 
 
-def test_laptop_local_analysis_uses_small_ollama_model():
+def test_laptop_local_analysis_uses_configurable_local_model():
     cfg = _compose("laptop-ollama", "local-analysis")
     services = cfg["services"]
     assert services["analysis"]["enabled"] is True
     assert services["llm"]["mode"] == "local"
     assert services["llm"]["provider"] == "ollama"
-    assert services["llm"]["model"] == "gemma4:e2b"
+    assert services["llm"]["model"]
     assert services["dashboard"]["enabled"] is False
 
 
-def test_laptop_cloud_analysis_uses_cloud_model():
+def test_laptop_cloud_analysis_uses_configurable_cloud_model():
     cfg = _compose("laptop-cloud", "cloud-analysis")
     llm = cfg["services"]["llm"]
     assert llm["mode"] == "cloud"
-    assert llm["model"] == "gemma4:31b-cloud"
+    assert llm["model"]
+    assert llm["provider"]
     assert cfg["orchestration"]["runtime"]["analysis"] is True
 
 
@@ -79,7 +75,7 @@ def test_linux_gpu_realtime_runs_all_services_with_local_ollama():
     assert services["analysis"]["enabled"] is True
     assert services["dashboard"]["enabled"] is True
     assert services["llm"]["mode"] == "local"
-    assert services["llm"]["model"] == "gemma4:26b"
+    assert services["llm"]["model"]
     assert cfg["orchestration"]["runtime"]["incremental"] is True
 
 
@@ -91,7 +87,7 @@ def test_roihu_is_slurm_analysis_only():
     assert services["analysis"]["enabled"] is True
     assert services["dashboard"]["enabled"] is False
     assert services["llm"]["mode"] == "local"
-    assert services["llm"]["model"] == "gemma4:26b"
+    assert services["llm"]["model"]
     assert runtime["slurm"] is True
     assert runtime["collector"] is False
     assert runtime["dashboard"] is False

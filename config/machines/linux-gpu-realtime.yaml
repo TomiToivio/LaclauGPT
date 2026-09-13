@@ -1,3 +1,5 @@
+# Public template profile. Production services, model names and endpoints belong
+# in private or machine-local runtime configuration.
 machine: linux-gpu-realtime
 backends:
   source: mongodb_remote
@@ -20,7 +22,7 @@ services:
   llm:
     mode: local
     provider: ollama
-    model: gemma4:26b
+    model: ${LACLAUGPT_LOCAL_MODEL:-local-model}
     base_url: ${OLLAMA_BASE_URL:-http://127.0.0.1:11434}
   context_memory:
     enabled: true
