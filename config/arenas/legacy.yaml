@@ -1,0 +1,25 @@
+arena: legacy
+project: legacy
+dataset:
+  title: Legacy research arena template
+  paper_section: null
+  topic_key: legacy
+  platforms: []
+  languages: []
+  countries: []
+  collection_notes: >-
+    Public compatibility template only. Project-specific empirical context,
+    subject/account lists, collection details, and storage configuration from
+    earlier institutional research are intentionally not published.
+  model:
+    text: null
+    vision: null
+    ollama_mode: local
+    temperature: 0.0
+    num_ctx: 8192
+    num_predict: 2048
+  data_policy:
+    allow_cloud_fallback: false
+  storage:
+    work_dir: ${LACLAUGPT_DATA_DIR}/legacy
+    memory_dir: ${LACLAUGPT_DATA_DIR}/legacy/memory
