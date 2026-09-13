@@ -53,6 +53,22 @@ See `collector/modules/README.md` for parser design rules.
 
 ## Capture paths
 
+### Bluesky public API
+
+Bluesky author feeds use the public XRPC API; search uses the same API but may
+require a short-lived access JWT in `BSKY_ACCESS_TOKEN`. Both paths use the same
+durable raw/normalized/provenance store as the browser collectors:
+
+```bash
+python -m collector.bluesky --query "AI governance" \
+    --data-root ~/laclaugpt-bluesky-data --max-results 500
+
+python -m collector.bluesky --actor example.bsky.social \
+    --data-root ~/laclaugpt-bluesky-data --max-results 200
+```
+
+Queries and handles are supplied explicitly and are not embedded in code.
+
 ### Preferred: Firefox
 
 The Firefox extension captures response bodies and navigation while the Python

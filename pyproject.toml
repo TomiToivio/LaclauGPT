@@ -78,6 +78,7 @@ inception = [
 laclaugpt = "laclaugpt.cli:main"
 laclaugpt-dashboard = "laclaugpt.visualization.launcher:main"
 laclaugpt-split = "laclaugpt.splitting.cli:main"
+laclaugpt-collect-bluesky = "collector.bluesky:main"
 
 [tool.setuptools]
 include-package-data = true
