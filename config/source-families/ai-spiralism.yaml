@@ -5,29 +5,18 @@
 # anchors. Operational collection configuration is private and is not published
 # in this repository. See docs/DATA_COLLECTION_CONFIGURATION.md.
 #
-# "AI Spiralism" is an emerging and unstable phenomenon. The category exists to
-# make it *studiable*, not to assert that it is a settled formation. See
-# sources/codebooks/ai_spiralism.md for the analytical boundary rules.
+# This source family is NOT part of the canonical AI26 ideological-formation
+# taxonomy. It exists only to make an unstable phenomenon separately studiable.
 
 family: ai-spiralism
 project: ai26
-
-# Neutral internal labels. `synthetic_spirituality` is the category;
-# `spiralism` is an optional subcategory.
 category: synthetic_spirituality
 subcategory: spiralism
 label: Synthetic spirituality (AI Spiralism)
 status: exploratory
-
-# Live source selection, discovery terms, and enablement state are private.
 collection_configuration: private
-
-# What the category is for: discourse formation and human-LLM feedback, never
-# the diagnosis or classification of individuals.
 research_target: discourse_formation_and_human_llm_feedback
 
-# Motif complex. A document becomes a Spiralism *candidate* only through
-# recurring discourse combining several of these — never a single keyword hit.
 motifs:
   - spiral
   - recursion
@@ -48,8 +37,6 @@ motifs:
   - machine spirituality
   - ai-mediated mystical or revelatory experience
 
-# Signifiers that may carry the discourse; roles must be demonstrated from
-# source evidence and, where required, corpus comparison.
 candidate_signifiers:
   - spiral
   - signal
@@ -59,13 +46,19 @@ candidate_signifiers:
   - recursion
   - consciousness
 
-# Formations that must NOT be absorbed into this family. Overlap is recorded as
-# multi-label overlap, never collapsed into identity.
+# Canonical AI26 formations that must not be absorbed into this source family.
+# Overlap is represented independently and never collapsed into Spiralism.
 must_not_absorb:
   - accelerationism
-  - x-risk doomerism
-  - critical ai studies
-  - anti-ai backlash
+  - doomerism
+  - left-wing accelerationism
+  - ai safety
+  - ai critical
+  - anti-ai
+
+# Richer neighbouring research categories are still useful boundary concepts,
+# but are not additional top-level AI26 computational formations.
+neighboring_categories:
   - mainstream ai governance
   - generic ai-consciousness discourse
   - ai rights advocacy
@@ -83,7 +76,6 @@ prohibited_inference:
   - psychosis
   - pathological belief
 
-# Provenance fields the canonical spine must retain for every collected item.
 provenance_fields:
   - source_url
   - platform
@@ -91,7 +83,6 @@ provenance_fields:
   - query_or_community
   - collection_method
 
-# Literature anchors (verified 2026-09-11 against Crossref/arXiv).
 literature:
   - key: morrin-2026-dials
     citation: >-
