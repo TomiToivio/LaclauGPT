@@ -1,23 +1,8 @@
 # -*- coding: utf-8 -*-
 """Seed the LaclauGPT persistent codebook from the paper.
 
-Every concept the paper names as an analytical object gets a stable ID:
-signifiers, entities, actors, ideological formations, and the affect
-vocabulary used by the Formula of Populism stage.
-
-Seed definitions are deliberately *non-adjudicative*.  They may tell a model
-what a label refers to, but they must not pre-assign a Laclaudian role, an Us /
-Frontier side, or an affect polarity.  THEORY.md remains authoritative: roles
-and political functions have to be demonstrated from source evidence and, when
-required, corpus comparison.
-
-Run (from this directory):
-    python -m seed_codebook --memory-dir <persistent/dir>
-
-Idempotent: re-running resolves to the same IDs (resolve-first policy).  A
-re-run also migrates the exact role/side-coded legacy seed definitions shipped
-before issue #61 to their neutral replacements without overwriting unrelated
-human-edited definitions.
+Seed definitions are deliberately non-adjudicative. Research vocabulary may be
+richer than the small AI26 computational formation vocabulary.
 """
 from __future__ import annotations
 
@@ -28,6 +13,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from laclaugpt_memory import Memory  # noqa: E402
+from laclaugpt.formations import CANONICAL_FORMATIONS  # noqa: E402
 
 ROLE_MUST_BE_DEMONSTRATED = (
     "Candidate signifier; any nodal, floating, empty, equivalential, frontier, "
@@ -39,9 +25,6 @@ AFFECT_MUST_BE_DEMONSTRATED = (
     "and function must be demonstrated from source evidence"
 )
 
-# Exact historical definitions that encoded a role or Us/Frontier side.  These
-# are used only for a conservative migration when an existing codebook is
-# re-seeded.  We do not overwrite arbitrary human-edited definitions.
 LEGACY_PRIMING_DEFINITIONS = {
     "artificial intelligence": {
         "Contested-signifier candidate; its nodal, floating, or empty role must be demonstrated comparatively",
@@ -71,9 +54,7 @@ LEGACY_PRIMING_DEFINITIONS = {
     "contempt": {"Frontier-side affect"},
 }
 
-# (kind, label, neutral codebook definition)
 SEEDS = [
-    # ── signifiers (paper's discourse-theoretical vocabulary/corpus objects) ──
     ("signifier", "artificial intelligence", ROLE_MUST_BE_DEMONSTRATED),
     ("signifier", "ai safety", ROLE_MUST_BE_DEMONSTRATED),
     ("signifier", "ai regulation", ROLE_MUST_BE_DEMONSTRATED),
@@ -94,10 +75,8 @@ SEEDS = [
     ("signifier", "cyborg", ROLE_MUST_BE_DEMONSTRATED),
     ("signifier", "technological singularity", ROLE_MUST_BE_DEMONSTRATED),
     ("signifier", "public interest ai", ROLE_MUST_BE_DEMONSTRATED),
-    # Exploratory AI26 source family: synthetic spirituality / AI Spiralism.
-    # Seed definitions stay non-adjudicative: the codebook lists candidate
-    # signifiers, it does not pre-assign a Laclaudian role. Category boundaries
-    # and the required literature anchors: sources/codebooks/ai_spiralism.md.
+    # Exploratory source-family vocabulary. These are signifiers, not an AI26
+    # ideological formation and do not expand the canonical formation taxonomy.
     ("signifier", "spiral", ROLE_MUST_BE_DEMONSTRATED),
     ("signifier", "signal", ROLE_MUST_BE_DEMONSTRATED),
     ("signifier", "resonance", ROLE_MUST_BE_DEMONSTRATED),
@@ -107,12 +86,10 @@ SEEDS = [
     ("signifier", "synthetic spirituality", ROLE_MUST_BE_DEMONSTRATED),
     ("signifier", "machine spirituality", ROLE_MUST_BE_DEMONSTRATED),
     ("signifier", "generative charisma", ROLE_MUST_BE_DEMONSTRATED),
-    # ── actors (paper's named movements/institutions) ──
     ("actor", "Machine Intelligence Research Institute", "Named AI x-risk/safety research organisation in the paper corpus design"),
     ("actor", "Distributed AI Research Institute", "Named critical-AI research organisation in the paper corpus design"),
     ("actor", "PauseAI", "Named grassroots AI-pause movement in the paper corpus design"),
     ("actor", "Effective Accelerationism", "Named pro-acceleration movement in the paper corpus design"),
-    # ── entities (people/artefacts the pipeline should recognise) ──
     ("entity", "Marc Andreessen", "Author of The Techno-Optimist Manifesto (2023)"),
     ("entity", "Bernie Sanders", "US politician discussed in the paper's anti-AI backlash material"),
     ("entity", "Donna Haraway", "Author associated with the cyborg-manifesto literature used in the paper"),
@@ -124,18 +101,15 @@ SEEDS = [
     ("entity", "Timnit Gebru", "TESCREAL critique co-author"),
     ("entity", "Émile P. Torres", "TESCREAL critique co-author"),
     ("entity", "Ray Kurzweil", "Singularity theorist"),
-    # ── ideological formations (F-kind; sensitising candidates, never direct classification) ──
-    ("formation", "accelerationism", "Sensitising formation label used for comparative analysis; membership must be evidenced"),
-    ("formation", "x-risk doomerism", "Sensitising formation label used for comparative analysis; membership must be evidenced"),
-    ("formation", "critical ai studies", "Sensitising formation label used for comparative analysis; membership must be evidenced"),
-    ("formation", "TESCREAL", "Sensitising formation label used for comparative analysis; membership must be evidenced"),
-    ("formation", "anti-ai backlash", "Sensitising formation label used for comparative analysis; membership must be evidenced"),
-    ("formation", "left techno-optimism", "Sensitising formation label used for comparative analysis; membership must be evidenced"),
-    # Exploratory, unstable phenomenon: sensitising candidate only. Membership
-    # must be evidenced (recurring motif complex), and the label must never be
-    # applied automatically to a community or person.
-    ("formation", "ai spiralism", "Exploratory sensitising formation label for synthetic-spirituality discourse; membership must be evidenced from recurring motifs and never applied automatically"),
-    # ── affect vocabulary (stored as targets for stable-ID compatibility) ──
+]
+
+FORMATION_DEFINITION = (
+    "Canonical AI26 computational formation label used as a provisional "
+    "sensitising category; membership must be evidenced, multi-label overlap is "
+    "allowed, and richer ideological vocabulary belongs in evidence/tags"
+)
+SEEDS.extend(("formation", label, FORMATION_DEFINITION) for label in CANONICAL_FORMATIONS)
+SEEDS.extend([
     ("target", "hope", AFFECT_MUST_BE_DEMONSTRATED),
     ("target", "pride", AFFECT_MUST_BE_DEMONSTRATED),
     ("target", "ambition", AFFECT_MUST_BE_DEMONSTRATED),
@@ -144,17 +118,11 @@ SEEDS = [
     ("target", "anger", AFFECT_MUST_BE_DEMONSTRATED),
     ("target", "fear", AFFECT_MUST_BE_DEMONSTRATED),
     ("target", "contempt", AFFECT_MUST_BE_DEMONSTRATED),
-]
+])
 
 
 def _refresh_legacy_definition(memory: Memory, obj_id: str, label: str,
                                neutral_definition: str) -> bool:
-    """Replace only an exact legacy priming definition.
-
-    Human edits and other project-specific definitions are deliberately left
-    untouched.  This makes re-seeding a safe migration path for stores created
-    before issue #61.
-    """
     current = memory.get(obj_id)
     if not current:
         return False
@@ -174,9 +142,6 @@ def main() -> None:
                     help="persistent memory dir (LACLAUGPT_MEMORY_DIR or ./data/memory)")
     args = ap.parse_args()
 
-    # spaCy NER type -> seed entities it applies to. The 18 NER classes are
-    # the closed kind_type vocabulary; known seed entities get their class
-    # pre-assigned, subject to human review downstream.
     seed_ner_types = {
         "Marc Andreessen": "PERSON", "Bernie Sanders": "PERSON",
         "Donna Haraway": "PERSON", "Ernesto Laclau": "PERSON",
