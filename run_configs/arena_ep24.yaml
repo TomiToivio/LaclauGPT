@@ -1,14 +1,13 @@
-# EP24 pilot arena config — Finland + Poland reprocessing (issue #73)
-# Uses the country codebooks in run_configs/ep24_codebooks.yaml.
-# Runtime paths are intentionally supplied by CLI/environment; public configs
-# must not encode researcher usernames, storage-project IDs or private hosts.
+# Deprecated public compatibility alias for legacy research runs.
+# Empirical project context, country lists, codebooks, model choices, storage
+# paths and study-specific provenance are intentionally not published.
 
-name: ep24-pilot
-paper_section: "3.3"
-topic_key: ep24-finland
-source_platform: video
-languages: [fi, pl, en, pt, es]
-countries: [FI]
+name: legacy
+paper_section: null
+topic_key: legacy
+source_platform: null
+languages: []
+countries: []
 
 memory_dir: null
 data_root: null
@@ -16,13 +15,13 @@ csv_dir: null
 videos_dir: null
 output_dir: null
 repo_root: null
-model: gemma4:31b-cloud
-ollama_mode: cloud
+model: null
+ollama_mode: local
 ollama_host: ""
-allow_cloud_fallback: true
+allow_cloud_fallback: false
 temperature: 0.0
-num_ctx: 24576
-num_predict: 4096
+num_ctx: 8192
+num_predict: 2048
 stages:
   summary: true
   discourse: true
@@ -34,12 +33,10 @@ analysis_switches:
   context_memory: true
   temporal: true
 
-codebook: ep24_finland
-seed_codebook_mode: human_curated
+codebook: null
+seed_codebook_mode: none
 
 improvements:
-  fresh_multimodal: true
-  keyframes_v2: true
   evidence_gates: true
   abstention_allowed: true
   neutral_priming: true
