@@ -1,19 +1,15 @@
 #!/usr/bin/env python3
 """Migrate analyzed AI26 JSON/JSONL records to the simple formation taxonomy.
 
-The utility is intentionally conservative:
-- it refuses paths that look like raw/source/collection data;
-- it never calls an LLM merely to rename labels;
-- deterministic aliases are migrated directly;
-- ambiguous legacy labels are resolved only when the analyzed record contains
-  supporting textual evidence; otherwise they are retained in provenance and
-  flagged for human review;
-- output is written to a sibling ``.ai26-simple`` file by default.  ``--in-place``
-  requires an explicit opt-in and creates a backup first.
+The utility is conservative: it refuses raw/source/collection paths, never uses
+an LLM merely to rename labels, preserves historical classifications, and flags
+ambiguous cases for human review. By default it writes a sibling
+``.ai26-simple`` output; ``--in-place`` is explicit and creates a backup.
 """
 from __future__ import annotations
 
 import argparse
+import copy
 import json
 from collections import Counter
 from pathlib import Path
@@ -22,7 +18,6 @@ import shutil
 import sys
 from typing import Any
 
-# Make ``python scripts/migrate_ai26_formations.py ...`` work from a checkout.
 REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
@@ -36,9 +31,6 @@ from laclaugpt.formations import (  # noqa: E402
 ANALYZED_HINTS = ("analy", "derived", "output", "export", "result")
 RAW_HINTS = ("/raw/", "/source/", "/sources/", "/collect", "collector/")
 
-# Strong evidence cues used only for labels that the migration table marks as
-# context-dependent.  These cues are deliberately narrow: uncertain cases stay
-# reviewable instead of being forced into a canonical bucket.
 EVIDENCE_CUES: dict[str, tuple[str, ...]] = {
     "accelerationism": (
         "accelerat", "build faster", "abundance", "innovation", "progress",
@@ -86,31 +78,32 @@ def _is_allowed(path: Path) -> bool:
     return any(x in text for x in ANALYZED_HINTS) and not any(x in text for x in RAW_HINTS)
 
 
+def _candidate_label(item: dict[str, Any]) -> str:
+    candidate = item.get("formation", item.get("label", ""))
+    if isinstance(candidate, dict):
+        candidate = candidate.get("label", "")
+    return str(candidate or "").strip()
+
+
 def _labels(record: dict[str, Any]) -> list[str]:
     """Read common historical formation representations."""
     value = record.get("formations", record.get("formation", []))
     if isinstance(value, str):
         return [value]
-    if isinstance(value, list):
+    if isinstance(value, list) and value:
         return [str(v) for v in value if str(v).strip()]
 
-    # Canonical/interchange-derived exports may carry candidate objects instead
-    # of a top-level formation field.
-    candidates = record.get("formation_candidates") or []
     labels: list[str] = []
-    for item in candidates:
-        if not isinstance(item, dict):
-            continue
-        candidate = item.get("formation", item.get("label", ""))
-        if isinstance(candidate, dict):
-            candidate = candidate.get("label", "")
-        if str(candidate or "").strip():
-            labels.append(str(candidate).strip())
+    for item in record.get("formation_candidates") or []:
+        if isinstance(item, dict):
+            label = _candidate_label(item)
+            if label:
+                labels.append(label)
     return labels
 
 
 def _record_text(record: dict[str, Any]) -> str:
-    """Collect already-analyzed evidence fields without using actor identity."""
+    """Collect already-analyzed evidence without using actor identity."""
     values: list[str] = []
     preferred = (
         "evidence", "evidence_quote", "summary", "analysis", "rationale",
@@ -135,32 +128,67 @@ def _record_text(record: dict[str, Any]) -> str:
 
 
 def _evidence_resolve(label: str, record: dict[str, Any]) -> tuple[list[str], list[str], bool]:
-    """Resolve context-dependent aliases only from analyzed textual evidence."""
     key = _norm(label)
     candidates = AMBIGUOUS_CANDIDATES.get(key)
     if not candidates:
         return [], [], True
     text = _record_text(record)
-    formations: list[str] = []
-    for candidate in candidates:
-        if any(cue in text for cue in EVIDENCE_CUES[candidate]):
-            formations.append(candidate)
-
+    formations = [
+        candidate for candidate in candidates
+        if any(cue in text for cue in EVIDENCE_CUES[candidate])
+    ]
     tags = list(normalize_formation(label).tags)
-    # If the old label itself names a modifier, retain it as a facet even when
-    # the formation cannot be safely resolved.
-    if key == "institutional/policy-driven ai governance" and "policy_governance" not in tags:
-        tags.append("policy_governance")
-    elif key == "left techno-optimism / open source advocacy" and "open_source_advocacy" not in tags:
-        tags.append("open_source_advocacy")
-    elif key == "ai alignment/safety research discourse" and "alignment_research" not in tags:
-        tags.append("alignment_research")
-    elif key == "technical ai safety / auditism" and "auditism" not in tags:
-        tags.append("auditism")
-    elif key == "x-risk doomerism / safety-centric accelerationism" and "safety_centric_accelerationism" not in tags:
-        tags.append("safety_centric_accelerationism")
-
     return formations, tags, not bool(formations)
+
+
+def _canonical_for_label(label: str, record: dict[str, Any]) -> tuple[list[str], list[str], bool, bool]:
+    """Return formations, tags, needs_review, unknown for one original label."""
+    if _norm(label) in AMBIGUOUS_CANDIDATES:
+        formations, tags, unresolved = _evidence_resolve(label, record)
+        return formations, tags, unresolved, False
+    result = normalize_formation(label)
+    return list(result.formations), list(result.tags), result.needs_review, result.unknown
+
+
+def _rewrite_candidate_objects(record: dict[str, Any]) -> tuple[list[dict[str, Any]], bool]:
+    """Make nested AI26 export candidates canonical while preserving originals.
+
+    The live dashboard adapter reads ``formation_candidates``. Merely adding a
+    top-level ``formations`` list would therefore leave old dashboard labels in
+    place. We keep an untouched ``formation_candidates_original`` snapshot and
+    rewrite the dashboard-facing candidate list to one object per canonical
+    formation. Unresolved candidates are omitted from that list and remain in
+    the original snapshot plus the record-level review flag.
+    """
+    original = record.get("formation_candidates")
+    if not isinstance(original, list):
+        return [], False
+
+    rewritten: list[dict[str, Any]] = []
+    unresolved = False
+    seen: set[tuple[str, str, str]] = set()
+    for item in original:
+        if not isinstance(item, dict):
+            continue
+        label = _candidate_label(item)
+        if not label:
+            continue
+        formations, tags, needs_review, _unknown = _canonical_for_label(label, record)
+        unresolved = unresolved or needs_review
+        for formation in formations:
+            candidate = copy.deepcopy(item)
+            candidate["formation"] = formation
+            candidate.pop("label", None)
+            candidate["formation_original"] = label
+            if tags:
+                candidate["formation_tags"] = list(tags)
+            candidate["formation_migration_version"] = MIGRATION_VERSION
+            evidence = str(candidate.get("evidence") or candidate.get("evidence_quote") or "")
+            key = (formation, evidence, label)
+            if key not in seen:
+                seen.add(key)
+                rewritten.append(candidate)
+    return rewritten, unresolved
 
 
 def migrate_record(record: dict[str, Any]) -> tuple[dict[str, Any], list[str]]:
@@ -168,19 +196,13 @@ def migrate_record(record: dict[str, Any]) -> tuple[dict[str, Any], list[str]]:
         return record, []
 
     labels = _labels(record)
-    deterministic = [
-        label for label in labels if _norm(label) not in AMBIGUOUS_CANDIDATES
-    ]
-    result = normalize_formations(deterministic)
-    formations = list(result.formations)
-    tags = list(result.tags)
-    needs_review = result.needs_review
-    unknowns = [label for label in deterministic if normalize_formation(label).unknown]
+    formations: list[str] = []
+    tags: list[str] = []
+    needs_review = False
+    unknowns: list[str] = []
 
     for label in labels:
-        if _norm(label) not in AMBIGUOUS_CANDIDATES:
-            continue
-        resolved, extra_tags, unresolved = _evidence_resolve(label, record)
+        resolved, extra_tags, unresolved, unknown = _canonical_for_label(label, record)
         for formation in resolved:
             if formation not in formations:
                 formations.append(formation)
@@ -188,24 +210,32 @@ def migrate_record(record: dict[str, Any]) -> tuple[dict[str, Any], list[str]]:
             if tag not in tags:
                 tags.append(tag)
         needs_review = needs_review or unresolved
+        if unknown:
+            unknowns.append(label)
 
     migrated = dict(record)
     migrated["formations"] = formations
     migrated["formation_tags"] = tags
     migrated["formation_original"] = " | ".join(labels)
     migrated["formation_migration_version"] = MIGRATION_VERSION
+
+    if isinstance(record.get("formation_candidates"), list):
+        migrated["formation_candidates_original"] = copy.deepcopy(record["formation_candidates"])
+        rewritten, nested_unresolved = _rewrite_candidate_objects(record)
+        migrated["formation_candidates"] = rewritten
+        needs_review = needs_review or nested_unresolved
+
     migrated["formation_needs_review"] = bool(needs_review)
     return migrated, unknowns
 
 
 def _read(path: Path) -> tuple[list[dict[str, Any]], str]:
     if path.suffix.lower() in {".jsonl", ".ndjson"}:
-        rows = [
+        return [
             json.loads(line)
             for line in path.read_text(encoding="utf-8").splitlines()
             if line.strip()
-        ]
-        return rows, "jsonl"
+        ], "jsonl"
     data = json.loads(path.read_text(encoding="utf-8"))
     if isinstance(data, list):
         return data, "json"
@@ -221,17 +251,11 @@ def _write(path: Path, records: list[dict[str, Any]], mode: str, original: Path)
             encoding="utf-8",
         )
     elif mode == "json":
-        path.write_text(
-            json.dumps(records, ensure_ascii=False, indent=2) + "\n",
-            encoding="utf-8",
-        )
+        path.write_text(json.dumps(records, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     else:
         wrapper = json.loads(original.read_text(encoding="utf-8"))
         wrapper["records"] = records
-        path.write_text(
-            json.dumps(wrapper, ensure_ascii=False, indent=2) + "\n",
-            encoding="utf-8",
-        )
+        path.write_text(json.dumps(wrapper, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
 def main() -> None:
