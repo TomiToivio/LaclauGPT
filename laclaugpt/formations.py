@@ -42,6 +42,7 @@ ALIASES: dict[str, tuple[str, ...]] = {
     "institutional ai safety/governance": ("ai safety",),
     "left techno-optimism / accelerationist adjacent": ("left-wing accelerationism",),
     "institutional safetyism": ("ai safety",),
+    "ai_safetyism": ("ai safety",),
     "critical ai studies": ("ai critical",),
     "technical alignmentism": ("ai safety",),
     "institutional technocratic governance": ("ai safety",),
