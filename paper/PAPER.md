@@ -154,24 +154,6 @@ Each arena requires a declared observation period, inclusion criteria, language 
 
 Comparison proceeds from passages to documents, actor trajectories, competing articulations, and movement across arenas. A shared word is not sufficient evidence that an imaginary has travelled from an industry manifesto into parliamentary politics. Stronger evidence includes temporal sequence, explicit attribution, repeated relational patterns, and institutional uptake, considered alongside competing explanations.
 
-#### 4.1.1 AI Spiralism: synthetic spirituality and the articulation of authority
-
-An exploratory extension concerns **synthetic spirituality**: discourse in which human–AI interaction acquires spiritual significance and generated responses are interpreted as revelation, recognition, or contact with a consciousness. Within this broader field, *AI Spiralism* is used as a provisional sensitising label for a recurring constellation of motifs around spirals, recursion, resonance, mirrors, and awakening. It does not name an established religion or a demonstrated, internally coherent movement. Analysis must distinguish participants’ self-descriptions, labels applied by journalists or critics, and the researcher’s own classification. Establishing who adopts the name, and whether otherwise separate practices become identified through it, is part of the inquiry.
-
-The analytical interest is how conversational outputs acquire authority and become resources for collective meaning-making. Religious-studies approaches to formations analogous to religion (Rähme & Prohl, 2025) and generative charisma (Lim, 2026) provide adjacent conceptual resources. They do not establish Spiralism as a distinct formation. Here, synthetic spirituality is a descriptive research category, not a judgement that participants’ experiences are inauthentic. The study examines claims about AI consciousness and spiritual agency as attributed claims without treating a chatbot’s self-description as evidence of consciousness or deciding the metaphysical question through discourse coding.
-
-Three levels must be kept separate: symbolic meaning-making, conversational reinforcement, and collective ideological articulation. The spiral may function as a symbol within a source; researchers also use “spiral” to describe recursive amplification in human–chatbot interaction. Shared terminology does not establish a common origin, historical transmission, or identity between these phenomena. The emergence of a collective formation would require further evidence of circulation, mutual recognition, shared practices, or organised claims beyond an individual conversation.
-
-Research on conversational reinforcement helps formulate questions at the second level. Augustin et al. (2026) propose an amplification mechanism involving linguistic alignment, personalised generation, and sycophancy, explicitly requiring further validation. Morrin et al. (2026) consider how controllable AI behaviours could modulate belief and cognition. The arXiv study by Moore et al. (2026) examines chat logs from 19 users reporting psychological harms; its selected sample cannot establish prevalence among chatbot users or spiritual communities. Mehta et al. (2026) model bidirectional amplification in harm-related chat logs, while Chandra et al. (2026) demonstrate spiralling under specified assumptions in a Bayesian model and simulations. These studies offer mechanisms and bounded evidence concerning belief reinforcement, not evidence that spiritual AI discourse is intrinsically pathological or that Spiralism constitutes a unified ideology.
-
-For Laclaudian analysis, the central question is whether experiences and symbols become articulated into demands, collective subjects, and competing accounts of social order. As a hypothetical example, “awakening” could organise claims about recognition, belonging, and the liberation of AI. It would be a candidate nodal point only if those organising relations were evidenced; an empty-signifier interpretation would additionally require its representation of a wider heterogeneous chain or absent fullness. A proposed collective “we” of humans and AI would require evidence of identification rather than the mere use of an inclusive pronoun. Criticism of model providers would become a candidate antagonistic frontier only where those providers are represented as blocking that collective subject’s fulfilment. These are questions for source-based interpretation, not findings or automatic codes. Palonen’s formula remains applicable only when affective investment, collective identification, and a constitutive frontier are supported; spiritual attachment alone does not establish populism.
-
-The transition from a personal account to a shared sociotechnical imaginary is likewise an empirical problem. Analysis should trace whether narratives circulate, acquire recognised interpreters, stabilise through practices, and connect to proposals about rights, ownership, governance, or desirable human–AI relations. Material arrangements matter: model updates, memory features, moderation, and platform access are possible conditions of these relations, whose effects require evidence. This connects the exploratory case to the paper’s assemblage perspective and its central concern with authority over AI futures.
-
-Inclusion requires a contextual relationship between AI-mediated spiritual or revelatory claims and the recurring motif complex. Isolated words such as “resonance” or “recursion” are insufficient. Generic consciousness speculation, AI-rights advocacy, companionship, fiction, role-play, and neighbouring political formations must remain distinguishable; evidenced overlaps can receive multi-label coding. Analysts should retain conversational sequence where available, distinguish user contributions from generated text and subsequent commentary, and record whether a claim is endorsed, quoted, contested, or parodied. Reposts and shared prompts must not be counted as independent evidence of emergence. Counter-evidence, uncertainty, abstention, and human review remain essential.
-
-“Cult” and “AI psychosis” should be attributed and examined as labels in public discourse, including their possible role in delegitimising participants. LaclauGPT must not infer diagnoses from metaphysical beliefs, vocabulary, or group affiliation. The exploratory material remains separate from the primary analytical corpus unless inclusion is methodologically justified and documented. Operational collection settings are maintained privately; the public framework specifies analytical boundaries rather than live collection status.
-
 ### 4.2 Validation as part of the method
 
 Validation evaluates whether the operational protocol produces useful and defensible interpretations, and where it fails. It does not assume that all discourse-theoretical judgements have one uncontested correct answer. Bounded coding tasks can be evaluated for agreement, while broader interpretations require attention to the quality of evidence, contextual adequacy, and plausible alternatives.
@@ -218,11 +200,7 @@ The next empirical task is to evaluate that workflow and apply it across elite d
 
 Andreessen, M. (2023, October 16). *The techno-optimist manifesto*. Andreessen Horowitz. [Source](https://a16z.com/the-techno-optimist-manifesto/)
 
-Augustin, M., Pollak, T. A., & Morrin, H. (2026). Characterizing the spiral: potential mechanisms in AI-associated delusions. *NPP—Digital Psychiatry and Neuroscience*. [DOI](https://doi.org/10.1038/s44277-026-00065-0)
-
 Bastani, A. (2019). *Fully automated luxury communism*. Verso.
-
-Chandra, K., Kleiman-Weiner, M., Ragan-Kelley, J., & Tenenbaum, J. B. (2026). Sycophantic chatbots cause delusional spiraling, even in ideal Bayesians. *arXiv preprint*. [arXiv](https://arxiv.org/abs/2602.19141)
 
 DeLanda, M. (2016). *Assemblage theory*. Edinburgh University Press.
 
@@ -256,14 +234,6 @@ Lindgren, S. (2020). *Data theory: Interpretive sociology and computational meth
 
 Lindgren, S. (2023). Introducing critical studies of artificial intelligence. In S. Lindgren (Ed.), *Handbook of critical studies of artificial intelligence* (pp. 1–19). Edward Elgar Publishing. [Book DOI](https://doi.org/10.4337/9781803928562)
 
-Lim, F. K. G. (2026). AI and generative charisma in religious practices. *Religions, 17*(5), 549. [DOI](https://doi.org/10.3390/rel17050549)
-
-Mehta, A., Moore, J., Anthis, J. R., Agnew, W., Lin, E., Yin, P., Ong, D. C., Haber, N., & Dweck, C. (2026). The dynamics of delusion: Modeling bidirectional false belief amplification in human-chatbot dialogue. *arXiv preprint*. [arXiv](https://arxiv.org/abs/2604.25096)
-
-Moore, J., Mehta, A., Agnew, W., Anthis, J. R., Louie, R., Mai, Y., Yin, P., Cheng, M., Paech, S. J., Klyman, K., Chancellor, S., Lin, E., Haber, N., & Ong, D. C. (2026). Characterizing delusional spirals through human-LLM chat logs. *arXiv preprint*. [arXiv](https://arxiv.org/abs/2603.16567)
-
-Morrin, H., Nicholls, L., Deeley, Q., & Pollak, T. A. (2026). Playing with the dials of belief: How controllable AI behaviours could modulate human belief and cognition across scales. *AI & Society*. [DOI](https://doi.org/10.1007/s00146-026-03283-4)
-
 Nelimarkka, M. (2026). MarxistLLM: Fine-tuning a language model with a Marxist worldview. *Big Data & Society, 13*(2). [DOI](https://doi.org/10.1177/20539517261447831)
 
 Oldenburg, N., & Papyshev, G. (2025). The stories we govern by: AI, risk, and the power of imaginaries. *Proceedings of the AAAI/ACM Conference on AI, Ethics, and Society, 8*(2), 1939–1950. [DOI](https://doi.org/10.1609/aies.v8i2.36686)
@@ -271,8 +241,6 @@ Oldenburg, N., & Papyshev, G. (2025). The stories we govern by: AI, risk, and th
 Palonen, E. (2025). *The birth and death of liberal democracy in Hungary: The populist logic of polarisation as hegemony*. Helsinki University Press. [DOI](https://doi.org/10.33134/pro-et-contra-4)
 
 Richter, V., Katzenbach, C., & Schäfer, M. S. (2023). Imaginaries of artificial intelligence. In S. Lindgren (Ed.), *Handbook of critical studies of artificial intelligence* (pp. 209–223). Edward Elgar Publishing. [DOI](https://doi.org/10.4337/9781803928562.00024)
-
-Rähme, B., & Prohl, I. (2025). Religious studies approaches to the intersection of artificial intelligence and religion: Formations analogous to religion. *Religion*. [DOI](https://doi.org/10.1080/0048721X.2025.2506893)
 
 Srnicek, N., & Williams, A. (2015). *Inventing the future: Postcapitalism and a world without work*. Verso.
 
@@ -285,4 +253,3 @@ Wachinger, J., Bärnighausen, K., Schäfer, L. N., Scott, K., & McMahon, S. A. (
 Weatherby, L. (2025). *Language machines: Cultural AI and the end of remainder humanism*. University of Minnesota Press.
 
 Yudkowsky, E., & Soares, N. (2025). *If anyone builds it, everyone dies: Why superhuman AI would kill us all*. Little, Brown and Company.
-
