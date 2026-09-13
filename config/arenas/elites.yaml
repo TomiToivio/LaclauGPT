@@ -28,10 +28,11 @@ dataset:
       - Effective Accelerationism
     formations:
       - accelerationism
-      - x-risk doomerism
-      - critical ai studies
-      - TESCREAL
-      - left techno-optimism
+      - doomerism
+      - left-wing accelerationism
+      - ai safety
+      - ai critical
+      - anti-ai
   model:
     text: gemma4:e4b
     vision: gemma4:e4b
