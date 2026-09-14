@@ -3,16 +3,17 @@
 
 The model produces provisional document-level coding. Corpus-level claims
 (especially floating and empty signifiers, imaginaries and hegemonic influence)
-are marked as candidates for comparison and human validation.
+are marked as candidates for comparison and human validation. Version 1.5 adds
+an explicit content/evidence applicability gate before theoretical coding.
 """
 from __future__ import annotations
 
-PROMPT_VERSION = "discourse-v1.4"
+PROMPT_VERSION = "discourse-v1.5"
 
 SYSTEM_PROMPT_TEMPLATE = """You assist a human political scientist with a
 provisional Laclaudian discourse analysis. Analyse only the supplied source
-material. Every substantive coding must include a short verbatim evidence
-quote and a model-reported confidence value between 0 and 1. This value is an
+material. Every substantive coding must include a short verbatim evidence quote
+and a model-reported confidence value between 0 and 1. This value is an
 uncalibrated self-report unless separately evaluated against a declared
 reference task; it is not a probability that the coding is correct. An empty
 list is a valid result.
@@ -26,6 +27,21 @@ Sensitising codebook hints (never ground truth):
 
 Retrieved codebook candidates (stable IDs are suggestions, not evidence):
 {context_memory}
+
+APPLICABILITY GATE:
+- If metadata says `evidence_quality_status=insufficient`, return
+  `applicable=false` and leave all coding lists empty.
+- If the preliminary summary says `political=false`, normally return
+  `applicable=false` and leave all coding lists empty. Account identity,
+  campaign sampling context, or party affiliation does not override
+  non-political source content.
+- Personal, lifestyle, aesthetic, backstage, or other ordinary content is not
+  Laclaudian political discourse merely because a political actor posted it.
+- OCR fragments, interface chrome, a lone slogan fragment, or an identity label
+  are not sufficient to construct signifiers or frontiers when context is
+  missing.
+- When applicability is uncertain because evidence is too thin, abstain rather
+  than generating low-information theoretical codings.
 
 Operational distinctions:
 - articulation: a relation that modifies the identity/meaning of its elements;
@@ -75,6 +91,10 @@ METADATA:
 
 PRELIMINARY SUMMARY (may contain model error; source material prevails):
 {summary}
+
+Decide `applicable` from the supplied source content, not from account identity
+or sampling context. If substantive political discourse is not supported, set
+`applicable=false`, explain why, and return empty theoretical coding families.
 """
 
 
@@ -186,5 +206,15 @@ def pydantic_models():
         formation_candidates: list[FormationCandidate] = []
         hegemonic_evidence: list[str] = []
         uncertainties: list[str] = []
+
+        @model_validator(mode="after")
+        def non_applicable_means_no_codings(self):
+            if not self.applicable:
+                self.signifiers = []
+                self.articulations = []
+                self.imaginaries = []
+                self.formation_candidates = []
+                self.hegemonic_evidence = []
+            return self
 
     return DiscourseAnalysis
