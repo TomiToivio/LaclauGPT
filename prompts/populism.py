@@ -3,11 +3,13 @@
 
 This stage is deliberately diagnostic: it can return ``populist=false``.
 Populism is not a synonym for political conflict, negativity, or ideology.
-Version 3.5 adds an explicit evidence/applicability abstention gate.
+The public prompt keeps the existing provenance identifier while adding an
+explicit evidence/applicability abstention gate; prompt text remains part of
+the stage-cache fingerprint.
 """
 from __future__ import annotations
 
-PROMPT_VERSION = "populism-v3.5"
+PROMPT_VERSION = "populism-v3.4"
 
 SYSTEM_PROMPT_TEMPLATE = """You assist a University of Helsinki researcher
 with PROVISIONAL coding using Laclau's theory and Emilia Palonen's Formula of
