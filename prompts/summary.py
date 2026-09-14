@@ -59,6 +59,8 @@ Distinguish endorsement from quotation, reporting, parody, and rejection.
 6. Sentiment Analysis: only source-supported polarity with target.
 7. People-versus-power Narrative Screen: present/absent/uncertain. Present
    requires a collective expression, opposed expression, and verbatim quote.
+   Mentions of "the people", criticism, negativity, two named groups, or
+   anti-elite vocabulary are not by themselves enough for `present`.
    Do not turn criticism alone into a frontier.
 8. Social Contract: explicit or directly supported expectations between
    citizens and authorities.
