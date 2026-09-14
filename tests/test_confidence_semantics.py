@@ -41,7 +41,7 @@ def _python_string_constants(path: Path) -> str:
 
 def test_discourse_prompt_uses_uncalibrated_model_reported_confidence() -> None:
     prompt = _normalized(discourse_prompt.build_system_prompt("topic", "metadata"))
-    assert discourse_prompt.PROMPT_VERSION == "discourse-v1.5"
+    assert discourse_prompt.PROMPT_VERSION == "discourse-v1.4"
     assert "calibrated confidence" not in prompt
     assert "model-reported confidence" in prompt
     assert "uncalibrated self-report" in prompt
@@ -68,7 +68,7 @@ def test_discourse_confidence_field_remains_compatible_but_is_described() -> Non
 
 def test_populism_prompt_and_field_use_same_semantics() -> None:
     prompt = _normalized(populism_prompt.build_system_prompt("topic", "metadata"))
-    assert populism_prompt.PROMPT_VERSION == "populism-v3.5"
+    assert populism_prompt.PROMPT_VERSION == "populism-v3.4"
     assert "model-reported confidence" in prompt
     assert "uncalibrated self-report" in prompt
     assert "not a probability" in prompt
