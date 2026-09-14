@@ -3,12 +3,13 @@
 
 The model produces provisional document-level coding. Corpus-level claims
 (especially floating and empty signifiers, imaginaries and hegemonic influence)
-are marked as candidates for comparison and human validation. Version 1.5 adds
-an explicit content/evidence applicability gate before theoretical coding.
+are marked as candidates for comparison and human validation. The public prompt
+keeps the existing provenance identifier while adding a content/evidence
+applicability gate; prompt text remains part of the stage-cache fingerprint.
 """
 from __future__ import annotations
 
-PROMPT_VERSION = "discourse-v1.5"
+PROMPT_VERSION = "discourse-v1.4"
 
 SYSTEM_PROMPT_TEMPLATE = """You assist a human political scientist with a
 provisional Laclaudian discourse analysis. Analyse only the supplied source
