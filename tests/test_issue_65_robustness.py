@@ -15,22 +15,23 @@ class AttributionTests(unittest.TestCase):
     def test_postprocess_sentiment_is_author_voice_only(self) -> None:
         prompt = postprocess.build_system_prompt(include_sentiment=True)
         self.assertIn("OWN ASSERTED VOICE", prompt)
-        self.assertIn("quoted, reported, parodied, cited, or", prompt)
-        self.assertIn("rejected speech", prompt)
-        self.assertIn("abstain", prompt)
+        self.assertIn("Do not infer sentiment from ideology, account identity, or disagreement", prompt)
+        self.assertIn("If attribution or polarity is unclear, abstain rather than guessing", prompt)
 
     def test_entity_mentions_do_not_imply_endorsement(self) -> None:
         prompt = postprocess.build_system_prompt(include_entities=True)
         self.assertIn("Entity presence never implies endorsement", prompt)
-        self.assertIn("quoted/reported/rejected speech", prompt)
+        self.assertIn("keep weak or ambiguous matches out rather than", prompt)
+        self.assertIn("NEVER emit placeholders", prompt)
 
     def test_summary_issue_residual_was_superseded_by_descriptive_screen(self) -> None:
         Summary = summary.pydantic_models()
         self.assertIn("people_power_narrative", Summary.model_fields)
         self.assertNotIn("populist_elements", Summary.model_fields)
         prompt = summary.build_system_prompt("topic", "source")
-        self.assertIn("Mentions of \"the people\"", prompt)
-        self.assertIn("not by themselves enough", prompt)
+        self.assertIn("People-versus-power Narrative Screen", prompt)
+        self.assertIn("requires a collective expression, opposed expression, and verbatim quote", prompt)
+        self.assertIn("Do not turn criticism alone into a frontier", prompt)
 
 
 class CorpusValidationTests(unittest.TestCase):
