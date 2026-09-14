@@ -42,7 +42,9 @@ def build_system_prompt(
     if include_entities:
         tasks.append("""2. **Extract Entities**:
 - Extract named entities actually mentioned in the source/analysis.
-- Entity presence never implies endorsement, authorship, ideology or sentiment.
+- Entity presence never implies endorsement, authorship, ideology or sentiment;
+  an entity mentioned only inside quoted/reported/rejected speech is still a
+  mention, not the document author's position.
 - Match the established entity list first and use its canonical form when a
   supported match exists; keep weak or ambiguous matches out rather than
   guessing.
@@ -58,6 +60,9 @@ def build_system_prompt(
         tasks.append("""3. **Determine descriptive sentiment**:
 - Identify only source-supported positive, neutral or negative sentiment in the
   document author's or speaker's OWN ASSERTED VOICE and its target.
+- Do NOT turn sentiment contained only in quoted, reported, parodied, cited, or
+  rejected speech into a document-level sentiment observation. If attribution
+  is unclear, abstain rather than assigning it to the author.
 - Return target, polarity, one short verbatim evidence quote, and uncertainty.
 - Do not infer sentiment from ideology, account identity, or disagreement.
 - If the summary is non-political or evidence is insufficient, ordinary
