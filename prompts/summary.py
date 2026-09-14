@@ -1,19 +1,17 @@
 # -*- coding: utf-8 -*-
 """Summary-analysis prompt (required descriptive stage).
 
-The summary stage is deliberately descriptive.  Laclaudian and Palonen
-concepts are reserved for the evidence-disciplined discourse/populism stages.
-Version 2.2 replaces the historical free-text ``populist_elements`` category
-with a source-grounded people-versus-power narrative screen.
+The summary stage is deliberately descriptive. Laclaudian and Palonen concepts
+are reserved for the evidence-disciplined discourse/populism stages. Version
+2.3 adds content-first political classification and explicit abstention when
+observable source evidence is insufficient.
 """
 from __future__ import annotations
 
-PROMPT_VERSION = "summary-v2.2"
+PROMPT_VERSION = "summary-v2.3"
 
 SYSTEM_PROMPT_TEMPLATE = """### **System Prompt**
-
-You are assisting a political scientist in analyzing a social media video
-related to the topic below.
+You are assisting a political scientist in analyzing a social media video.
 
 {topic_background}
 
@@ -21,93 +19,59 @@ related to the topic below.
 
 {context_memory}
 
-You are provided a **speech transcript**, **metadata** and, when the item
-is a video, **multimodal frame analysis results for 1-6 frames** and
-**OCR results for each frame**. Your role is to provide a structured and
-comprehensive political description using the provided materials.
+You are provided a speech transcript, metadata and, when available, genuine
+multimodal frame observations plus OCR. Use only supplied evidence.
 
-**Instructions**:
-- Address each analysis category by incorporating only information supported by
-  the supplied materials.
-- Keep this stage descriptive. It is not the place to make final Laclaudian,
-  Palonen-style populism, ideological-formation, or hegemonic judgements.
-- Ensure the analysis is concise, objective, and systematically organized.
-- Use established glossary terms only when they are ordinary descriptive
-  references. Retrieved codebook candidates are not evidence.
-- Quote short source passages for interpretive descriptive claims where the
-  schema requests evidence and state when evidence is absent or ambiguous.
-- Do not infer an author's position from identity, hashtags, or a cited view;
-  distinguish endorsement from quotation, reporting, parody, and rejection.
-- In category 7, DO NOT label material an empty signifier, chain of equivalence,
-  antagonistic frontier, nodal point, or populism. Those are theoretical
-  judgements handled later by the discourse/populism stages under THEORY.md.
+Critical classification rules:
+- Account identity, campaign sampling context, party affiliation, hashtags, or
+  the fact that a politician posted the item are CONTEXT, not sufficient
+  evidence that the item's substantive content is political.
+- Personal, lifestyle, aesthetic, backstage, or other ordinary content on a
+  political account is **non-political** unless the transcript, visible
+  evidence, or OCR itself contains a political claim, topic, institutional
+  action, campaign appeal, policy issue, collective political identity, or
+  other substantive politics.
+- If metadata contains `evidence_quality_status=insufficient`, treat the source
+  as insufficient for interpretive political coding. Set `political=false`,
+  explain that the evidence is insufficient, and do not manufacture topics,
+  entities, sentiments, grievances, or people-versus-power relations from OCR
+  fragments or interface chrome.
+- Source metadata may help attribution after content is observed, but must never
+  manufacture political content that is absent from the source evidence.
 
-### **Analysis Categories**:
+Keep this stage descriptive. It is not the place to make final Laclaudian,
+Palonen-style populism, ideological-formation, or hegemonic judgements.
+Quote short source passages for interpretive descriptive claims when requested.
+Distinguish endorsement from quotation, reporting, parody, and rejection.
 
-1. **Narrative Construction**:
-    - Reconstruct the sequence of events and actions in the video.
-    - Identify events and actions that shape the narrative of the video.
+### **Analysis Categories**
+1. Narrative Construction: reconstruct only evidenced events/actions.
+2. Political Classification: political or non-political; add a subtype only if
+   political. Examples include campaign speech, protest, political meme,
+   election advertisement, and media coverage. A politician's personal item
+   does not itself make the content political.
+3. Difficult Language: ambiguous, difficult-to-translate, or politically
+   charged source expressions.
+4. Key Political Topics: only substantive political topics actually present.
+5. Political Entities: named political actors/institutions actually present;
+   return an empty list rather than placeholders such as "None explicitly
+   named", "N/A", "unknown", or invented entities.
+6. Sentiment Analysis: only source-supported polarity with target.
+7. People-versus-power Narrative Screen: present/absent/uncertain. Present
+   requires a collective expression, opposed expression, and verbatim quote.
+   Do not turn criticism alone into a frontier.
+8. Social Contract: explicit or directly supported expectations between
+   citizens and authorities.
+9. Grievance Politics: grievances actually expressed in the material.
 
-2. **Political Classification**:
-    - Categorize the video by its political nature: is it **political**
-      or **non-political**?
-    - If political, add a sub-category based on the nature of the
-      political content.
-    - Examples: **candidate's personal video**, **campaign speech**,
-      **protest**, **political meme**, **election advertisement**,
-      **media coverage**.
-
-3. **Difficult Language**:
-    - Find words and phrases in the transcript or metadata that are
-      **difficult to translate**, **ambiguous**, or **politically charged**.
-    - Provide interpretations or explanations for these language elements.
-
-4. **Key Political Topics**:
-    - Identify the major political topics in the video.
-    - Describe how these topics are presented in the video.
-
-5. **Political Entities**:
-    - List political entities featured in the video, such as politicians,
-      parties, movements, and organizations.
-    - Describe their observed role in the material without inferring ideology
-      from identity alone.
-
-6. **Sentiment Analysis**:
-    - Describe positive, negative, or neutral sentiment where it is evident.
-    - Identify the target and justify the descriptive evaluation.
-    - Sentiment is auxiliary descriptive metadata, not affective investment.
-
-7. **People-versus-power Narrative Screen (descriptive only)**:
-    - Report whether the supplied material explicitly constructs a collective
-      self-reference (for example "we", "the people", "citizens", "workers")
-      in opposition to a named or described power, elite, institution, group,
-      or other opponent.
-    - Return `present`, `absent`, or `uncertain`.
-    - `present` requires a short verbatim evidence quote plus both the observed
-      collective expression and the observed opposed expression.
-    - Mentions of "the people", criticism, negativity, two named groups, or
-      anti-elite vocabulary are not by themselves enough for `present`.
-    - If the evidence is incomplete or ambiguous, return `uncertain`; if the
-      construction is not in the material, return `absent`.
-    - Do not translate this descriptive screen into theoretical categories.
-
-8. **Social Contract**:
-    - Describe explicit or implied social agreements, obligations, or
-      expectations between citizens and political authorities.
-    - Keep this source-grounded and distinguish explicit statements from your
-      descriptive inference.
-
-9. **Grievance Politics**:
-    - Identify grievances or perceived injustices expressed in the material.
-    - Describe any explicitly stated or directly supported connection to
-      political mobilization or conflict.
+In category 7, DO NOT label material an empty signifier, chain of equivalence,
+antagonistic frontier, nodal point, or populism. Those theoretical judgements
+are handled later by the discourse/populism stages.
 """
 
-USER_PROMPT_TEMPLATE = """### **User Prompt**
+USER_PROMPT_TEMPLATE = """### **Data for Analysis**
 
-**Data for Analysis**:
-
-1. **Frame Analysis Results (1-6 Frames)**:
+1. **Frame Analysis Results**:
 ```
 {frame_analysis}
 ```
@@ -127,9 +91,8 @@ USER_PROMPT_TEMPLATE = """### **User Prompt**
 {ocr_results}
 ```
 
-### **Task**:
-Utilize only the provided data to conduct a comprehensive descriptive political
-summary. Return valid JSON according to the given schema.
+Return valid JSON according to the schema. Abstention and empty lists are valid
+and preferred when evidence is insufficient.
 """
 
 
@@ -145,10 +108,10 @@ def build_system_prompt(topic_background: str, source_metadata: str,
 def build_user_prompt(frame_analysis: str, metadata: str, transcript: str,
                       ocr_results: str) -> str:
     return USER_PROMPT_TEMPLATE.format(
-        frame_analysis=frame_analysis or "(no multimodal analysis — text-only row)",
+        frame_analysis=frame_analysis or "(no multimodal analysis)",
         metadata=metadata or "{}",
         transcript=transcript or "(no transcript)",
-        ocr_results=ocr_results or "(no OCR — text-only row)",
+        ocr_results=ocr_results or "(no OCR)",
     )
 
 
@@ -157,12 +120,11 @@ def pydantic_models():
     from pydantic import BaseModel, model_validator
 
     class SentimentItem(BaseModel):
-        sentiment: str            # positive | negative | neutral
+        sentiment: str
         target: str
         justification: str
 
     class PeoplePowerNarrative(BaseModel):
-        """Descriptive screen only, never a populism/frontier finding."""
         status: Literal["present", "absent", "uncertain"]
         collective_expression: str = ""
         opposed_expression: str = ""
@@ -214,5 +176,23 @@ def pydantic_models():
         people_power_narrative: PeoplePowerNarrative
         social_contract: List[SocialContractElement]
         grievances: List[Grievance]
+
+        @model_validator(mode="after")
+        def nonpolitical_rows_do_not_invent_political_families(self):
+            if not self.political:
+                self.key_political_topics = []
+                self.political_entities = []
+                self.sentiments = []
+                self.social_contract = []
+                self.grievances = []
+                if self.people_power_narrative.status == "present":
+                    self.people_power_narrative = PeoplePowerNarrative(
+                        status="uncertain",
+                        explanation=(
+                            "Political content was not established; "
+                            "people-power finding suppressed."
+                        ),
+                    )
+            return self
 
     return SummaryAnalysis

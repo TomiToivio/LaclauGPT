@@ -3,10 +3,11 @@
 
 This stage is deliberately diagnostic: it can return ``populist=false``.
 Populism is not a synonym for political conflict, negativity, or ideology.
+Version 3.5 adds an explicit evidence/applicability abstention gate.
 """
 from __future__ import annotations
 
-PROMPT_VERSION = "populism-v3.4"
+PROMPT_VERSION = "populism-v3.5"
 
 SYSTEM_PROMPT_TEMPLATE = """You assist a University of Helsinki researcher
 with PROVISIONAL coding using Laclau's theory and Emilia Palonen's Formula of
@@ -21,34 +22,39 @@ Retrieved codebook candidates (use only when the source supports them):
 
 Populism = Us^(affects) + Frontier^(affects)
 
-Code a populist articulation only when the material constructs both (1) a
-collective political subject/Us through a chain of equivalence and (2) a
-constitutive antagonistic frontier.  Policy disagreement, criticism, sentiment,
-or a list of allies and opponents is not sufficient.  If either side is absent,
+ABSTENTION GATE:
+- If supplied metadata says evidence quality is insufficient, return
+  `populist=false`, empty Us/Frontier lists, and explain insufficient evidence.
+- If the preliminary summary says the item is non-political, or the discourse
+  coding says `applicable=false`, return `populist=false` with empty lists.
+- Political account identity, criticism, sentiment, an opponent name, or a
+  fragmentary OCR slogan is not sufficient to override these gates.
+
+Otherwise, code a populist articulation only when material constructs both (1)
+a collective political subject/Us through a chain of equivalence and (2) a
+constitutive antagonistic frontier. Policy disagreement, criticism, sentiment,
+or a list of allies and opponents is not sufficient. If either side is absent,
 return ``populist=false`` and name the absent side in ``non_populist_reason``.
 Partial evidence is not discarded: keep the evidenced side's elements in its
-list as document-level candidates (only ``populist=true`` requires both
-sides; never return both sides fully evidenced with ``populist=false``).
+list as document-level candidates (only ``populist=true`` requires both sides;
+never return both sides fully evidenced with ``populist=false``).
 
 Schema rule: whenever ``populist=false``, ``non_populist_reason`` MUST be a
-non-empty string (at least one sentence naming which side is absent and why
-the material does not construct it). Never leave it empty.
+non-empty string naming which side is absent or why the stage abstained.
 
 For every Us/Frontier element provide a short verbatim source quote, an affect
 only if affect is evidenced, and a model-reported confidence value from 0 to 1.
 Treat confidence as an uncalibrated self-report of model uncertainty unless it
 has been separately evaluated against a declared reference task; it is not a
 probability that the coding is correct. Do not force Us affects to be positive
-or Frontier affects to be negative: anger can invest an Us and admiration can
-qualify an opponent. Distinguish the author's articulation from speech that is
-quoted, reported, parodied, or rejected by recording it in ``claim_status``
-(asserted|quoted|reported|rejected|parodied|uncertain), which defaults to
-``uncertain`` — set ``asserted`` explicitly only when the author themself makes
-the claim (issue #63: omission never asserts authorship); a quoted or rejected
-politician's articulation must not become the author's position.
+or Frontier affects to be negative. Distinguish the author's articulation from
+speech that is quoted, reported, parodied, or rejected by recording it in
+``claim_status`` (asserted|quoted|reported|rejected|parodied|uncertain), which
+defaults to ``uncertain``. Set ``asserted`` explicitly only when the author
+themself makes the claim.
 
 Use ``nodal_candidate`` only for a privileged signifier that visibly organises
-the chain.  Use ``empty_candidate`` only when a partial demand appears to stand
+the chain. Use ``empty_candidate`` only when a partial demand appears to stand
 for a heterogeneous totality or absent fullness; polysemy is insufficient.
 Every ``empty_candidate=true`` is a document-level candidate and MUST carry
 ``needs_corpus_validation=true``. It is not a final empty-signifier finding.
@@ -58,7 +64,7 @@ human review, and substantive theoretical validity. Any downstream threshold on
 this confidence value is an operational selection rule, not an empirical
 probability-of-correctness cutoff.
 
-Return a single JSON object matching the schema.  The prose analysis must state
+Return a single JSON object matching the schema. The prose analysis must state
 counter-evidence and uncertainty and must not exceed what the source supports.
 """
 
@@ -130,7 +136,8 @@ def pydantic_models():
             if not self.populist and self.populism_us and self.populism_frontier:
                 raise ValueError(
                     "populist=false cannot carry both evidenced Us and Frontier "
-                    "lists; either set populist=true or drop the weaker side")
+                    "lists; either set populist=true or drop the weaker side"
+                )
             if not self.populist and not self.non_populist_reason.strip():
                 raise ValueError("populist=false requires a non_populist_reason")
             return self

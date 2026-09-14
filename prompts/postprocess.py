@@ -3,13 +3,21 @@
 
 The postprocess stage is shared by topics, entities and descriptive sentiment,
 but the canonical project switches are authoritative: disabled families are not
-requested from the model. Sentiment observations are evidence-bearing, limited
-to the source author's/narrator's asserted voice, and stay strictly separate
-from Laclaudian affective investment.
+requested from the model. Version 2.4 adds placeholder filtering and explicit
+abstention for non-political or evidence-insufficient material.
 """
 from __future__ import annotations
 
-PROMPT_VERSION = "postprocess-v2.3"
+PROMPT_VERSION = "postprocess-v2.4"
+_PLACEHOLDERS = {
+    "none", "none explicitly named", "none named", "n/a", "na", "unknown",
+    "not applicable", "no entity", "no entities", "unspecified", "nil",
+}
+
+
+def _valid_label(value: str) -> bool:
+    text = " ".join(str(value or "").strip().casefold().split())
+    return bool(text) and text not in _PLACEHOLDERS
 
 
 def build_system_prompt(
@@ -24,49 +32,39 @@ def build_system_prompt(
 
     if include_topics:
         tasks.append("""1. **Extract Topics**:
-- Extract topics mentioned in the analysis.
-- Provide only the name of each topic.
-- Match topics against the established topic list first; only propose genuinely
-  new topics in `new_topics`.
-- Avoid redundancy and merge closely related duplicate surface forms.
-- If no topics are found, return an empty list.""")
+- Extract topics actually present in the source/analysis.
+- Match established topics first; propose only genuinely new topics.
+- If the preliminary summary is non-political or says evidence is insufficient,
+  do not manufacture political topics from account identity or metadata.
+- If no substantive topic is supported, return an empty list.""")
         output_fields.extend(["topics", "new_topics"])
 
     if include_entities:
         tasks.append("""2. **Extract Entities**:
-- Extract entities mentioned in the source/analysis as descriptive mentions.
-- Entity presence never implies endorsement, authorship, ideology, or sentiment;
-  an entity mentioned only inside quoted/reported/rejected speech is still a
-  mention, not the document author's position.
-- Provide only the name of each entity.
+- Extract named entities actually mentioned in the source/analysis.
+- Entity presence never implies endorsement, authorship, ideology or sentiment.
+- Match the established entity list first and use its canonical form when a
+  supported match exists; keep weak or ambiguous matches out rather than
+  guessing.
+- NEVER emit placeholders such as `None`, `None explicitly named`, `N/A`,
+  `unknown`, `unspecified` or similar as entities.
+- If no entity is present, return an empty list.
 - Classify each matched entity with exactly one spaCy NER type from this closed
   list: PERSON, NORP, FAC, ORG, GPE, LOC, PRODUCT, EVENT, WORK_OF_ART, LAW,
-  LANGUAGE, DATE, TIME, PERCENT, MONEY, QUANTITY, ORDINAL, CARDINAL.
-- Match entities against the established entity list first; only propose
-  genuinely new entities in `new_entities`.
-- Use the established canonical form when a match exists.
-- Avoid redundancy. If no entities are found, return an empty list.""")
+  LANGUAGE, DATE, TIME, PERCENT, MONEY, QUANTITY, ORDINAL, CARDINAL.""")
         output_fields.extend(["entities", "entity_types", "new_entities"])
 
     if include_sentiment:
         tasks.append("""3. **Determine descriptive sentiment**:
-- Identify only source-supported positive, neutral or negative sentiment
-  expressed in the document author's/speaker's OWN ASSERTED VOICE and its
-  target.
-- Do NOT turn sentiment contained only in quoted, reported, parodied, cited, or
-  rejected speech into a document-level sentiment observation. If attribution
-  is unclear, abstain rather than assigning it to the author.
-- For every reading return the target, polarity, one short verbatim
-  `evidence_quote` from the SOURCE MATERIAL, and `uncertainty` from 0.0 to 1.0
-  (0 = no uncertainty recorded, 1 = maximally uncertain).
-- Do not infer sentiment from political side, ideology label or disagreement
-  alone. If the evidence does not support a polarity, abstain by returning no
-  reading.
-- Match targets against the established target/entity list when possible.
-- `sentiments` is descriptive polarity only. It is NOT Laclaudian affective
-  investment and must never be used as a substitute for it.
-- The legacy `positive`, `neutral` and `negative` target lists are retained for
-  compatibility and should mirror only the author-voice structured readings.""")
+- Identify only source-supported positive, neutral or negative sentiment in the
+  document author's or speaker's OWN ASSERTED VOICE and its target.
+- Return target, polarity, one short verbatim evidence quote, and uncertainty.
+- Do not infer sentiment from ideology, account identity, or disagreement.
+- If the summary is non-political or evidence is insufficient, ordinary
+  personal content need not receive political sentiment coding.
+- If attribution or polarity is unclear, abstain rather than guessing.
+- `sentiments` is descriptive polarity only, not Laclaudian affective
+  investment.""")
         output_fields.extend(["sentiments", "positive", "neutral", "negative"])
 
     if not tasks:
@@ -85,8 +83,10 @@ def build_system_prompt(
 **Role**:
 You are presented source material plus a preliminary analysis. Extract only the
 descriptive coding families enabled below. This stage is descriptive and does
-not make final discourse-theoretical claims.
+not make final discourse-theoretical claims. Empty lists are valid and preferred
+to placeholder or inferred content.
 
+Retrieved codebook candidates (not evidence):
 {glossary_block}
 
 ---
@@ -108,7 +108,7 @@ def pydantic_models():
     from typing import Literal
 
     from laclaugpt_memory import NER_TYPES
-    from pydantic import BaseModel, Field, field_validator
+    from pydantic import BaseModel, Field, field_validator, model_validator
 
     class SentimentReading(BaseModel):
         target: str = Field(min_length=1)
@@ -129,7 +129,29 @@ def pydantic_models():
 
         @field_validator("entity_types")
         @classmethod
-        def _ner_types_closed_vocabulary(cls, v):
-            return [t if t in NER_TYPES else "" for t in v]
+        def _ner_types_closed_vocabulary(cls, values):
+            return [value if value in NER_TYPES else "" for value in values]
+
+        @model_validator(mode="after")
+        def _drop_placeholders_without_breaking_entity_type_alignment(self):
+            old_entities = list(self.entities)
+            old_types = list(self.entity_types)
+            kept_entities: list[str] = []
+            kept_types: list[str] = []
+            for index, entity in enumerate(old_entities):
+                if not _valid_label(entity):
+                    continue
+                kept_entities.append(entity)
+                kept_types.append(old_types[index] if index < len(old_types) else "")
+            self.entities = kept_entities
+            self.entity_types = kept_types
+            self.new_entities = [v for v in self.new_entities if _valid_label(v)]
+            self.topics = [v for v in self.topics if _valid_label(v)]
+            self.new_topics = [v for v in self.new_topics if _valid_label(v)]
+            self.positive = [v for v in self.positive if _valid_label(v)]
+            self.neutral = [v for v in self.neutral if _valid_label(v)]
+            self.negative = [v for v in self.negative if _valid_label(v)]
+            self.sentiments = [s for s in self.sentiments if _valid_label(s.target)]
+            return self
 
     return Extraction
