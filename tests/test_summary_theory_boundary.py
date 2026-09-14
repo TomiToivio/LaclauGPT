@@ -60,12 +60,12 @@ class SummaryTheoryBoundaryTests(unittest.TestCase):
 
     def test_prompt_reserves_theoretical_categories_for_later_stages(self) -> None:
         prompt = summary_prompt.build_system_prompt("topic", "source", "memory")
-        self.assertIn("descriptive only", prompt)
+        self.assertIn("descriptive", prompt)
         self.assertIn("DO NOT label material", prompt)
         self.assertIn("handled later by the discourse/populism stages", prompt)
 
     def test_prompt_has_explicit_provenance_version(self) -> None:
-        self.assertEqual(summary_prompt.PROMPT_VERSION, "summary-v2.2")
+        self.assertEqual(summary_prompt.PROMPT_VERSION, "summary-v2.3")
         self.assertEqual(SUMMARY_PROMPT_VERSION, summary_prompt.PROMPT_VERSION)
 
 
