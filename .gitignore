@@ -2,127 +2,43 @@
 __pycache__/
 *.py[cod]
 *$py.class
-
-# C extensions
 *.so
-
-# Distribution / packaging
-.Python
 build/
-develop-eggs/
 dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-share/python-wheels/
 *.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
-
-# PyInstaller
-*.manifest
-*.spec
-
-# Installer logs
-pip-log.txt
-pip-delete-this-directory.txt
-
-# Unit test / coverage reports
-htmlcov/
-.tox/
-.nox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-*.py,cover
-.hypothesis/
 .pytest_cache/
-cover/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
 
-# Translations
-*.mo
-*.pot
-
-# Django stuff:
-*.log
-local_settings.py
-db.sqlite3
-db.sqlite3-journal
-
-# Flask stuff:
-instance/
-.webassets-cache
-
-# Scrapy stuff
-.scrapy
-
-# Sphinx documentation
-docs/_build/
-
-# PyBuilder
-.pybuilder/
-target/
-
-# Jupyter Notebook
-.ipynb_checkpoints
-
-# IPython
-profile_default/
-ipython_config.py
-
-# pyenv
-# .python-version
-
-# pipenv / poetry / uv lock files are intentionally not globally ignored
-
-# pdm
-.pdm.toml
-.pdm-python
-.pdm-build/
-
-# PEP 582
-__pypackages__/
-
-# Celery
-celerybeat-schedule
-celerybeat.pid
-
-# SageMath
-*.sage.py
-
-# Environments / credentials
+# Environments and local tooling
 .env
 .env.*
 !.env.example
 .envrc
 .direnv/
-.venv
+.venv/
 env/
 venv/
 ENV/
-env.bak/
-venv.bak/
+__pypackages__/
+.ipynb_checkpoints/
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Local agent/editor state
+.claude/settings.local.json
+.cursorignore
+.cursorindexingignore
+
+# Authentication/session/infrastructure material
 .netrc
 .aws/
 .ssh/
 .gnupg/
-credentials.json
-client_secret*.json
-service-account*.json
-service_account*.json
-application_default_credentials.json
-token.json
-oauth*.json
 *.pem
 *.key
 *.p12
@@ -130,61 +46,41 @@ oauth*.json
 *.jks
 *.keystore
 *.kdbx
-
-# Browser/login/session state. These files can contain reusable authentication
-# material even when they are created only for researcher-operated collection.
+credentials.json
+client_secret*.json
+service-account*.json
+service_account*.json
+application_default_credentials.json
+token.json
+oauth*.json
 *.session
 *.session-journal
 cookies.txt
 cookies.json
 cookies.sqlite*
-Login Data
-Web Data
-Local State
 /browser-profiles/
 /browser_profiles/
 
-# Local AI-agent state
-.claude/settings.local.json
-
-# Private / machine-specific configuration
+# Private operational configuration outside the canonical data root
 config/*.local.yaml
 config/*.private.yaml
 config/secrets/
-secrets/
-
-# Private operational collection settings.
-# Public collector configs must be templates/synthetic examples or an explicitly
-# reviewed reproducibility exception. Real Telegram/RSS/web watch lists and
-# study-specific source selection belong outside Git by default.
-collector/config/*.private.yaml
-collector/config/*.local.yaml
-collector/config/*-operational.yaml
-collector/config/*-live.yaml
-collector/config/telegram.yaml
-collector/config/rss.yaml
-collector/config/web.yaml
-collector/config/collection-sources.yaml
-collector/config/live-sources.yaml
-collector/config/brazil-election-2026.yaml
-collector/browser-profiles/
-collector/browser_profiles/
-collector/firefox/profiles/
-
-# Host-specific deployment notes and private deployment overlays stay outside
-# the public repository. Public deploy/ files must remain portable templates.
-docs/DEPLOYMENT_*_LOCAL.md
-docs/DEPLOYMENT_GPU_NODE_AI26.md
 deploy/**/*.private.*
 deploy/**/*.local.*
 
-# Explicit restricted research roots
-/private_data/
-/restricted/
-/scratch/
+# Generated documentation/tool output
+docs/_build/
+site/
+.tox/
+.nox/
+.pyre/
+.pytype/
+.pdm-build/
+.pdm.toml
+.pdm-python
+.pypirc
 
-# Default-deny runtime/output roots. Public aggregate outputs should be copied
-# into a deliberately reviewed publication location rather than unignored here.
+# Runtime/research artifacts outside data/ are ignored defensively.
 /raw/
 /raw-data/
 /raw_data/
@@ -204,19 +100,11 @@ deploy/**/*.local.*
 /recordings/
 /media-downloads/
 /media_downloads/
+/restricted/
+/scratch/
+/private_data/
 
-# AI26 helper scripts are public, but local exports and collector by-products
-# created beside them are not.
-/ai26_runtime/*.jsonl
-/ai26_runtime/*.csv
-/ai26_runtime/*.log
-/ai26_runtime/*.pid
-/ai26_runtime/*.session*
-
-# Common runtime research databases / media artifacts.
-# If a small binary fixture is ever genuinely required, keep it in a clearly
-# synthetic test-fixture directory and add a narrowly scoped exception after
-# publication-safety review rather than weakening these defaults.
+# Common runtime database/data/media formats
 *.sqlite
 *.sqlite-*
 *.sqlite3
@@ -231,6 +119,13 @@ deploy/**/*.local.*
 *.backup
 *.bak
 *.parquet
+*.csv
+*.tsv
+*.jsonl
+*.ndjson
+*.har
+*.warc
+*.warc.gz
 *.mp4
 *.mov
 *.avi
@@ -238,9 +133,6 @@ deploy/**/*.local.*
 *.wav
 *.mp3
 *.m4a
-
-# Compressed archives are a common accidental route for database dumps, raw
-# captures and exports. Track a reviewed release artifact explicitly if needed.
 *.zip
 *.tar
 *.tar.gz
@@ -248,74 +140,21 @@ deploy/**/*.local.*
 *.7z
 *.rar
 
-# Spyder project settings
-.spyderproject
-.spyproject
+# Canonical rule: absolutely everything under data/ is private runtime state.
+# No README, .gitkeep, codebook, config, model cache, source list or fixture is
+# tracked from this directory. Public examples belong outside data/.
+/data/
 
-# Rope project settings
-.ropeproject
-
-# mkdocs documentation
-/site
-
-# mypy
-.mypy_cache/
-.dmypy.json
-dmypy.json
-
-# Pyre type checker
-.pyre/
-
-# pytype static type analyzer
-.pytype/
-
-# Cython debug symbols
-cython_debug/
-
-# Ruff stuff
-.ruff_cache/
-
-# PyPI configuration file
-.pypirc
-
-# Cursor
-.cursorignore
-.cursorindexingignore
-
-# Research data roots are never committed, but the directory READMEs are
-# tracked so the convention ships with the repo. Ignore the *contents* (/*)
-# instead of the directory itself, or git cannot re-include anything under it.
-/sources/*
-/data/*
-!/sources/README.md
-!/data/README.md
-
-# EP24 codebooks are public research-method artifacts. Their publication is
-# governed by docs/DATA_PUBLICATION_POLICY.md; subject-level inferred
-# attributes must never be added here.
-!/sources/codebooks/
-!/sources/codebooks/*.md
-
-# LaclauGPT collector runtime data roots
+# Historical/local runtime roots retained as defence in depth
 laclaugpt-brasil-data/
 collection-data/
-*.har
-
-# Explicit EP24 runtime inputs (redundant with /data/*, kept as defence in depth)
-data/csv/ep24_poland.csv
-data/csv/ep24_finland.csv
 /.venv-ep24
 
-# Agent-specific local permissions
-.claude/settings.local.json
-
-# Private operational source-selection and deployment configuration.
-# Keep these outside the public repository.
+# Private operational source/deployment configuration
 /config/sources/
 /deploy/systemd/
 
-# Historical EP24/LEGACY research materials live only in local research checkouts.
-# Kept out of git per PR #121/#122 privacy ruling; content synced to Laskin copy.
+# Historical EP24/legacy local-only material
 /config/arenas/legacy-*.yaml
 /config/projects/legacy.yaml
 /run_configs/legacy*.yaml
@@ -328,8 +167,7 @@ data/csv/ep24_finland.csv
 /tests/test_prepare_legacy_reprocessing.py
 /sources/codebooks/legacy_*.md
 
-# Live collection manifests and operational feed lists stay private (issue #20
-# boundary: no live watch lists / enabled source combinations in public).
+# Live collection manifests and operational source selections
 config/projects/*-sources.toml
 config/projects/*-sources.yaml
 docs/AI26_RSS_SOURCES.md
