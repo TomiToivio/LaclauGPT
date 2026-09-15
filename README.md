@@ -4,7 +4,7 @@
 
 LaclauGPT is a social-science research framework for LLM-assisted computational discourse analysis, developed around Laclau/Mouffe/Palonen-inspired analysis while keeping model outputs auditable, provenance-aware and human-reviewable.
 
-This repository is the **project and scientific-paper meta-repository**. It is the front door to the project, not a fourth implementation codebase. The scientific paper, theory, project architecture, interoperability rules and full-system installation instructions live here. Executable implementation code lives in three independently installable Git submodules.
+This repository is the **project and scientific-paper meta-repository**. It is the front door to the project, not a fourth implementation codebase. The scientific paper, theory, project architecture, interoperability rules, canonical cross-module data contract and full-system installation instructions live here. Executable implementation code lives in three independently installable Git submodules.
 
 ## Core modules
 
@@ -15,6 +15,30 @@ This repository is the **project and scientific-paper meta-repository**. It is t
 | Data Visualization | dashboards, plots, maps, graph/network views and research-facing visual exploration | [LaclauGPT-Data-Visualization](https://github.com/TomiToivio/LaclauGPT-Data-Visualization) |
 
 They are checked out under `modules/` as Git submodules. Each module owns its Python package, tests, implementation-specific configuration and developer documentation.
+
+## Canonical data contract
+
+All three modules share one logical record contract defined in [`docs/CANONICAL_DATA_CONTRACT.md`](docs/CANONICAL_DATA_CONTRACT.md).
+
+The governing rule is:
+
+> **One phenomenon, one record contract, many storage adapters.**
+
+`source_url` (or a stable URI-like equivalent when no normal URL exists) is the source identity anchor. CSV/Pandas, SQLite, MongoDB, JSONL, Parquet, Redis-backed workflows and S3/Allas references are storage or transport choices. They must not create different meanings or competing record schemas.
+
+The canonical contract reconciles:
+
+- source/ingestion concepts from `CyborgAnthropology`;
+- optional legacy EP24/multimodal fields such as transcripts, OCR and frame evidence;
+- current LaclauGPT analysis fields such as provenance, entities, topics, formations, signifiers, relations, uncertainty and human review.
+
+Text-only records remain first-class records. Multimodal fields are optional.
+
+Implementation work is tracked in the module repositories:
+
+- [Data Collection canonical-schema issue](https://github.com/TomiToivio/LaclauGPT-Data-Collection/issues/3)
+- [Data Analysis canonical-schema issue](https://github.com/TomiToivio/LaclauGPT-Data-Analysis/issues/4)
+- [Data Visualization canonical-schema issue](https://github.com/TomiToivio/LaclauGPT-Data-Visualization/issues/3)
 
 ## Install the complete system
 
@@ -55,7 +79,7 @@ The project is **local-first**. A laptop workflow should work with CSV/SQLite/lo
 
 Secrets and machine-specific values belong in environment variables, ignored local config or a secret manager. Never commit research datasets, credentials, private endpoints, cookies, browser profiles, private study codebooks, generated outputs or local SQLite research databases to public repositories.
 
-See [`docs/architecture/MODULAR_ARCHITECTURE.md`](docs/architecture/MODULAR_ARCHITECTURE.md) and [`docs/INTEROPERABILITY_SPEC.md`](docs/INTEROPERABILITY_SPEC.md).
+See [`docs/architecture/MODULAR_ARCHITECTURE.md`](docs/architecture/MODULAR_ARCHITECTURE.md), [`docs/CANONICAL_DATA_CONTRACT.md`](docs/CANONICAL_DATA_CONTRACT.md) and [`docs/INTEROPERABILITY_SPEC.md`](docs/INTEROPERABILITY_SPEC.md).
 
 ## Scientific paper and theory
 
@@ -68,7 +92,7 @@ LaclauGPT is human-in-the-loop academic research software. Automated outputs are
 - Change collectors, ingestion or normalization code in **LaclauGPT-Data-Collection**.
 - Change NLP/LLM/statistical analysis code in **LaclauGPT-Data-Analysis**.
 - Change dashboards and visualization code in **LaclauGPT-Data-Visualization**.
-- Change the paper, theory, cross-module architecture, interoperability or project-level documentation here.
+- Change the paper, theory, cross-module architecture, interoperability, canonical data contract or project-level documentation here.
 
 Do not reintroduce duplicate implementation code into this repository.
 
