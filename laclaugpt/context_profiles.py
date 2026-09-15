@@ -21,17 +21,13 @@ require pipeline edits. Each profile defines:
   (context fingerprint) for reproducibility.
 
 Every field is introspectable, so a run's effective profile can be printed
-and stored with the run artifacts (reproducibility requirement from the
-issue: "context provenance is recorded sufficiently for reproducibility").
-
-The module is pure data + validation: it never performs LLM calls and never
-reads network resources, so profiles can be unit-tested deterministically.
+and stored with the run artifacts. The module is pure data + validation: it
+never performs LLM calls and never reads network resources.
 """
 from __future__ import annotations
 
-from dataclasses import dataclass, field, asdict
+from dataclasses import asdict, dataclass
 from pathlib import Path
-from typing import Any
 
 import yaml
 
@@ -46,21 +42,20 @@ class ContextProfile:
 
     name: str
     description: str = ""
-    # Context memory (glossary retrieval)
     context_memory: bool = True
     glossary_top_k: int = 5
-    # Codebook injection
     inject_codebook: bool = True
     codebook_required_stages: tuple[str, ...] = ("summary", "discourse", "populism")
-    # Situational state
+    # Validation/audit can fail closed; routine production only warns so an
+    # unexpectedly empty new codebook does not silently disappear from provenance.
+    fail_on_missing_codebook: bool = False
     inject_previous_batch_summary: bool = False
     inject_corpus_stats: bool = False
-    # Prompt hygiene
     max_context_chars: int = 6000
     max_transcript_chars: int = 12000
-    # Reproducibility
     context_provenance: bool = True
-    # Optional retrieval add-on (v2, benchmark-gated — off by default)
+    # Benchmark-gated extension point. The runtime records the flag but does not
+    # activate a second vector service until evidence shows a quality win.
     vector_rag: bool = False
 
     def resolved(self) -> "ContextProfile":
@@ -69,13 +64,12 @@ class ContextProfile:
         clone.glossary_top_k = max(0, min(int(clone.glossary_top_k), 20))
         clone.max_context_chars = max(200, int(clone.max_context_chars))
         clone.max_transcript_chars = max(500, int(clone.max_transcript_chars))
+        clone.codebook_required_stages = tuple(clone.codebook_required_stages)
         return clone
 
     def to_dict(self) -> dict:
         return asdict(self)
 
-
-# ── Bundled profiles ─────────────────────────────────────────────────
 
 _BUNDLED: dict[str, ContextProfile] = {
     "fast_local": ContextProfile(
@@ -120,10 +114,11 @@ _BUNDLED: dict[str, ContextProfile] = {
     "validation": ContextProfile(
         name="validation",
         description=("Audit policy: deterministic context capture with full "
-                     "provenance so memory on/off comparisons are possible."),
+                     "provenance; missing required codebooks fail loudly."),
         context_memory=True,
         glossary_top_k=5,
         inject_codebook=True,
+        fail_on_missing_codebook=True,
         inject_previous_batch_summary=True,
         inject_corpus_stats=True,
         max_context_chars=6000,
@@ -142,11 +137,11 @@ def load_profile(name: str) -> ContextProfile:
     if not path.exists():
         raise KeyError(
             f"unknown context profile: {name!r} (bundled: {sorted(_BUNDLED)})")
-    import yaml
     raw = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
     raw["name"] = str(raw.get("name") or name)
-    return ContextProfile(**{k: v for k, v in raw.items()
-                             if k in ContextProfile.__dataclass_fields__}).resolved()
+    return ContextProfile(**{
+        k: v for k, v in raw.items() if k in ContextProfile.__dataclass_fields__
+    }).resolved()
 
 
 def available_profiles() -> list[str]:
@@ -157,8 +152,8 @@ def apply_profile(run_config, profile: ContextProfile) -> None:
     """Apply a context profile onto a loaded RunConfig in place.
 
     Only context/memory knobs are touched: models, stages, evidence gates,
-    and relevance handling remain the run YAML's authority (issue #140:
-    switching context/memory policy must not change analytical config).
+    and relevance handling remain the run YAML's authority. Runtime prompt
+    integration is performed by :mod:`laclaugpt.context_runtime`.
     """
     run_config.context_profile = profile.name
     run_config.context_memory_enabled = profile.context_memory
