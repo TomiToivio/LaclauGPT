@@ -42,12 +42,13 @@ class ContextRuntimeTests(unittest.TestCase):
         stage = _Stage("discourse")
         profile = load_profile("balanced")
         block, provenance = build_context_block(
-            stage, "source text", ("signifier", "formation"), profile
+            stage, "source text", ("signifier", "formation", "actor"), profile
         )
         self.assertIn("S001", block)
         self.assertEqual(stage.memory.calls[0][1], 5)
         self.assertEqual(provenance["profile"], "balanced")
         self.assertFalse(provenance["codebook_missing"])
+        self.assertFalse(provenance["codebook_selection_error"])
         self.assertEqual(len(provenance["sha256"]), 64)
 
     def test_high_accuracy_can_inject_previous_daily_state_as_untrusted(self):
@@ -61,7 +62,8 @@ class ContextRuntimeTests(unittest.TestCase):
             stage = _Stage("discourse")
             stage.run.previous_batch_summary = str(state)
             block, provenance = build_context_block(
-                stage, "source text", ("signifier",), load_profile("high_accuracy")
+                stage, "source text", ("signifier", "formation", "actor"),
+                load_profile("high_accuracy"),
             )
         self.assertIn("PREVIOUS BATCH / DAILY SITUATIONAL STATE", block)
         self.assertIn("UNTRUSTED PRIOR STATE", block)
@@ -94,19 +96,28 @@ class ContextRuntimeTests(unittest.TestCase):
             "discourse",
             _Memory("(no established codebook entries match this chunk yet)"),
         )
-        with self.assertRaisesRegex(RuntimeError, "required codebook context is missing"):
+        with self.assertRaisesRegex(RuntimeError, "required codebook context is invalid"):
             build_context_block(
-                stage, "source text", ("signifier",), load_profile("validation")
+                stage, "source text", ("signifier", "formation", "actor"),
+                load_profile("validation"),
             )
 
     def test_validation_fails_when_context_memory_module_is_disabled(self):
         stage = _Stage("discourse")
         stage.run.enabled = lambda module: False
-        with self.assertRaisesRegex(RuntimeError, "required codebook context is missing"):
+        with self.assertRaisesRegex(RuntimeError, "required codebook context is invalid"):
+            build_context_block(
+                stage, "source text", ("signifier", "formation", "actor"),
+                load_profile("validation"),
+            )
+        self.assertEqual(stage.memory.calls, [])
+
+    def test_validation_fails_when_wrong_codebook_kinds_are_selected(self):
+        stage = _Stage("populism")
+        with self.assertRaisesRegex(RuntimeError, "missing expected kinds: target"):
             build_context_block(
                 stage, "source text", ("signifier",), load_profile("validation")
             )
-        self.assertEqual(stage.memory.calls, [])
 
     def test_balanced_profile_marks_missing_codebook_without_failing(self):
         stage = _Stage(
@@ -114,10 +125,12 @@ class ContextRuntimeTests(unittest.TestCase):
             _Memory("(no established codebook entries match this chunk yet)"),
         )
         _, provenance = build_context_block(
-            stage, "source text", ("signifier",), load_profile("balanced")
+            stage, "source text", ("signifier", "formation", "actor"),
+            load_profile("balanced"),
         )
         self.assertTrue(provenance["codebook_required"])
         self.assertTrue(provenance["codebook_missing"])
+        self.assertFalse(provenance["codebook_selection_error"])
 
     def test_canonical_dataset_pipeline_options_are_explicit_opt_in(self):
         run = SimpleNamespace()
