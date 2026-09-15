@@ -48,6 +48,53 @@ jobs:
               assert '[project]' in text, path
           print('All three modules expose Python project metadata.')
           PY
+      - name: Verify optional messaging/task contract
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          schema_path = Path('schemas/messaging-task.schema.json')
+          docs_path = Path('docs/MESSAGING_TASK_QUEUE.md')
+          assert schema_path.is_file()
+          assert docs_path.is_file()
+
+          schema = json.loads(schema_path.read_text(encoding='utf-8'))
+          props = schema['properties']
+          assert props['messaging_backend']['enum'] == ['none', 'redis']
+          assert props['messaging_backend']['default'] == 'none'
+          assert props['task_queue_backend']['enum'] == ['direct', 'redis']
+          assert props['task_queue_backend']['default'] == 'direct'
+          assert props['redis']['properties']['url_env']['const'] == 'LACLAUGPT_REDIS_URL'
+
+          defs = schema['$defs']
+          task = defs['task_envelope']
+          required_task_fields = {
+              'schema_version', 'message_id', 'task_id', 'project_id', 'run_id',
+              'task_type', 'idempotency_key', 'attempt', 'created_at', 'refs'
+          }
+          assert required_task_fields.issubset(set(task['required']))
+          assert 'payload' not in task['properties']
+          assert 'refs' in task['properties']
+
+          heartbeat = defs['worker_heartbeat']
+          assert {'worker_id', 'worker_role', 'status', 'updated_at'}.issubset(set(heartbeat['required']))
+          assert 'dead_letter_event' in defs
+
+          docs = docs_path.read_text(encoding='utf-8')
+          for needle in (
+              'messaging_backend = none',
+              'task_queue_backend = direct',
+              'messaging_backend = redis',
+              'task_queue_backend = redis',
+              'durable output before acknowledging',
+              'LACLAUGPT_REDIS_URL',
+          ):
+              assert needle in docs, needle
+          assert 'redis://' not in docs
+          assert 'rediss://' not in docs
+          print('Optional Redis messaging contract preserves direct mode and secret-free examples.')
+          PY
       - name: Verify AI26 distributed public profiles
         run: |
           python - <<'PY'
