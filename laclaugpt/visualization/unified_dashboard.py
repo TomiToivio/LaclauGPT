@@ -11,14 +11,16 @@ fork:
 - deterministic complete-row rendering in every document view;
 - configurable corpus synthesis over the same canonical annotations;
 - optional previous-window JSONL for explicit change/drift comparison;
-- machine-readable synthesis download.
+- machine-readable synthesis and selected-group document downloads.
 """
 from __future__ import annotations
 
 import json
 
+from laclaugpt.researcher_exports import researcher_export_row
 from laclaugpt.researcher_reporting import render_human_readable_analysis
 from laclaugpt.synthesis import SynthesisConfig, synthesize_annotations
+from laclaugpt.synthesis_windows import synthesize_window_comparison
 from laclaugpt.visualization import live_dashboard
 from laclaugpt.visualization.data import load_annotations
 from laclaugpt.visualization.runtime import require_dashboard_runtime
@@ -89,14 +91,15 @@ def _render_synthesis_panel(st, args) -> None:
             if previous_path
             else []
         )
-        syntheses = synthesize_annotations(
-            annotations,
-            previous_annotations=previous,
-            config=SynthesisConfig(
-                group_by=dimensions,
-                minimum_documents=minimum_documents,
-                compare_previous=bool(previous),
-            ),
+        config = SynthesisConfig(
+            group_by=dimensions,
+            minimum_documents=minimum_documents,
+            compare_previous=bool(previous),
+        )
+        syntheses = (
+            synthesize_window_comparison(annotations, previous, config=config)
+            if previous
+            else synthesize_annotations(annotations, config=config)
         )
     except (OSError, ValueError) as exc:
         st.error(f"Could not create corpus synthesis: {exc}")
@@ -139,6 +142,31 @@ def _render_synthesis_panel(st, args) -> None:
         file_name="laclaugpt-corpus-synthesis.json",
         mime="application/json",
         key="unified-synthesis-download",
+    )
+
+    selected_ids = set(selected.document_ids)
+    selected_documents = [
+        annotation
+        for annotation in annotations
+        if annotation.document_id in selected_ids
+    ]
+    selected_jsonl = "\n".join(
+        json.dumps(
+            researcher_export_row(annotation),
+            ensure_ascii=False,
+            sort_keys=True,
+            default=str,
+        )
+        for annotation in selected_documents
+    )
+    if selected_jsonl:
+        selected_jsonl += "\n"
+    st.download_button(
+        "Download documents in selected synthesis group",
+        selected_jsonl.encode("utf-8"),
+        file_name="laclaugpt-selected-group.jsonl",
+        mime="application/x-ndjson",
+        key="unified-synthesis-documents-download",
     )
 
 
