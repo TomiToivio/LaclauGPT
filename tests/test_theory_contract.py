@@ -154,6 +154,7 @@ def test_interchange_defaults_to_human_review() -> None:
 
 def test_readme_states_human_verified_preliminary_analysis() -> None:
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
-    assert "Human-in-the-loop research only" in readme
+    assert "Human-in-the-loop" in readme
+    assert "academic research" in readme.lower()
     assert "preliminary" in readme.lower()
     assert "verified by a human researcher" in readme
