@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/TomiToivio/LaclauGPT/schemas/research-record.schema.json",
+  "title": "LaclauGPT Four-Layer Research Record",
+  "description": "Project-wide record contract preserving raw capture, intermediate processing, canonical analysis and a human-readable researcher summary. The same logical record is projected to legacy-compatible CSV/dataframe/dashboard fields.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "source_url",
+    "raw_capture",
+    "source",
+    "content",
+    "intermediate",
+    "analysis",
+    "human_readable",
+    "provenance",
+    "review",
+    "legacy"
+  ],
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.1.0"},
+    "source_url": {"type": "string", "minLength": 1},
+    "source_native_ids": {"type": "object", "additionalProperties": {"type": "string"}},
+    "raw_capture": {
+      "type": "object",
+      "description": "Exact received source/API/scraper material. At least one of payload or durable ref must preserve the original capture.",
+      "required": ["ref", "payload", "checksum", "content_type", "captured_at"],
+      "properties": {
+        "ref": {"type": ["string", "null"]},
+        "payload": {},
+        "checksum": {"type": ["string", "null"]},
+        "content_type": {"type": ["string", "null"]},
+        "captured_at": {"type": ["string", "null"]},
+        "metadata": {"type": "object"}
+      },
+      "anyOf": [
+        {"properties": {"ref": {"type": "string", "minLength": 1}}},
+        {"required": ["payload"], "not": {"properties": {"payload": {"type": "null"}}}}
+      ],
+      "additionalProperties": true
+    },
+    "source": {
+      "type": "object",
+      "description": "Normalized source/collection metadata while raw_capture retains the unmodified source material.",
+      "additionalProperties": true
+    },
+    "content": {
+      "type": "object",
+      "description": "Normalized source-derived representations such as text, transcripts, OCR, frames and media references.",
+      "properties": {
+        "text": {"type": "string"},
+        "transcripts": {"type": "array"},
+        "ocr": {"type": "array"},
+        "frames": {"type": "array"},
+        "media_references": {"type": "array"},
+        "file_references": {"type": "array"}
+      },
+      "additionalProperties": true
+    },
+    "intermediate": {
+      "type": "object",
+      "description": "Lossless stage outputs produced between raw collection and final analysis. Do not delete older stage outputs when a later stage succeeds.",
+      "required": ["asr", "ocr", "frames", "frame_analysis", "translations", "stage_outputs"],
+      "properties": {
+        "asr": {"type": "array"},
+        "ocr": {"type": "array"},
+        "frames": {"type": "array"},
+        "frame_analysis": {"type": "array"},
+        "translations": {"type": "array"},
+        "stage_outputs": {"type": "object"}
+      },
+      "additionalProperties": true
+    },
+    "evidence": {"type": "array"},
+    "analysis": {
+      "type": "object",
+      "description": "Current structured LaclauGPT/NLP/LLM analysis. New fields are additive and must not overwrite raw/intermediate material.",
+      "additionalProperties": true
+    },
+    "human_readable": {
+      "type": "object",
+      "description": "Researcher-facing deterministic summary covering source, intermediate results and analysis. This is in addition to analysis.summary.",
+      "required": ["summary", "markdown", "generated_at", "generator"],
+      "properties": {
+        "summary": {"type": "string"},
+        "markdown": {"type": "string"},
+        "generated_at": {"type": ["string", "null"]},
+        "generator": {"type": "string"},
+        "sections": {"type": "object"}
+      },
+      "additionalProperties": true
+    },
+    "provenance": {"type": "array"},
+    "review": {"type": "object", "additionalProperties": true},
+    "legacy": {
+      "type": "object",
+      "description": "Legacy aliases and imported values retained for round trips. Research exports derive stable EP24-style columns from canonical/intermediate data and merge non-conflicting imported values from here.",
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}
