@@ -17,8 +17,17 @@ All three machines join the same `project_id=ai26` and the same `LACLAUGPT_RUN_I
 The shared planes are already defined by `docs/DISTRIBUTED_PROJECT_STORAGE.md`:
 
 - MongoDB: durable canonical/queryable records, analyses, reviews, run metadata and artifact metadata.
-- Redis: queues/streams, worker leases, locks, heartbeats and current configuration pointers. Redis is not the corpus source of truth.
+- Redis: **opted in for this specific three-machine test** as the transient messaging/task/coordination plane. Redis is not the corpus or durable job/result source of truth.
 - S3-compatible storage / CSC Allas: raw payloads, media and large artifacts.
+
+Redis is optional at the wider LaclauGPT architecture level. The generic contract is `schemas/messaging-task.schema.json` / `docs/MESSAGING_TASK_QUEUE.md`. This AI26 integration deliberately selects:
+
+```text
+messaging_backend = redis
+task_queue_backend = redis
+```
+
+Other LaclauGPT deployments may remain in `none` / `direct` mode.
 
 ## Public profiles
 
@@ -85,6 +94,7 @@ At run start, the integration layer should write an `ai26__runs` manifest contai
 - private codebook/formation SHA-256 hashes
 - model `gemma4:12b`
 - cloud fallback disabled
+- messaging/task backend selection
 - start time/status
 
 Workers must compare these frozen values before claiming work. A worker with a mismatching config/codebook/model must refuse to join the run.
@@ -117,26 +127,28 @@ The public layer knows only the arena identifiers and hashes/revisions of the pr
 
 ## Coordination semantics
 
-Use the existing Redis namespace `laclaugpt:ai26:*` and MongoDB project-prefixed collections from `docs/DISTRIBUTED_PROJECT_STORAGE.md`.
+Use the generic optional messaging contract in `docs/MESSAGING_TASK_QUEUE.md`, the existing Redis namespace `laclaugpt:ai26:*`, and MongoDB project-prefixed collections from `docs/DISTRIBUTED_PROJECT_STORAGE.md`.
 
 A safe claim protocol for the implementation modules is:
 
-1. enqueue/reference a durable record using `project_id`, `run_id`, stable `source_url`, and durable record reference;
-2. atomically claim a job using a Redis consumer group or lease;
-3. persist claim/attempt metadata in MongoDB before expensive analysis;
-4. periodically heartbeat the lease;
-5. write analysis with an idempotency key based on `(project_id, run_id, source_url, analysis_version/config_hash)`;
-6. persist the successful durable result before acknowledging/removing queue state;
-7. if the worker dies, allow lease expiry and reclaim without creating a second durable result.
+1. enqueue/reference a durable record using the shared task envelope with `project_id`, `run_id`, stable `source_url`, an idempotency key and durable record reference;
+2. atomically claim a job using a Redis consumer group;
+3. validate the frozen run/config/codebook/model versions and check durable idempotency/result state;
+4. persist claim/attempt metadata durably before expensive analysis where the owning module requires it;
+5. periodically publish/refresh worker heartbeat state;
+6. write analysis with an idempotency key based on `(project_id, run_id, source_url, analysis_version/config_hash)`;
+7. persist the successful durable result before acknowledging queue delivery;
+8. if the worker dies, allow pending/lease expiry and reclaim without creating a second durable result;
+9. after configured retry exhaustion, record durable failure state and emit only a small dead-letter event.
 
-Redis loss must not erase the durable corpus or completed analysis state.
+Redis loss must not erase the durable corpus, retry history or completed analysis state.
 
 ## Laptop procedure
 
 1. Export the shared backend variables, `LACLAUGPT_RUN_ID` and private config directory in the local shell or an untracked secret manager/env file.
 2. Start the Data Collection browser backend using the laptop machine profile.
 3. Run the Firefox collector against the private bounded AI26 test selection.
-4. Start Data Visualization against MongoDB/Allas for the same run ID.
+4. Start Data Visualization against MongoDB/Allas for the same run ID, optionally reading Redis heartbeats for live status.
 5. Confirm new records become visible while Roihu/server workers update processing state.
 
 The browser profile itself and browser session/cookies are private runtime state and must remain outside Git.
@@ -145,7 +157,7 @@ The browser profile itself and browser session/cookies are private runtime state
 
 Use `roihu.sbatch.example` as a public skeleton. Site/project-specific account, partition, module loading, network/proxy setup and secret injection belong to private deployment configuration.
 
-The job must verify Redis, MongoDB, Allas and local Ollama connectivity **before** claiming work. It then invokes the Data Analysis module's distributed worker entry point once that module implements the issue #15 adapter.
+The job must verify Redis, MongoDB, Allas and local Ollama connectivity **before** claiming work. It then invokes the Data Analysis module's distributed worker entry point once that module implements the issue #15/#17 adapter.
 
 ## Linux server procedure
 
@@ -165,12 +177,15 @@ Before calling the integration successful, verify:
 - Roihu and server can claim analysis work concurrently without duplicate durable results;
 - killing one worker causes an expired claim to be safely reclaimed;
 - retrying the same job is idempotent;
-- both dashboards show the same `run_id` and shared processing state;
+- queue acknowledgement happens only after durable result persistence;
+- exhausted retries leave durable failure state plus a small dead-letter event;
+- both dashboards show the same `run_id` and shared durable processing state;
+- Redis heartbeat loss affects only live status, not visible durable research results;
 - records expose collection/worker/analysis provenance without exposing secrets;
 - all analysis reports `gemma4:12b` and the same private config/codebook hashes;
 - S3/Allas raw objects remain immutable/provenance-preserving;
 - the four research-record layers remain visible through the shared data contract;
-- local CSV/SQLite/filesystem modes remain separate valid development fallbacks.
+- local CSV/SQLite/filesystem modes remain separate valid development fallbacks without Redis.
 
 ## Ownership
 
