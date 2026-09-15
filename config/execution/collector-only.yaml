@@ -1,9 +1,0 @@
-execution: collector-only
-scheduler: manual
-mode: service
-recurrence: continuous
-runtime:
-  collector: true
-  analysis: false
-  dashboard: false
-  slurm: false
