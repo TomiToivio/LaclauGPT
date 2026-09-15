@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+#SBATCH --job-name=laclaugpt-ai26-dist
+#SBATCH --output=logs/ai26-dist-%j.out
+#SBATCH --error=logs/ai26-dist-%j.err
+#SBATCH --time=01:00:00
+#SBATCH --cpus-per-task=4
+#SBATCH --mem=16G
+
+set -euo pipefail
+
+# Public skeleton only. Supply account/partition/GPU/module setup and all secret
+# values from private CSC deployment configuration before submission.
+
+required_env=(
+  LACLAUGPT_RUN_ID
+  LACLAUGPT_MONGODB_URI
+  LACLAUGPT_REDIS_URL
+  LACLAUGPT_S3_ENDPOINT
+  LACLAUGPT_S3_BUCKET
+  LACLAUGPT_S3_ACCESS_KEY
+  LACLAUGPT_S3_SECRET_KEY
+  LACLAUGPT_PRIVATE_CONFIG_DIR
+  OLLAMA_HOST
+)
+
+for name in "${required_env[@]}"; do
+  if [[ -z "${!name:-}" ]]; then
+    printf 'Missing required environment variable: %s\n' "$name" >&2
+    exit 2
+  fi
+done
+
+if [[ ! -d "$LACLAUGPT_PRIVATE_CONFIG_DIR" ]]; then
+  echo 'Private AI26 config directory is unavailable.' >&2
+  exit 2
+fi
+
+command -v ollama >/dev/null || { echo 'ollama not found' >&2; exit 2; }
+ollama list | grep -F 'gemma4:12b' >/dev/null || {
+  echo 'Required local model gemma4:12b is unavailable; refusing fallback.' >&2
+  exit 2
+}
+
+# Optional CLI preflights when installed in the private deployment environment.
+if command -v redis-cli >/dev/null; then
+  redis-cli -u "$LACLAUGPT_REDIS_URL" PING | grep -F PONG >/dev/null
+fi
+
+if command -v mongosh >/dev/null; then
+  mongosh "$LACLAUGPT_MONGODB_URI" --quiet --eval 'db.runCommand({ping:1}).ok' | grep -F 1 >/dev/null
+fi
+
+if command -v aws >/dev/null; then
+  AWS_ACCESS_KEY_ID="$LACLAUGPT_S3_ACCESS_KEY" \
+  AWS_SECRET_ACCESS_KEY="$LACLAUGPT_S3_SECRET_KEY" \
+    aws --endpoint-url "$LACLAUGPT_S3_ENDPOINT" s3api head-bucket --bucket "$LACLAUGPT_S3_BUCKET"
+fi
+
+worker_id="roihu-${SLURM_JOB_ID:-manual}"
+printf 'AI26 distributed preflight OK: run_id=%s worker_id=%s model=gemma4:12b\n' \
+  "$LACLAUGPT_RUN_ID" "$worker_id"
+
+# The executable distributed-analysis command belongs to
+# TomiToivio/LaclauGPT-Data-Analysis. Once its issue #15 adapter exists, invoke
+# it here with the public roihu profile, shared run ID and private config path.
+# Never echo the private config or secret environment values.
