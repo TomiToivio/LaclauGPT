@@ -18,9 +18,41 @@ Use official Ollama tags where possible:
 
 Do not publish machine hostnames, private deployment paths, exact hardware inventory, credentials or private corpus contents in this repository.
 
+## Executable harness
+
+Use `scripts/benchmark_local_models.py`. The harness talks only to the configured local Ollama endpoint and writes a JSON result file. It does not upload benchmark text.
+
+Example:
+
+```bash
+python scripts/benchmark_local_models.py \
+  private/benchmark_cases.jsonl \
+  --models gemma4:e2b gemma4:e4b gemma4:12b gemma4:26b gemma4:31b qwen3:30b \
+  --output private/model-benchmark.json
+```
+
+Each input JSONL row can contain:
+
+```json
+{
+  "id": "case-001",
+  "task": "discourse",
+  "language": "fi",
+  "source_text": "source text used for evidence checks",
+  "prompt": "the complete benchmark prompt",
+  "required_keys": ["signifiers", "evidence"],
+  "expected_terms": ["AI"],
+  "evidence_fields": ["evidence", "evidence_quotes"]
+}
+```
+
+The harness records structured-output validity, expected-term recall, exact-substring evidence fidelity, hallucinated evidence-item counts, latency/documents per minute, failures, and a best-effort local VRAM snapshot. Human/codebook scoring still has to be added to the case set for theory-sensitive quality dimensions.
+
+No benchmark-result file should be committed merely because the harness ran. Publish only aggregate, non-sensitive results after checking that neither source text nor deployment details can be reconstructed.
+
 ## Representative task set
 
-The public benchmark manifest should contain synthetic or safely publishable examples spanning:
+The benchmark manifest should contain synthetic, safely publishable, or private-local examples spanning:
 
 1. cheap extraction / normalization;
 2. entity and topic extraction;
@@ -70,3 +102,7 @@ This is a benchmark hypothesis, not the current default policy:
 | embeddings / similarity / retrieval | `embeddinggemma` |
 
 The existing custom `batiai/gemma4-12b:q6` should remain eligible until an official-tag benchmark demonstrates equal or better accuracy/latency for the relevant stages.
+
+## Result status
+
+The public repository currently contains the reproducible method and executable harness, not fabricated performance numbers. Actual speed/VRAM/quality results must be produced on an authorized local Ollama host with the representative benchmark set before changing default routing. Until then, existing defaults remain the control condition.
