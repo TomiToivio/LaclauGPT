@@ -1,8 +1,9 @@
 """Project-neutral helpers for researcher-readable analysis reports.
 
 The canonical interchange keeps machine-readable structured summaries intact.
-These helpers provide a separate Markdown rendering layer so human reviewers do
-not need to inspect raw JSON to understand document-level outputs.
+These helpers provide the deterministic rendering layer used by human-facing
+exports, dashboards and reports so reviewers never have to reverse-engineer
+raw JSON.
 """
 from __future__ import annotations
 
@@ -27,6 +28,10 @@ _LABELS = {
     "grievances": "Grievances",
     "difficult_language": "Difficult language",
 }
+
+# Fields that are intentionally implementation-only and therefore excluded
+# from the complete researcher rendering. Keep this list tiny and explicit.
+_NON_RESEARCH_FACING_FIELDS: frozenset[str] = frozenset()
 
 
 def humanize_summary(summary: str) -> str:
@@ -76,6 +81,147 @@ def humanize_summary(summary: str) -> str:
     return "\n".join(lines) if lines else text
 
 
+def _is_populated(value: Any) -> bool:
+    if value is None:
+        return False
+    if value == "":
+        return False
+    if isinstance(value, (list, tuple, set, dict)) and not value:
+        return False
+    return True
+
+
+def _display_label(key: str) -> str:
+    return _LABELS.get(key, key.replace("_", " ").capitalize())
+
+
+def _render_value(value: Any, *, level: int = 0) -> list[str]:
+    """Render nested JSON-compatible values deterministically as Markdown."""
+    indent = "  " * level
+    if isinstance(value, Mapping):
+        lines: list[str] = []
+        for key in sorted(value):
+            item = value[key]
+            if not _is_populated(item):
+                continue
+            label = _display_label(str(key))
+            if isinstance(item, (Mapping, list, tuple)):
+                lines.append(f"{indent}- **{label}**:")
+                lines.extend(_render_value(item, level=level + 1))
+            else:
+                lines.append(f"{indent}- **{label}**: {item}")
+        return lines
+    if isinstance(value, (list, tuple)):
+        lines = []
+        for item in value:
+            if not _is_populated(item):
+                continue
+            if isinstance(item, Mapping):
+                lines.append(f"{indent}-")
+                lines.extend(_render_value(item, level=level + 1))
+            else:
+                lines.append(f"{indent}- {item}")
+        return lines
+    return [f"{indent}{value}"]
+
+
+def research_facing_payload(annotation: DocumentAnnotation) -> dict[str, Any]:
+    """Return all populated researcher-facing fields from one annotation.
+
+    The function is intentionally schema-driven rather than maintained as a
+    hand-picked allow-list. New interchange fields therefore become visible to
+    researchers automatically unless they are explicitly added to
+    ``_NON_RESEARCH_FACING_FIELDS``.
+    """
+    payload = annotation.model_dump(mode="json")
+    return {
+        key: value
+        for key, value in payload.items()
+        if key not in _NON_RESEARCH_FACING_FIELDS and _is_populated(value)
+    }
+
+
+def render_human_readable_analysis(annotation: DocumentAnnotation) -> str:
+    """Render every populated research-facing annotation field.
+
+    This renderer makes no model call and performs no interpretation. It is a
+    stable, reproducible inspection view suitable for CSV columns, dashboards,
+    Markdown reports and review interfaces.
+    """
+    payload = research_facing_payload(annotation)
+    preferred = [
+        "document_id",
+        "source_platform",
+        "source_country",
+        "language",
+        "source_author",
+        "source_timestamp",
+        "source_url",
+        "summary",
+        "entities",
+        "topics",
+        "signifiers",
+        "signifier_roles",
+        "articulations",
+        "discourses",
+        "formation_candidates",
+        "populism_analysis",
+        "populism_elements",
+        "us",
+        "frontier",
+        "affects",
+        "sentiment_observations",
+        "imaginaries",
+        "evidence_quotes",
+        "hegemonic_evidence",
+        "counter_evidence",
+        "uncertainties",
+        "review_status",
+        "requires_human_review",
+        "relevance",
+        "relevance_reason",
+        "discourse_applicable",
+        "discourse_applicability_reason",
+        "model",
+        "model_digest",
+        "prompt_versions",
+        "run_id",
+        "analysis_stage",
+        "transformations",
+        "collection_provenance",
+        "source_modalities",
+        "parent_id",
+        "sequence_index",
+        "schema_version",
+        "created_at",
+    ]
+    ordered = [key for key in preferred if key in payload]
+    ordered.extend(sorted(key for key in payload if key not in ordered))
+
+    lines = [f"# Document {annotation.document_id}", ""]
+    for key in ordered:
+        value = payload[key]
+        label = _display_label(key)
+        lines.append(f"## {label}")
+        lines.append("")
+        if key == "summary" and isinstance(value, str):
+            lines.append(humanize_summary(value) or "(empty)")
+        elif isinstance(value, (Mapping, list, tuple)):
+            rendered = _render_value(value)
+            lines.extend(rendered or ["(empty)"])
+        else:
+            lines.append(str(value))
+        lines.append("")
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def researcher_row(annotation: DocumentAnnotation) -> dict[str, Any]:
+    """Return a lossless machine row plus deterministic human-readable view."""
+    row = annotation.model_dump(mode="json")
+    row["human_readable_analysis"] = render_human_readable_analysis(annotation)
+    return row
+
+
 def render_researcher_report(
     annotations: Sequence[DocumentAnnotation],
     *,
@@ -94,8 +240,8 @@ def render_researcher_report(
         "",
         "## Corpus synthesis (descriptive only)",
         "",
-        f"- documents in synthesis: {synthesis.get('documents', len(annotations))}",
-        f"- signifier families: {len(synthesis.get('signifier_frequency', {}))}",
+        f"- documents in synthesis: {synthesis.get('documents', synthesis.get('document_count', len(annotations)))}",
+        f"- signifier families: {len(synthesis.get('signifier_frequency', synthesis.get('signifier_distribution', {})))}",
         f"- floating candidates: {len(synthesis.get('floating_candidates', []))}",
         f"- empty candidates: {len(synthesis.get('empty_candidates', []))}",
         f"- nodal candidates: {len(synthesis.get('nodal_candidates', []))}",
@@ -103,31 +249,17 @@ def render_researcher_report(
         "> Frequency is not hegemony; candidate rows need human adjudication.",
         "",
     ]
-    for ann in annotations:
+    if synthesis.get("human_readable_synthesis"):
         lines.extend([
-            f"## {ann.document_id}",
+            "### Corpus interpretation",
             "",
-            f"- relevance: **{ann.relevance or 'not judged'}**" + (f" — {ann.relevance_reason}" if ann.relevance_reason else ""),
-            f"- review: {ann.review_status}" + (" (needs human review)" if ann.requires_human_review else ""),
-            f"- populist: {ann.populist}",
-            f"- language: {ann.language or '?'} | platform: {ann.source_platform or '?'}",
-            "",
-            "### Summary",
-            "",
-            humanize_summary(ann.summary) or "(no summary)",
+            str(synthesis["human_readable_synthesis"]),
             "",
         ])
-        if ann.populism_analysis:
-            lines.extend(["### Populism analysis", "", ann.populism_analysis, ""])
-        if ann.evidence_quotes:
-            lines.extend(["### Evidence quotes", ""])
-            lines.extend(f'- "{quote}"' for quote in ann.evidence_quotes[:5])
-            lines.append("")
-        if ann.uncertainties:
-            lines.extend(["### Uncertainties", ""])
-            lines.extend(f"- {item}" for item in ann.uncertainties[:5])
-            lines.append("")
-    return "\n".join(lines)
+    for annotation in annotations:
+        lines.append(render_human_readable_analysis(annotation).rstrip())
+        lines.append("")
+    return "\n".join(lines).rstrip() + "\n"
 
 
 def write_researcher_report(

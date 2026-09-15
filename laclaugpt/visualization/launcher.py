@@ -1,4 +1,4 @@
-"""Command-line launcher for the optional Streamlit visualization."""
+"""Command-line launcher for the optional unified Streamlit visualization."""
 from __future__ import annotations
 
 import argparse
@@ -51,9 +51,9 @@ def launch(
             "`python -m pip install -e \".[visualization]\"`"
         ) from exc
 
-    # live_dashboard.py polls the canonical export while reusing the existing
-    # schema-aware detail/review implementation from dashboard.py.
-    app_path = Path(__file__).with_name("live_dashboard.py")
+    # unified_dashboard.py retains the live dashboard's project-neutral views
+    # and review workflow, then adds complete row rendering and corpus synthesis.
+    app_path = Path(__file__).with_name("unified_dashboard.py")
     streamlit_args = [
         "streamlit",
         "run",

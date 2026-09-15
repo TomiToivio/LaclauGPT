@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 """Task-difficulty model routing for local Gemma 4 variants.
 
-The router uses three local tiers and does not introduce a cloud fallback.
-Approximate model footprints are kept only to support generic VRAM guards;
-concrete hostnames, GPU inventories and deployment measurements belong in
-machine-local operational notes outside the public repository.
+The checked-in routing remains conservative until issue #136's reproducible
+benchmark is completed. Operators may override a stage with environment variable
+``LACLAUGPT_MODEL_<STAGE>`` without editing public code; the actual selected tag
+is returned for provenance. Embeddings use a separate configurable model because
+retrieval/similarity should not be routed through a chat model.
 
-Routing by pipeline stage (STAGE_ROUTING, canonical table below):
+Routing by pipeline stage (STAGE_ROUTING, canonical defaults below):
     summary      -> e4b   (gemma4:e4b)
     discourse    -> 12b   (batiai/gemma4-12b:q6)
     postprocess  -> e2b   (gemma4:e2b)
@@ -16,15 +17,9 @@ Routing by pipeline stage (STAGE_ROUTING, canonical table below):
     topics       -> 12b   (batiai/gemma4-12b:q6)
     temporal     -> 12b   (batiai/gemma4-12b:q6)
 
-The 12b tier carries the discourse-quality stages (discourse, populism,
-topics, temporal); the e2b/e4b tiers carry the mechanical extraction
-stages. The 26b tier is no longer routed to any stage but remains available
-for the long-text escalation override.
-
-Document-length override: very long texts (>8000 chars) escalate e2b/e4b
-one tier to preserve evidence fidelity. GPU memory guard: if a tier does
-not fit free VRAM the worker walks DOWN the capability order and records
-the fallback reason.
+Corpus synthesis is intentionally not added to the default table yet. The
+benchmark hypothesis is gemma4:26b for synthesis/temporal comparison, but issue
+#136 explicitly requires measurement before changing default routing.
 """
 from __future__ import annotations
 
@@ -38,10 +33,14 @@ MODELS = {
     "e4b": "gemma4:e4b",
     "12b": "batiai/gemma4-12b:q6",
     "26b": "gemma4:26b",
+    "31b": "gemma4:31b",
 }
 
-# Ascending capability order for fallback walks
-CAPABILITY_ORDER = ["e2b", "e4b", "12b", "26b"]
+EMBEDDING_MODEL = os.environ.get("LACLAUGPT_EMBEDDING_MODEL", "embeddinggemma")
+
+# Ascending capability order for fallback walks. 31b is benchmark/reference
+# capacity, not a current default pipeline route.
+CAPABILITY_ORDER = ["e2b", "e4b", "12b", "26b", "31b"]
 
 # Public routing policy only. Host-specific capacity measurements and residency
 # decisions belong in private/runtime deployment notes, not in this module.
@@ -56,7 +55,9 @@ STAGE_ROUTING = {
     "temporal": "12b",
 }
 
-# texts longer than this escalate one tier (evidence fidelity on long posts)
+# Texts longer than this escalate cheap e2b/e4b stages to the currently available
+# high-capability tier. This preserves the historical behavior without changing
+# theory-sensitive stage defaults.
 LONG_TEXT_CHARS = 8000
 
 # Standard public loopback default. Production endpoints must be supplied via
@@ -90,36 +91,47 @@ def _free_vram_gb() -> float:
         return 0.0
 
 
-def pick_model(stage: str, text_len: int = 0) -> str:
-    """Resolve the Gemma 4 variant for one pipeline stage.
+def _stage_override(stage: str) -> str:
+    key = "LACLAUGPT_MODEL_" + stage.upper().replace("-", "_")
+    return os.environ.get(key, "").strip()
 
-    Order: stage routing -> long-text escalation -> availability walk
-    (requested tier down to the largest model that fits free VRAM).
-    Always returns a LOCAL gemma4 tag; raises if nothing fits.
+
+def pick_model(stage: str, text_len: int = 0) -> str:
+    """Resolve the local model for one pipeline stage.
+
+    An explicit ``LACLAUGPT_MODEL_<STAGE>`` tag wins and is returned unchanged so
+    stage-level model choice can be configured externally and recorded in
+    provenance. Without an override: stage routing -> long-text escalation ->
+    availability/VRAM fallback. Raises if no configured local model is available.
     """
+    override = _stage_override(stage)
+    if override:
+        return override
+
     tier = STAGE_ROUTING.get(stage, "26b")
     if text_len > LONG_TEXT_CHARS and tier in ("e2b", "e4b"):
         tier = "26b"
     loaded = _loaded_models()
     free = _free_vram_gb()
-    # walk DOWN the capability order from the requested tier
     start = CAPABILITY_ORDER.index(tier)
+    need_gb = {"e2b": 6, "e4b": 8, "12b": 13, "26b": 17, "31b": 20}
     for name in reversed(CAPABILITY_ORDER[:start + 1]):
         tag = MODELS[name]
         if tag not in loaded:
             continue
-        # rough VRAM guards: need model size + KV cache headroom
-        need = {"e2b": 6, "e4b": 8, "12b": 13, "26b": 17}[name]
-        if free == 0 or free >= need * 0.9:
+        if free == 0 or free >= need_gb[name] * 0.9:
             return tag
-    # nothing fits by VRAM estimate — return the smallest present as last resort
     for name in CAPABILITY_ORDER:
         if MODELS[name] in loaded:
             return MODELS[name]
-    raise RuntimeError("no local gemma4 model available on this Ollama host")
+    raise RuntimeError("no configured local model available on this Ollama host")
+
+
+def pick_embedding_model() -> str:
+    """Return the configured embedding-specific Ollama model tag."""
+    return EMBEDDING_MODEL
 
 
 def routing_table() -> dict:
     """Resolved routing for logging/provenance."""
-    return {stage: pick_model(stage)
-            for stage in STAGE_ROUTING}
+    return {stage: pick_model(stage) for stage in STAGE_ROUTING}
