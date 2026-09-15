@@ -35,9 +35,6 @@ def _apply_analysis_switches(annotation, analysis: dict[str, bool]) -> None:
     if not analysis.get("entities", False):
         annotation.entities = []
     if not analysis.get("sentiment", False):
-        # Descriptive sentiment observations (schema 1.4) follow the same
-        # authoritative-strip rule as every other coding family (issue #48):
-        # sentiment: false publishes no sentiment output.
         annotation.sentiment_observations = []
     if not analysis.get("palonen", False):
         annotation.populist = None
@@ -49,14 +46,29 @@ def _apply_analysis_switches(annotation, analysis: dict[str, bool]) -> None:
         annotation.affects = []
 
 
-def run_canonical_pipeline(config: EffectiveRunConfig, run: Run, store: RunStore):
-    """Run the evidence-first pipeline from one effective configuration.
+def _apply_context_options(pipeline_run, dataset: dict) -> str:
+    """Attach explicitly selected issue-#140 context options to a RunConfig.
 
-    Normal executions use the composed project/arena/machine/execution config
-    directly. An explicit ``dataset.run_config`` is accepted only as a bounded
-    compatibility path for historical/custom callers. Even there the execution
-    instance keeps the RunStore ``run_id`` rather than the legacy YAML name.
+    No profile is inferred from the machine name: this keeps current production
+    behaviour unchanged. Roihu/high-accuracy is a recommendation, not a hidden
+    environment-dependent switch.
     """
+    pipeline_options = dict(dataset.get("pipeline") or {})
+    profile_name = str(pipeline_options.get("context_profile") or "").strip()
+    if not profile_name:
+        return ""
+    pipeline_run.context_profile = profile_name
+    pipeline_run.previous_batch_summary = str(
+        pipeline_options.get("previous_batch_summary") or ""
+    )
+    pipeline_run.corpus_stats_path = str(
+        pipeline_options.get("corpus_stats_path") or ""
+    )
+    return profile_name
+
+
+def run_canonical_pipeline(config: EffectiveRunConfig, run: Run, store: RunStore):
+    """Run the evidence-first pipeline from one effective configuration."""
     input_path = config.dataset.get("input")
     analysis_profile = config.analysis_profile or config.project
     arena_id = config.arena
@@ -71,6 +83,9 @@ def run_canonical_pipeline(config: EffectiveRunConfig, run: Run, store: RunStore
             "arena_id": arena_id,
             "state": "configured",
             "enabled_modules": enabled_modules,
+            "context_profile": str(
+                (config.dataset.get("pipeline") or {}).get("context_profile") or ""
+            ),
         }
     if not canonical_mode and not legacy_config_path:
         raise ValueError(
@@ -79,9 +94,10 @@ def run_canonical_pipeline(config: EffectiveRunConfig, run: Run, store: RunStore
         )
 
     import pandas as pd
+    from laclaugpt.context_runtime import run_pipeline_with_context_profile
     from laclaugpt.graph_export import write_graph_bundle
     from laclaugpt_interchange import to_jsonl
-    from pipeline import document_key, run_pipeline
+    from pipeline import document_key
     from run_config import load_run_config, run_config_from_effective
 
     output = Path(
@@ -94,16 +110,16 @@ def run_canonical_pipeline(config: EffectiveRunConfig, run: Run, store: RunStore
             run.run_id,
             repository_root=Path(__file__).resolve().parents[1],
         )
+        context_profile = _apply_context_options(pipeline_run, config.dataset)
     else:
         pipeline_run = load_run_config(str(legacy_config_path))
-        # Compatibility configuration may have a stable historical name, but
-        # execution provenance has exactly one run identity.
         pipeline_run.run_id = run.run_id
         analysis_profile = pipeline_run.analysis_profile or analysis_profile
         arena_id = pipeline_run.arena_id
         enabled_modules = [
             name for name, active in pipeline_run.analysis_modules.items() if active
         ]
+        context_profile = ""
     pipeline_run.output_path = output
 
     frame = pd.read_csv(input_path)
@@ -139,6 +155,7 @@ def run_canonical_pipeline(config: EffectiveRunConfig, run: Run, store: RunStore
             "run_id": run.run_id,
             "analysis_profile": analysis_profile,
             "arena_id": arena_id,
+            "context_profile": context_profile,
             "processed": 0,
             "skipped": len(frame),
             "annotations": [],
@@ -155,14 +172,14 @@ def run_canonical_pipeline(config: EffectiveRunConfig, run: Run, store: RunStore
         with tempfile.TemporaryDirectory(dir=temp_root) as directory:
             filtered = Path(directory) / "unprocessed.csv"
             selected = frame.loc[keep].copy()
-            # The multimodal project switch controls derived visual/OCR input.
-            # Legacy/custom YAML keeps its own historical behaviour unchanged.
             if canonical_mode and not config.analysis.get("multimodal", False):
                 for column in ("frame_analysis", "ocr", "ocr_text"):
                     if column in selected.columns:
                         selected[column] = ""
             selected.to_csv(filtered, index=False)
-            annotations = run_pipeline(pipeline_run, str(filtered), False, str(output))
+            annotations = run_pipeline_with_context_profile(
+                pipeline_run, str(filtered), False, str(output)
+            )
 
         for annotation in annotations:
             annotation.run_id = run.run_id
@@ -178,6 +195,7 @@ def run_canonical_pipeline(config: EffectiveRunConfig, run: Run, store: RunStore
                     "canonical" if canonical_mode
                     else "legacy-run-config-compatibility"
                 ),
+                "context_profile": context_profile,
             })
             if not canonical_mode:
                 annotation.collection_provenance["legacy_run_config"] = str(
@@ -205,6 +223,7 @@ def run_canonical_pipeline(config: EffectiveRunConfig, run: Run, store: RunStore
         "run_id": run.run_id,
         "analysis_profile": analysis_profile,
         "arena_id": arena_id,
+        "context_profile": context_profile,
         "enabled_modules": enabled_modules,
         "processed": len(claimed),
         "skipped": len(frame) - len(claimed),
