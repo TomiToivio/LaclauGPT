@@ -22,6 +22,7 @@ logger = logging.getLogger("laclaugpt.context")
 _EMPTY_CONTEXT_MARKERS = (
     "(no established codebook entries match this chunk yet)",
     "(context memory disabled for this analysis profile)",
+    "(context memory disabled by selected context profile)",
 )
 
 
@@ -48,7 +49,9 @@ def _state_payload(path: str | Path, max_chars: int) -> tuple[str, dict[str, Any
     clipped = text[:max_chars] if max_chars > 0 else ""
     block = f"{warning}\n{clipped}" if clipped else ""
     return block, {
-        "source": str(source),
+        # Keep operational/private directory layouts out of exported provenance.
+        # The content hash identifies the exact state artifact reproducibly.
+        "source": source.name,
         "sha256": digest,
         "trust": trust,
         "review_status": review_status,
