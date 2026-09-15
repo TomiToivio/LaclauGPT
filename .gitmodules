@@ -1,0 +1,9 @@
+[submodule "modules/data-collection"]
+	path = modules/data-collection
+	url = https://github.com/TomiToivio/LaclauGPT-Data-Collection.git
+[submodule "modules/data-analysis"]
+	path = modules/data-analysis
+	url = https://github.com/TomiToivio/LaclauGPT-Data-Analysis.git
+[submodule "modules/data-visualization"]
+	path = modules/data-visualization
+	url = https://github.com/TomiToivio/LaclauGPT-Data-Visualization.git

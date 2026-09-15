@@ -1,1 +1,0 @@
-from .firefox_backend import main  # noqa: F401

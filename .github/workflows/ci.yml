@@ -1,102 +1,50 @@
-name: Repository CI
+name: Meta-repo checks
 
 on:
-  pull_request:
   push:
     branches: [main]
+  pull_request:
+  workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
-  core:
-    name: Core package and tests (Python ${{ matrix.python-version }})
+  integrity:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
-    strategy:
-      fail-fast: false
-      matrix:
-        python-version: ["3.11", "3.12", "3.13"]
     steps:
-      - uses: actions/checkout@v5
-
-      - uses: actions/setup-python@v6
+      - uses: actions/checkout@v4
         with:
-          python-version: ${{ matrix.python-version }}
-          cache: pip
-
-      - name: Publication safety guard
-        run: python scripts/check_publication_safety.py
-
-      - name: Install repository for full offline suite
+          submodules: recursive
+      - name: Verify submodules
         run: |
-          python -m pip install --upgrade pip
-          python -m pip install -e ".[collector,collect,test,dev,splitting]"
-          python -m pip check
-
-      - name: Static Python checks
-        run: ruff check --select E9,F63,F7,F82 .
-
-      - name: Compile shipped Python
+          test -f .gitmodules
+          test -d modules/data-collection
+          test -d modules/data-analysis
+          test -d modules/data-visualization
+          test -f modules/data-collection/pyproject.toml
+          test -f modules/data-analysis/pyproject.toml
+          test -f modules/data-visualization/pyproject.toml
+      - name: Verify meta-repo boundaries
         run: |
-          python -m compileall -q \
-            laclaugpt laclaugpt_interchange laclaugpt_memory laclaugpt_model \
-            laclaugpt_primitives collector dats_adapter dna_adapter \
-            inception_adapter minet_adapter prompts \
-            pipeline.py llm.py run_config.py projects.py memory.py \
-            seed_codebook.py laclaugpt_processor.py
-
-      - name: CLI smoke tests
+          test -d paper
+          test -f THEORY.md
+          test -f docs/architecture/MODULAR_ARCHITECTURE.md
+          test -f docs/installation/FULL_SYSTEM.md
+          test ! -f pyproject.toml
+          test ! -d laclaugpt
+          test ! -d collector
+          test ! -d tests
+      - name: Verify installation metadata
         run: |
-          python -m laclaugpt.cli --help >/dev/null
-          python -m laclaugpt.cli profiles
-          laclaugpt --help >/dev/null
-
-      - name: Full offline Python test suite
-        env:
-          LACLAUGPT_EMBED_BACKEND: none
-        run: python -m pytest -q tests
-
-  collector:
-    name: Collector and browser syntax
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    steps:
-      - uses: actions/checkout@v5
-
-      - uses: actions/setup-python@v6
-        with:
-          python-version: "3.12"
-          cache: pip
-
-      - uses: actions/setup-node@v6
-        with:
-          node-version: "22"
-
-      - name: Install repository with collector and test extras
-        run: |
-          python -m pip install --upgrade pip
-          python -m pip install -e ".[collector,test]"
-          python -m pip check
-
-      - name: Collector Python tests
-        run: python -m pytest -q tests/collectors
-
-      - name: Preferred Firefox extension syntax
-        run: |
-          node --check collector/firefox/extension/capture.js
-          node --check collector/firefox/extension/navigation.js
-          node --check collector/firefox/extension/content.js
-
-      - name: Standalone browser extension syntax
-        run: |
-          node --check collector/browser/background.js
-          node --check collector/browser/content.js
-          node --check collector/browser/modules/tiktok.js
-          node --check collector/browser/modules/instagram.js
-          node --check collector/browser/modules/twitter.js
-
-      - name: Validate extension manifests
-        run: |
-          python -m json.tool collector/firefox/extension/manifest.json >/dev/null
-          python -m json.tool collector/browser/manifest.json >/dev/null
+          python - <<'PY'
+          from pathlib import Path
+          for path in [
+              Path('modules/data-collection/pyproject.toml'),
+              Path('modules/data-analysis/pyproject.toml'),
+              Path('modules/data-visualization/pyproject.toml'),
+          ]:
+              text = path.read_text(encoding='utf-8')
+              assert '[project]' in text, path
+          print('All three modules expose Python project metadata.')
+          PY
