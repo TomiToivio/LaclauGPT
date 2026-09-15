@@ -47,7 +47,8 @@ class ResearcherRowParityTests(unittest.TestCase):
         self.assertIn("Original source text", rendered)
         self.assertIn("Whisper transcript", rendered)
         self.assertIn("public safety", rendered)
-        self.assertIn("conversation_id", rendered)
+        self.assertIn("Conversation id", rendered)
+        self.assertIn("conv-1", rendered)
         self.assertIn("model-a", rendered)
         self.assertIn("verbatim evidence", rendered)
 
