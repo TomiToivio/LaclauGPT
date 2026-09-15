@@ -2,8 +2,6 @@
 
 [![Tests](https://img.shields.io/github/actions/workflow/status/TomiToivio/LaclauGPT-Discourse-Analysis/ci.yml?branch=main&label=tests)](https://github.com/TomiToivio/LaclauGPT-Discourse-Analysis/actions/workflows/ci.yml)
 
-> **There is no AI but a CYBORG = HUMAN + LLM + LANGUAGE + INTERNET**
-
 **LaclauGPT** is a political-science data collection and discourse-analysis pipeline for studying large textual and multimodal corpora with LLM assistance, while keeping interpretation traceable to source evidence and subject to human review.
 
 The current version is being developed primarily for my research plan and paper, **[LaclauGPT: Ideological contestation over AI](paper/PAPER.md)**. That study uses Ernesto Laclau and Chantal Mouffe's discourse theory, Emilia Palonen's Formula of Populism, Critical AI Studies and sociotechnical imaginaries to analyse competing ideological articulations of artificial intelligence.
