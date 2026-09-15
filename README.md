@@ -16,16 +16,67 @@ In short:
 - **General software goal:** a reusable LLM-assisted computational discourse-analysis framework rather than a single-purpose AI classifier.
 - **Theoretical core:** Laclau and Mouffe, with Palonen's Formula of Populism and project-specific theoretical extensions.
 - **Methodological principle:** models propose interpretations; evidence, uncertainty, provenance and human review remain visible.
+- **Research-use boundary:** LaclauGPT is intended for **academic research purposes only**. It is not an autonomous decision-maker and its outputs must not substitute for accountable human scholarly judgement.
 - **Data principle:** open code and methods, but no publication of restricted research corpora or identifiable row-level research data.
 
 > [!WARNING]
-> **Human-in-the-loop research only.** LaclauGPT's machine-generated summaries,
-> classifications, discourse-theoretical codes, populism analyses, signifier roles,
-> ideological formations, affects, and other interpretations are **preliminary
-> analysis to be verified by a human researcher**. They must not be treated as
-> final research findings, ground truth, or autonomous scholarly judgement.
-> Human verification of the source evidence and interpretation is required before
-> results are used, reported, published, or cited as research conclusions.
+> **Human-in-the-loop academic research only.** LaclauGPT's machine-generated
+> summaries, classifications, discourse-theoretical codes, populism analyses,
+> signifier roles, ideological formations, affects, and other interpretations are
+> **preliminary analysis to be verified by a human researcher**. They must not be
+> treated as final research findings, ground truth, or autonomous scholarly
+> judgement. Human verification of the source evidence and interpretation is
+> required before results are used, reported, published, or cited as research
+> conclusions. LaclauGPT is designed for academic research, not autonomous
+> operational, administrative, intelligence, moderation, profiling, or policy
+> decisions about people or groups.
+
+### What “human-in-the-loop” means in LaclauGPT
+
+LaclauGPT uses a deliberately **assemblage-based working philosophy of AI**:
+
+> **AI = HUMAN + LLM + LANGUAGE + INTERNET**
+
+The claim is methodological and philosophical rather than a settled empirical
+statement about consciousness. The relevant research system is not an isolated
+model but a coupled human-machine-linguistic-network assemblage in which each
+component contributes something different:
+
+- **HUMAN — qualia and accountable agency.** In the working philosophy used by
+  this project, the human researcher remains the only presently available node
+  whose phenomenal experience (qualia) can be directly relied on in the research
+  process, and the human remains the source of accountable scholarly agency. The
+  researcher chooses questions, defines concepts and codebooks, evaluates
+  evidence, resolves ambiguity, rejects model output, and takes responsibility
+  for conclusions. LaclauGPT therefore does not treat model output as autonomous
+  interpretation or authorship.
+- **LLM — learned model plus post-trained agentic machinery.** “LLM” is shorthand
+  for more than a raw next-token predictor. Contemporary systems are typically
+  post-trained with reinforcement-learning or preference-optimization methods and
+  may operate through tool use, memory, planning, retrieval and iterative agent
+  loops. In practice LaclauGPT therefore interacts with an increasingly agentic
+  model layer, while still treating its outputs as fallible proposals rather
+  than independent scholarly judgement.
+- **LANGUAGE — communication protocol and cognitive medium.** Language is the
+  protocol through which the human, model, sources and analytical concepts are
+  coupled. This project also takes seriously, as a working hypothesis, the
+  stronger possibility that language is not merely a channel carrying
+  intelligence but one of the structures from which intelligent behaviour
+  emerges: concepts, distinctions, relations and inferential possibilities are
+  partly constituted through linguistic structure itself.
+- **INTERNET — infrastructure and live epistemic environment.** The system depends
+  on a wider computational infrastructure: networks, servers, software, model
+  repositories, databases, APIs, research corpora and other services. The
+  Internet is also a vital source of current information when real-time or
+  recently changing data are part of the research question. Retrieved network
+  information remains evidence to be evaluated, not automatically trusted truth.
+
+Accordingly, **human-in-the-loop is not a final manual approval button attached
+onto an otherwise autonomous AI pipeline**. The human is constitutive of the
+research assemblage throughout the process. LaclauGPT is designed to extend the
+researcher's capacity to inspect large corpora, generate provisional
+interpretations and compare discursive patterns while keeping source evidence,
+uncertainty, provenance and human responsibility visible.
 
 ## Current research programme: Ideological contestation over AI
 
