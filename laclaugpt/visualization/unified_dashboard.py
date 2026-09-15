@@ -1,13 +1,17 @@
 """Unified researcher dashboard front door for issue #136.
 
-The existing canonical dashboard remains the visualization engine. This module
-adds the issue-136 researcher-first layers without creating a second schema or a
-forked project-specific dashboard:
+The existing live dashboard remains the visualization engine. This module adds
+researcher-first layers without introducing another schema or project-specific
+fork:
 
+- all current live/AI26 overview, ideology, signifier, network, frontier, actor,
+  timeline and review views;
+- the canonical EP-style document inspection/review view already reused by the
+  live dashboard;
 - deterministic complete-row rendering in every document view;
-- configurable corpus-level synthesis over the same canonical annotations;
+- configurable corpus synthesis over the same canonical annotations;
 - optional previous-window JSONL for explicit change/drift comparison;
-- synthesis JSON download for downstream analysis.
+- machine-readable synthesis download.
 """
 from __future__ import annotations
 
@@ -15,16 +19,16 @@ import json
 
 from laclaugpt.researcher_reporting import render_human_readable_analysis
 from laclaugpt.synthesis import SynthesisConfig, synthesize_annotations
-from laclaugpt.visualization import dashboard as canonical_dashboard
+from laclaugpt.visualization import live_dashboard
 from laclaugpt.visualization.data import load_annotations
 from laclaugpt.visualization.runtime import require_dashboard_runtime
 
 
-_ORIGINAL_DOCUMENT_VIEW = canonical_dashboard._document_view
+_ORIGINAL_DOCUMENT_VIEW = live_dashboard._document_view
 
 
 def _unified_document_view(st, annotation, review_store, **kwargs) -> None:
-    """Delegate to the canonical document view and add complete row inspection."""
+    """Delegate to canonical inspection then add complete deterministic rendering."""
     _ORIGINAL_DOCUMENT_VIEW(st, annotation, review_store, **kwargs)
     if kwargs.get("blind_initial"):
         return
@@ -139,18 +143,19 @@ def _render_synthesis_panel(st, args) -> None:
 
 
 def main() -> None:
-    # Parse once, then hand the same namespace to the canonical dashboard. This
-    # preserves the existing CLI contract and avoids two competing front doors.
-    args = canonical_dashboard._arguments()
-    original_arguments = canonical_dashboard._arguments
-    original_document_view = canonical_dashboard._document_view
-    canonical_dashboard._arguments = lambda: args
-    canonical_dashboard._document_view = _unified_document_view
+    # Parse once, then hand the exact namespace to the live dashboard. This keeps
+    # its existing filters/review/live-refresh behavior and makes this module a
+    # thin consolidation layer rather than a parallel application.
+    args = live_dashboard._arguments()
+    original_arguments = live_dashboard._arguments
+    original_document_view = live_dashboard._document_view
+    live_dashboard._arguments = lambda: args
+    live_dashboard._document_view = _unified_document_view
     try:
-        canonical_dashboard.main()
+        live_dashboard.main()
     finally:
-        canonical_dashboard._arguments = original_arguments
-        canonical_dashboard._document_view = original_document_view
+        live_dashboard._arguments = original_arguments
+        live_dashboard._document_view = original_document_view
 
     st, _px, _go, _nx = require_dashboard_runtime()
     _render_synthesis_panel(st, args)
