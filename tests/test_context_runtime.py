@@ -67,6 +67,7 @@ class ContextRuntimeTests(unittest.TestCase):
         self.assertIn("UNTRUSTED PRIOR STATE", block)
         state_prov = provenance["previous_batch_summary"]
         self.assertEqual(state_prov["trust"], "model_proposed")
+        self.assertEqual(state_prov["source"], "previous-day.json")
         self.assertEqual(len(state_prov["sha256"]), 64)
 
     def test_human_reviewed_previous_state_is_marked_but_not_source_evidence(self):
@@ -97,6 +98,15 @@ class ContextRuntimeTests(unittest.TestCase):
             build_context_block(
                 stage, "source text", ("signifier",), load_profile("validation")
             )
+
+    def test_validation_fails_when_context_memory_module_is_disabled(self):
+        stage = _Stage("discourse")
+        stage.run.enabled = lambda module: False
+        with self.assertRaisesRegex(RuntimeError, "required codebook context is missing"):
+            build_context_block(
+                stage, "source text", ("signifier",), load_profile("validation")
+            )
+        self.assertEqual(stage.memory.calls, [])
 
     def test_balanced_profile_marks_missing_codebook_without_failing(self):
         stage = _Stage(
