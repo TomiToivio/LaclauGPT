@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/TomiToivio/LaclauGPT/schemas/distributed-run.schema.json",
+  "title": "LaclauGPT distributed run profile",
+  "description": "Public, secret-free execution contract for one machine participating in a distributed LaclauGPT run.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "project_id",
+    "run_id_env",
+    "machine_role",
+    "execution",
+    "services",
+    "backends",
+    "private_config",
+    "analysis"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "project_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9_-]{1,63}$"
+    },
+    "run_id_env": {
+      "type": "string",
+      "const": "LACLAUGPT_RUN_ID"
+    },
+    "machine_role": {
+      "enum": ["laptop", "roihu", "linux-server"]
+    },
+    "execution": {
+      "enum": ["interactive", "slurm", "service"]
+    },
+    "services": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["firefox_collection", "collectors", "analysis_worker", "dashboard"],
+      "properties": {
+        "firefox_collection": {"type": "boolean"},
+        "collectors": {"type": "boolean"},
+        "analysis_worker": {"type": "boolean"},
+        "dashboard": {"type": "boolean"}
+      }
+    },
+    "backends": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mongodb_uri_env", "redis_url_env", "s3_endpoint_env", "s3_bucket_env"],
+      "properties": {
+        "mongodb_uri_env": {"const": "LACLAUGPT_MONGODB_URI"},
+        "redis_url_env": {"const": "LACLAUGPT_REDIS_URL"},
+        "s3_endpoint_env": {"const": "LACLAUGPT_S3_ENDPOINT"},
+        "s3_bucket_env": {"const": "LACLAUGPT_S3_BUCKET"},
+        "s3_access_key_env": {"const": "LACLAUGPT_S3_ACCESS_KEY"},
+        "s3_secret_key_env": {"const": "LACLAUGPT_S3_SECRET_KEY"}
+      }
+    },
+    "private_config": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["config_dir_env", "required", "publish_contents"],
+      "properties": {
+        "config_dir_env": {"const": "LACLAUGPT_PRIVATE_CONFIG_DIR"},
+        "required": {"type": "boolean", "const": true},
+        "publish_contents": {"type": "boolean", "const": false}
+      }
+    },
+    "analysis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["enabled", "ollama_host_env", "model", "cloud_fallback"],
+      "properties": {
+        "enabled": {"type": "boolean"},
+        "ollama_host_env": {"const": "OLLAMA_HOST"},
+        "model": {"const": "gemma4:12b"},
+        "cloud_fallback": {"type": "boolean", "const": false}
+      }
+    },
+    "limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "max_records_per_arena": {"type": "integer", "minimum": 1, "maximum": 100},
+        "claim_lease_seconds": {"type": "integer", "minimum": 30},
+        "heartbeat_seconds": {"type": "integer", "minimum": 5}
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "record_git_sha": {"type": "boolean"},
+        "record_config_hash": {"type": "boolean"},
+        "record_codebook_hash": {"type": "boolean"},
+        "record_model": {"type": "boolean"},
+        "record_worker_id": {"type": "boolean"}
+      }
+    }
+  }
+}
