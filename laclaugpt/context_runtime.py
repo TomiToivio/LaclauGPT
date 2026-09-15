@@ -1,9 +1,9 @@
 """Runtime integration for configurable analysis context profiles.
 
 This module deliberately wraps the historical root ``pipeline.py`` instead of
-changing its default behaviour.  A profile is active only when a canonical run
+changing its default behaviour. A profile is active only when a canonical run
 explicitly selects ``dataset.pipeline.context_profile`` (or a benchmark passes a
-profile directly).  Legacy/direct pipeline callers therefore keep byte-for-byte
+profile directly). Legacy/direct pipeline callers therefore keep byte-for-byte
 context behaviour unless they opt in.
 """
 from __future__ import annotations
@@ -24,6 +24,15 @@ _EMPTY_CONTEXT_MARKERS = (
     "(context memory disabled for this analysis profile)",
     "(context memory disabled by selected context profile)",
 )
+
+# Audit what each stage is supposed to receive. Some stages may receive extra
+# kinds as well; these are minimum families, not an allow-list.
+_STAGE_EXPECTED_KINDS: dict[str, tuple[str, ...]] = {
+    "summary": ("actor", "topic", "entity"),
+    "discourse": ("signifier", "formation", "actor"),
+    "postprocess": ("topic", "entity", "target"),
+    "populism": ("signifier", "target"),
+}
 
 
 def _state_payload(path: str | Path, max_chars: int) -> tuple[str, dict[str, Any]]:
@@ -68,6 +77,9 @@ def build_context_block(stage: Any, text: str, kinds: Iterable[str],
                         profile: ContextProfile) -> tuple[str, dict[str, Any]]:
     """Build one bounded prompt context and provenance record."""
     kinds = tuple(kinds)
+    expected_kinds = _STAGE_EXPECTED_KINDS.get(stage.stage_name, ())
+    missing_expected_kinds = tuple(kind for kind in expected_kinds if kind not in kinds)
+
     if not profile.context_memory or not stage.run.enabled("context_memory"):
         memory_block = "(context memory disabled by selected context profile)"
     else:
@@ -79,10 +91,20 @@ def build_context_block(stage: Any, text: str, kinds: Iterable[str],
 
     missing_codebook = _is_missing_codebook(memory_block)
     required = stage.stage_name in profile.codebook_required_stages and profile.inject_codebook
-    if required and missing_codebook:
+    required_context_error = bool(
+        required and (missing_codebook or missing_expected_kinds)
+    )
+    if required_context_error:
+        details = []
+        if missing_codebook:
+            details.append("context block is empty/disabled")
+        if missing_expected_kinds:
+            details.append(
+                "missing expected kinds: " + ", ".join(missing_expected_kinds)
+            )
         message = (
-            f"required codebook context is missing for stage {stage.stage_name!r} "
-            f"under profile {profile.name!r}"
+            f"required codebook context is invalid for stage {stage.stage_name!r} "
+            f"under profile {profile.name!r}: {'; '.join(details)}"
         )
         if profile.fail_on_missing_codebook:
             raise RuntimeError(message)
@@ -117,11 +139,14 @@ def build_context_block(stage: Any, text: str, kinds: Iterable[str],
         "profile": profile.name,
         "stage": stage.stage_name,
         "kinds": list(kinds),
+        "expected_kinds": list(expected_kinds),
+        "missing_expected_kinds": list(missing_expected_kinds),
         "glossary_top_k": profile.glossary_top_k,
         "chars": len(combined),
         "sha256": digest,
         "codebook_required": required,
         "codebook_missing": bool(required and missing_codebook),
+        "codebook_selection_error": bool(required and missing_expected_kinds),
         "previous_batch_summary": state_provenance,
         "corpus_stats": corpus_stats_provenance,
         "vector_rag": profile.vector_rag,
@@ -164,7 +189,7 @@ def run_pipeline_with_context_profile(run_config: Any, csv_path: str,
     """Run the canonical root pipeline with an explicit context profile.
 
     If ``run_config.context_profile`` is empty, delegation is direct and current
-    production behaviour is unchanged.  This is the feature-flag boundary for
+    production behaviour is unchanged. This is the feature-flag boundary for
     issue #140.
     """
     import pipeline as root_pipeline
