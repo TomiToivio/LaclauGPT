@@ -3,9 +3,9 @@
 """Benchmark context strategies on the same human-reviewed sample (issue #140).
 
 The public repository supplies the harness; human-reviewed research samples may
-remain private.  Full mode runs the *same* canonical analysis configuration with
+remain private. Full mode runs the *same* canonical analysis configuration with
 only the context profile changed, then reports safe aggregate quality/resource
-metrics.  Dry mode validates the experiment matrix without invoking an LLM.
+metrics. Dry mode validates the experiment matrix without invoking an LLM.
 
 Example:
   python3 scripts/benchmark_context.py \
@@ -18,12 +18,16 @@ from __future__ import annotations
 
 import argparse
 import json
-import resource
 import sys
 import tempfile
 import time
 from pathlib import Path
 from typing import Any
+
+try:  # Unix-only; benchmark remains usable on Windows without RSS telemetry.
+    import resource
+except ImportError:  # pragma: no cover - exercised on Windows
+    resource = None
 
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
@@ -54,6 +58,12 @@ def _bool(value: Any) -> bool | None:
 
 def _safe_div(num: int | float, den: int | float) -> float | None:
     return round(float(num) / float(den), 4) if den else None
+
+
+def _max_rss() -> int | None:
+    if resource is None:
+        return None
+    return int(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss)
 
 
 def _score(sample_csv: Path, annotations: list[Any]) -> dict[str, Any]:
@@ -121,18 +131,14 @@ def _score(sample_csv: Path, annotations: list[Any]) -> dict[str, Any]:
                 context_chars += int(context.get("chars") or 0)
                 missing_required_codebooks += int(bool(context.get("codebook_missing")))
 
-    entity_precision = _safe_div(entity_tp, entity_tp + entity_fp)
-    entity_recall = _safe_div(entity_tp, entity_tp + entity_fn)
-    frame_precision = _safe_div(frame_tp, frame_tp + frame_fp)
-    frame_recall = _safe_div(frame_tp, frame_tp + frame_fn)
     return {
         "documents": len(annotations),
         "populism_agreement": _safe_div(populism_agree, populism_total),
         "populism_gold_n": populism_total,
-        "entity_precision": entity_precision,
-        "entity_recall": entity_recall,
-        "frame_precision": frame_precision,
-        "frame_recall": frame_recall,
+        "entity_precision": _safe_div(entity_tp, entity_tp + entity_fp),
+        "entity_recall": _safe_div(entity_tp, entity_tp + entity_fn),
+        "frame_precision": _safe_div(frame_tp, frame_tp + frame_fp),
+        "frame_recall": _safe_div(frame_tp, frame_tp + frame_fn),
         "evidence_fidelity": _safe_div(evidence_verified, evidence_total),
         "unsupported_evidence_rate": (
             _safe_div(evidence_total - evidence_verified, evidence_total)
@@ -191,7 +197,7 @@ def run_one(args, profile_name: str) -> dict[str, Any]:
             "note": "dry matrix only; use --full for quality/resource metrics",
         }
 
-    before = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
+    before = _max_rss()
     started = time.perf_counter()
     with tempfile.TemporaryDirectory(prefix=f"laclaugpt-context-{profile_name}-") as tmp:
         work_dir = Path(tmp)
@@ -204,13 +210,14 @@ def run_one(args, profile_name: str) -> dict[str, Any]:
         )
         metrics = _score(args.sample, annotations)
     wall = time.perf_counter() - started
-    after = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
+    after = _max_rss()
+    rss_delta = None if before is None or after is None else max(0, after - before)
     return {
         "profile": profile_name,
         "status": "ok",
         "wall_seconds": round(wall, 3),
         "throughput_docs_per_second": _safe_div(metrics["documents"], wall),
-        "max_rss_delta": max(0, int(after - before)),
+        "max_rss_delta": rss_delta,
         "profile_config": profile.to_dict(),
         "metrics": metrics,
     }
