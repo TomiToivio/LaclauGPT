@@ -36,16 +36,17 @@ def test_profiles_only_touch_context_knobs():
     assert differing <= context_keys
 
 
-def test_codebook_required_stages_present_in_all_profiles():
+def test_theory_facing_codebook_required_stages_present_in_all_profiles():
     from laclaugpt.context_profiles import load_profile, PROFILE_NAMES
     for name in PROFILE_NAMES:
         profile = load_profile(name)
         assert profile.inject_codebook is True
-        assert set(profile.codebook_required_stages) == {
-            "summary", "discourse", "populism"}
+        assert set(profile.codebook_required_stages) == {"discourse", "populism"}
 
 
-def test_validation_profile_records_provenance():
+def test_validation_profile_records_provenance_and_fails_on_missing_codebook():
     from laclaugpt.context_profiles import load_profile
-    assert load_profile("validation").context_provenance is True
+    validation = load_profile("validation")
+    assert validation.context_provenance is True
+    assert validation.fail_on_missing_codebook is True
     assert load_profile("fast_local").context_provenance is False
