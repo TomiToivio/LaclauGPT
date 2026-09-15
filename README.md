@@ -2,7 +2,59 @@
 
 [![Meta-repo checks](https://github.com/TomiToivio/LaclauGPT/actions/workflows/ci.yml/badge.svg)](https://github.com/TomiToivio/LaclauGPT/actions/workflows/ci.yml)
 
-LaclauGPT is a social-science research framework for LLM-assisted computational discourse analysis, developed around Laclau/Mouffe/Palonen-inspired analysis while keeping model outputs auditable, provenance-aware and human-reviewable.
+**LaclauGPT** is an open social-science research framework for **LLM-assisted computational discourse analysis** of large textual and multimodal corpora. It combines computational methods with interpretive political research while keeping model outputs traceable to source evidence, uncertainty, provenance and human review.
+
+The current flagship research programme is **[LaclauGPT: Ideological contestation over AI](paper/PAPER.md)**. The project's canonical theoretical and methodological contract is **[THEORY.md](THEORY.md)**.
+
+The framework is developed around Ernesto Laclau and Chantal Mouffe's discourse theory and Emilia Palonen's work on populism, polarisation and hegemonic dynamics, with project-specific extensions such as Critical AI Studies and sociotechnical imaginaries. The AI/AGI study is the main development case, but LaclauGPT is deliberately a **general research framework rather than a single-purpose AI ideology classifier**. The same architecture can support election research, populism, grievance politics, social-media research and other comparative discourse-analysis projects.
+
+In short:
+
+- **Current research focus:** ideological contestation over AI and the methodology developed in the scientific paper.
+- **General software goal:** reusable LLM-assisted computational discourse analysis rather than a hard-wired political classifier.
+- **Theoretical core:** Laclau and Mouffe, with Palonen's Formula of Populism and project-specific theoretical extensions.
+- **Methodological principle:** models propose interpretations; evidence, uncertainty, provenance and human review remain visible.
+- **Research-use boundary:** LaclauGPT is intended for **academic research purposes only**. It is not an autonomous decision-maker, and its outputs must not substitute for accountable human scholarly judgement.
+- **Data principle:** open code and methods, while restricted research corpora, credentials and identifiable row-level research data remain outside public repositories.
+
+> [!WARNING]
+> **Human-in-the-loop academic research only.** LaclauGPT's machine-generated summaries, classifications, discourse-theoretical codes, populism analyses, signifier roles, ideological formations, affects and other interpretations are **preliminary analysis to be verified by a human researcher**. They must not be treated as final research findings, ground truth or autonomous scholarly judgement. Human verification of source evidence and interpretation is required before results are used, reported, published or cited as research conclusions. LaclauGPT is designed for academic research, not autonomous operational, administrative, intelligence, moderation, profiling or policy decisions about people or groups.
+
+## Research philosophy: human-in-the-loop as an assemblage
+
+LaclauGPT uses a deliberately assemblage-based working philosophy of AI:
+
+> **AI = HUMAN + LLM + LANGUAGE + INTERNET**
+
+This is a methodological and philosophical framing, not a settled empirical claim about machine consciousness.
+
+- **HUMAN — interpretation and accountable agency.** The researcher chooses questions, defines concepts and codebooks, evaluates evidence, resolves ambiguity, rejects model output and remains responsible for conclusions.
+- **LLM — learned model plus agentic machinery.** Models may contribute structured proposals, retrieval, comparison, tool use and iterative analysis, but their outputs remain fallible and provisional.
+- **LANGUAGE — communication protocol and cognitive medium.** Language couples the researcher, model, sources and theoretical concepts. LaclauGPT also takes seriously the working hypothesis that linguistic structure helps constitute the concepts, distinctions and inferential relations through which intelligent behaviour becomes possible.
+- **INTERNET — infrastructure and epistemic environment.** Networks, servers, software, model repositories, databases, APIs and research corpora form part of the practical research system. Retrieved information remains evidence to evaluate, not automatically trusted truth.
+
+Accordingly, **human-in-the-loop is not merely a final approval button attached to an otherwise autonomous pipeline**. The human researcher is constitutive of the research process throughout. LaclauGPT aims to extend researchers' capacity to inspect large corpora, generate provisional interpretations and compare discursive patterns while preserving source evidence, uncertainty, provenance and scholarly responsibility.
+
+## Theoretical and methodological orientation
+
+LaclauGPT treats political meaning as **relational, contested and only partially fixed**. Its purpose is not merely to detect topics, sentiment or frequently occurring words, but to investigate how meanings, identities, demands, signifiers and political frontiers are articulated in relation to one another.
+
+The framework can propose evidence for concepts such as articulations, nodal points, floating and empty signifiers, equivalential and differential relations, collective subjects, antagonistic frontiers, affective investments, ideological formations, myths, imaginaries and hegemonic dynamics. These are **theoretical roles supported by evidence**, not labels that should be inferred mechanically from keywords or frequency.
+
+Key methodological cautions include:
+
+- frequency is not hegemony;
+- semantic similarity is not equivalence;
+- negative sentiment is not antagonism;
+- polysemy or vagueness is not empty signification;
+- mentioning "the people" is not automatically populism;
+- document-level evidence does not by itself establish a corpus-level ideological formation.
+
+The LLM therefore acts as a structured analytical assistant. It may propose interpretations, but researchers must be able to inspect the source passage, reject or revise a coding, compare alternative readings, mark uncertainty and validate corpus-level claims. **Abstention and empty outputs are legitimate results when evidence is insufficient.**
+
+For the full conceptual contract, see **[THEORY.md](THEORY.md)**. For the current research application, see **[paper/PAPER.md](paper/PAPER.md)**.
+
+## This repository
 
 This repository is the **project and scientific-paper meta-repository**. It is the front door to the project, not a fourth implementation codebase. The scientific paper, theory, project architecture, interoperability rules, canonical cross-module data contract and full-system installation instructions live here. Executable implementation code lives in three independently installable Git submodules.
 
@@ -83,9 +135,7 @@ See [`docs/architecture/MODULAR_ARCHITECTURE.md`](docs/architecture/MODULAR_ARCH
 
 ## Scientific paper and theory
 
-The scientific paper lives under [`paper/`](paper/). [`THEORY.md`](THEORY.md) is the high-level theory source. This repository follows the current paper/theory state previously maintained in `LaclauGPT-Discourse-Analysis`, while implementation ownership has moved to the dedicated modules.
-
-LaclauGPT is human-in-the-loop academic research software. Automated outputs are preliminary research material and must be verified by a human researcher before they are treated as substantive findings.
+The scientific paper lives at [`paper/PAPER.md`](paper/PAPER.md). [`THEORY.md`](THEORY.md) is the canonical high-level theory and methodology source. This repository follows the current paper/theory state previously maintained in `LaclauGPT-Discourse-Analysis`, while implementation ownership has moved to the dedicated modules.
 
 ## Where changes belong
 
