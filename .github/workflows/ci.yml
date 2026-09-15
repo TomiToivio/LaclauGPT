@@ -48,3 +48,74 @@ jobs:
               assert '[project]' in text, path
           print('All three modules expose Python project metadata.')
           PY
+      - name: Verify AI26 distributed public profiles
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          root = Path('deploy/ai26-distributed')
+          expected = {
+              'laptop.example.json': {
+                  'role': 'laptop',
+                  'execution': 'interactive',
+                  'services': (True, False, False, True),
+              },
+              'roihu.example.json': {
+                  'role': 'roihu',
+                  'execution': 'slurm',
+                  'services': (False, False, True, False),
+              },
+              'linux-server.example.json': {
+                  'role': 'linux-server',
+                  'execution': 'service',
+                  'services': (False, True, True, True),
+              },
+          }
+          forbidden_value_markers = ('mongodb://', 'mongodb+srv://', 'redis://', 'rediss://', 'AKIA')
+          required_backend_envs = {
+              'mongodb_uri_env': 'LACLAUGPT_MONGODB_URI',
+              'redis_url_env': 'LACLAUGPT_REDIS_URL',
+              's3_endpoint_env': 'LACLAUGPT_S3_ENDPOINT',
+              's3_bucket_env': 'LACLAUGPT_S3_BUCKET',
+              's3_access_key_env': 'LACLAUGPT_S3_ACCESS_KEY',
+              's3_secret_key_env': 'LACLAUGPT_S3_SECRET_KEY',
+          }
+
+          schema = json.loads(Path('schemas/distributed-run.schema.json').read_text(encoding='utf-8'))
+          assert schema['properties']['analysis']['properties']['model']['const'] == 'gemma4:12b'
+          assert schema['properties']['analysis']['properties']['cloud_fallback']['const'] is False
+
+          for name, want in expected.items():
+              path = root / name
+              raw = path.read_text(encoding='utf-8')
+              data = json.loads(raw)
+              assert not any(marker in raw for marker in forbidden_value_markers), path
+              assert data['schema_version'] == '1.0', path
+              assert data['project_id'] == 'ai26', path
+              assert data['run_id_env'] == 'LACLAUGPT_RUN_ID', path
+              assert data['machine_role'] == want['role'], path
+              assert data['execution'] == want['execution'], path
+              service_tuple = tuple(data['services'][key] for key in (
+                  'firefox_collection', 'collectors', 'analysis_worker', 'dashboard'
+              ))
+              assert service_tuple == want['services'], path
+              assert data['backends'] == required_backend_envs, path
+              assert data['private_config'] == {
+                  'config_dir_env': 'LACLAUGPT_PRIVATE_CONFIG_DIR',
+                  'required': True,
+                  'publish_contents': False,
+              }, path
+              assert data['analysis']['model'] == 'gemma4:12b', path
+              assert data['analysis']['cloud_fallback'] is False, path
+              assert 1 <= data['limits']['max_records_per_arena'] <= 10, path
+              assert all(data['provenance'].values()), path
+
+          slurm = (root / 'roihu.sbatch.example').read_text(encoding='utf-8')
+          assert 'gemma4:12b' in slurm
+          assert 'LACLAUGPT_PRIVATE_CONFIG_DIR' in slurm
+          assert 'LACLAUGPT_MONGODB_URI' in slurm
+          assert 'LACLAUGPT_REDIS_URL' in slurm
+          assert 'LACLAUGPT_S3_ENDPOINT' in slurm
+          print('AI26 distributed public profiles are secret-free and internally consistent.')
+          PY

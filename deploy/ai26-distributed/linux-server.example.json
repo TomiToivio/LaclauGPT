@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0",
+  "project_id": "ai26",
+  "run_id_env": "LACLAUGPT_RUN_ID",
+  "machine_role": "linux-server",
+  "execution": "service",
+  "services": {
+    "firefox_collection": false,
+    "collectors": true,
+    "analysis_worker": true,
+    "dashboard": true
+  },
+  "backends": {
+    "mongodb_uri_env": "LACLAUGPT_MONGODB_URI",
+    "redis_url_env": "LACLAUGPT_REDIS_URL",
+    "s3_endpoint_env": "LACLAUGPT_S3_ENDPOINT",
+    "s3_bucket_env": "LACLAUGPT_S3_BUCKET",
+    "s3_access_key_env": "LACLAUGPT_S3_ACCESS_KEY",
+    "s3_secret_key_env": "LACLAUGPT_S3_SECRET_KEY"
+  },
+  "private_config": {
+    "config_dir_env": "LACLAUGPT_PRIVATE_CONFIG_DIR",
+    "required": true,
+    "publish_contents": false
+  },
+  "analysis": {
+    "enabled": true,
+    "ollama_host_env": "OLLAMA_HOST",
+    "model": "gemma4:12b",
+    "cloud_fallback": false
+  },
+  "limits": {
+    "max_records_per_arena": 10,
+    "claim_lease_seconds": 900,
+    "heartbeat_seconds": 30
+  },
+  "provenance": {
+    "record_git_sha": true,
+    "record_config_hash": true,
+    "record_codebook_hash": true,
+    "record_model": true,
+    "record_worker_id": true
+  }
+}
