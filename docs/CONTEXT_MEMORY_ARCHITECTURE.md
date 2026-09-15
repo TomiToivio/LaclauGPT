@@ -1,149 +1,213 @@
 # Context & memory architecture (issue #140)
 
 This note defines **what context each analysis stage receives, what persists
-across documents and runs, and which profiles are supported** — and the
-rationale for each decision. It is the architecture note the issue asks for;
-the implementation lands as `laclaugpt/context_profiles.py` (profiles) and a
-benchmark harness, feature-flagged so current production behaviour is
-unchanged until benchmarks justify a switch.
+across documents and runs, and which profiles are supported**. The implementation
+is split deliberately:
+
+- `laclaugpt/context_profiles.py` defines policy only;
+- `laclaugpt/context_runtime.py` applies an explicitly selected policy to real
+  pipeline prompt context and records context provenance;
+- `scripts/benchmark_context.py` compares profiles on the same reviewed sample.
+
+No profile is inferred from the machine name. Existing production behaviour is
+unchanged unless a canonical run explicitly selects a context profile.
 
 ## 1. Stage map and context requirements
 
-| Stage | What it needs as context | Current mechanism | Gap |
-|---|---|---|---|
-| summary | transcript/OCR/frame text; topic background; entity glossary | `memory_context(text)` + topic background | corpus stats absent |
-| discourse | summary; glossary (topic/entity/target); codebook hints; analytic hints | memory retrieval block | codebook block implicit, not logged |
-| postprocess | glossary (topic/entity/target); source row | memory retrieval | — |
-| populism | glossary (signifier/target); discourse output | memory retrieval | — |
-| corpus synthesis (new, #136) | grouped annotations; formation stats; previous windows | `laclaugpt/synthesis.py` | provenance exists |
-| researcher renderer | canonical record | `researcher_reporting.py` | — |
-
-**Principle already enforced in code:** context blocks are *retrieval
-suggestions*, never authoritative prior findings (neutral framing, issue #62
-finding 4). That wording is load-bearing against anchoring bias and stays.
-
-## 2. Memory architecture (what persists and why)
-
-Six layers, in increasing persistence:
-
-1. **Static research context** — theory text, ontology, codebooks. Loaded per
-   stage; version-tracked (`prompt_versions` already in provenance).
-2. **Corpus context** — known actors/formations/frames statistics from
-   `laclaugpt/formations.py` + corpus counts. Descriptive only.
-3. **Run context** — run config fingerprint (already recorded per row).
-4. **Short-term memory** — the SQLite Context Memory glossary
-   (`laclaugpt_memory`): canonical entity/topic strings + aliases + embeddings,
-   injected per stage with stable IDs. This is the *glossary + normalisation
-   loop*, deliberately not RAG (see `docs/CONTEXT_MEMORY_DESIGN.md`).
-5. **Long-term retrieval memory** — prior analyses remain in the canonical
-   JSONL/SQLite; retrieval is by entity (memory) not by embedding search.
-   Vector RAG stays an **opt-in benchmark-gated add-on** (`vector_rag: false`).
-6. **Temporal situational state** — previous batch/daily structured summary
-   (issue #136 synthesis output). Opt-in per profile; benchmarked against
-   stateless runs before production default (anchoring-bias risk documented).
-
-## 3. Approaches evaluated (issue-mandated list)
-
-| Approach | Verdict for LaclauGPT | Reason |
+| Stage | Context already passed | Codebook / memory role |
 |---|---|---|
-| Plain message/history between stages | **kept** (stages already chain structured outputs) | cheap, proven |
-| Structured rolling summaries / state objects | **adopted as opt-in** (`inject_previous_batch_summary`) | matches daily-report experiment |
-| Previous-stage outputs passed forward | **already canonical** | summary_json flows into discourse/populism |
-| Previous batch summaries / daily report | **opt-in, benchmark-gated** | anchoring bias risk; harness in `scripts/benchmark_context.py` |
-| Claude-Code-style project memory files | **kept** — `docs/`, `sources/codebooks/`, run YAMLs are the project memory | already deterministic, versioned in git |
-| LangChain memory | **rejected for now** | framework overhead without a benchmark win; adds a dependency for what SQLite already does |
-| LlamaIndex retrieval | **rejected for now** | same; corpus is small and structured |
-| Vector RAG (standalone store) | **opt-in flag, off by default** | useful only when corpus outgrows glossary (≫100k entities); Qdrant/ChromaDB are new services to operate |
-| Graph RAG / hybrid | **not adopted** | the canonical SQLite graph (`laclaugpt/graph.py`) already stores the discourse graph; a second graph store adds drift risk |
-| Entity-centric memory | **already the core design** | glossary + alias resolution *is* entity-centric memory |
-| Temporal memory | **adopted via corpus synthesis windows** (#136 date grouping + baseline comparison) | temporal analysis happens at synthesis level, not per-prompt |
-| Episodic memory of corrections | **adopted** — human-rejected merges (`rejected_merges`) and review state are first-class in Context Memory | INV_HUMAN_REVIEW |
-| Hierarchical memory | **partially adopted** — profile knobs express retrieval depth per level; deeper hierarchy deferred to benchmark | — |
-| Cached prompt/context bundles | **partially present** — stage cache fingerprints; context fingerprint added with profiles | — |
+| summary | transcript/OCR/frame text, source metadata, topic background | glossary helps keep actors/topics/entities stable; descriptive stage |
+| discourse | source, summary, metadata, analytic hints | signifier/formation/actor codebook context is theory-facing and must be auditable |
+| postprocess | source + summary | topic/entity/target glossary supports canonical IDs |
+| populism | source + summary + discourse coding | signifier/target codebook context supports Formula-of-Populism coding |
+| corpus synthesis | canonical annotations and grouped statistics | consumes outputs rather than silently becoming new source evidence |
 
-## 4. Codebook audit per stage
+Previous-stage outputs are passed explicitly as structured values. Opaque chat
+history is therefore not the default memory mechanism.
 
-Audit result (verified against `pipeline.py`, `prompts/*.py`):
+## 2. Six-layer memory model
 
-| Stage | Codebook use | Mandatory? | Recorded? | Missing behaviour |
-|---|---|---|---|---|
-| summary | topic background + glossary | optional (descriptive) | ✓ prompt version | proceeds with warning |
-| discourse | codebook hints + glossary + analytic hints | **required by profile** | ✓ prompt versions | profile gate |
-| postprocess | glossary (topics/entities) | optional | ✓ | — |
-| populism | glossary (signifier/target) + codebook hints | **required by profile** | ✓ | profile gate |
+1. **Static research context** — theory, ontology, codebooks and prompt
+   instructions, versioned in the repository.
+2. **Corpus context** — descriptive actor/formation/frame statistics. Optional
+   prompt context only when a profile asks for it.
+3. **Run context** — project, arena, model, analysis switches and effective
+   configuration fingerprint.
+4. **Short-term analytical memory** — persistent Context Memory glossary
+   (`laclaugpt_memory`) with stable IDs, aliases, review state and optional
+   embeddings.
+5. **Long-term retrieval memory** — prior reviewed entities/relations and
+   corrections. Model proposals remain provisional and rejected merges stay
+   rejected.
+6. **Temporal situational state** — an optional previous daily/batch report or
+   structured state file, explicitly labelled as trusted or untrusted prior
+   context and never treated as source evidence.
 
-**Fail-loudly rule:** with `inject_codebook: true` and
-`codebook_required_stages` set, a run whose `memory_context()` returns an
-empty block (disabled run / empty glossary / missing codebook) for a required
-stage logs a loud warning AND marks the row's provenance
-(`codebook_missing: true`) so validation sweeps detect it. The run does not
-fail closed — it flags, keeping INV_HUMAN_REVIEW (the EP24 private-repo
-policy of hard-failing a *pilot* stays in the private repo; the public repo
-records and surfaces).
+## 3. Approaches evaluated
 
-## 5. Profiles
+| Approach | Decision | Rationale |
+|---|---|---|
+| Plain message/history | keep only explicit stage outputs | cheap, transparent, reproducible |
+| Structured rolling state | opt-in | useful for daily/batch continuity; anchoring must be benchmarked |
+| Previous-stage outputs | keep | already canonical and typed |
+| Previous daily/batch report | opt-in | useful situational context; always provenance-labelled |
+| Claude-Code-style project memory | keep as versioned repo instructions/codebooks | deterministic and reviewable |
+| LangChain memory | do not adopt by default | extra dependency without demonstrated quality gain |
+| LlamaIndex | do not adopt by default | same; add only if benchmarked retrieval wins |
+| Vector RAG | benchmark-gated flag, off by default | existing Context Memory already supports local embedding-assisted retrieval |
+| Graph RAG / hybrid RAG | benchmark before adopting | canonical discourse graph already exists; a second graph memory risks drift |
+| Entity-centric memory | keep | stable-ID glossary is already entity-centric |
+| Temporal memory | keep at synthesis/state layer | avoids turning previous model output into source truth |
+| Episodic corrections | keep | rejected merges/review decisions are first-class memory |
+| Hierarchical memory | partial | project/corpus/run/document layers are explicit; deeper retrieval remains experimental |
+| Cached context bundles | keep via fingerprints/provenance | supports reproducible reruns |
 
-Four bundled profiles (see `laclaugpt/context_profiles.py`; YAML overrides in
-`laclaugpt/profiles/`):
+The design intentionally prefers simple deterministic mechanisms until a
+human-reviewed benchmark shows that a heavier framework improves analysis.
 
-| Profile | Glossary top-k | Codebook | Batch state | Corpus stats | Context budget | Provenance | Use |
-|---|---|---|---|---|---|---|---|
-| `fast_local` | 3 | ✓ | ✗ | ✗ | 2 000 / 4 000 | off | laptop, pilots, debugging |
-| `balanced` (default) | 5 | ✓ | ✗ | ✗ | 6 000 / 12 000 | ✓ | routine production |
-| `high_accuracy` | 8 | ✓ | ✓ | ✓ | 12 000 / 20 000 | ✓ | research runs, Roihu |
-| `validation` | 5 | ✓ | ✓ | ✓ | 6 000 / 12 000 | ✓ | memory on/off comparisons |
+## 4. Codebook audit and fail-loudly behaviour
 
-Selection is configuration only:
+The root pipeline already calls Context Memory in all four LLM stages. Issue
+#140 adds explicit profile-aware validation and provenance.
+
+| Stage | Typical codebook kinds | Required in normal profiles? | Validation behaviour |
+|---|---|---:|---|
+| summary | actor/topic/entity | advisory | missing block is recorded |
+| discourse | signifier/formation/actor | yes | `validation` fails closed |
+| postprocess | topic/entity/target | advisory | missing block is recorded |
+| populism | signifier/target | yes | `validation` fails closed |
+
+For routine profiles, a missing required block emits a warning and records
+`codebook_missing: true` in stage context provenance. In the `validation`
+profile, missing required codebook context raises immediately. This gives
+production a non-breaking warning path and audit runs a hard gate.
+
+Each stage provenance may include:
+
+```json
+{
+  "context": {
+    "profile": "high_accuracy",
+    "stage": "discourse",
+    "kinds": ["entity", "topic", "signifier"],
+    "glossary_top_k": 8,
+    "chars": 7421,
+    "sha256": "...",
+    "codebook_required": true,
+    "codebook_missing": false,
+    "previous_batch_summary": {
+      "sha256": "...",
+      "trust": "model_proposed"
+    }
+  }
+}
+```
+
+The hash is part of reproducibility: context changes change the prompt and the
+existing stage-cache fingerprint already includes the rendered prompt text.
+
+## 5. Profiles and environments
+
+| Profile | Glossary top-k | Previous state | Corpus stats | Context cap | Missing required codebook | Recommended use |
+|---|---:|---:|---:|---:|---|---|
+| `fast_local` | 3 | no | no | 2k chars | warn | laptop debugging and tiny pilots |
+| `balanced` | 5 | no | no | 6k chars | warn | routine production, local or Roihu |
+| `high_accuracy` | 8 | yes if supplied | yes if supplied | 12k chars | warn | CSC Roihu research/validation passes |
+| `validation` | 5 | yes if supplied | yes if supplied | 6k chars | **fail** | reproducibility and context-ablation audits |
+
+Models remain controlled by the existing model/runtime configuration. A context
+profile does **not** silently switch Gemma tiers or cloud/local routing.
+
+Canonical selection is explicit under the dataset pipeline settings:
 
 ```yaml
-context_profile: balanced      # or fast_local / high_accuracy / validation
+dataset:
+  pipeline:
+    context_profile: high_accuracy
+    previous_batch_summary: /approved/private/path/previous-day.json
+    corpus_stats_path: /approved/private/path/corpus-state.json
 ```
 
-Switching profiles never changes models, stages, evidence gates, or relevance
-handling — those stay the run YAML's authority.
+The public repo should contain only generic examples. Operational paths and
+research data remain private.
 
-## 6. Benchmark harness
+## 6. Previous daily report / situational state
 
-`scripts/benchmark_context.py` runs the same human-reviewed sample under two
-profiles and reports: agreement, evidence fidelity (quote verification rate),
-glossary consistency, latency, tokens, and per-stage model usage. Usage:
+State-aware profiles can read JSON or Markdown. JSON is preferred because it can
+carry `review_status` and structured fields such as major actors, emerging
+frames, important signifiers, unresolved ambiguities, codebook changes and human
+corrections.
+
+Rules:
+
+- `review_status: human_reviewed|accepted|source_fact` is labelled reviewed, but
+  the source documents still remain primary evidence;
+- any other state is injected with an **UNTRUSTED PRIOR STATE** warning;
+- the exact file hash and injected character count are stored in provenance;
+- the state is bounded by the profile context budget;
+- a stateless run remains possible by omitting the state path.
+
+This lets the benchmark compare the same profile with and without previous-day
+state and measure both continuity gains and anchoring effects.
+
+## 7. Benchmark harness
+
+The public repository contains methodology and code; the human-reviewed sample
+may remain in the private research environment.
+
+Dry matrix validation:
 
 ```bash
-python3 scripts/benchmark_context.py --sample data/gold_sample.csv \
-    --runs balanced,validation,fast_local
+python3 scripts/benchmark_context.py \
+  --sample /private/gold.csv --project ai26 --arena grassroots \
+  --machine laptop-ollama --profiles fast_local,balanced,high_accuracy
 ```
 
-Results are recorded as JSON next to the sample; aggregate, non-sensitive
-numbers may be published (methodology-only in docs). The first benchmark
-question is the **daily-report experiment**: stateless vs
-`inject_previous_batch_summary` on the same sample, scored on agreement and
-anchoring-bias symptoms (repetition of prior frames not supported by the
-source).
+Full Roihu comparison:
 
-## 7. Safety against analytical drift
+```bash
+python3 scripts/benchmark_context.py \
+  --sample /private/gold.csv --project ai26 --arena grassroots \
+  --machine roihu --profiles balanced,high_accuracy,validation --full \
+  --previous-state /private/previous-day.json \
+  --out /private/context-benchmark.json
+```
 
-- **Human vs model memory:** glossary candidates are suggestions with stable
-  IDs; human-rejected merges are unreproposable (INV_HUMAN_REVIEW).
-- **Model-generated memory is never ground truth:** neutral framing in all
-  prompt blocks (issue #62 finding 4); formation labels stay provisional;
-  frequency is never hegemony (INV_HEGEMONY_CORPUS).
-- **TTL / staleness:** situational batch state is regenerated per run and
-  never trusted older than the run's own window; codebooks are versioned by
-  git and their prompt versions recorded.
-- **Reproducibility:** `context_provenance: true` (default in
-  `balanced`/`high_accuracy`) records which context block, at which top-k,
-  was injected into which stage — enough to rebuild a prompt byte-stably.
+When matching human columns exist (`gold_populist` / `human_populist`,
+`gold_entities` / `human_entities`, `gold_frames` / `human_frames`), the harness
+reports agreement and precision/recall. It always reports evidence fidelity,
+unsupported-evidence rate, canonical-ID rate, context size, missing-codebook
+count, wall time, throughput and process memory delta. It does not invent a
+quality score for dimensions absent from the gold sample.
 
-## 8. Recommended defaults
+A useful experimental sequence is:
 
-- **Local / Laskin:** `balanced` with `context_memory: true`,
-  top-k 5, codebook injection on. No vector store; embeddings via
-  sentence-transformers MiniLM (CPU is sufficient at current corpus size).
-- **CSC Roihu:** `high_accuracy` for validation passes; `balanced` for
-  routine scale-ups. Deeper retrieval only if the benchmark shows gains.
-- **Corpus synthesis:** synthesis consumes canonical outputs directly and
-  inherits the run's profile for its own prompts (#136 module).
+1. `fast_local` vs `balanced` for speed/context-cost baseline;
+2. `balanced` vs `high_accuracy` for retrieval-depth/context benefit;
+3. `high_accuracy` with and without `--previous-state` for the daily-report
+   situational-memory experiment;
+4. `validation` to prove that required codebooks are actually present.
 
-Migration plan: profiles are additive; default behaviour is unchanged until a
-run explicitly sets `context_profile`. No schema break: profile knobs are new
-optional RunConfig fields.
+## 8. Memory hygiene
+
+- Model-generated memory never silently becomes ground truth.
+- Previous-state text is explicitly trust-labelled.
+- Human rejection of merges remains binding.
+- Stable IDs preserve exact wording/alias history.
+- Context is bounded and hashed.
+- Codebook gaps are visible in provenance and fail closed in audit mode.
+- Heavy vector/graph frameworks remain off until human-reviewed benchmarking
+  demonstrates a gain.
+
+## 9. Recommended defaults and migration
+
+- **Local / Laskin:** start with `balanced`; use `fast_local` for debugging.
+- **CSC Roihu:** use `balanced` for throughput and `high_accuracy` for expensive
+  research passes; use `validation` before trusting a new codebook/run setup.
+- **Previous daily state:** keep opt-in until the same-sample benchmark shows a
+  continuity benefit without unacceptable anchoring.
+
+Migration is additive. If `dataset.pipeline.context_profile` is absent, the
+canonical wrapper delegates directly to the existing pipeline and does not
+alter prompt context, model routing, evidence gates, stages, or relevance
+handling.
