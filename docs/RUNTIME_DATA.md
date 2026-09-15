@@ -45,15 +45,32 @@ LaclauGPT-Data-Visualization/data/
 
 Analysis may read canonical Collection records/files directly from Collection's private `data/` tree. Visualization may read canonical Analysis results directly from Analysis's private `data/` tree. These paths are runtime configuration, never committed machine-specific constants.
 
+Direct execution is first-class. A local or otherwise simple workflow does not need Redis just to hand work from one module/process to another.
+
 ## Distributed topology
 
-For distributed execution, the preferred transport is:
+For distributed execution, the preferred durable data plane is:
 
-- MongoDB for canonical records and queryable metadata
-- Redis for coordination, queue/cache/state where needed
-- S3-compatible object storage, including CSC Allas, for files, media and large artifacts
+- MongoDB for canonical records, durable job/run state and queryable metadata;
+- S3-compatible object storage, including CSC Allas, for files, media and large artifacts.
 
-The backend must not change canonical record semantics.
+Redis is an **optional** control/messaging plane for coordination, task queues, streams, leases, locks, cache and worker heartbeats when asynchronous or multi-worker execution benefits from it.
+
+Conceptually, deployments choose between:
+
+```text
+messaging_backend = none     task_queue_backend = direct
+```
+
+and, when needed:
+
+```text
+messaging_backend = redis    task_queue_backend = redis
+```
+
+Mixed modes are also valid. See `MESSAGING_TASK_QUEUE.md` for the shared message/task contract and retry/idempotency rules.
+
+The backend choice must not change canonical record semantics.
 
 ## Manual transfer fallback
 
