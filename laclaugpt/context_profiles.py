@@ -45,9 +45,10 @@ class ContextProfile:
     context_memory: bool = True
     glossary_top_k: int = 5
     inject_codebook: bool = True
-    codebook_required_stages: tuple[str, ...] = ("summary", "discourse", "populism")
-    # Validation/audit can fail closed; routine production only warns so an
-    # unexpectedly empty new codebook does not silently disappear from provenance.
+    # Summary and postprocess use glossary context as useful descriptive help.
+    # Discourse and populism are the theory-facing stages where a missing
+    # expected codebook must be surfaced, and validation mode fails closed.
+    codebook_required_stages: tuple[str, ...] = ("discourse", "populism")
     fail_on_missing_codebook: bool = False
     inject_previous_batch_summary: bool = False
     inject_corpus_stats: bool = False
