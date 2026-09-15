@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Atomically export canonical AI26 annotations from MongoDB for the dashboard.
+"""Atomically export canonical annotations from MongoDB for the dashboard.
 
 The dashboard polls these files. Each arena is written to a temporary file and
 replaced atomically only after the export succeeds, so readers never observe a
 half-truncated JSONL file. Concrete deployment paths and credentials stay outside
 this public module.
+
+Each exported record keeps the canonical machine-readable annotation intact and
+adds a deterministic ``human_readable_analysis`` field for researcher inspection.
 """
 from __future__ import annotations
 
@@ -21,6 +24,8 @@ REPO = Path(
 sys.path.insert(0, str(REPO / "ai26_runtime"))
 sys.path.insert(0, str(REPO))
 
+from laclaugpt.researcher_reporting import researcher_row  # noqa: E402
+from laclaugpt_interchange import DocumentAnnotation  # noqa: E402
 from mongo_writer import get_db  # noqa: E402
 
 OUT_ROOT = Path(
@@ -45,6 +50,12 @@ def _arena_for_annotation(db, annotation: dict) -> str:
     return str((source.get("metadata") or {}).get("arena") or "elites")
 
 
+def _dashboard_record(annotation: dict) -> dict:
+    """Validate a canonical annotation and add its complete researcher view."""
+    canonical = DocumentAnnotation.model_validate(annotation)
+    return researcher_row(canonical)
+
+
 def main() -> None:
     db = get_db()
     OUT_ROOT.mkdir(parents=True, exist_ok=True)
@@ -63,8 +74,9 @@ def main() -> None:
                 temp_paths[arena] = temp_path
                 counts[arena] = 0
             annotation.pop("_id", None)
+            record = _dashboard_record(annotation)
             handles[arena].write(
-                json.dumps(annotation, ensure_ascii=False, default=str) + "\n"
+                json.dumps(record, ensure_ascii=False, default=str) + "\n"
             )
             counts[arena] += 1
 
