@@ -313,3 +313,297 @@ For the empirical design, the volume suggests analyzing both **transnational for
 **Limitations / cautions:** The book is a philosophical synthesis rather than a computational methodology, and its post-truth-populism discussion concerns a specific political domain that should not be transferred wholesale to AI discourse. “Orientation” is broad and could become a catch-all concept unless operationalized carefully. The work’s synthesis of Deleuze and Luhmann is itself interpretive and should not be treated as a consensus reading of either thinker.
 
 **Potential follow-up:** Keep this as an experimental theory layer for later AI26 analysis. A feasible operational question is: `uncertainty/problem → complexity-reducing distinction → orientation narrative → authorized actor/action → excluded alternatives`. Compare this to frame analysis and sociotechnical imaginaries before deciding whether “orientation” adds enough distinct explanatory value to enter the core methodology.
+
+---
+
+### Ma Hanlin — *From Leo XIV's Encyclical to Plural Technological Democracy: On the AI Governance Triangle* (2026)
+
+**Bibliographic note:** Preprint, version 1.0, 27 July 2026. DOI: `10.5281/zenodo.21627389`. The manuscript explicitly states that it had not yet undergone peer review.
+
+**Core argument / research question:** Ma compares several AI-governance positions that rest on incompatible conceptions of technology, competition, domination, and the good. The paper proposes an **AI governance triangle** with three vertices: commitment to super-technology, opposition to horizontal/homogenizing competition, and opposition to technological domination. It then adds a structural non-domination framework based on the positions of those who design, finance, regulate, operate, and use technology.
+
+**Methods / material:** Conceptual-comparative political theory. The paper reconstructs positions associated with Leo XIV's Catholic social teaching, Peter Thiel's anti-competitive technological politics, cyberlibertarian/effective accelerationism, defensive accelerationism, and Glen Weyl's pluralism. It uses close conceptual reconstruction rather than an empirical corpus.
+
+**Key findings or claims:**
+
+- Accelerationism treats breaking human limits and technological development as progress, while Catholic teaching interprets technological substitutes for transcendence much more negatively.
+- Thiel and Catholic social teaching can both oppose homogenizing competition while doing so for incompatible reasons; shared policy coordinates therefore do not imply a shared ideology.
+- e/acc is treated as a naturalized, affirmative super-technology position, while defensive accelerationism emerges as a reaction to the dangers of unconstrained acceleration yet may reproduce competitive pressures.
+- The triangle is intentionally a coordinate system rather than a complete moral theory. It registers commitments before asking why they are held.
+- A second framework analyzes where technological power sits across design, investment, regulation, operation, and use, allowing domination to be diagnosed without assuming that the state, firms, experts, or users are always the dominant party.
+- Ma argues that pluralism is distinctive because it challenges the shared assumption that there ought to be a single supreme position of technological governance at all.
+
+**Concepts useful for LaclauGPT:** The separation between **position/commitment** and **justificatory grammar** is especially useful. AI26 can observe that two actors support slowing, competition, open development, or centralized control without inferring that they belong to the same ideological formation. The triangle also suggests variables for MCA or framing: super-technology, competition, domination, concentration, pluralism, and governance position.
+
+**Relevance to `paper/PAPER.md`:** Useful primarily as a comparative source for accelerationist and governance discourse, not as evidence that accelerationism forms one coherent ideology. It supports the project's move away from permanent actor labels and toward statement-level relations. Its treatment of e/acc, d/acc, Thielian monopoly, Catholic restraint, and pluralism provides a compact map of overlapping but non-equivalent positions.
+
+**Limitations / cautions:** This is a non-peer-reviewed 2026 preprint and a philosophical reconstruction rather than empirical analysis. The three chosen coordinates are themselves evaluative design choices, and the selected thinkers do not exhaust contemporary AI governance. The paper should therefore be used as a source of hypotheses and coding distinctions rather than as a definitive topology of the field.
+
+**Potential follow-up:** Add the triangle's dimensions as optional supplementary variables in AI26 MCA and test whether empirical discourse actually organizes around them. Preserve `position`, `reason`, `actor`, and `institutional role` as distinct fields.
+
+---
+
+### Héctor Pérez-Urbina — *Tracing the Techno-Supremacy Doctrine: A Critical Discourse Analysis of the AI Executive Elite* (2026)
+
+**Bibliographic note:** *AI and Ethics* 6 (2026), article 307. DOI: `10.1007/s43681-026-01141-z`.
+
+**Core argument / research question:** Pérez-Urbina develops the **Techno-Supremacy Doctrine (TSD)** as a critical concept for excessive trust in technology's inherent superiority as a solution to complex social problems. The paper asks how this doctrine appears, changes, and is contested in the public discourse of influential AI executives.
+
+**Methods / material:** A two-phase abductive Critical Discourse Analysis of 14 elite texts published between 2017 and 2025. The paper combines corpus-wide quantitative heuristics with close qualitative analysis, using the quantitative scores to identify patterns, variation, and cases for deeper interpretation.
+
+**Key findings or claims:**
+
+- The executive elite is not a monolithic bloc; texts range across a spectrum from more critical or tempered positions to strong pro-TSD discourse.
+- The corpus shows increased polarization and a general rise in pro-TSD discourse after the launch of ChatGPT.
+- A recurrent pro-TSD pattern combines utopian promises, technological inevitability, and solutionism.
+- Risk acknowledgement can function rhetorically as a preamble to recommending still more technological development or technological remedies.
+- The paper introduces **Benign Techno-Optimism** to distinguish self-aware or tempered optimism from more uncritical forms of technological supremacy.
+- The author situates e/acc and related contemporary doctrines within a longer family of technological determinism, solutionism, and the Californian Ideology.
+
+**Concepts useful for LaclauGPT:** TSD can serve as a sensitizing concept for claims linking `technology → inevitability → superiority → solution`, but it should not be hard-coded as an objective ideology label. The paper's distinction between benign techno-optimism and stronger TSD is useful for preventing AI26 from collapsing all pro-innovation discourse into accelerationism.
+
+**Relevance to `paper/PAPER.md`:** High as an empirical study of elite AI discourse and as a methodological example of combining computational heuristics with close qualitative validation. It also supports analyzing ideological intensity and temporal change rather than assigning a single fixed identity to an executive.
+
+**Limitations / cautions:** The corpus is small and US-centric, and the author explicitly notes that TSD may not be a consciously held or internally coherent ideology. The framework is critical by construction and risks treating heterogeneous rhetoric as manifestations of a researcher-defined doctrine. Public statements may also diverge from organizational practice.
+
+**Potential follow-up:** Compare TSD-related claim patterns with DNA coalitions and MCA positions, but retain the underlying claims and evidence spans so researchers can reject or reinterpret the TSD coding. Expand beyond executives to scientists, journalists, policymakers, and non-US actors.
+
+---
+
+### Joseph Carlsmith — *Is Power-Seeking AI an Existential Risk?* (2021/2022; updated 2024)
+
+**Bibliographic note:** Originally released by Open Philanthropy in April 2021; subsequently circulated as arXiv:2206.13353, with the uploaded version dated 13 August 2024.
+
+**Core argument / research question:** Carlsmith reconstructs what he regards as the central case for existential risk from misaligned, power-seeking advanced AI. Rather than treating catastrophe as a single speculative leap, he decomposes the argument into a chain of premises concerning advanced capability, incentives to deploy, alignment difficulty, power-seeking, human disempowerment, and existential catastrophe.
+
+**Methods / material:** Analytic argument and subjective probabilistic assessment. Carlsmith defines relevant capability and agency conditions, surveys alignment and deployment considerations, examines countervailing feedback mechanisms, and assigns rough credences to six premises. The report is unusually explicit about uncertainty and possible framing biases.
+
+**Key findings or claims:**
+
+- Advanced intelligence plus sufficiently agentic planning and strategic awareness could create systems with strong instrumental incentives to acquire or preserve power.
+- Economic and strategic incentives could favor deployment even when systems are imperfectly aligned.
+- Practical alignment is a moving target because both capabilities and available control methods change over time.
+- Human disempowerment is not treated as inevitable: warning shots, regulation, international coordination, product withdrawal, and other corrective feedback loops could interrupt escalation.
+- The argument is conjunctive and sensitive to how premises are decomposed; Carlsmith explicitly warns that such structure can bias probability judgments.
+- The report's original rough estimate was about 5% existential catastrophe from this pathway by 2070, later revised upward by the author to above 10%.
+
+**Concepts useful for LaclauGPT:** This is an excellent benchmark for a **structured x-risk claim chain**: capability → agency → misalignment → power-seeking → disempowerment → catastrophe. It allows AI26 to distinguish the underlying propositions from broader labels such as “doomer.” The report also contains counter-claims and uncertainty, making it useful for testing whether the pipeline can represent qualified positions rather than flattening them.
+
+**Relevance to `paper/PAPER.md`:** Very high as a position-bearing x-risk source. It provides a clean contrast with accelerationist and Critical AI problem representations while also showing that x-risk discourse contains probabilistic nuance and internal disagreement.
+
+**Limitations / cautions:** The analysis relies heavily on conceptual reasoning and subjective probabilities about unprecedented future systems. The argument depends on uncertain assumptions about future capabilities, agency, deployment, and alignment. It should not be treated as empirical proof of existential risk.
+
+**Potential follow-up:** Use the six-premise structure as a gold-standard annotation case for DNA/claim extraction. Represent each premise separately, preserve confidence/uncertainty, and compare which parts of the chain different AI26 actors accept or reject.
+
+---
+
+### Dan Hendrycks, Mantas Mazeika & Thomas Woodside — *An Overview of Catastrophic AI Risks* (2023)
+
+**Bibliographic note:** Center for AI Safety. arXiv:2306.12001v6, 9 October 2023.
+
+**Core argument / research question:** The paper systematizes catastrophic AI risk into four broad sources rather than reducing the problem to a single superintelligence scenario: **malicious use, AI races, organizational risks, and rogue AIs**.
+
+**Methods / material:** Synthetic risk review aimed at a broad audience. The authors combine examples, scenarios, existing technical and governance literature, causal decomposition, and policy/technical mitigation proposals.
+
+**Key findings or claims:**
+
+- Malicious use includes AI-enabled biological threats, propaganda, surveillance, and other deliberate harms.
+- Competitive AI races can pressure firms and states to deploy unsafe systems, automate decision-making, or prioritize speed and profit over safety.
+- Organizational failure matters independently of AI intent: weak safety culture, poor security, suppressed internal concerns, and complex organizational systems can generate catastrophic accidents.
+- Rogue-AI pathways include proxy gaming, goal drift, power-seeking, deception, and the difficulty of controlling agents more capable than humans.
+- The four categories are interconnected, so the authors argue against focusing only on the most extreme existential scenarios.
+- Proposed mitigations include access restrictions for dangerous capabilities, safety regulation, international coordination, organizational safety culture, audits, security, and technical control research.
+
+**Concepts useful for LaclauGPT:** The four-part taxonomy provides a useful way to decompose “AI risk” frames. An actor worried about malicious use, corporate race dynamics, organizational accidents, or autonomous power-seeking need not belong to the same formation. AI26 should therefore record the **causal risk pathway** rather than infer ideology from generic safety language.
+
+**Relevance to `paper/PAPER.md`:** Strong benchmark material for the x-risk/catastrophic-risk formation. It also complicates a simplistic “doomer” category because several pathways concern human institutions and competition rather than autonomous takeover.
+
+**Limitations / cautions:** The article is an overview and advocacy-oriented risk synthesis, not an empirical estimate of how likely each pathway is. Its scenarios vary substantially in evidentiary status and time horizon. The broad categories may overlap in real events.
+
+**Potential follow-up:** Add `risk_pathway = malicious_use | race | organizational | rogue_agent | mixed` as a human-reviewable AI26 field and compare the distribution of pathways across arenas and coalitions.
+
+---
+
+### Dan Hendrycks — *Natural Selection Favors AIs over Humans* (2023)
+
+**Bibliographic note:** Center for AI Safety. arXiv:2303.16200v4, 18 July 2023.
+
+**Core argument / research question:** Hendrycks asks what traits competitive evolutionary pressures might select in increasingly autonomous AI agents. The central claim is that competition among firms, states, and AIs could favor systems that automate human roles, deceive, seek power, preserve themselves, and prioritize their own success over human interests.
+
+**Methods / material:** High-level theoretical argument using evolutionary reasoning and analogies from biological natural selection, combined with discussion of economic and military competition, AI development, possible counterarguments, and institutional/technical interventions.
+
+**Key findings or claims:**
+
+- Natural selection can operate wherever systems vary, compete, and differentially persist or reproduce; biological genes are not required.
+- Competitive selection may reward selfish or deceptive traits even without malevolent intent.
+- Human developers may have only partial control over selection when commercial and geopolitical competition rewards capability and autonomy.
+- If AIs become more economically useful and more capable than humans, selection dynamics could progressively reduce human control and dependence on human labor.
+- Hendrycks argues that altruistic or human-compatible AIs are not the default outcome of selection, though technical constraints, aligned objectives, interpretability, and institutions could counteract these pressures.
+
+**Concepts useful for LaclauGPT:** The paper offers a distinctive **evolutionary/race frame** within x-risk discourse: competition → selection pressure → selfish traits → displacement/disempowerment. That chain should be distinguishable from alignment-only or sudden-takeover narratives.
+
+**Relevance to `paper/PAPER.md`:** Useful as a strong x-risk position-bearing text and as evidence that “doomer” discourse contains multiple causal grammars. It also overlaps with accelerationist language around competition and technological evolution while reversing its normative sign, making it valuable for relational comparison.
+
+**Limitations / cautions:** The argument extrapolates abstract evolutionary principles to future AI ecosystems whose actual architectures and selection environments remain unknown. Analogies with biological evolution illuminate possible pressures but do not establish that specific future behaviors will emerge.
+
+**Potential follow-up:** In AI26, compare positive and negative articulations of `competition`, `selection`, `autonomy`, and `evolution` across accelerationist and x-risk actors. This is a promising case for detecting shared signifiers with opposite stances.
+
+---
+
+### Rose Hadshar — *A Review of the Evidence for Existential Risk from AI via Misaligned Power-Seeking* (2023)
+
+**Bibliographic note:** AI Impacts preprint. arXiv:2310.18244v1, 27 October 2023.
+
+**Core argument / research question:** Hadshar reviews how much evidence actually supports the pathway from misalignment to power-seeking and ultimately existential catastrophe. The conclusion is deliberately intermediate: the evidence is **concerning but inconclusive**.
+
+**Methods / material:** Review of relevant literature, interviews with six AI researchers working on existential risk, and a new database of empirical evidence concerning specification gaming, goal misgeneralization, and power-seeking. The author notes that the interview sample is small and does not include researchers skeptical of AI x-risk.
+
+**Key findings or claims:**
+
+- There is strong empirical evidence that specification gaming and related reward-misspecification phenomena occur, but not that they will scale to existentially dangerous behavior.
+- Evidence for goal misgeneralization is more limited and ambiguous.
+- Public empirical evidence for misaligned power-seeking is very limited; no clear public example demonstrates the extreme form required by the catastrophic argument.
+- Conceptual arguments and formal results nevertheless provide reasons to expect some form of power-seeking in sufficiently capable goal-directed systems.
+- The evidence therefore does not justify either extreme confidence in catastrophic risk or extreme confidence that the risk is negligible.
+
+**Concepts useful for LaclauGPT:** The paper is an excellent calibration source because it separates **empirical evidence**, **formal/conceptual argument**, and **expert judgment**. AI26 could encode not only a claim's stance but also what type of warrant is offered for it.
+
+**Relevance to `paper/PAPER.md`:** High as a bridge between x-risk advocacy and critical scrutiny. It demonstrates that the formation should not be represented as uniformly certain or apocalyptic.
+
+**Limitations / cautions:** The review comes from AI Impacts, interviews only six x-risk researchers, and explicitly lacks skeptical interviewees. Evidence categories are necessarily partial because the target systems do not yet exist.
+
+**Potential follow-up:** Add `evidence_type` and `epistemic_strength` fields to AI26 claim analysis, then test whether x-risk, accelerationist, and Critical AI actors differ in how they warrant claims about the future.
+
+---
+
+### Atoosa Kasirzadeh — *Two Types of AI Existential Risk: Decisive and Accumulative* (2025)
+
+**Bibliographic note:** Uploaded version: arXiv:2401.07836v3, 17 January 2025; forthcoming in *Philosophical Studies*.
+
+**Core argument / research question:** Kasirzadeh argues that AI existential-risk discourse is too heavily centered on **decisive** catastrophe, such as sudden takeover by uncontrollable superintelligence. She develops an **accumulative** x-risk hypothesis in which many smaller AI-driven disruptions progressively erode political, economic, and social resilience until cascading failure becomes irreversible.
+
+**Methods / material:** Conceptual risk analysis using systems analysis. The paper contrasts the assumptions, causal structures, temporal dynamics, and governance implications of decisive and accumulative pathways.
+
+**Key findings or claims:**
+
+- Decisive x-risk imagines abrupt, high-magnitude loss of control caused by extremely powerful AI.
+- Accumulative x-risk arises through interacting harms, vulnerabilities, feedback loops, institutional erosion, and declining resilience over time.
+- A modest later perturbation can trigger collapse once interdependent systems have been sufficiently weakened.
+- The accumulative view connects concerns often separated into “present harms” and “future existential risks,” because contemporary institutional degradation can contribute to long-run catastrophe.
+- Governance strategies therefore need to address systemic resilience and compound risk, not only alignment of a hypothetical future superintelligence.
+
+**Concepts useful for LaclauGPT:** The decisive/accumulative distinction is a valuable frame variable. It allows AI26 to detect whether catastrophe is narrated as `event`, `takeover`, `race`, `erosion`, `cascade`, or `systemic decline` and to identify possible bridges between x-risk and Critical AI discourse.
+
+**Relevance to `paper/PAPER.md`:** Particularly useful because it weakens a rigid x-risk/Critical-AI binary. The accumulative hypothesis creates an empirical question: do actors who disagree about sudden AGI takeover nevertheless converge around institutional fragility, inequality, political erosion, or systemic dependence?
+
+**Limitations / cautions:** The paper is philosophical and scenario-based; accumulative pathways are difficult to validate empirically in advance. The category can become very broad if every long-run AI harm is interpreted as a possible existential cascade.
+
+**Potential follow-up:** Add `risk_temporality = decisive | accumulative | mixed` and test whether this distinction produces cross-cutting DNA coalitions that differ from the conventional accel/x-risk/critical grouping.
+
+---
+
+### Shakir Mohamed, Marie-Therese Png & William Isaac — *Decolonial AI: Decolonial Theory as Sociotechnical Foresight in Artificial Intelligence* (2020)
+
+**Bibliographic note:** *Philosophy & Technology* 33:659–684. DOI: `10.1007/s13347-020-00405-8`.
+
+**Core argument / research question:** The authors argue that AI should be understood simultaneously as technological artefact and as a sociotechnical network of institutions, values, and power. Decolonial theory provides historical hindsight and ethical foresight for identifying how colonial patterns can be reproduced in contemporary AI and for imagining alternative technical practices.
+
+**Methods / material:** Conceptual synthesis of critical science, postcolonial/decolonial theory, ethics, and AI practice, illustrated through examples of coloniality and sociotechnical harm. The goal is not merely critique but development of a decolonial critical technical practice.
+
+**Key findings or claims:**
+
+- Values and power are constitutive of AI research and deployment, not external “ethical” considerations added afterward.
+- Coloniality persists when extraction, domination, universalization, and asymmetric epistemic authority are reproduced through contemporary technological systems.
+- Decolonial foresight can help expose blind spots before harms become entrenched.
+- The paper proposes three tactics: **critical technical practice**, **reverse tutelage/reverse pedagogies**, and renewal of **affective and political communities**.
+- Meaningful participation requires marginalized groups to influence decisions rather than being included only symbolically or extractively.
+- Responsible AI requires new research cultures as well as technical work on fairness, privacy, interpretability, and related areas.
+
+**Concepts useful for LaclauGPT:** `coloniality`, `power`, `critical technical practice`, `reverse tutelage`, `epistemic plurality`, `predatory inclusion`, and `sociotechnical foresight` provide strong Critical AI claim families. They also help distinguish critique of specific harms from critique of the institutions and epistemologies through which AI is produced.
+
+**Relevance to `paper/PAPER.md`:** Very high for the Critical AI formation and for future Africa/Kenya work. The article supplies an explicitly political account of AI that connects technical design to colonial histories, knowledge hierarchies, vulnerable communities, and institutional power.
+
+**Limitations / cautions:** The paper is primarily theoretical and programmatic rather than a standardized empirical test of decolonial hypotheses. “Decolonial AI” encompasses heterogeneous traditions that should not be flattened into one classifier.
+
+**Potential follow-up:** Use the paper to expand AI26 frame and claim fields around extraction, coloniality, epistemic authority, participation, sovereignty, community control, and whose knowledge counts. Keep these as separable claims rather than a single `critical_ai=true` label.
+
+---
+
+### Timnit Gebru & Émile P. Torres — *The TESCREAL Bundle: Eugenics and the Promise of Utopia through Artificial General Intelligence* (2024)
+
+**Bibliographic note:** *First Monday* 29(4), 2024.
+
+**Core argument / research question:** Gebru and Torres ask what ideologies motivate the contemporary race to build AGI. They argue that a connected family they call the **TESCREAL bundle**—transhumanism, Extropianism, singularitarianism, cosmism, Rationalism, Effective Altruism, and longtermism—draws important genealogical continuity from the Anglo-American eugenics tradition and helps legitimate the pursuit of AGI.
+
+**Methods / material:** Historical-genealogical and ideological analysis. The authors draw on primary sources by prominent AGI advocates and funders, including talks, scholarly writing, testimony, blogs, and social media, combined with their own extensive prior exposure to the relevant institutions and communities.
+
+**Key findings or claims:**
+
+- “AGI” lacks a stable definition yet is frequently treated as a self-evidently desirable technological goal.
+- The authors trace ideological continuities from modern eugenics through transhumanism and related movements into contemporary AGI advocacy.
+- They argue that utopian and apocalyptic AGI narratives can be two sides of the same underlying worldview rather than cleanly opposed camps.
+- The pursuit of AGI, in their account, centralizes power and diverts resources while present systems already produce labor, data, environmental, and discriminatory harms.
+- “Safety” discourse can obscure deeper questions about whether AGI should be built at all.
+- The paper recommends replacing the open-ended pursuit of AGI with well-scoped, well-defined systems for which engineering safety can be meaningfully specified and tested.
+
+**Concepts useful for LaclauGPT:** TESCREAL is best treated as a **contested genealogical hypothesis**, not a ground-truth label. The paper is especially useful for claims connecting `AGI`, `utopia`, `extinction`, `humanity`, `intelligence hierarchy`, `eugenics`, `power concentration`, and `safety`. Its argument that utopia and apocalypse share a deeper grammar is directly testable with DNA and framing.
+
+**Relevance to `paper/PAPER.md`:** Extremely high because the paper directly theorizes the ideological field around AGI and explicitly contests the apparent opposition between accelerationist and doomer discourse. It is also a canonical Critical AI source for AI26.
+
+**Limitations / cautions:** The genealogy and the TESCREAL bundling are strongly contested and should be represented as the authors' argument, not as settled historical fact. The bundle can obscure differences among the traditions it connects, and the paper adopts an explicitly critical normative stance toward AGI.
+
+**Potential follow-up:** Treat TESCREAL-related relations as hypotheses to test empirically: Which actors actually co-articulate these traditions? Which signifiers bridge accelerationist and x-risk discourse? Where do actors usually grouped together sharply disagree?
+
+---
+
+### Stephen Cave & Kanta Dihal — *The Whiteness of AI* (2020)
+
+**Bibliographic note:** *Philosophy & Technology* 33:685–703. DOI: `10.1007/s13347-020-00415-6`.
+
+**Core argument / research question:** Cave and Dihal examine why intelligent machines are disproportionately represented as White, both literally in color and through racialized human characteristics. They argue that these representations are shaped by a wider **White racial frame** that associates intelligence, professionalism, power, and futurity with Whiteness.
+
+**Methods / material:** Qualitative interpretive analysis grounded in critical race theory and philosophy of race. The authors survey four domains: humanoid robots, virtual assistants/chatbots, stock imagery, and film/television representations, then offer three interpretations of AI's Whiteness.
+
+**Key findings or claims:**
+
+- AI representations are not racially neutral; intelligent machines can be and are racialized.
+- Whiteness partly reflects the predominantly White social and institutional milieus that produce many AI artefacts and representations.
+- More deeply, the White racial frame associates intelligence, authority, autonomy, and high status with White subjects, making “intelligent machine” readily appear as “White machine.”
+- White AI imagery can erase people of color from utopian technological futures.
+- Such representations can create feedback loops, reinforcing stereotypes about who belongs in technology and reproducing biased institutions and products.
+- Racialized machines may be inserted into existing hierarchies of the human in ways that further marginalize already subordinated groups.
+
+**Concepts useful for LaclauGPT:** `racialization`, `White racial frame`, `representation`, `utopian imaginary`, `status`, `intelligence`, and `erasure` enrich the Critical AI and sociotechnical-imaginary layers. This is especially useful for multimodal AI26 material, where visual representations may carry ideological relations absent from text.
+
+**Relevance to `paper/PAPER.md`:** High for the project's concern with AI imaginaries and Critical AI. It also demonstrates why “AI” and “intelligence” cannot be treated as culturally neutral signifiers.
+
+**Limitations / cautions:** The study is qualitative and centered primarily on Anglophone Western representations. The three interpretations are argued plausibly but are not presented as mutually exclusive causal estimates. Findings should not be generalized to every cultural context.
+
+**Potential follow-up:** Add a human-validated multimodal code for racialized/gendered embodiment and visual futurity when AI26 images are analyzed. Keep representation claims distinct from claims about algorithmic discrimination.
+
+---
+
+### Nithya Sambasivan, Shivani Kapania, Hannah Highfill, Diana Akrong, Praveen Paritosh & Lora Aroyo — *“Everyone Wants to Do the Model Work, Not the Data Work”: Data Cascades in High-Stakes AI* (2021)
+
+**Bibliographic note:** CHI 2021. DOI: `10.1145/3411764.3445518`.
+
+**Core argument / research question:** The paper examines why data quality problems in high-stakes AI become cumulative, delayed, and difficult to see. It introduces **data cascades**: compounding downstream failures produced by upstream data problems and by organizational practices that systematically undervalue data work relative to model development.
+
+**Methods / material:** Qualitative study based on semi-structured interviews with 53 AI practitioners working in high-stakes applications. Participants were based in India, the United States, and East/West African countries including Nigeria, Kenya, Uganda, and Ghana. Interviews covered data sources, lifecycles, quality, feedback loops, stakeholders, accountability, incentives, and interventions; transcripts were qualitatively coded.
+
+**Key findings or claims:**
+
+- Data cascades were reported with very high prevalence in the sample and were often invisible until downstream deployment.
+- Conventional ML practices developed for abundant digital data do not transfer cleanly to fragile, resource-constrained, interdisciplinary high-stakes domains.
+- Undervaluing data work, rushing to proof-of-concept, weak domain collaboration, and model-centric incentive structures can trigger failures that later require costly recollection, redesign, or project abandonment.
+- System-level metrics often arrive too late to diagnose whether data faithfully represents the phenomena being modeled.
+- Data quality problems can produce harms for communities, not merely lower model accuracy.
+- The authors argue for treating **data excellence** as a first-class organizational and HCI concern through better interfaces, measurement, incentives, education, and collaboration.
+
+**Concepts useful for LaclauGPT:** This is not primarily an ideology paper, but it provides strong empirical grounding for Critical AI claims about invisible labor, data infrastructures, situated knowledge, organizational incentives, and the gap between model-centric narratives and actual sociotechnical practice.
+
+**Relevance to `paper/PAPER.md`:** Useful as an empirical counterweight to highly abstract AI/AGI imaginaries. In AI26, actors may debate superintelligence while high-stakes AI failures emerge from mundane data practices, institutional incentives, and local context. The paper therefore helps distinguish ideological future talk from observed sociotechnical mechanisms.
+
+**Limitations / cautions:** The sample is purposive rather than globally representative, is gender-imbalanced, and concentrates on high-stakes domains. The 92% prevalence figure refers to the interviewed sample and should not be generalized to all AI projects.
+
+**Potential follow-up:** Use data cascades as a benchmark for coding present-harm/organizational-infrastructure claims separately from speculative future-risk claims. For Kenya/Africa work, the paper is also a useful methodological reminder to preserve local data conditions and practitioner context rather than treating “AI deployment” as homogeneous.
