@@ -22,6 +22,23 @@ Current situation-specific terms such as `safety`, `pacing`, `competition`, `inn
 
 Never publish credentials, cookies, browser profiles, private API/backend endpoints, machine-specific secrets, private source/watch lists, row-level research data, researcher notes or unpublished annotations. Public AI26 examples should be reproducible without exposing operational research infrastructure. See `docs/AI26_REFERENCE_CASE.md`.
 
+## Source-reading workspace
+
+Use `sources/` as the publication-safe literature workspace. Researchers may place local PDFs under `sources/pdfs/`; that directory and all PDFs under `sources/` are Git-ignored.
+
+When asked to process source PDFs:
+
+1. inspect the local PDFs in `sources/pdfs/`;
+2. identify bibliographic metadata only from verifiable information in the document or a reliable external source;
+3. add/update the compact index in `sources/SOURCES.md`;
+4. add/update concise analytical summaries in `sources/SUMMARIES.md`;
+5. distinguish source claims from LaclauGPT interpretation;
+6. explain relevance to `paper/PAPER.md` where material;
+7. prefer updating an existing entry over creating duplicates;
+8. do not commit PDFs, extracted full text, private annotations, or long copyrighted passages.
+
+See `sources/README.md` for the expected workflow and templates.
+
 ## Submodules
 
 Canonical paths are `modules/data-collection`, `modules/data-analysis`, and `modules/data-visualization`. Update gitlinks deliberately; do not copy module source trees into this repository.
