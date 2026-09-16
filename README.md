@@ -4,6 +4,30 @@
 
 **LaclauGPT** is an open social-science research framework for **LLM-assisted computational discourse analysis** of large textual and multimodal corpora. It combines computational methods with interpretive political research while keeping model outputs traceable to source evidence, uncertainty, provenance and human review.
 
+## Start here: project map
+
+**This repository is the LaclauGPT meta-repository and the main entry point to the project.** It contains the scientific paper, theory, project-wide architecture, canonical data contract, interoperability rules and full-system documentation. The executable pipeline is split into three focused repositories, included here under `modules/` as Git submodules:
+
+| Repository | Role |
+| --- | --- |
+| **[LaclauGPT](https://github.com/TomiToivio/LaclauGPT)** | **Meta-repo:** scientific paper, theory, architecture, shared contracts and complete-system documentation |
+| **[LaclauGPT-Data-Collection](https://github.com/TomiToivio/LaclauGPT-Data-Collection)** | **Collect:** acquire/capture source material, normalize it, preserve raw data and provenance, and emit canonical records |
+| **[LaclauGPT-Data-Analysis](https://github.com/TomiToivio/LaclauGPT-Data-Analysis)** | **Analyze:** enrich canonical records with NLP, embeddings, LLM-assisted discourse analysis, statistics, uncertainty and evidence-linked analytical proposals |
+| **[LaclauGPT-Data-Visualization](https://github.com/TomiToivio/LaclauGPT-Data-Visualization)** | **Visualize/review:** dashboards, timelines, maps, graphs, corpus exploration and human researcher review |
+
+The normal research flow is:
+
+```text
+Data Collection  ->  Data Analysis  ->  Data Visualization
+       \                 |                    /
+        \________ shared canonical record ___/
+                         |
+              LaclauGPT meta-repo
+       paper + theory + shared contracts
+```
+
+If you arrived here looking for the **paper or theory**, stay in this repository. If you want to **run or develop one pipeline stage**, follow the corresponding module above. If you want the **complete system**, clone this repository with its submodules.
+
 The current flagship research programme is **[LaclauGPT: Ideological contestation over AI](paper/PAPER.md)**. The project's canonical theoretical and methodological contract is **[THEORY.md](THEORY.md)**.
 
 The framework is developed around Ernesto Laclau and Chantal Mouffe's discourse theory and Emilia Palonen's work on populism, polarisation and hegemonic dynamics, with project-specific extensions such as Critical AI Studies and sociotechnical imaginaries. The AI/AGI study is the main development case, but LaclauGPT is deliberately a **general research framework rather than a single-purpose AI ideology classifier**. The same architecture can support election research, populism, grievance politics, social-media research and other comparative discourse-analysis projects.
