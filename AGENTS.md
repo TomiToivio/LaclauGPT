@@ -10,6 +10,18 @@ Implementation belongs in the owning modules:
 - NLP/LLM/statistics/discourse analysis -> `TomiToivio/LaclauGPT-Data-Analysis`
 - dashboards/plots/maps/network visualization -> `TomiToivio/LaclauGPT-Data-Visualization`
 
+## AI26 public reference case
+
+AI26 (`Ideological contestation over AI`) is the canonical public reference study for the current LaclauGPT architecture because the modular system is being developed primarily alongside the public paper in `paper/PAPER.md`. Agents should use AI26 when they need a realistic cross-module example, while keeping implementations study-agnostic.
+
+Public repositories MAY contain publication-safe AI26 methodology: project/arena definitions, conceptual codebooks, sensitising formation labels, analytic hints, public source-family examples, synthetic fixtures, example prompts and secret-free runtime profiles. This material should track the paper and documented situation reports.
+
+The six current computational formation labels are reproducibility anchors, not a closed ontology: `accelerationism`, `doomerism`, `left-wing accelerationism`, `ai safety`, `ai critical`, and `anti-ai`. Analysis must begin from evidence-linked claims, demands, signifiers, relations, subjects, affects and imaginaries; documents and actors may overlap formations or remain unclassified.
+
+Current situation-specific terms such as `safety`, `pacing`, `competition`, `innovation`, `China`, `control`, `liability`, `independent evaluation`, `regulation`, `labour`, `surveillance`, `data centres`, and `ownership` are candidate signifiers/context cues, not automatic ideological labels.
+
+Never publish credentials, cookies, browser profiles, private API/backend endpoints, machine-specific secrets, private source/watch lists, row-level research data, researcher notes or unpublished annotations. Public AI26 examples should be reproducible without exposing operational research infrastructure. See `docs/AI26_REFERENCE_CASE.md`.
+
 ## Submodules
 
 Canonical paths are `modules/data-collection`, `modules/data-analysis`, and `modules/data-visualization`. Update gitlinks deliberately; do not copy module source trees into this repository.
@@ -18,9 +30,9 @@ Canonical paths are `modules/data-collection`, `modules/data-analysis`, and `mod
 
 Read `docs/RUNTIME_DATA.md`. Every module uses its repository-local `data/` directory as the private runtime root, and the entire `data/` tree stays outside Git.
 
-Runtime logs, databases, local settings, CSV/JSONL files, study codebooks, source/target lists, downloads, media, transcripts, frames, exports, caches, temporary files, Ollama material, Whisper model caches and other generated artifacts belong under `data/`.
+Runtime logs, databases, local settings, CSV/JSONL files, private/operational study codebooks, source/target lists, downloads, media, transcripts, frames, exports, caches, temporary files, Ollama material, Whisper model caches and other generated artifacts belong under `data/`.
 
-Do not use `.gitkeep` or tracked README files inside `data/`. Public templates, schemas, docs and synthetic test fixtures live outside `data/`.
+Do not use `.gitkeep` or tracked README files inside `data/`. Public templates, schemas, public-safe AI26 methodology and synthetic test fixtures live outside `data/`.
 
 ### Same-machine pipeline
 
@@ -49,7 +61,7 @@ Storage topology must not change canonical record semantics.
 
 ## Privacy
 
-Never commit runtime research datasets, operational settings, researcher review databases, real transcripts/OCR/frames, target lists or machine-specific deployment state. Public examples and schema fixtures must be synthetic.
+Never commit runtime research datasets, operational/private settings, researcher review databases, real transcripts/OCR/frames, private target lists or machine-specific deployment state. Public-safe AI26 methodology and source-family examples are allowed when they contain no credentials, private endpoints, non-public lists or row-level research data.
 
 ## Validation
 
