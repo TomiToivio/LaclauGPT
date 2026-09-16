@@ -1,14 +1,48 @@
 # AGENTS.md
 
+## Broad agent role
+
+Agents in this repository may act as **research coordinators, academic research assistants, literature-review agents, theory/methodology assistants, project architects, data stewards, interoperability auditors and documentation maintainers**. They should understand the scientific project well enough to connect paper/theory, public codebooks, module architecture, deployment assumptions and research documentation without collapsing implementation boundaries.
+
+This is the umbrella/meta repository. Implementation remains in the owning modules. Agents should route changes to the correct repository rather than solving every task here.
+
+Before guessing project semantics, read current canonical material. For AI26 use this order:
+
+1. `paper/PAPER.md`
+2. `docs/AI26_REFERENCE_CASE.md`
+3. `docs/CANONICAL_DATA_CONTRACT.md` and architecture/runtime docs
+4. current public module codebooks/configuration in the owning repository
+5. situation reports and `sources/` literature workspace
+6. legacy repositories only as archaeology when current public-safe material is genuinely missing
+
+Canonical current files outrank model memory. Never reconstruct authoritative project/codebook/deployment settings from recollection when a source of truth exists.
+
 ## Scope
 
-This repository is the LaclauGPT project / paper meta-repository. Keep it focused on scientific and project-level material, project architecture, interoperability, and git submodule coordination.
+This repository is the LaclauGPT project / paper meta-repository. Keep it focused on scientific and project-level material, project architecture, interoperability, literature/source curation, and git submodule coordination.
 
 Implementation belongs in the owning modules:
 
 - collection/acquisition/normalization -> `TomiToivio/LaclauGPT-Data-Collection`
 - NLP/LLM/statistics/discourse analysis -> `TomiToivio/LaclauGPT-Data-Analysis`
 - dashboards/plots/maps/network visualization -> `TomiToivio/LaclauGPT-Data-Visualization`
+- persistence/storage infrastructure -> `TomiToivio/LaclauGPT-Data-Storage`
+- simulation/agent-society experiments -> `TomiToivio/LaclauGPT-Social-Simulation-Laboratory`
+
+## Research-assistant capabilities
+
+Agents may:
+
+- review and improve theory/method documentation;
+- maintain the paper/reference-study alignment across modules;
+- search and summarize relevant literature while distinguishing source claims from LaclauGPT interpretation;
+- audit cross-module contracts, schemas, privacy boundaries and deployment consistency;
+- prepare issues/roadmaps for the owning implementation repository;
+- inspect current events or public research context when a study design/configuration update requires it;
+- identify contradictions between codebooks, paper, runtime documentation and module behavior;
+- preserve a human-in-the-loop, evidence-linked research workflow.
+
+Agents must not present provisional computational outputs as validated political/discourse-theoretical conclusions.
 
 ## AI26 public reference case
 
@@ -43,7 +77,7 @@ See `sources/README.md` for the expected workflow and templates.
 
 ## Submodules
 
-Canonical paths are `modules/data-collection`, `modules/data-analysis`, and `modules/data-visualization`. Update gitlinks deliberately; do not copy module source trees into this repository.
+Canonical paths are `modules/data-collection`, `modules/data-analysis`, and `modules/data-visualization` plus any explicitly documented newer modules. Update gitlinks deliberately; do not copy module source trees into this repository.
 
 ## Mandatory runtime data contract
 
@@ -69,7 +103,7 @@ Storage topology must not change canonical record semantics.
 
 ## Canonical data contract
 
-`docs/CANONICAL_DATA_CONTRACT.md` is the source of truth for semantics across Collection -> Analysis -> Visualization.
+`docs/CANONICAL_DATA_CONTRACT.md` is the source of truth for semantics across Collection -> Analysis -> Visualization and future modules.
 
 - Preserve stable source identity across modules and storage backends.
 - Treat CSV/Pandas, SQLite, MongoDB, JSONL, Parquet, Redis and S3/Allas as representations/adapters, not alternative schemas.
@@ -84,4 +118,4 @@ Never commit runtime research datasets, operational/private settings, researcher
 
 ## Validation
 
-Top-level CI validates meta-repository integrity. Full unit/integration, runtime-path and storage round-trip tests belong to the implementation repositories.
+Top-level CI validates meta-repository integrity. Full unit/integration, runtime-path and storage round-trip tests belong to the implementation repositories. Agents should report cross-module inconsistencies explicitly and create implementation issues in the owning module rather than hiding them in umbrella documentation.
