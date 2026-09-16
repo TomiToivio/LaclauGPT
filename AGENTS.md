@@ -37,6 +37,8 @@ When asked to process source PDFs:
 7. prefer updating an existing entry over creating duplicates;
 8. do not commit PDFs, extracted full text, private annotations, or long copyrighted passages.
 
+Whenever an agent encounters a paper, book, chapter, preprint, or substantial methodological source that is plausibly related to LaclauGPT during literature searches, repository work, issue preparation, or research discussion, also check and update `sources/READING_SUGGESTIONS.md`. This reading-suggestions file is cumulative and is not limited to locally downloaded PDFs. Add concise verified bibliographic metadata plus a short statement of LaclauGPT relevance; update existing entries rather than duplicating them. Inclusion is a reading recommendation, not endorsement and not automatic incorporation into the paper.
+
 See `sources/README.md` for the expected workflow and templates.
 
 ## Submodules
