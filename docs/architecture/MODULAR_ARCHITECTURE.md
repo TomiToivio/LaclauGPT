@@ -74,7 +74,27 @@ Storage choices do not change the schema:
              same logical record
 ```
 
-Pandas is a view/transport representation, not the schema authority. MongoDB `_id`, SQLite PKs and row numbers never replace canonical source identity. Redis is coordination/cache infrastructure. S3/Allas stores referenced artifacts, not a competing record model.
+Pandas is a view/transport representation, not the schema authority. MongoDB `_id`, SQLite PKs and row numbers never replace canonical source identity. Redis, when enabled, is coordination/cache/messaging infrastructure. S3/Allas stores referenced artifacts, not a competing record model.
+
+## Execution and messaging
+
+Modules must support a simple direct execution path without Redis. Redis is an optional adapter for deployments that need asynchronous messaging, distributed task dispatch, consumer groups, leases, retries or worker heartbeat/status.
+
+The public cross-module messaging contract is [`../MESSAGING_TASK_QUEUE.md`](../MESSAGING_TASK_QUEUE.md) with machine-readable definitions in `schemas/messaging-task.schema.json`.
+
+The architectural boundary is:
+
+```text
+Direct mode:
+producer/process -> durable record/result -> next step
+
+Redis mode:
+producer -> small task/event envelope -> Redis Streams/consumer group -> worker
+             |                                              |
+             +---------- durable record/artifact refs ------+
+```
+
+Redis never becomes the canonical research datastore. A worker persists durable output before acknowledging a queue task, and duplicate/retried work is controlled by durable idempotency semantics.
 
 ## Interoperability principles
 
@@ -86,8 +106,9 @@ Pandas is a view/transport representation, not the schema authority. MongoDB `_i
 6. Multimodal fields are optional. Text-only records are valid without transcript/OCR/frame placeholders.
 7. Descriptive computational results remain distinguishable from theory-guided interpretive claims and human review state.
 8. Local CSV/SQLite/filesystem operation is first-class. MongoDB, Redis and S3-compatible object storage are optional distributed backends.
-9. Storage adapters reconstruct the same canonical object before module-specific semantics are applied.
-10. Public repositories contain no real research data, private configuration or secrets.
+9. Redis task/messaging mode is opt-in; `direct` / no-Redis mode remains a supported execution path.
+10. Storage and messaging adapters reconstruct or reference the same canonical object before module-specific semantics are applied.
+11. Public repositories contain no real research data, private configuration or secrets.
 
 ## Schema evolution
 

@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/TomiToivio/LaclauGPT/schemas/messaging-task.schema.json",
+  "title": "LaclauGPT optional messaging and task queue contract",
+  "description": "Backend-neutral contract for direct execution or optional Redis Streams based messaging/task dispatch. Durable records/results remain outside Redis.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "messaging_backend", "task_queue_backend"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "messaging_backend": {"enum": ["none", "redis"], "default": "none"},
+    "task_queue_backend": {"enum": ["direct", "redis"], "default": "direct"},
+    "redis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["url_env", "stream_prefix", "consumer_group_prefix", "claim_idle_ms", "heartbeat_ttl_seconds", "max_attempts"],
+      "properties": {
+        "url_env": {"const": "LACLAUGPT_REDIS_URL"},
+        "stream_prefix": {"type": "string", "default": "laclaugpt"},
+        "consumer_group_prefix": {"type": "string", "default": "workers"},
+        "claim_idle_ms": {"type": "integer", "minimum": 1000, "default": 300000},
+        "heartbeat_ttl_seconds": {"type": "integer", "minimum": 5, "default": 60},
+        "max_attempts": {"type": "integer", "minimum": 1, "maximum": 100, "default": 5},
+        "dead_letter_suffix": {"type": "string", "default": "dead-letter"}
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "anyOf": [
+          {"properties": {"messaging_backend": {"const": "redis"}}},
+          {"properties": {"task_queue_backend": {"const": "redis"}}}
+        ]
+      },
+      "then": {"required": ["redis"]}
+    }
+  ],
+  "$defs": {
+    "durable_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "uri"],
+      "properties": {
+        "kind": {"enum": ["mongodb", "s3", "https", "file", "sqlite", "jsonl"]},
+        "uri": {"type": "string", "minLength": 1},
+        "sha256": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"}
+      }
+    },
+    "task_envelope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_version", "message_id", "task_id", "project_id", "run_id", "task_type", "idempotency_key", "attempt", "created_at", "refs"],
+      "properties": {
+        "schema_version": {"const": "1.0"},
+        "message_id": {"type": "string", "minLength": 1},
+        "task_id": {"type": "string", "minLength": 1},
+        "project_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9_-]{1,63}$"},
+        "run_id": {"type": "string", "minLength": 1},
+        "task_type": {"type": "string", "minLength": 1},
+        "source_url": {"type": ["string", "null"]},
+        "record_id": {"type": ["string", "null"]},
+        "arena": {"type": ["string", "null"]},
+        "idempotency_key": {"type": "string", "minLength": 1},
+        "attempt": {"type": "integer", "minimum": 1},
+        "created_at": {"type": "string", "format": "date-time"},
+        "not_before": {"type": ["string", "null"], "format": "date-time"},
+        "schema_revision": {"type": ["string", "null"]},
+        "config_revision": {"type": ["string", "null"]},
+        "codebook_revision": {"type": ["string", "null"]},
+        "producer": {"type": ["string", "null"]},
+        "refs": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/durable_ref"},
+          "default": []
+        },
+        "metadata": {
+          "type": "object",
+          "additionalProperties": {"type": ["string", "number", "integer", "boolean", "null"]},
+          "default": {}
+        }
+      },
+      "anyOf": [
+        {"required": ["source_url"]},
+        {"required": ["record_id"]},
+        {"minProperties": 1}
+      ]
+    },
+    "worker_heartbeat": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_version", "project_id", "run_id", "worker_id", "worker_role", "status", "updated_at"],
+      "properties": {
+        "schema_version": {"const": "1.0"},
+        "project_id": {"type": "string", "minLength": 1},
+        "run_id": {"type": "string", "minLength": 1},
+        "worker_id": {"type": "string", "minLength": 1},
+        "worker_role": {"enum": ["collection", "analysis", "visualization", "orchestration"]},
+        "status": {"enum": ["starting", "idle", "busy", "draining", "stopped", "error"]},
+        "current_task_id": {"type": ["string", "null"]},
+        "updated_at": {"type": "string", "format": "date-time"},
+        "metadata": {
+          "type": "object",
+          "additionalProperties": {"type": ["string", "number", "integer", "boolean", "null"]},
+          "default": {}
+        }
+      }
+    },
+    "dead_letter_event": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_version", "project_id", "run_id", "task_id", "task_type", "attempts", "failed_at", "error_class", "error_summary"],
+      "properties": {
+        "schema_version": {"const": "1.0"},
+        "project_id": {"type": "string", "minLength": 1},
+        "run_id": {"type": "string", "minLength": 1},
+        "task_id": {"type": "string", "minLength": 1},
+        "task_type": {"type": "string", "minLength": 1},
+        "attempts": {"type": "integer", "minimum": 1},
+        "failed_at": {"type": "string", "format": "date-time"},
+        "error_class": {"type": "string", "minLength": 1},
+        "error_summary": {"type": "string", "minLength": 1},
+        "refs": {"type": "array", "items": {"$ref": "#/$defs/durable_ref"}, "default": []}
+      }
+    }
+  }
+}
