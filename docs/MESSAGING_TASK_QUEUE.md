@@ -11,7 +11,19 @@ The machine-readable public contract is `schemas/messaging-task.schema.json`.
 
 ## Backend selection
 
-A deployment selects messaging and task execution independently:
+A deployment selects messaging and task execution independently. In shorthand configuration notation, the supported combinations are:
+
+```text
+messaging_backend = none
+task_queue_backend = direct
+
+messaging_backend = redis
+task_queue_backend = redis
+```
+
+The first pair is the default. The second pair is opt-in for distributed deployments. Mixed combinations are also valid when only messaging or only task dispatch needs Redis.
+
+The equivalent default JSON is:
 
 ```json
 {
