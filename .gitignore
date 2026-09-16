@@ -140,6 +140,10 @@ site/
 *.7z
 *.rar
 
+# Local source PDFs: keep bibliographic indexes/summaries public, PDFs local only.
+/sources/pdfs/
+/sources/**/*.pdf
+
 # Canonical rule: absolutely everything under data/ is private runtime state.
 # No README, .gitkeep, codebook, config, model cache, source list or fixture is
 # tracked from this directory. Public examples belong outside data/.
