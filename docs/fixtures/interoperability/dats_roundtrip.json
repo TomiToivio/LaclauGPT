@@ -1,0 +1,79 @@
+{
+  "fixture_version": "1.0.0-draft",
+  "purpose": "Synthetic DATS <-> LaclauGPT round-trip fixture",
+  "document": {
+    "id": "doc-fixture-001",
+    "schema_version": "1.0.0-draft",
+    "source_url": "https://example.org/fixture/1",
+    "source": {
+      "platform": "web",
+      "source_type": "article",
+      "author": "Synthetic Author",
+      "created_at": "2026-09-01T10:00:00Z",
+      "language": "fi"
+    },
+    "content": {
+      "text": "Tekoäly muuttaa työn tulevaisuutta.",
+      "language": "fi"
+    },
+    "provenance": [
+      {
+        "provenance_id": "prov-fixture-001",
+        "stage": "collection",
+        "method": "synthetic_fixture",
+        "module": "meta-repo",
+        "module_version": "1.0.0-draft",
+        "created_at": "2026-09-17T00:00:00Z",
+        "run_id": "fixture-run-001",
+        "input_refs": [],
+        "transformations": [],
+        "metadata": {}
+      }
+    ]
+  },
+  "codes": [
+    {
+      "id": "code-ai-future",
+      "label": "AI and future of work",
+      "parent_id": "code-ai",
+      "producer": {"type": "human", "id": "fixture-researcher"}
+    }
+  ],
+  "evidence_spans": [
+    {
+      "id": "ev-fixture-001",
+      "source_url": "https://example.org/fixture/1",
+      "start": 0,
+      "end": 35,
+      "text": "Tekoäly muuttaa työn tulevaisuutta."
+    }
+  ],
+  "annotations": [
+    {
+      "id": "ann-fixture-001",
+      "code_id": "code-ai-future",
+      "evidence_span_id": "ev-fixture-001",
+      "producer": {"type": "model", "id": "fixture-model-v1"},
+      "confidence": 0.77,
+      "review_status": "PROVISIONAL",
+      "provenance_id": "prov-fixture-002"
+    }
+  ],
+  "human_reviews": [
+    {
+      "id": "review-fixture-001",
+      "target_id": "ann-fixture-001",
+      "reviewer": "fixture-researcher",
+      "decision": "ACCEPTED",
+      "reviewed_at": "2026-09-17T00:10:00Z"
+    }
+  ],
+  "roundtrip_invariants": [
+    "preserve document and code stable IDs",
+    "preserve Finnish Unicode text and evidence offsets",
+    "preserve code hierarchy",
+    "preserve model identity and confidence",
+    "preserve provisional machine status separately from human review",
+    "report any target-format loss explicitly"
+  ]
+}
