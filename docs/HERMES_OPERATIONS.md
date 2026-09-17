@@ -4,7 +4,7 @@ This document defines the public contract for running Hermes against the LaclauG
 
 ## Project surface
 
-Hermes treats these as the four coordinated public LaclauGPT repositories:
+Hermes treats these as the four coordinated LaclauGPT repositories:
 
 | Repository | Responsibility |
 | --- | --- |
@@ -13,15 +13,15 @@ Hermes treats these as the four coordinated public LaclauGPT repositories:
 | `TomiToivio/LaclauGPT-Data-Analysis` | public multimodal/NLP/LLM/statistical/discourse analysis |
 | `TomiToivio/LaclauGPT-Data-Visualization` | public dashboards, plots/maps/graphs and researcher-facing UI/control plane |
 
-Storage is deployment infrastructure rather than a repository: MongoDB, Redis and S3-compatible object storage run wherever a deployment needs them, behind each module's storage abstraction.
+Storage is deployment infrastructure rather than a separate module. MongoDB, Redis, Allas/S3 and filesystem/runtime storage belong to the deployments and modules that use them; shared storage contracts belong in this umbrella repository.
 
 The main repository coordinates the project but is not a dumping ground for sibling implementation.
 
 ## Canonical private root
 
-`LACLAUGPT_PRIVATE_ROOT` should point to the established local checkout/runtime root for authorized non-public project material.
+`LACLAUGPT_PRIVATE_ROOT` should point to an established private runtime/configuration root outside public working trees.
 
-Do not create a second unrelated private tree when the host already has an authorized private checkout. First inspect the installation and reuse its current verified path.
+Do not create a second unrelated private tree when the host already has an authorized private root. First inspect the installation and reuse its current verified path.
 
 A conceptual layout is:
 
@@ -42,13 +42,11 @@ $LACLAUGPT_PRIVATE_ROOT/
   secrets/          # ignored/protected
 ```
 
-Adapt this to the private root's current conventions instead of imposing a duplicate hierarchy.
-
-The private repository may hold non-public AI26 configuration, source/watch lists, researcher overlays/codebooks, notes, machine-specific non-secret deployment configuration, private dashboard/RAG presets, operational manifests, private health/status reports and suitable private artifacts under its own storage policy.
+The private root may hold non-public AI26 configuration, source/watch lists, researcher overlays/codebooks, notes, machine-specific non-secret deployment configuration, private dashboard/RAG presets, operational manifests, private health/status reports and suitable private artifacts under the installation's storage policy.
 
 ### Raw secrets still stay out of Git
 
-A private repository is not a secrets manager. Passwords, tokens, SSH keys, cookies, authenticated MongoDB URIs, Redis secrets, Allas/OpenStack credentials and similar values must remain in ignored/protected runtime env/secret files or another approved secrets mechanism. Tracked private configuration should refer to those secret sources without embedding them.
+A private repository or directory is not a secrets manager. Passwords, tokens, SSH keys, cookies, authenticated MongoDB URIs, Redis secrets, Allas/OpenStack credentials and similar values must remain in ignored/protected runtime env/secret files or another approved secrets mechanism. Tracked private configuration should refer to those secret sources without embedding them.
 
 Do not symlink private material into a public clone. Do not paste its content into public issues, PRs, logs, reports or prompts that will be persisted publicly.
 
@@ -113,7 +111,7 @@ Use `skills/hermes-ai26-operations/SKILL.md` for the complete live verification 
 A valid health check must inspect current repository/runtime state and answer whether the real AI26 pipeline is moving fresh data through:
 
 ```text
-Collection -> Analysis -> Visualization
+Collection -> storage infrastructure -> Analysis -> Visualization
 ```
 
 The check should cover, with publication-safe evidence:
