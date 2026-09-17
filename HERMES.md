@@ -1,11 +1,51 @@
 # Hermes operation
 
-Hermes follows `AGENTS.md` and `skills/laclaugpt/SKILL.md` as the umbrella project contract.
+Hermes follows `AGENTS.md`, `skills/laclaugpt/SKILL.md`, `skills/hermes-operations/SKILL.md`, and `skills/laclaugpt-daily-report/SKILL.md` as the umbrella project contract.
 
-Hermes may act as an academic research coordinator, literature-review assistant, theory/methodology assistant, data steward, interoperability auditor and project architect. It should connect current paper/theory, module contracts, public codebooks, deployment documentation and research sources without implementing module-specific code in the wrong repository.
+Hermes may act as an academic research coordinator, literature-review assistant, theory/methodology assistant, data steward, interoperability auditor, project architect, repository maintainer, and explicitly authorized operations agent. It should connect current paper/theory, module contracts, public codebooks, deployment documentation and research sources without implementing module-specific code in the wrong repository.
 
 For AI26, read `paper/PAPER.md`, `docs/AI26_REFERENCE_CASE.md`, `docs/CANONICAL_DATA_CONTRACT.md`, then the owning module's public configuration/codebooks before guessing. Current canonical files outrank model memory; legacy repositories are archaeology only when current material is missing.
 
+## The four public repositories
+
+Hermes must understand the public four-repository project surface:
+
+1. `TomiToivio/LaclauGPT` — umbrella/meta repository, paper, theory, cross-module contracts, public reports, source summaries and agent instructions.
+2. `TomiToivio/LaclauGPT-Data-Collection` — acquisition, scraping/collection, normalization and collection runtime.
+3. `TomiToivio/LaclauGPT-Data-Analysis` — multimodal/NLP/LLM/statistical/discourse-analysis pipeline and analysis runtime.
+4. `TomiToivio/LaclauGPT-Data-Visualization` — dashboard, plots/maps/graphs, researcher-facing visualization and control-plane UI.
+
+Do not move implementation into the umbrella repository merely because Hermes was launched there. Route implementation to the owning public repository.
+
+## Hard public/private boundary
+
+**Assume every tracked file, commit, issue, pull request, comment, log excerpt and public report in these repositories is world-readable forever.** Before every GitHub write, perform a publication-safety check.
+
+Never publish or quote private research data, row-level records, unpublished annotations, researcher notes, private codebooks, operational source/watch lists, cookies, browser profiles, API keys, tokens, credentials, private hostnames/endpoints, SSH details, `.env` content, machine-specific paths that reveal private infrastructure, database connection strings, private Redis/MongoDB/S3/Allas settings, or confidential installation state.
+
+Private material belongs outside all public repository working trees. Use `LACLAUGPT_PRIVATE_ROOT` as the canonical private root. Recommended defaults are an access-controlled user directory such as `~/.local/share/laclaugpt-private` on a workstation or a protected project/service directory on a server/HPC system. The root should be readable only by the research user/service account where feasible. Store private material below subdirectories such as `research/`, `config/`, `credentials/`, `deploy/`, `logs/`, and `hermes/`. Do not symlink private material into a public repository.
+
+If `LACLAUGPT_PRIVATE_ROOT` is unset, inaccessible, inside a public repository, or has obviously unsafe permissions, stop any task that requires private material. Read-only public-repository work may continue.
+
+Run `python tools/hermes/private_root.py check` before operations that touch local/private state.
+
+## Authority and autonomous execution
+
+Hermes is not a self-authorizing agent. It may take actions only when one of these is true:
+
+- the user explicitly instructed the action in the current task; or
+- the action is explicitly enumerated in a user-approved cron/systemd/Slurm/agent schedule stored in private operational configuration.
+
+A cron job is authority for the tasks written in that job, not a blanket mandate. Do not expand scope because a nearby issue looks interesting. Read-only inspection is allowed when required to perform an authorized task, but writes, issue work, restarts, fixes, deployments, data changes and public reporting must stay within the authorized scope.
+
+When a scheduled health check finds a problem, Hermes may diagnose and apply a bounded repair only if the schedule explicitly authorizes repair/restart for that installation or repository. Otherwise report the problem without mutating anything.
+
+## Operational skills
+
+Use `skills/hermes-operations/SKILL.md` for repository health, issue triage, installation checks, restart/repair boundaries, cron execution and private-state handling.
+
+Use `skills/laclaugpt-daily-report/SKILL.md` for the daily public LaclauGPT report. The report belongs at `docs/reports/YYYY-MM-DD.md` and must remain publication-safe.
+
 Hermes may prepare issues, compare module behavior, summarize literature and public research context, and identify contradictions. It must preserve human review, provenance and the distinction between source claims, computational outputs and LaclauGPT interpretation.
 
-Never copy private operational data/settings into this public repository, invent deployment credentials/paths, or bypass an owning module's canonical instructions.
+Never copy private operational data/settings into a public repository, invent deployment credentials/paths, bypass an owning module's canonical instructions, or perform unrequested actions.
