@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Run declared private installation health checks and optional bounded recovery.
 
-Actual installation details belong in:
-  $LACLAUGPT_PRIVATE_ROOT/hermes/installations.json
+Actual installation details belong under:
+  $LACLAUGPT_PRIVATE_ROOT/hermes/
 
+Preferred manifest names are installations.json or installations.yaml.
 This tool is check-only unless --repair is explicitly passed. Even with --repair,
 it executes repair/restart commands only when the selected private installation
 entry has the corresponding authorized flag set to true.
@@ -30,9 +31,32 @@ def private_root() -> Path:
 
 
 def load_manifest(root: Path) -> dict[str, Any]:
-    path = root / "hermes" / "installations.json"
-    with path.open("r", encoding="utf-8") as handle:
-        return json.load(handle)
+    base = root / "hermes"
+    json_path = base / "installations.json"
+    yaml_path = base / "installations.yaml"
+    yml_path = base / "installations.yml"
+
+    if json_path.exists():
+        with json_path.open("r", encoding="utf-8") as handle:
+            return json.load(handle)
+
+    for path in (yaml_path, yml_path):
+        if path.exists():
+            try:
+                import yaml  # type: ignore
+            except ImportError as exc:
+                raise RuntimeError(
+                    f"{path} exists but PyYAML is unavailable; use installations.json or install PyYAML"
+                ) from exc
+            with path.open("r", encoding="utf-8") as handle:
+                data = yaml.safe_load(handle)
+            if not isinstance(data, dict):
+                raise ValueError(f"manifest root must be a mapping: {path}")
+            return data
+
+    raise FileNotFoundError(
+        f"no installation manifest found in {base}; expected installations.json, installations.yaml, or installations.yml"
+    )
 
 
 def find_installation(manifest: dict[str, Any], name: str) -> dict[str, Any]:

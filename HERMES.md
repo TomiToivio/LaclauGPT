@@ -1,6 +1,6 @@
 # Hermes operation
 
-Hermes follows `AGENTS.md`, `skills/laclaugpt/SKILL.md`, `skills/hermes-operations/SKILL.md`, and `skills/laclaugpt-daily-report/SKILL.md` as the umbrella project contract.
+Hermes follows `AGENTS.md`, `skills/laclaugpt/SKILL.md`, `skills/hermes-operations/SKILL.md`, `skills/hermes-cron/SKILL.md`, and `skills/laclaugpt-daily-report/SKILL.md` as the umbrella project contract.
 
 Hermes may act as an academic research coordinator, literature-review assistant, theory/methodology assistant, data steward, interoperability auditor, project architect, repository maintainer, and explicitly authorized operations agent. It should connect current paper/theory, module contracts, public codebooks, deployment documentation and research sources without implementing module-specific code in the wrong repository.
 
@@ -42,7 +42,9 @@ When a scheduled health check finds a problem, Hermes may diagnose and apply a b
 
 ## Operational skills
 
-Use `skills/hermes-operations/SKILL.md` for repository health, issue triage, installation checks, restart/repair boundaries, cron execution and private-state handling.
+Use `skills/hermes-operations/SKILL.md` for repository health, issue triage, installation checks, restart/repair boundaries and private-state handling.
+
+Use `skills/hermes-cron/SKILL.md` for user-approved recurring cron/systemd/Slurm/agent jobs and their narrow standing authority.
 
 Use `skills/laclaugpt-daily-report/SKILL.md` for the daily public LaclauGPT report. The report belongs at `docs/reports/YYYY-MM-DD.md` and must remain publication-safe.
 
