@@ -119,6 +119,8 @@ The project is **local-first**. A laptop workflow should work with CSV/SQLite/lo
 
 Secrets and machine-specific values belong in environment variables, ignored local config or a secret manager. Never commit research datasets, credentials, private endpoints, cookies, browser profiles, private study codebooks, generated outputs or local SQLite research databases to public repositories.
 
+For restricted studies such as EP24 or Hungary26, follow [`docs/PUBLIC_PRIVATE_STUDY_ARCHITECTURE.md`](docs/PUBLIC_PRIVATE_STUDY_ARCHITECTURE.md): reusable engineering stays public, while study data, codebooks, researcher material, credentials, CSC identifiers/paths and unpublished outputs stay in the private runtime layer.
+
 See [`docs/architecture/MODULAR_ARCHITECTURE.md`](docs/architecture/MODULAR_ARCHITECTURE.md), [`docs/CANONICAL_DATA_CONTRACT.md`](docs/CANONICAL_DATA_CONTRACT.md) and [`docs/INTEROPERABILITY_SPEC.md`](docs/INTEROPERABILITY_SPEC.md).
 
 ## Scientific paper and theory
