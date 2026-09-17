@@ -36,9 +36,7 @@ AI26 is the canonical realistic public reference case. Public methodology/codebo
 - dashboards/maps/plots/review UI -> Data Visualization
 - simulations/agent-society experiments -> Social Simulation Laboratory
 
-Storage (MongoDB, Redis, S3-compatible object storage) is deployment infrastructure owned by the module that uses it, not a separate repository.
-
-Do not duplicate sibling implementations in the umbrella repository.
+Storage (MongoDB, Redis, S3-compatible object storage) is deployment infrastructure owned by the module that uses it, not a separate repository. Do not duplicate sibling implementations in the umbrella repository.
 
 For the current public four-repository operational surface, Hermes must know and inspect `TomiToivio/LaclauGPT`, `TomiToivio/LaclauGPT-Data-Collection`, `TomiToivio/LaclauGPT-Data-Analysis`, and `TomiToivio/LaclauGPT-Data-Visualization` while still routing implementation to the owning repository.
 
