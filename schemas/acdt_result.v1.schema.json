@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/TomiToivio/LaclauGPT/schemas/acdt_result.v1.schema.json",
+  "title": "LaclauGPT AC/DT Method Result v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "method_id",
+    "method_version",
+    "interpretation_mode",
+    "study_id",
+    "input_record_ids",
+    "provenance",
+    "validation",
+    "output"
+  ],
+  "properties": {
+    "schema_version": {"const": "acdt-result/1.0"},
+    "method_id": {"type": "string", "minLength": 1},
+    "method_version": {"type": "string", "minLength": 1},
+    "interpretation_mode": {
+      "enum": ["exploratory_instrumentalist", "measurement", "theoretical_interpretive"]
+    },
+    "study_id": {"type": ["string", "null"]},
+    "corpus_id": {"type": ["string", "null"]},
+    "input_record_ids": {"type": "array", "items": {"type": "string"}},
+    "parameters": {"type": "object"},
+    "preprocessing": {"type": "object"},
+    "model": {"type": ["object", "null"]},
+    "lexicon": {"type": ["object", "null"]},
+    "language": {
+      "type": "object",
+      "properties": {
+        "source_language": {"type": ["string", "null"]},
+        "analysis_language": {"type": ["string", "null"]},
+        "translated": {"type": "boolean"},
+        "translation_method": {"type": ["string", "null"]},
+        "adaptation_validation": {"type": ["string", "null"]}
+      },
+      "additionalProperties": true
+    },
+    "output_artifacts": {"type": "array", "items": {"type": "object"}},
+    "evidence_refs": {"type": "array", "items": {"type": "object"}},
+    "provenance": {
+      "type": "object",
+      "required": ["producer"],
+      "properties": {
+        "producer": {"type": "string"},
+        "producer_version": {"type": ["string", "null"]},
+        "git_commit": {"type": ["string", "null"]},
+        "run_id": {"type": ["string", "null"]},
+        "created_at": {"type": ["string", "null"]}
+      },
+      "additionalProperties": true
+    },
+    "validation": {
+      "type": "object",
+      "required": ["status", "human_review_status"],
+      "properties": {
+        "status": {"enum": ["not_applicable", "not_validated", "partial", "validated"]},
+        "human_review_status": {"enum": ["not_reviewed", "provisional", "reviewed", "rejected"]},
+        "method": {"type": ["string", "null"]},
+        "notes": {"type": ["string", "null"]}
+      },
+      "additionalProperties": true
+    },
+    "legacy": {"type": "object"},
+    "output": {}
+  },
+  "additionalProperties": true
+}
