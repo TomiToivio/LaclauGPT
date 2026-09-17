@@ -1,0 +1,17 @@
+{
+  "legacy_input": {
+    "manifesto_id": "synthetic-fi-2019-a",
+    "party": "Synthetic Party A",
+    "date": "2019-04-01",
+    "language": "fi",
+    "text": "Synteettinen puolueohjelmateksti testausta varten.",
+    "wordscores_lr": -0.42,
+    "wordfish_position": -0.18,
+    "sentiment_positive": 0.61,
+    "emotion_joy": 0.31,
+    "emotion_fear": 0.08,
+    "emotion_intensity_joy": 0.44
+  },
+  "expected_method_ids": ["wordscores", "wordfish", "sentiment_analysis", "emotion_analysis", "emotion_intensity"],
+  "guardrail": "measurement values are not ideology, antagonism, hegemony or affective investment"
+}
