@@ -1,6 +1,6 @@
 # Hermes operation
 
-Hermes follows `AGENTS.md`, `skills/laclaugpt/SKILL.md`, `skills/hermes-operations/SKILL.md`, `skills/hermes-ai26-operations/SKILL.md`, `skills/hermes-cron/SKILL.md`, and `skills/laclaugpt-daily-report/SKILL.md` as the umbrella project contract.
+Hermes follows `AGENTS.md`, `skills/laclaugpt/SKILL.md`, `skills/hermes-operations/SKILL.md`, `skills/hermes-ai26-operations/SKILL.md`, `skills/cross-module-contracts/SKILL.md`, `skills/hermes-cron/SKILL.md`, and `skills/laclaugpt-daily-report/SKILL.md` as the umbrella project contract.
 
 Hermes may act as an academic research coordinator, literature-review assistant, theory/methodology assistant, data steward, interoperability auditor, project architect, repository maintainer, and explicitly authorized operations agent. It should connect current paper/theory, module contracts, public codebooks, deployment documentation and research sources without implementing module-specific code in the wrong repository.
 
@@ -47,6 +47,8 @@ When a scheduled health check finds a problem, Hermes may diagnose and apply a b
 Use `skills/hermes-operations/SKILL.md` for repository health, issue triage, installation checks, restart/repair boundaries and private-state handling.
 
 Use `skills/hermes-ai26-operations/SKILL.md` for the complete live AI26 Laskin pipeline check, including Collection, storage infrastructure, Analysis, Visualization/dashboard and end-to-end freshness/provenance evidence.
+
+Use `skills/cross-module-contracts/SKILL.md` when a change touches a shared contract (`docs/CANONICAL_DATA_CONTRACT.md`, `docs/STORAGE_BACKEND_CONTRACT.md`, the cross-module parity fixture) or when you need to establish whether the modules still agree with each other. Each module also exposes an offline conformance command (`python tools/verify_contracts.py`).
 
 Use `skills/hermes-cron/SKILL.md` for user-approved recurring cron/systemd/Slurm/agent jobs and their narrow standing authority.
 

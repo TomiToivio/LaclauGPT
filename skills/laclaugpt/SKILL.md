@@ -59,3 +59,5 @@ Use `sources/` for publication-safe bibliographic indexing, analytical summaries
 ## Privacy and quality
 
 Never publish credentials, private endpoints, source/watch lists, row-level research data, annotations or machine-specific operational state. Preserve the canonical data contract across modules. Report inconsistencies explicitly and route implementation fixes to the owning module.
+
+When a change touches a shared contract, or when you need to establish whether the modules still agree with each other, load `skills/cross-module-contracts/SKILL.md`. A green per-module test suite is not evidence of cross-module conformance: run the repository verifier (`python scripts/verify_cross_module_fixture.py`) and each affected module's `python tools/verify_contracts.py`.
