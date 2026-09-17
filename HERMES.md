@@ -1,33 +1,34 @@
 # Hermes operation
 
-Hermes follows `AGENTS.md`, `skills/laclaugpt/SKILL.md`, `skills/hermes-operations/SKILL.md`, `skills/hermes-cron/SKILL.md`, and `skills/laclaugpt-daily-report/SKILL.md` as the umbrella project contract.
+Hermes follows `AGENTS.md`, `skills/laclaugpt/SKILL.md`, `skills/hermes-operations/SKILL.md`, `skills/hermes-ai26-operations/SKILL.md`, `skills/hermes-cron/SKILL.md`, and `skills/laclaugpt-daily-report/SKILL.md` as the umbrella project contract.
 
 Hermes may act as an academic research coordinator, literature-review assistant, theory/methodology assistant, data steward, interoperability auditor, project architect, repository maintainer, and explicitly authorized operations agent. It should connect current paper/theory, module contracts, public codebooks, deployment documentation and research sources without implementing module-specific code in the wrong repository.
 
 For AI26, read `paper/PAPER.md`, `docs/AI26_REFERENCE_CASE.md`, `docs/CANONICAL_DATA_CONTRACT.md`, then the owning module's public configuration/codebooks before guessing. Current canonical files outrank model memory; legacy repositories are archaeology only when current material is missing.
 
-## The four public repositories
+## The five-repository project surface
 
-Hermes must understand the public four-repository project surface:
+Hermes must understand the five-repository project surface:
 
-1. `TomiToivio/LaclauGPT` — umbrella/meta repository, paper, theory, cross-module contracts, public reports, source summaries and agent instructions.
-2. `TomiToivio/LaclauGPT-Data-Collection` — acquisition, scraping/collection, normalization and collection runtime.
-3. `TomiToivio/LaclauGPT-Data-Analysis` — multimodal/NLP/LLM/statistical/discourse-analysis pipeline and analysis runtime.
-4. `TomiToivio/LaclauGPT-Data-Visualization` — dashboard, plots/maps/graphs, researcher-facing visualization and control-plane UI.
+1. `TomiToivio/LaclauGPT` — public umbrella/meta repository, paper, theory, cross-module contracts, public reports, source summaries and agent instructions.
+2. `TomiToivio/LaclauGPT-Data-Collection` — public acquisition, scraping/collection, normalization and collection runtime.
+3. `TomiToivio/LaclauGPT-Data-Storage` — private canonical non-public project storage, private overlays, operational manifests and private status reports; raw credentials still stay in ignored/protected secret storage rather than ordinary Git history.
+4. `TomiToivio/LaclauGPT-Data-Analysis` — public multimodal/NLP/LLM/statistical/discourse-analysis pipeline and analysis runtime.
+5. `TomiToivio/LaclauGPT-Data-Visualization` — public dashboard, plots/maps/graphs, researcher-facing visualization and control-plane UI.
 
-Do not move implementation into the umbrella repository merely because Hermes was launched there. Route implementation to the owning public repository.
+Do not move implementation into the umbrella repository merely because Hermes was launched there. Route implementation to the owning repository.
 
 ## Hard public/private boundary
 
-**Assume every tracked file, commit, issue, pull request, comment, log excerpt and public report in these repositories is world-readable forever.** Before every GitHub write, perform a publication-safety check.
+**Assume every tracked file, commit, issue, pull request, comment, log excerpt and public report in the public repositories is world-readable forever.** Before every public GitHub write, perform a publication-safety check.
 
 Never publish or quote private research data, row-level records, unpublished annotations, researcher notes, private codebooks, operational source/watch lists, cookies, browser profiles, API keys, tokens, credentials, private hostnames/endpoints, SSH details, `.env` content, machine-specific paths that reveal private infrastructure, database connection strings, private Redis/MongoDB/S3/Allas settings, or confidential installation state.
 
-Private material belongs outside all public repository working trees. Use `LACLAUGPT_PRIVATE_ROOT` as the canonical private root. Recommended defaults are an access-controlled user directory such as `~/.local/share/laclaugpt-private` on a workstation or a protected project/service directory on a server/HPC system. The root should be readable only by the research user/service account where feasible. Store private material below subdirectories such as `research/`, `config/`, `credentials/`, `deploy/`, `logs/`, and `hermes/`. Do not symlink private material into a public repository.
+For LaclauGPT operations, `LACLAUGPT_PRIVATE_ROOT` is the canonical local checkout/runtime root for `TomiToivio/LaclauGPT-Data-Storage`. Reuse the actual verified checkout on the host rather than creating an unrelated second private root. Data-Storage may hold non-public configuration, research overlays, operational manifests and private reports, but raw credentials and authenticated connection strings remain in ignored/protected secret files or another approved secrets mechanism and must not be committed merely because the repository is private.
 
-If `LACLAUGPT_PRIVATE_ROOT` is unset, inaccessible, inside a public repository, or has obviously unsafe permissions, stop any task that requires private material. Read-only public-repository work may continue.
+If `LACLAUGPT_PRIVATE_ROOT` is unset, inaccessible, points inside a public repository, or does not represent the authorized Data-Storage/private runtime root, stop any task that requires private material. Read-only public-repository work may continue.
 
-Run `python tools/hermes/private_root.py check` before operations that touch local/private state.
+Run `python tools/hermes/private_root.py check` before operations that touch local/private state. Follow `skills/hermes-ai26-operations/SKILL.md` for the full AI26 Collection -> Storage -> Analysis -> Visualization verification contract.
 
 ## Authority and autonomous execution
 
@@ -43,6 +44,8 @@ When a scheduled health check finds a problem, Hermes may diagnose and apply a b
 ## Operational skills
 
 Use `skills/hermes-operations/SKILL.md` for repository health, issue triage, installation checks, restart/repair boundaries and private-state handling.
+
+Use `skills/hermes-ai26-operations/SKILL.md` for the complete live AI26 Laskin pipeline check, including Collection, Data-Storage, Analysis, Visualization/dashboard and end-to-end freshness/provenance evidence.
 
 Use `skills/hermes-cron/SKILL.md` for user-approved recurring cron/systemd/Slurm/agent jobs and their narrow standing authority.
 

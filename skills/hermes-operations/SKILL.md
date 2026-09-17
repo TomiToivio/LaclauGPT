@@ -12,16 +12,19 @@ Before taking an action, classify it as:
 
 Only categories 1 and 2 authorize mutations. Observation never creates authority to write, merge, restart, deploy, change data, or broaden the task. If a scheduled job says “check”, do not silently reinterpret it as “fix”. If it says “check and fix/restart”, repairs must be bounded to the named repositories/installations and validated after the change.
 
-## Public project map
+## Project map
 
-Inspect these four public repositories as one project while respecting ownership boundaries:
+Inspect these five repositories as one project while respecting ownership boundaries:
 
-- `TomiToivio/LaclauGPT` — paper/theory/contracts/reports/coordination.
-- `TomiToivio/LaclauGPT-Data-Collection` — collection and normalization.
-- `TomiToivio/LaclauGPT-Data-Analysis` — analysis pipeline.
-- `TomiToivio/LaclauGPT-Data-Visualization` — dashboard and researcher UI.
+- `TomiToivio/LaclauGPT` — public paper/theory/contracts/reports/coordination.
+- `TomiToivio/LaclauGPT-Data-Collection` — public collection and normalization.
+- `TomiToivio/LaclauGPT-Data-Storage` — private canonical non-public project store, operational manifests and private reports.
+- `TomiToivio/LaclauGPT-Data-Analysis` — public analysis pipeline.
+- `TomiToivio/LaclauGPT-Data-Visualization` — public dashboard and researcher UI.
 
 For each repository, prefer current `AGENTS.md`, `HERMES.md`, `CLAUDE.md`, `CODEX.md`, README/docs, open issues/PRs, recent commits, and CI state over memory.
+
+For live AI26 verification, additionally load `skills/hermes-ai26-operations/SKILL.md`.
 
 ## Publication-safety gate
 
@@ -39,26 +42,32 @@ If uncertain whether something is public, treat it as private.
 
 ## Private state
 
-Private operational and research material must live outside public working trees under `LACLAUGPT_PRIVATE_ROOT`.
+`LACLAUGPT_PRIVATE_ROOT` must point to the authorized local checkout/runtime root for `TomiToivio/LaclauGPT-Data-Storage`, not an ad-hoc private directory detached from the project architecture. Reuse an existing verified host checkout where one exists.
 
-Suggested layout:
+Data-Storage may contain non-public research configuration, source/watch lists, researcher overlays/codebooks, notes, machine-specific non-secret deployment configuration, private dashboard/RAG presets, operational manifests, private health reports and suitable private artifacts according to its own storage policy.
+
+Raw credentials still do **not** belong in ordinary Git history. Passwords, tokens, SSH keys, cookies, authenticated service URIs, Redis secrets, Allas/OpenStack credentials and similar material must remain in ignored/protected runtime env/secret files or another approved secrets mechanism.
+
+A conceptual layout is:
 
 ```text
 $LACLAUGPT_PRIVATE_ROOT/
-  research/       # corpora, row-level records, private annotations
-  config/         # project/arena/machine/execution configuration
-  credentials/    # secrets and auth material
-  deploy/         # host-specific systemd/cron/Slurm/SSH details
-  logs/           # private operational logs
-  hermes/         # schedule state, run manifests, local agent notes
-  backups/        # protected backups, when appropriate
+  projects/ai26/collection/
+  projects/ai26/analysis/
+  projects/ai26/visualization/
+  projects/ai26/shared/
+  operations/laskin/
+  operations/hermes/
+  reports/private/
+  runtime/          # normally ignored
+  secrets/          # ignored/protected
 ```
 
-Run `python tools/hermes/private_root.py check` before accessing private state. Never commit, symlink, or copy this directory into a public repository.
+Adapt to Data-Storage's current conventions rather than creating a duplicate tree. Run `python tools/hermes/private_root.py check` before accessing private state. Never symlink or copy private material into a public repository.
 
-## Scheduled public-repository check
+## Scheduled repository check
 
-A user-approved cron job may ask Hermes to review the four public repositories. For each repository:
+A user-approved cron job may ask Hermes to review the project repositories. For each repository:
 
 1. fetch/pull only when allowed by the local installation policy;
 2. inspect recent commits, open issues/PRs, unresolved review discussion and CI/test status;
@@ -73,9 +82,9 @@ Do not merge PRs, close issues, or publish new issues merely because they exist.
 
 ## Installation health check and bounded repair
 
-Installation-specific knowledge belongs in a private manifest, for example:
+Installation-specific knowledge belongs in a private manifest under Data-Storage, for example:
 
-`$LACLAUGPT_PRIVATE_ROOT/hermes/installations.yaml`
+`$LACLAUGPT_PRIVATE_ROOT/operations/hermes/installations.yaml`
 
 The public repo may document the schema but must not contain actual hosts, usernames, credentials, private paths or endpoints.
 
@@ -103,6 +112,8 @@ Health workflow:
 9. rerun health and validation checks;
 10. never discard uncommitted researcher work, rewrite history, rotate credentials, delete data, or change infrastructure topology unless explicitly instructed.
 
+For AI26, process existence alone is insufficient. Use `skills/hermes-ai26-operations/SKILL.md` to require recent Collection -> Storage -> Analysis -> Visualization evidence and dashboard freshness before reporting `HEALTHY`.
+
 ## Cron discipline
 
 Scheduled jobs should be deterministic and auditable. Private cron configuration should record:
@@ -117,7 +128,7 @@ Scheduled jobs should be deterministic and auditable. Private cron configuration
 - timeout and lock/concurrency behavior;
 - last-run status.
 
-Use a lock so two scheduled Hermes runs cannot mutate the same installation simultaneously. Scheduled jobs must use the same canonical project configuration as human runs, never a hidden analytical configuration invented by the agent.
+Use a lock so two scheduled Hermes runs cannot mutate the same installation simultaneously. Scheduled jobs must use the same canonical project configuration as human runs, never a hidden analytical configuration invented by the agent. A scheduled health check is one bounded iteration, not a forever-running autonomous instruction.
 
 ## Failure policy
 

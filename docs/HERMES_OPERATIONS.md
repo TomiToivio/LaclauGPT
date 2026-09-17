@@ -2,42 +2,69 @@
 
 This document defines the public contract for running Hermes against the LaclauGPT project. It intentionally contains no real hostnames, usernames, credentials, private paths, source lists, or infrastructure endpoints.
 
-## Public project surface
+## Project surface
 
-Hermes treats these as the four public LaclauGPT repositories:
+Hermes treats these as the five coordinated LaclauGPT repositories:
 
-| Repository | Public responsibility |
+| Repository | Responsibility |
 | --- | --- |
-| `TomiToivio/LaclauGPT` | paper, theory, cross-module contracts, public reports, literature workspace, project/agent documentation |
-| `TomiToivio/LaclauGPT-Data-Collection` | collection/acquisition, normalization, collection runtime |
-| `TomiToivio/LaclauGPT-Data-Analysis` | multimodal/NLP/LLM/statistical/discourse analysis |
-| `TomiToivio/LaclauGPT-Data-Visualization` | dashboards, plots/maps/graphs and researcher-facing UI/control plane |
+| `TomiToivio/LaclauGPT` | public paper, theory, cross-module contracts, public reports, literature workspace, project/agent documentation |
+| `TomiToivio/LaclauGPT-Data-Collection` | public collection/acquisition, normalization, collection runtime |
+| `TomiToivio/LaclauGPT-Data-Storage` | private canonical non-public project storage, private overlays, operational manifests and private reports |
+| `TomiToivio/LaclauGPT-Data-Analysis` | public multimodal/NLP/LLM/statistical/discourse analysis |
+| `TomiToivio/LaclauGPT-Data-Visualization` | public dashboards, plots/maps/graphs and researcher-facing UI/control plane |
 
 The main repository coordinates the project but is not a dumping ground for sibling implementation.
 
-## Private root
+## Canonical private root
 
-Set a private root outside every public clone:
+`LACLAUGPT_PRIVATE_ROOT` should point to the established local checkout/runtime root for `TomiToivio/LaclauGPT-Data-Storage`.
+
+Do not create a second unrelated private tree when the host already has an authorized Data-Storage checkout. First inspect the installation and reuse its current verified path.
+
+A conceptual layout is:
+
+```text
+$LACLAUGPT_PRIVATE_ROOT/
+  projects/
+    ai26/
+      collection/
+      analysis/
+      visualization/
+      shared/
+  operations/
+    laskin/
+    hermes/
+  reports/
+    private/
+  runtime/          # normally ignored
+  secrets/          # ignored/protected
+```
+
+Adapt this to Data-Storage's current conventions instead of imposing a duplicate hierarchy.
+
+The private repository may hold non-public AI26 configuration, source/watch lists, researcher overlays/codebooks, notes, machine-specific non-secret deployment configuration, private dashboard/RAG presets, operational manifests, private health/status reports and suitable private artifacts under its own storage policy.
+
+### Raw secrets still stay out of Git
+
+A private repository is not a secrets manager. Passwords, tokens, SSH keys, cookies, authenticated MongoDB URIs, Redis secrets, Allas/OpenStack credentials and similar values must remain in ignored/protected runtime env/secret files or another approved secrets mechanism. Tracked private configuration should refer to those secret sources without embedding them.
+
+Do not symlink private material into a public clone. Do not paste its content into public issues, PRs, logs, reports or prompts that will be persisted publicly.
+
+Run:
 
 ```bash
-export LACLAUGPT_PRIVATE_ROOT="$HOME/.local/share/laclaugpt-private"
-mkdir -p "$LACLAUGPT_PRIVATE_ROOT"/{research,config,credentials,deploy,logs,hermes,backups}
-chmod 700 "$LACLAUGPT_PRIVATE_ROOT"
 python tools/hermes/private_root.py check
 ```
 
-On servers/HPC, use an access-controlled project/service directory appropriate to that system instead of assuming the workstation path above.
-
-Private root contents may include research corpora, row-level data, unpublished annotations, source/watch lists, `.env` files, database/service configuration, credentials, machine/execution profiles, host-specific cron/systemd/Slurm files, installation manifests, operational logs and private agent run state.
-
-Do not symlink the private root into a public clone. Do not paste its content into issues, PRs, logs, public reports or prompts that will be persisted publicly.
+before private-state operations. The checker must confirm that the root is not inside a public working tree and represents an authorized private location.
 
 ## Installation manifest
 
-A private manifest may be kept at:
+A private manifest should live in Data-Storage, for example:
 
 ```text
-$LACLAUGPT_PRIVATE_ROOT/hermes/installations.yaml
+$LACLAUGPT_PRIVATE_ROOT/operations/hermes/installations.yaml
 ```
 
 Example **shape only**:
@@ -48,6 +75,7 @@ installations:
     repositories:
       main: /private/path/to/LaclauGPT
       collection: /private/path/to/LaclauGPT-Data-Collection
+      storage: /private/path/to/LaclauGPT-Data-Storage
       analysis: /private/path/to/LaclauGPT-Data-Analysis
       visualization: /private/path/to/LaclauGPT-Data-Visualization
     health_checks:
@@ -62,7 +90,7 @@ installations:
       - "post-repair validation command"
 ```
 
-Never commit a real manifest. Hermes must not infer host commands or restart authority from this public example.
+Never commit a real host/path/credential manifest to a public repository. Hermes must not infer host commands or restart authority from this public example.
 
 ## Authorization model
 
@@ -78,9 +106,50 @@ A scheduled task has narrow authority. For example:
 - “check installation and restart the dashboard if unhealthy” permits the named restart after diagnosis, but not deleting data or upgrading unrelated services;
 - “write the daily public report” permits report/source-summary updates, not editing the paper or merging PRs.
 
+## AI26 Laskin end-to-end health check
+
+Use `skills/hermes-ai26-operations/SKILL.md` for the complete live verification contract.
+
+A valid health check must inspect current repository/runtime state and answer whether the real AI26 pipeline is moving fresh data through:
+
+```text
+Collection -> Data Storage -> Analysis -> Visualization
+```
+
+The check should cover, with publication-safe evidence:
+
+- Laskin host/runtime state and repository commits;
+- scheduled collection activity and canonical `project_id=ai26`;
+- MongoDB, Redis and Allas/S3 connectivity and namespace consistency;
+- Analysis scheduling, queue/run freshness and configured Ollama/model reachability;
+- Visualization/dashboard service and current backend freshness;
+- optional RAG/DNA/RDF/GraphProjection behavior where enabled;
+- one recent real production record traced across as many timestamps/provenance points as the current contracts expose.
+
+Do not mark the system `HEALTHY` just because processes exist. `HEALTHY` requires evidence of recent end-to-end AI26 data flow plus a functioning, current dashboard. Missing observability should be reported as `UNKNOWN` or `DEGRADED` as appropriate rather than filled with invented timestamps.
+
+Private detailed reports belong under Data-Storage, for example `reports/private/`. A publication-safe summary may be written publicly only when the task explicitly authorizes it.
+
 ## Suggested scheduled jobs
 
 These are task definitions, not real cron lines. Keep actual scheduling details and installation paths private.
+
+### AI26 Laskin pipeline health
+
+Cadence: user-selected.
+
+Actions for one bounded iteration:
+
+1. validate the canonical Data-Storage private root;
+2. inspect all five repository checkouts and current revisions;
+3. run the authorized read-only health checks for Collection, Storage, Analysis and Visualization;
+4. trace recent real AI26 activity end-to-end where possible;
+5. classify overall state as `HEALTHY`, `DEGRADED`, `BROKEN` or `UNKNOWN`;
+6. write the detailed private report;
+7. search existing issues before commenting/creating any defect report;
+8. perform restart/repair only when the schedule explicitly authorizes it;
+9. rerun validation after an authorized repair;
+10. stop after the single iteration.
 
 ### Public repository health and issue review
 
@@ -88,26 +157,12 @@ Cadence: daily or as explicitly configured.
 
 Actions:
 
-1. inspect the four public repositories;
+1. inspect the project repositories;
 2. review recent commits, CI, open issues/PRs and unresolved reviews;
 3. detect regressions and documentation drift;
 4. when explicitly authorized, work on concrete in-scope issues in the owning repository;
 5. validate changes with repository-prescribed tests;
-6. keep all research/private operational data out of GitHub.
-
-### Installation health and repair
-
-Cadence: user-selected.
-
-Actions:
-
-1. run `private_root.py check`;
-2. load the private installation manifest;
-3. run declared health checks;
-4. if unhealthy, collect a private diagnostic;
-5. only if the manifest/schedule authorizes it, perform the smallest declared repair/restart;
-6. rerun validation;
-7. never destroy uncommitted work or research data.
+6. keep all research/private operational data out of public GitHub repositories.
 
 ### Daily LaclauGPT public report
 
@@ -115,7 +170,7 @@ Cadence: daily.
 
 Actions:
 
-1. review all four public repositories and the previous report;
+1. review the public repositories and the previous report;
 2. read the current paper/theory/reference material;
 3. summarize newly added public sources;
 4. search fresh AI26-relevant news and scientific literature;
@@ -128,7 +183,7 @@ Use `skills/laclaugpt-daily-report/SKILL.md` for the report contract.
 
 ## Public-write checklist
 
-Before any GitHub write, Hermes should be able to answer **yes** to all of these:
+Before any public GitHub write, Hermes should be able to answer **yes** to all of these:
 
 - Is this write explicitly authorized by the current task or schedule?
 - Is this the correct owning repository?
@@ -143,4 +198,4 @@ If any answer is no or uncertain, do not publish the write.
 
 ## Recovery philosophy
 
-For operational failures, preserve evidence before repair, prefer reversible changes, validate after repair, and leave the system no worse than it was. Never use `git reset --hard`, destructive database operations, credential rotation, mass deletion, or infrastructure changes as an autonomous “fix” unless the user explicitly asked for that exact class of action.
+For operational failures, preserve evidence before repair, prefer reversible changes, validate after repair, and leave the system no worse than it was. Never use `git reset --hard`, destructive database operations, credential rotation, mass deletion, or infrastructure changes as an autonomous fix unless the user explicitly asked for that exact class of action.
