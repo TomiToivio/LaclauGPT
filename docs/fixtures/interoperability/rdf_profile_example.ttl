@@ -1,0 +1,45 @@
+@prefix : <https://example.org/laclaugpt/ai26/> .
+@prefix laclaugpt: <https://w3id.org/laclaugpt/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix oa: <http://www.w3.org/ns/oa#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix schema: <https://schema.org/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:post-1 a schema:SocialMediaPosting, prov:Entity ;
+    dcterms:identifier "https://example.org/post/1" ;
+    dcterms:language "en" ;
+    schema:text "Freedom needs open AI, not centralized control." ;
+    prov:wasDerivedFrom <https://example.org/post/1> .
+
+:concept-freedom a skos:Concept, laclaugpt:Signifier ;
+    skos:prefLabel "freedom"@en ;
+    skos:prefLabel "vapaus"@fi .
+
+:concept-control a skos:Concept ;
+    skos:prefLabel "centralized control"@en .
+
+:evidence-1 a oa:Annotation, prov:Entity ;
+    oa:hasBody :concept-freedom ;
+    oa:hasTarget [
+        a oa:SpecificResource ;
+        oa:hasSource :post-1 ;
+        oa:hasSelector [
+            a oa:TextPositionSelector ;
+            oa:start 0 ;
+            oa:end 7
+        ]
+    ] .
+
+:analysis-run-1 a prov:Activity ;
+    dcterms:description "Synthetic LaclauGPT analysis run"@en ;
+    prov:used :post-1 ;
+    prov:endedAtTime "2026-09-17T10:00:00Z"^^xsd:dateTime .
+
+:articulation-1 a laclaugpt:Articulation, prov:Entity ;
+    laclaugpt:articulates :concept-freedom, :concept-control ;
+    laclaugpt:hasEvidence :evidence-1 ;
+    laclaugpt:confidence 0.87 ;
+    laclaugpt:reviewState "PROVISIONAL" ;
+    prov:wasGeneratedBy :analysis-run-1 .
