@@ -129,7 +129,7 @@ The current implementation ownership is:
 - `LaclauGPT`: this normative cross-module contract and canonical schema.
 - Social Simulation Laboratory: consumer of the same contract; empirical/simulated separation remains mandatory.
 
-The former standalone `LaclauGPT-Data-Storage` repository is not required for the baseline architecture. Shared contracts belong here; reusable implementation helpers stay in their owning modules unless a future concrete need justifies a dedicated storage package.
+Storage is deployment infrastructure, not a module: MongoDB, Redis and S3-compatible object storage run wherever a deployment needs them. Shared contracts belong here; reusable implementation helpers stay in their owning modules.
 
 ## Security and privacy
 

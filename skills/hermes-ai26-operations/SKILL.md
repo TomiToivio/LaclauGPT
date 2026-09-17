@@ -9,24 +9,25 @@ This skill coordinates the project. Module implementation remains in the owning 
 Treat the current production path as:
 
 ```text
-Collection -> Data Storage -> Analysis -> Visualization
+Collection -> Analysis -> Visualization
 ```
 
-Inspect these repositories and their current default branches before relying on memory:
+Storage (MongoDB, Redis, S3-compatible object storage) is deployment infrastructure behind each stage, not a separate pipeline stage or repository.
+
+Inspect these public repositories and their current default branches before relying on memory:
 
 1. `TomiToivio/LaclauGPT`
 2. `TomiToivio/LaclauGPT-Data-Collection`
-3. `TomiToivio/LaclauGPT-Data-Storage`
-4. `TomiToivio/LaclauGPT-Data-Analysis`
-5. `TomiToivio/LaclauGPT-Data-Visualization`
+3. `TomiToivio/LaclauGPT-Data-Analysis`
+4. `TomiToivio/LaclauGPT-Data-Visualization`
 
 The task is observational by default. Restart, repair, issue creation, code changes or deployment changes require explicit current-task authority or a user-approved scheduled task that names those actions.
 
-## Private state and Data-Storage
+## Private state
 
-`TomiToivio/LaclauGPT-Data-Storage` is the canonical non-public project repository for private research configuration, overlays, operational manifests and private status reports.
+The canonical non-public project repository for private research configuration, overlays, operational manifests and private status reports lives outside the public working trees, at the authorized private root.
 
-On an installation, `LACLAUGPT_PRIVATE_ROOT` should point at the established local checkout/runtime root for Data-Storage, not an unrelated second private tree. Reuse an existing verified checkout if present.
+On an installation, `LACLAUGPT_PRIVATE_ROOT` should point at the established local checkout/runtime root, not an unrelated second private tree. Reuse an existing verified checkout if present.
 
 Suggested tracked private layout, adapted to the repository's current conventions:
 
@@ -42,7 +43,7 @@ runtime/          # normally ignored
 secrets/          # ignored/protected
 ```
 
-Raw credentials remain outside ordinary Git history even though Data-Storage is private. Do not commit passwords, tokens, SSH keys, cookies, authenticated MongoDB URIs, Redis secrets, Allas/OpenStack credentials or equivalent secrets. Tracked private configuration should reference protected environment/secret files.
+Raw credentials remain outside ordinary Git history even though the private root is not public. Do not commit passwords, tokens, SSH keys, cookies, authenticated MongoDB URIs, Redis secrets, Allas/OpenStack credentials or equivalent secrets. Tracked private configuration should reference protected environment/secret files.
 
 Before any public write, strip private source/watch lists, raw research records, private host paths, endpoints, credentials and operational details.
 
@@ -53,7 +54,7 @@ Before any public write, strip private source/watch lists, raw research records,
 Collect publication-safe evidence for:
 
 - hostname/role;
-- checkout paths, branches and commits for all five repositories;
+- checkout paths, branches and commits for all four repositories;
 - available disk space for project/runtime storage;
 - Python environment/dependency viability;
 - relevant cron, systemd or user-service state;
@@ -76,9 +77,9 @@ Verify current AI26 collection behavior in `LaclauGPT-Data-Collection`:
 
 Use counts and freshness, never private watch-list identities, in publication-safe output.
 
-### 3. Data Storage
+### 3. Storage infrastructure
 
-Verify `LaclauGPT-Data-Storage` and infrastructure with bounded diagnostics:
+Verify the shared storage infrastructure that Collection, Analysis and Visualization depend on, with bounded diagnostics:
 
 - MongoDB connectivity and expected AI26 collections;
 - Redis connectivity and project-scoped state/queues/channels where implemented;
@@ -151,7 +152,7 @@ For each component report state, latest successful activity, freshness/lag when 
 
 ## Report shape
 
-Produce a private detailed report in the canonical Data-Storage private-report location and, only when explicitly authorized, a publication-safe public summary.
+Produce a private detailed report in the canonical private-report location and, only when explicitly authorized, a publication-safe public summary.
 
 Use this shape:
 

@@ -28,7 +28,7 @@ Implementation belongs in the owning modules:
 - dashboards/plots/maps/network visualization -> `TomiToivio/LaclauGPT-Data-Visualization`
 - simulation/agent-society experiments -> `TomiToivio/LaclauGPT-Social-Simulation-Laboratory`
 
-Storage is currently infrastructure rather than a separate public module boundary: MongoDB, Redis and S3-compatible object storage may run wherever the deployment requires them. Do not route ordinary persistence work to a separate Data-Storage repository unless that architecture is explicitly revived later.
+Storage is deployment infrastructure rather than a module boundary: MongoDB, Redis and S3-compatible object storage may run wherever a deployment requires them, behind each owning module's storage abstraction and the project-wide contract in `docs/STORAGE_BACKEND_CONTRACT.md`. There is no separate storage repository.
 
 ## Research-assistant capabilities
 

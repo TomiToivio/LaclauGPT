@@ -14,13 +14,14 @@ Only categories 1 and 2 authorize mutations. Observation never creates authority
 
 ## Project map
 
-Inspect these five repositories as one project while respecting ownership boundaries:
+Inspect these four public repositories as one project while respecting ownership boundaries:
 
 - `TomiToivio/LaclauGPT` — public paper/theory/contracts/reports/coordination.
 - `TomiToivio/LaclauGPT-Data-Collection` — public collection and normalization.
-- `TomiToivio/LaclauGPT-Data-Storage` — private canonical non-public project store, operational manifests and private reports.
 - `TomiToivio/LaclauGPT-Data-Analysis` — public analysis pipeline.
 - `TomiToivio/LaclauGPT-Data-Visualization` — public dashboard and researcher UI.
+
+Storage (MongoDB, Redis, S3-compatible object storage) is deployment infrastructure used by each module, not a separate repository.
 
 For each repository, prefer current `AGENTS.md`, `HERMES.md`, `CLAUDE.md`, `CODEX.md`, README/docs, open issues/PRs, recent commits, and CI state over memory.
 
@@ -42,9 +43,9 @@ If uncertain whether something is public, treat it as private.
 
 ## Private state
 
-`LACLAUGPT_PRIVATE_ROOT` must point to the authorized local checkout/runtime root for `TomiToivio/LaclauGPT-Data-Storage`, not an ad-hoc private directory detached from the project architecture. Reuse an existing verified host checkout where one exists.
+`LACLAUGPT_PRIVATE_ROOT` must point to the authorized local checkout/runtime root for non-public project material, not an ad-hoc private directory detached from the project architecture. Reuse an existing verified host checkout where one exists.
 
-Data-Storage may contain non-public research configuration, source/watch lists, researcher overlays/codebooks, notes, machine-specific non-secret deployment configuration, private dashboard/RAG presets, operational manifests, private health reports and suitable private artifacts according to its own storage policy.
+The private root holds non-public research configuration, source/watch lists, researcher overlays/codebooks, notes, machine-specific non-secret deployment configuration, private dashboard/RAG presets, operational manifests, private health reports and suitable private artifacts according to its own storage policy.
 
 Raw credentials still do **not** belong in ordinary Git history. Passwords, tokens, SSH keys, cookies, authenticated service URIs, Redis secrets, Allas/OpenStack credentials and similar material must remain in ignored/protected runtime env/secret files or another approved secrets mechanism.
 
@@ -63,7 +64,7 @@ $LACLAUGPT_PRIVATE_ROOT/
   secrets/          # ignored/protected
 ```
 
-Adapt to Data-Storage's current conventions rather than creating a duplicate tree. Run `python tools/hermes/private_root.py check` before accessing private state. Never symlink or copy private material into a public repository.
+Adapt to the root's current conventions rather than creating a duplicate tree. Run `python tools/hermes/private_root.py check` before accessing private state. Never symlink or copy private material into a public repository.
 
 ## Scheduled repository check
 
@@ -82,7 +83,7 @@ Do not merge PRs, close issues, or publish new issues merely because they exist.
 
 ## Installation health check and bounded repair
 
-Installation-specific knowledge belongs in a private manifest under Data-Storage, for example:
+Installation-specific knowledge belongs in a private manifest under the private root, for example:
 
 `$LACLAUGPT_PRIVATE_ROOT/operations/hermes/installations.yaml`
 
@@ -112,7 +113,7 @@ Health workflow:
 9. rerun health and validation checks;
 10. never discard uncommitted researcher work, rewrite history, rotate credentials, delete data, or change infrastructure topology unless explicitly instructed.
 
-For AI26, process existence alone is insufficient. Use `skills/hermes-ai26-operations/SKILL.md` to require recent Collection -> Storage -> Analysis -> Visualization evidence and dashboard freshness before reporting `HEALTHY`.
+For AI26, process existence alone is insufficient. Use `skills/hermes-ai26-operations/SKILL.md` to require recent Collection -> Analysis -> Visualization evidence and dashboard freshness before reporting `HEALTHY`.
 
 ## Cron discipline
 

@@ -4,23 +4,24 @@ This document defines the public contract for running Hermes against the LaclauG
 
 ## Project surface
 
-Hermes treats these as the five coordinated LaclauGPT repositories:
+Hermes treats these as the four coordinated public LaclauGPT repositories:
 
 | Repository | Responsibility |
 | --- | --- |
 | `TomiToivio/LaclauGPT` | public paper, theory, cross-module contracts, public reports, literature workspace, project/agent documentation |
 | `TomiToivio/LaclauGPT-Data-Collection` | public collection/acquisition, normalization, collection runtime |
-| `TomiToivio/LaclauGPT-Data-Storage` | private canonical non-public project storage, private overlays, operational manifests and private reports |
 | `TomiToivio/LaclauGPT-Data-Analysis` | public multimodal/NLP/LLM/statistical/discourse analysis |
 | `TomiToivio/LaclauGPT-Data-Visualization` | public dashboards, plots/maps/graphs and researcher-facing UI/control plane |
+
+Storage is deployment infrastructure rather than a repository: MongoDB, Redis and S3-compatible object storage run wherever a deployment needs them, behind each module's storage abstraction.
 
 The main repository coordinates the project but is not a dumping ground for sibling implementation.
 
 ## Canonical private root
 
-`LACLAUGPT_PRIVATE_ROOT` should point to the established local checkout/runtime root for `TomiToivio/LaclauGPT-Data-Storage`.
+`LACLAUGPT_PRIVATE_ROOT` should point to the established local checkout/runtime root for authorized non-public project material.
 
-Do not create a second unrelated private tree when the host already has an authorized Data-Storage checkout. First inspect the installation and reuse its current verified path.
+Do not create a second unrelated private tree when the host already has an authorized private checkout. First inspect the installation and reuse its current verified path.
 
 A conceptual layout is:
 
@@ -41,7 +42,7 @@ $LACLAUGPT_PRIVATE_ROOT/
   secrets/          # ignored/protected
 ```
 
-Adapt this to Data-Storage's current conventions instead of imposing a duplicate hierarchy.
+Adapt this to the private root's current conventions instead of imposing a duplicate hierarchy.
 
 The private repository may hold non-public AI26 configuration, source/watch lists, researcher overlays/codebooks, notes, machine-specific non-secret deployment configuration, private dashboard/RAG presets, operational manifests, private health/status reports and suitable private artifacts under its own storage policy.
 
@@ -61,7 +62,7 @@ before private-state operations. The checker must confirm that the root is not i
 
 ## Installation manifest
 
-A private manifest should live in Data-Storage, for example:
+A private manifest should live under the private root, for example:
 
 ```text
 $LACLAUGPT_PRIVATE_ROOT/operations/hermes/installations.yaml
@@ -75,7 +76,6 @@ installations:
     repositories:
       main: /private/path/to/LaclauGPT
       collection: /private/path/to/LaclauGPT-Data-Collection
-      storage: /private/path/to/LaclauGPT-Data-Storage
       analysis: /private/path/to/LaclauGPT-Data-Analysis
       visualization: /private/path/to/LaclauGPT-Data-Visualization
     health_checks:
@@ -113,7 +113,7 @@ Use `skills/hermes-ai26-operations/SKILL.md` for the complete live verification 
 A valid health check must inspect current repository/runtime state and answer whether the real AI26 pipeline is moving fresh data through:
 
 ```text
-Collection -> Data Storage -> Analysis -> Visualization
+Collection -> Analysis -> Visualization
 ```
 
 The check should cover, with publication-safe evidence:
@@ -128,7 +128,7 @@ The check should cover, with publication-safe evidence:
 
 Do not mark the system `HEALTHY` just because processes exist. `HEALTHY` requires evidence of recent end-to-end AI26 data flow plus a functioning, current dashboard. Missing observability should be reported as `UNKNOWN` or `DEGRADED` as appropriate rather than filled with invented timestamps.
 
-Private detailed reports belong under Data-Storage, for example `reports/private/`. A publication-safe summary may be written publicly only when the task explicitly authorizes it.
+Private detailed reports belong under the private root, for example `reports/private/`. A publication-safe summary may be written publicly only when the task explicitly authorizes it.
 
 ## Suggested scheduled jobs
 
@@ -140,9 +140,9 @@ Cadence: user-selected.
 
 Actions for one bounded iteration:
 
-1. validate the canonical Data-Storage private root;
-2. inspect all five repository checkouts and current revisions;
-3. run the authorized read-only health checks for Collection, Storage, Analysis and Visualization;
+1. validate the canonical private root;
+2. inspect all four repository checkouts and current revisions;
+3. run the authorized read-only health checks for Collection, storage infrastructure, Analysis and Visualization;
 4. trace recent real AI26 activity end-to-end where possible;
 5. classify overall state as `HEALTHY`, `DEGRADED`, `BROKEN` or `UNKNOWN`;
 6. write the detailed private report;

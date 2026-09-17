@@ -17,7 +17,7 @@ Current canonical files outrank model memory.
 
 ## Scope
 
-This repository coordinates theory/paper, public research documentation, project-wide contracts, literature/source curation and submodule architecture. Implementation belongs in Data Collection, Data Analysis, Data Visualization, Data Storage or Social Simulation Laboratory according to responsibility.
+This repository coordinates theory/paper, public research documentation, project-wide contracts, literature/source curation and submodule architecture. Implementation belongs in Data Collection, Data Analysis, Data Visualization or Social Simulation Laboratory according to responsibility.
 
 ## Research capabilities
 
@@ -34,10 +34,9 @@ AI26 is the canonical realistic public reference case. Public methodology/codebo
 - acquisition/normalization -> Data Collection
 - NLP/LLM/statistics/discourse analysis -> Data Analysis
 - dashboards/maps/plots/review UI -> Data Visualization
-- persistence/object/database infrastructure -> Data Storage
 - simulations/agent-society experiments -> Social Simulation Laboratory
 
-Do not duplicate sibling implementations in the umbrella repository.
+Storage (MongoDB, Redis, S3-compatible object storage) is deployment infrastructure owned by the module that uses it, not a separate repository. Do not duplicate sibling implementations in the umbrella repository.
 
 For the current public four-repository operational surface, Hermes must know and inspect `TomiToivio/LaclauGPT`, `TomiToivio/LaclauGPT-Data-Collection`, `TomiToivio/LaclauGPT-Data-Analysis`, and `TomiToivio/LaclauGPT-Data-Visualization` while still routing implementation to the owning repository.
 
