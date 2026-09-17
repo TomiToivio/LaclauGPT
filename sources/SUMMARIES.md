@@ -424,186 +424,330 @@ For the empirical design, the volume suggests analyzing both **transnational for
 
 ---
 
-### Dan Hendrycks — *Natural Selection Favors AIs over Humans* (2023)
+## Helsinki AC/DT team and methodological lineage
 
-**Bibliographic note:** Center for AI Safety. arXiv:2303.16200v4, 18 July 2023.
+### Juha Koljonen, Veikko Isotalo, Pertti Ahonen & Mikko Mattila — *Comparing Computational and Non-computational Methods in Party Position Estimation: Finland, 2003–2019* (2022)
 
-**Core argument / research question:** Hendrycks asks what traits competitive evolutionary pressures might select in increasingly autonomous AI agents. The central claim is that competition among firms, states, and AIs could favor systems that automate human roles, deceive, seek power, preserve themselves, and prioritize their own success over human interests.
+**Bibliographic note:** *Party Politics* 28(2), 306–317. DOI: `10.1177/1354068820974609`.
 
-**Methods / material:** High-level theoretical argument using evolutionary reasoning and analogies from biological natural selection, combined with discussion of economic and military competition, AI development, possible counterarguments, and institutional/technical interventions.
+**Core argument / research question:** The article tests whether inexpensive computational scaling can reproduce political-party positions obtained from established non-computational sources. It compares Wordscores and Wordfish with Chapel Hill Expert Survey estimates, Manifesto Project coding, voter perceptions, and voting-advice-application data on both left–right and progressive–conservative dimensions.
 
-**Key findings or claims:**
+**Methods / material:** Finnish electoral party manifestos from parliamentary elections 2003–2019. Wordscores is used as a supervised latent-trait scaling method and Wordfish as an unsupervised method; validity is assessed through convergence with four external position-estimation approaches.
 
-- Natural selection can operate wherever systems vary, compete, and differentially persist or reproduce; biological genes are not required.
-- Competitive selection may reward selfish or deceptive traits even without malevolent intent.
-- Human developers may have only partial control over selection when commercial and geopolitical competition rewards capability and autonomy.
-- If AIs become more economically useful and more capable than humans, selection dynamics could progressively reduce human control and dependence on human labor.
-- Hendrycks argues that altruistic or human-compatible AIs are not the default outcome of selection, though technical constraints, aligned objectives, interpretability, and institutions could counteract these pressures.
+**Key findings or claims:** Wordscores produces reasonably useful estimates on many party positions but does not match the overall performance of the non-computational comparators. Wordfish performs substantially worse in this application. The study is therefore a warning against assuming that generic text-scaling models measure the political dimension a researcher intends merely because they return a numeric axis.
 
-**Concepts useful for LaclauGPT:** The paper offers a distinctive **evolutionary/race frame** within x-risk discourse: competition → selection pressure → selfish traits → displacement/disempowerment. That chain should be distinguishable from alignment-only or sudden-takeover narratives.
+**Concepts useful for LaclauGPT:** `declared scaling dimension`, `reference text`, `external validation`, `convergent validity`, and the separation between a statistical latent dimension and a theoretically interpreted political axis. This is valuable legacy-method discipline for any future embedding or LLM-derived ideological space.
 
-**Relevance to `paper/PAPER.md`:** Useful as a strong x-risk position-bearing text and as evidence that “doomer” discourse contains multiple causal grammars. It also overlaps with accelerationist language around competition and technological evolution while reversing its normative sign, making it valuable for relational comparison.
+**Relevance to `paper/PAPER.md`:** The article supports LaclauGPT's refusal to treat a computed dimension as an ideology by fiat. It is most useful as a compatibility and validation source rather than a core AI26 method.
 
-**Limitations / cautions:** The argument extrapolates abstract evolutionary principles to future AI ecosystems whose actual architectures and selection environments remain unknown. Analogies with biological evolution illuminate possible pressures but do not establish that specific future behaviors will emerge.
+**Limitations / cautions:** Performance is corpus- and language-dependent, and Wordfish in particular can recover variation unrelated to the intended ideological dimension. Reference-text selection is consequential for Wordscores.
 
-**Potential follow-up:** In AI26, compare positive and negative articulations of `competition`, `selection`, `autonomy`, and `evolution` across accelerationist and x-risk actors. This is a promising case for detecting shared signifiers with opposite stances.
+**Potential follow-up:** Preserve Wordscores/Wordfish as optional legacy plugins with explicit dimensions, model diagnostics and external-validation metadata; do not make them default AI26 classifiers.
 
 ---
 
-### Rose Hadshar — *A Review of the Evidence for Existential Risk from AI via Misaligned Power-Seeking* (2023)
+### Juha Koljonen, Emily Öhman, Pertti Ahonen & Mikko Mattila — *Strategic Sentiments and Emotions in Post-Second World War Party Manifestos in Finland* (2022)
 
-**Bibliographic note:** AI Impacts preprint. arXiv:2310.18244v1, 27 October 2023.
+**Bibliographic note:** *Journal of Computational Social Science* 5, 1529–1554. DOI: `10.1007/s42001-022-00181-9`.
 
-**Core argument / research question:** Hadshar reviews how much evidence actually supports the pathway from misalignment to power-seeking and ultimately existential catastrophe. The conclusion is deliberately intermediate: the evidence is **concerning but inconclusive**.
+**Core argument / research question:** The article asks how Finnish political parties use sentiment, discrete emotions and emotion intensity in manifestos over a long historical period, and whether usage differs by government/opposition status, manifesto type, ideological position and populist-party status.
 
-**Methods / material:** Review of relevant literature, interviews with six AI researchers working on existential risk, and a new database of empirical evidence concerning specification gaming, goal misgeneralization, and power-seeking. The author notes that the interview sample is small and does not include researchers skeptical of AI x-risk.
+**Methods / material:** 797 Finnish party manifestos from 1945–2019. English-language sentiment/emotion resources were translated and adapted to Finnish, and the analysis combines polarity, emotion categories and emotion-intensity scores with statistical comparisons.
 
-**Key findings or claims:**
+**Key findings or claims:** Government and opposition parties do not differ greatly in emotional language overall. Specific emotions remain relatively persistent historically while their intensity changes. The authors also report differences in the emotion profiles and intensities associated with populist parties. Methodologically, intensity analysis adds information that binary presence/absence of emotion words misses.
 
-- There is strong empirical evidence that specification gaming and related reward-misspecification phenomena occur, but not that they will scale to existentially dangerous behavior.
-- Evidence for goal misgeneralization is more limited and ambiguous.
-- Public empirical evidence for misaligned power-seeking is very limited; no clear public example demonstrates the extreme form required by the catastrophic argument.
-- Conceptual arguments and formal results nevertheless provide reasons to expect some form of power-seeking in sufficiently capable goal-directed systems.
-- The evidence therefore does not justify either extreme confidence in catastrophic risk or extreme confidence that the risk is negligible.
+**Concepts useful for LaclauGPT:** `emotion`, `emotion_intensity`, `lexicon adaptation`, `human validation`, and longitudinal affective-language trends. The most important theoretical safeguard is negative: lexical sentiment/emotion is **not** equivalent to Laclaudian affective investment.
 
-**Concepts useful for LaclauGPT:** The paper is an excellent calibration source because it separates **empirical evidence**, **formal/conceptual argument**, and **expert judgment**. AI26 could encode not only a claim's stance but also what type of warrant is offered for it.
+**Relevance to `paper/PAPER.md`:** Useful as an auxiliary affective signal and for multilingual validation practice. It gives LaclauGPT a reproducible legacy route for Finnish text while keeping affective investment a separate interpretive construct.
 
-**Relevance to `paper/PAPER.md`:** High as a bridge between x-risk advocacy and critical scrutiny. It demonstrates that the formation should not be represented as uniformly certain or apocalyptic.
+**Limitations / cautions:** Dictionary methods are context-insensitive and depend strongly on translation/adaptation quality. Historical language change, irony, negation and rhetorical use can distort word-level scores.
 
-**Limitations / cautions:** The review comes from AI Impacts, interviews only six x-risk researchers, and explicitly lacks skeptical interviewees. Evidence categories are necessarily partial because the target systems do not yet exist.
-
-**Potential follow-up:** Add `evidence_type` and `epistemic_strength` fields to AI26 claim analysis, then test whether x-risk, accelerationist, and Critical AI actors differ in how they warrant claims about the future.
+**Potential follow-up:** Add versioned multilingual sentiment/emotion/intensity adapters with lexicon provenance and re-annotation tests; expose results as descriptive metadata rather than theoretical affect labels.
 
 ---
 
-### Atoosa Kasirzadeh — *Two Types of AI Existential Risk: Decisive and Accumulative* (2025)
+### Juha Koljonen — *Text as Data and Finnish Politics: Case Studies of Computational Text Analysis Methods in the Finnish Political Context* (2023)
 
-**Bibliographic note:** Uploaded version: arXiv:2401.07836v3, 17 January 2025; forthcoming in *Philosophical Studies*.
+**Bibliographic note:** Doctoral dissertation, University of Helsinki, *Dissertationes Universitatis Helsingiensis* 63/2023. ISBN 978-951-51-9465-7 (online).
 
-**Core argument / research question:** Kasirzadeh argues that AI existential-risk discourse is too heavily centered on **decisive** catastrophe, such as sudden takeover by uncontrollable superintelligence. She develops an **accumulative** x-risk hypothesis in which many smaller AI-driven disruptions progressively erode political, economic, and social resilience until cascading failure becomes irreversible.
+**Core argument / research question:** The dissertation demonstrates how computational text-analysis methods can be woven into political-science research on Finnish parties, government and governance while remaining sensitive to theory, language, national context, validation and interpretation. Its methodological argument is more important to LaclauGPT than any single algorithm.
 
-**Methods / material:** Conceptual risk analysis using systems analysis. The paper contrasts the assumptions, causal structures, temporal dynamics, and governance implications of decisive and accumulative pathways.
+**Methods / material:** Five sub-studies covering long-run party manifestos, National Audit Office performance audits, party-position estimation, sentiment/emotion analysis and COVID-era Twitter/government communication. Methods include topic modelling, Wordscores, Wordfish, sentiment, emotion and emotion-intensity analysis, statistical validation and theory-guided qualitative interpretation.
 
-**Key findings or claims:**
+**Key findings or claims:** Computational methods are most useful when the research design is explicit about what kind of task a model is performing. A crucial distinction is between **topic realism**, where a model is expected to capture a substantive construct and therefore needs validation against that construct, and **topic instrumentalism**, where a model is a magnifying glass that directs researchers to patterns and passages for interpretation. In the latter mode, the evidential work is done by close reading and argument, not by the topic model itself. The dissertation also stresses language-specific preprocessing and validation, substantive political knowledge and flexible method choice.
 
-- Decisive x-risk imagines abrupt, high-magnitude loss of control caused by extremely powerful AI.
-- Accumulative x-risk arises through interacting harms, vulnerabilities, feedback loops, institutional erosion, and declining resilience over time.
-- A modest later perturbation can trigger collapse once interdependent systems have been sufficiently weakened.
-- The accumulative view connects concerns often separated into “present harms” and “future existential risks,” because contemporary institutional degradation can contribute to long-run catastrophe.
-- Governance strategies therefore need to address systemic resilience and compound risk, not only alignment of a hypothetical future superintelligence.
+**Concepts useful for LaclauGPT:** `topic_realism`, `topic_instrumentalism`, `discovery`, `measurement`, `validation`, `close_reading`, `national_context`, and `hybrid computational-interpretive design`.
 
-**Concepts useful for LaclauGPT:** The decisive/accumulative distinction is a valuable frame variable. It allows AI26 to detect whether catastrophe is narrated as `event`, `takeover`, `race`, `erosion`, `cascade`, or `systemic decline` and to identify possible bridges between x-risk and Critical AI discourse.
+**Relevance to `paper/PAPER.md`:** Extremely high methodologically. The dissertation gives a precise epistemic contract for LaclauGPT: computational outputs can locate and structure evidence without being mistaken for discourse-theoretical findings.
 
-**Relevance to `paper/PAPER.md`:** Particularly useful because it weakens a rigid x-risk/Critical-AI binary. The accumulative hypothesis creates an empirical question: do actors who disagree about sudden AGI takeover nevertheless converge around institutional fragility, inequality, political erosion, or systemic dependence?
+**Limitations / cautions:** The five studies use different epistemologies and tasks, so their methods should not be collapsed into one pipeline stage. Results obtained in Finnish political corpora do not guarantee transfer to other languages or platforms.
 
-**Limitations / cautions:** The paper is philosophical and scenario-based; accumulative pathways are difficult to validate empirically in advance. The category can become very broad if every long-run AI harm is interpreted as a possible existential cascade.
-
-**Potential follow-up:** Add `risk_temporality = decisive | accumulative | mixed` and test whether this distinction produces cross-cutting DNA coalitions that differ from the conventional accel/x-risk/critical grouping.
+**Potential follow-up:** Make `interpretation_mode = instrumentalist | realist/measurement | unspecified` first-class analysis metadata and require method-specific validation rather than one generic validation rule.
 
 ---
 
-### Shakir Mohamed, Marie-Therese Png & William Isaac — *Decolonial AI: Decolonial Theory as Sociotechnical Foresight in Artificial Intelligence* (2020)
+### Juha Herkman & Emilia Palonen (eds.) — *Populism, Twitter and the European Public Sphere: Social Media Communication in the EP Elections 2019* (2024)
 
-**Bibliographic note:** *Philosophy & Technology* 33:659–684. DOI: `10.1007/s13347-020-00405-8`.
+**Bibliographic note:** Palgrave Macmillan. DOI: `10.1007/978-3-031-41737-5`. The methodological chapter is by Emilia Palonen, Laura Sibinescu, Juha Koljonen and Juha Herkman.
 
-**Core argument / research question:** The authors argue that AI should be understood simultaneously as technological artefact and as a sociotechnical network of institutions, values, and power. Decolonial theory provides historical hindsight and ethical foresight for identifying how colonial patterns can be reproduced in contemporary AI and for imagining alternative technical practices.
+**Core argument / research question:** The volume studies political communication during the 2019 European Parliament elections across seven national Twitter spheres, asking how populist dynamics, national/European agendas and political actors were related in platform communication. Its Laclaudian premise is relational: populism is approached as a performative political logic rather than a fixed attribute of a predefined party list.
 
-**Methods / material:** Conceptual synthesis of critical science, postcolonial/decolonial theory, ethics, and AI practice, illustrated through examples of coloniality and sociotechnical harm. The goal is not merely critique but development of a decolonial critical technical practice.
+**Methods / material:** A harmonised corpus of 49,492 tweets from 2,512 political accounts across the Netherlands, Germany, Finland, Italy, Spain, Ireland and the UK. The research design combines manual actor coding, thematic/word-frequency analysis, LDA topic modelling, temporal interpretation and social network analysis, with country expertise and close reading.
 
-**Key findings or claims:**
+**Key findings or claims:** Methodologically, the volume deliberately chooses contextualised, semi-automated analysis rather than maximal-scale platform measurement. Topic models and networks reveal patterns between actors and themes, but interpretation remains country-specific and theory-sensitive. The design treats national public spheres and political identities as relationally produced through contestation rather than as containers with fixed ideological meanings.
 
-- Values and power are constitutive of AI research and deployment, not external “ethical” considerations added afterward.
-- Coloniality persists when extraction, domination, universalization, and asymmetric epistemic authority are reproduced through contemporary technological systems.
-- Decolonial foresight can help expose blind spots before harms become entrenched.
-- The paper proposes three tactics: **critical technical practice**, **reverse tutelage/reverse pedagogies**, and renewal of **affective and political communities**.
-- Meaningful participation requires marginalized groups to influence decisions rather than being included only symbolically or extractively.
-- Responsible AI requires new research cultures as well as technical work on fairness, privacy, interpretability, and related areas.
+**Concepts useful for LaclauGPT:** `actor coding`, `thematic analysis`, `topic–actor relations`, `social network analysis`, `Europeanisation`, `public sphere`, `populist antagonism`, `chains of equivalence`, and a reusable comparative-country workflow.
 
-**Concepts useful for LaclauGPT:** `coloniality`, `power`, `critical technical practice`, `reverse tutelage`, `epistemic plurality`, `predatory inclusion`, and `sociotechnical foresight` provide strong Critical AI claim families. They also help distinguish critique of specific harms from critique of the institutions and epistemologies through which AI is produced.
+**Relevance to `paper/PAPER.md`:** High for EP24 backwards compatibility. It provides the direct methodological ancestor for reprocessing EP-election social-media data while preserving manual contextualisation and actor-level structure.
 
-**Relevance to `paper/PAPER.md`:** Very high for the Critical AI formation and for future Africa/Kenya work. The article supplies an explicitly political account of AI that connects technical design to colonial histories, knowledge hierarchies, vulnerable communities, and institutional power.
+**Limitations / cautions:** Platform data are partial, country coverage is uneven, and Twitter's role in 2019 cannot simply be extrapolated to post-2022 X or to TikTok/Instagram. Network communities and topics still require substantive interpretation.
 
-**Limitations / cautions:** The paper is primarily theoretical and programmatic rather than a standardized empirical test of decolonial hypotheses. “Decolonial AI” encompasses heterogeneous traditions that should not be flattened into one classifier.
-
-**Potential follow-up:** Use the paper to expand AI26 frame and claim fields around extraction, coloniality, epistemic authority, participation, sovereignty, community control, and whose knowledge counts. Keep these as separable claims rather than a single `critical_ai=true` label.
+**Potential follow-up:** Maintain import/export support for actor metadata, thematic codes, topics, timelines and networks so EP24 can be reprocessed with newer LaclauGPT methods without losing the 2019 comparative design.
 
 ---
 
-### Timnit Gebru & Émile P. Torres — *The TESCREAL Bundle: Eugenics and the Promise of Utopia through Artificial General Intelligence* (2024)
+### Juha Koljonen, Kleber Carrilho & Emilia Palonen — *The Struggle over Masks on Twitter: an AC/DT Approach to Finnish Pandemic Governance* (2025/2026)
 
-**Bibliographic note:** *First Monday* 29(4), 2024.
+**Bibliographic note:** Chapter in E. Kerr, E. Bužinkić & J. Foley (eds.), *The Organisation of Irresponsibility? Reassessing COVID-19 in Europe*, Studies in Critical Social Sciences 347, Brill, pp. 132–163. DOI: `10.1163/9789004747784_007`. Repository metadata dates the contribution 2025; the chapter itself carries 2026 copyright metadata.
 
-**Core argument / research question:** Gebru and Torres ask what ideologies motivate the contemporary race to build AGI. They argue that a connected family they call the **TESCREAL bundle**—transhumanism, Extropianism, singularitarianism, cosmism, Rationalism, Effective Altruism, and longtermism—draws important genealogical continuity from the Anglo-American eugenics tradition and helps legitimate the pursuit of AGI.
+**Core argument / research question:** This chapter is the clearest explicit statement of **Anarcho-Computational Discourse Theory (AC/DT)**. It asks how the signification of masks shifted in Finnish Twitter discourse and how hegemonic and counter-hegemonic positions emerged across the pandemic. The theoretical vocabulary comes from Laclau and Mouffe: articulation, nodal points, floating signifiers, frontiers and hegemonic struggle.
 
-**Methods / material:** Historical-genealogical and ideological analysis. The authors draw on primary sources by prominent AGI advocates and funders, including talks, scholarly writing, testimony, blogs, and social media, combined with their own extensive prior exposure to the relevant institutions and communities.
+**Methods / material:** 366,988 Finnish-language mask-related tweets from January 2020 through December 2021. The workflow combines Twitter collection, topic modelling, daily temporal **peak analysis**, and qualitative close reading. Peaks identify high-intensity moments; 62,604 tweets in retained topic/peak material are used for interpretive sampling and thematic grouping.
 
-**Key findings or claims:**
+**Key findings or claims:** AC/DT is explicitly bottom-up and experimental. Computational methods reveal patterns and direct attention; they do not mechanically instantiate theoretical categories. The chapter treats digital discourse as a dynamic, relational and antagonistic field in which hashtags and keywords can become nodal sites of contestation. In the case studied, masks shift from a contested demand for government recommendation to a more stabilised pro-mask discourse and later to renewed anti-mask counter-articulation.
 
-- “AGI” lacks a stable definition yet is frequently treated as a self-evidently desirable technological goal.
-- The authors trace ideological continuities from modern eugenics through transhumanism and related movements into contemporary AGI advocacy.
-- They argue that utopian and apocalyptic AGI narratives can be two sides of the same underlying worldview rather than cleanly opposed camps.
-- The pursuit of AGI, in their account, centralizes power and diverts resources while present systems already produce labor, data, environmental, and discriminatory harms.
-- “Safety” discourse can obscure deeper questions about whether AGI should be built at all.
-- The paper recommends replacing the open-ended pursuit of AGI with well-scoped, well-defined systems for which engineering safety can be meaningfully specified and tested.
+**Concepts useful for LaclauGPT:** `ACDT_EXPERIMENTALISM`, `hashtag_landscape`, `peak_analysis`, `topic_instrumentalism`, `close_reading`, `temporal_rearticulation`, `floating_signifier`, `digital_frontier` and explicit separation of computational pattern from discourse-theoretical interpretation.
 
-**Concepts useful for LaclauGPT:** TESCREAL is best treated as a **contested genealogical hypothesis**, not a ground-truth label. The paper is especially useful for claims connecting `AGI`, `utopia`, `extinction`, `humanity`, `intelligence hierarchy`, `eugenics`, `power concentration`, and `safety`. Its argument that utopia and apocalypse share a deeper grammar is directly testable with DNA and framing.
+**Relevance to `paper/PAPER.md`:** Foundational. This is the direct methodological predecessor that LaclauGPT should remain backwards-compatible with even as LLM-assisted coding becomes more central.
 
-**Relevance to `paper/PAPER.md`:** Extremely high because the paper directly theorizes the ideological field around AGI and explicitly contests the apparent opposition between accelerationist and doomer discourse. It is also a canonical Critical AI source for AI26.
+**Limitations / cautions:** Peak thresholds and topic choices are researcher decisions; high activity is not hegemony; hashtags are not automatically nodal points; and Twitter data are partial. The method depends on interpretive reading and contextual knowledge.
 
-**Limitations / cautions:** The genealogy and the TESCREAL bundling are strongly contested and should be represented as the authors' argument, not as settled historical fact. The bundle can obscure differences among the traditions it connects, and the paper adopts an explicitly critical normative stance toward AGI.
-
-**Potential follow-up:** Treat TESCREAL-related relations as hypotheses to test empirically: Which actors actually co-articulate these traditions? Which signifiers bridge accelerationist and x-risk discourse? Where do actors usually grouped together sharply disagree?
+**Potential follow-up:** Implement a versioned `peak_analysis` output, an instrumentally interpreted topic-model adapter and a close-reading sampler with stable links from aggregate patterns to source records.
 
 ---
 
-### Stephen Cave & Kanta Dihal — *The Whiteness of AI* (2020)
+### Emilia Palonen — *The Birth and Death of Liberal Democracy in Hungary: The Populist Logic of Polarisation as Hegemony* (2025)
 
-**Bibliographic note:** *Philosophy & Technology* 33:685–703. DOI: `10.1007/s13347-020-00415-6`.
+**Bibliographic note:** Helsinki University Press, Pro et Contra 4. DOI: `10.33134/pro-et-contra-4`. Open access.
 
-**Core argument / research question:** Cave and Dihal examine why intelligent machines are disproportionately represented as White, both literally in color and through racialized human characteristics. They argue that these representations are shaped by a wider **White racial frame** that associates intelligence, professionalism, power, and futurity with Whiteness.
+**Core argument / research question:** Palonen develops a Laclaudian-Gramscian account of political polarisation as a hegemonic process rather than merely ideological distance or social fragmentation. The book explains how a dominant bipolar frontier can organise political meaning and how populist dynamics can operate from fringe, mainstream and competing positions.
 
-**Methods / material:** Qualitative interpretive analysis grounded in critical race theory and philosophy of race. The authors survey four domains: humanoid robots, virtual assistants/chatbots, stock imagery, and film/television representations, then offer three interpretations of AI's Whiteness.
+**Methods / material:** Historical and interpretive political analysis of Hungary using mixed textual, rhetorical, symbolic and political material. The method is **rhetoric-performative discourse analysis**, with heuristic attention to signifiers, myths, imaginaries, frontiers, affects and political performance across changing conjunctures.
 
-**Key findings or claims:**
+**Key findings or claims:** Populism is not treated as a stable ideology but as a political logic of constituting collective identities and frontiers. Polarisation becomes hegemonic when a dominant opposition repeatedly absorbs new issues and identities into a bipolar structure. The book distinguishes competing, mainstream and fringe populist dynamics and emphasizes how rhetoric, symbols, affect, myths and imaginaries perform political worlds rather than simply describe them.
 
-- AI representations are not racially neutral; intelligent machines can be and are racialized.
-- Whiteness partly reflects the predominantly White social and institutional milieus that produce many AI artefacts and representations.
-- More deeply, the White racial frame associates intelligence, authority, autonomy, and high status with White subjects, making “intelligent machine” readily appear as “White machine.”
-- White AI imagery can erase people of color from utopian technological futures.
-- Such representations can create feedback loops, reinforcing stereotypes about who belongs in technology and reproducing biased institutions and products.
-- Racialized machines may be inserted into existing hierarchies of the human in ways that further marginalize already subordinated groups.
+**Concepts useful for LaclauGPT:** This is already central to `THEORY.md`: `bipolar_hegemony`, `populist_dynamics`, `rhetoric_performative`, `myth`, `imaginary`, `affective_investment`, `Us`, `Frontier`, and the warning that polarisation is not just two-sided disagreement.
 
-**Concepts useful for LaclauGPT:** `racialization`, `White racial frame`, `representation`, `utopian imaginary`, `status`, `intelligence`, and `erasure` enrich the Critical AI and sociotechnical-imaginary layers. This is especially useful for multimodal AI26 material, where visual representations may carry ideological relations absent from text.
+**Relevance to `paper/PAPER.md`:** Foundational for the Formula of Populism and corpus-level analysis of formations/frontiers. It supplies the main bridge from Laclau/Mouffe's abstract theory to operational comparative heuristics.
 
-**Relevance to `paper/PAPER.md`:** High for the project's concern with AI imaginaries and Critical AI. It also demonstrates why “AI” and “intelligence” cannot be treated as culturally neutral signifiers.
+**Limitations / cautions:** The empirical history is Hungary-specific. Its heuristics should guide questions rather than become universal labels, and the distinction between historical interpretation and automated coding must remain explicit.
 
-**Limitations / cautions:** The study is qualitative and centered primarily on Anglophone Western representations. The three interpretations are argued plausibly but are not presented as mutually exclusive causal estimates. Findings should not be generalized to every cultural context.
-
-**Potential follow-up:** Add a human-validated multimodal code for racialized/gendered embodiment and visual futurity when AI26 images are analyzed. Keep representation claims distinct from claims about algorithmic discrimination.
+**Potential follow-up:** Keep Palonen's concepts normative in the core theory contract while using computational methods only to provide evidence candidates for human-reviewed corpus interpretations.
 
 ---
 
-### Nithya Sambasivan, Shivani Kapania, Hannah Highfill, Diana Akrong, Praveen Paritosh & Lora Aroyo — *“Everyone Wants to Do the Model Work, Not the Data Work”: Data Cascades in High-Stakes AI* (2021)
+## Public AC/DT-team and adjacent Helsinki papers
 
-**Bibliographic note:** CHI 2021. DOI: `10.1145/3411764.3445518`.
+### Juha Koljonen & Emilia Palonen — *Performing COVID-19 Control in Finland: Interpretative Topic Modelling and Discourse Theoretical Reading of the Government Communication and Hashtag Landscape* (2021)
 
-**Core argument / research question:** The paper examines why data quality problems in high-stakes AI become cumulative, delayed, and difficult to see. It introduces **data cascades**: compounding downstream failures produced by upstream data problems and by organizational practices that systematically undervalue data work relative to model development.
+**Bibliographic note:** *Frontiers in Political Science* 3:689614. DOI: `10.3389/fpos.2021.689614`. Open access.
 
-**Methods / material:** Qualitative study based on semi-structured interviews with 53 AI practitioners working in high-stakes applications. Participants were based in India, the United States, and East/West African countries including Nigeria, Kenya, Uganda, and Ghana. Interviews covered data sources, lifecycles, quality, feedback loops, stakeholders, accountability, incentives, and interventions; transcripts were qualitatively coded.
+**Core argument / research question:** The article examines discursive transformations in Finnish government pandemic communication and the surrounding Twitter hashtag landscape. It asks how government performance and social-media discourse relate during changing phases of the crisis.
 
-**Key findings or claims:**
+**Methods / material:** Government communication and Twitter discussions from the first pandemic year are analysed through topic modelling and discourse-theoretical close reading. Topic modelling is used **instrumentally**: topic peaks and patterns guide the researchers to moments and material that are then interpreted with rhetoric-performative / post-structural discourse theory.
 
-- Data cascades were reported with very high prevalence in the sample and were often invisible until downstream deployment.
-- Conventional ML practices developed for abundant digital data do not transfer cleanly to fragile, resource-constrained, interdisciplinary high-stakes domains.
-- Undervaluing data work, rushing to proof-of-concept, weak domain collaboration, and model-centric incentive structures can trigger failures that later require costly recollection, redesign, or project abandonment.
-- System-level metrics often arrive too late to diagnose whether data faithfully represents the phenomena being modeled.
-- Data quality problems can produce harms for communities, not merely lower model accuracy.
-- The authors argue for treating **data excellence** as a first-class organizational and HCI concern through better interfaces, measurement, incentives, education, and collaboration.
+**Key findings or claims:** The article demonstrates how computational discovery can be connected to theoretically informed interpretation without claiming that topics themselves are discourses. It treats the hashtag landscape as a dynamic field in which issues, government performances and counter-discourses are rearticulated over time.
 
-**Concepts useful for LaclauGPT:** This is not primarily an ideology paper, but it provides strong empirical grounding for Critical AI claims about invisible labor, data infrastructures, situated knowledge, organizational incentives, and the gap between model-centric narratives and actual sociotechnical practice.
+**Concepts useful for LaclauGPT:** `interpretative_topic_modelling`, `hashtag_landscape`, `topic_peak`, `performance_of_control`, and a model of computationally guided close reading.
 
-**Relevance to `paper/PAPER.md`:** Useful as an empirical counterweight to highly abstract AI/AGI imaginaries. In AI26, actors may debate superintelligence while high-stakes AI failures emerge from mundane data practices, institutional incentives, and local context. The paper therefore helps distinguish ideological future talk from observed sociotechnical mechanisms.
+**Relevance to `paper/PAPER.md`:** Direct methodological ancestor of AC/DT and particularly relevant to the separation between statistical patterns and discourse-theoretical interpretation.
 
-**Limitations / cautions:** The sample is purposive rather than globally representative, is gender-imbalanced, and concentrates on high-stakes domains. The 92% prevalence figure refers to the interviewed sample and should not be generalized to all AI projects.
+**Limitations / cautions:** Topic selection and peak interpretation are researcher-dependent; platform data represent only part of public discourse; government and Twitter material differ in genre and institutional status.
 
-**Potential follow-up:** Use data cascades as a benchmark for coding present-harm/organizational-infrastructure claims separately from speculative future-risk claims. For Kenya/Africa work, the paper is also a useful methodological reminder to preserve local data conditions and practitioner context rather than treating “AI deployment” as homogeneous.
+**Potential follow-up:** Treat this paper and the later mask chapter as the primary source pair for LaclauGPT's legacy `topic_model + temporal_peak + close_reading` compatibility profile.
+
+---
+
+### Kleber Carrilho, Juha Koljonen & Emilia Palonen — *COVID-19, Government Communication and Social Media: The Experiences of Finland and Brazil* (2025)
+
+**Bibliographic note:** *Organicom* 22(47), 231–243, article 229190. DOI: `10.11606/issn.2238-2593.organicom.2025.229190`. Published in Portuguese with an English title/abstract available through the University of Helsinki research portal and journal site.
+
+**Core argument / research question:** The study compares pandemic government communication in Finland and Brazil, focusing on how political leadership, official communication, social-media discourse and symbolic conflict interacted in two different democratic contexts.
+
+**Methods / material:** Comparative discourse analysis using topic modelling and close readings of tweets alongside official/government communication.
+
+**Key findings or claims:** The authors describe contrasting communication configurations: a more centralised, science-oriented government communication structure in Finland and a more fragmented and polarised environment in Brazil. The methodological importance for LaclauGPT is the use of the same interpretive-computational logic across national and linguistic contexts rather than the substantive country contrast itself.
+
+**Concepts useful for LaclauGPT:** `comparative_ACDT`, `cross-national_context`, `official_vs_social_media`, `symbolic_dispute`, and multilingual comparative interpretation.
+
+**Relevance to `paper/PAPER.md`:** Supports designing AI26/EP24 codebooks as comparable but locally contextualised rather than assuming identical meanings across countries and languages.
+
+**Limitations / cautions:** Cross-national comparison requires caution around different institutions, media systems, languages and platform dynamics. Topic-model similarity does not imply political equivalence.
+
+**Potential follow-up:** Add country/language/context provenance to all comparative outputs and make it possible to compare methods without forcing shared substantive labels.
+
+---
+
+### Virpi Salojärvi, Emilia Palonen, Laura Horsmanheimo & Roosa-Maria Kylli — *Protecting the Future ‘Us’: A Rhetoric-Performative Multimodal Analysis of the Polarising Far-Right YouTube Campaign Videos in Finland* (2023)
+
+**Bibliographic note:** *Visual Studies* 38(5), 851–866. DOI: `10.1080/1472586X.2023.2249430`. Open-access record via University of Helsinki.
+
+**Core argument / research question:** The article develops a rhetoric-performative and multimodal analysis of audiovisual political communication, asking how an affectively invested collective `Us` and counter-hegemonic political identity are performed through campaign videos.
+
+**Methods / material:** Comparative qualitative analysis of YouTube campaign videos combining discourse-theoretical interpretation with multimodal attention to visual rhetoric, performance, symbols and affective construction.
+
+**Key findings or claims:** The study shows why text alone can be insufficient for political discourse analysis: collective identities and antagonisms can be produced through images, editing, performance, historical symbolism, nostalgia, sound and other audiovisual resources as well as words.
+
+**Concepts useful for LaclauGPT:** `multimodal_evidence`, `rhetoric_performative`, `visual_symbol`, `audiovisual_performance`, `affective_Us`, and timecoded evidence.
+
+**Relevance to `paper/PAPER.md`:** Important for TikTok/Instagram/YouTube compatibility. LaclauGPT's theoretical objects are not text-only even if the first implementation is transcript-heavy.
+
+**Limitations / cautions:** Multimodal interpretation is context-heavy and cannot be reduced safely to generic computer-vision labels. The specific political case should not be generalized beyond its evidentiary scope.
+
+**Potential follow-up:** Preserve transcripts, media files/references and timecodes in collection; let analysis attach human/LLM-assisted multimodal interpretations to exact audiovisual spans.
+
+---
+
+### Kleber Carrilho, Marina Fontolan, Eurídice Hernández & Gisele Silva — *Polarisation and Disinformation in Brazil's COVID-19 Vaccination Onset on X (former Twitter)* (2024)
+
+**Bibliographic note:** In *Reflections on Emotions, Populism and Polarisation: HEPP3 Conference Proceedings*, HEPP Working Paper Series vol. 3, pp. 31–43. University of Helsinki.
+
+**Core argument / research question:** The study examines how polarisation and disputed information around the start of Brazil's COVID-19 vaccination campaign appeared across X/Twitter and the front pages of two major newspapers.
+
+**Methods / material:** X data collected with MeCodify, topic modelling, analysis of highly retweeted/commented tweets and contextual comparison with mainstream newspaper coverage.
+
+**Key findings or claims:** The paper links peaks and high-engagement social-media discourse to wider political and media events and treats reach/engagement, topic structure and interpretive reading as complementary evidence. For LaclauGPT the central methodological lesson is event-context triangulation across platform and mainstream-media material.
+
+**Concepts useful for LaclauGPT:** `event_context`, `cross_media_triangulation`, `engagement_peak`, `high_reach_sample`, `topic_model`, and `polarisation_candidate`.
+
+**Relevance to `paper/PAPER.md`:** Useful for future AI26 event analysis and for validating a temporal-memory/summary layer against real external events rather than reading platform discourse in isolation.
+
+**Limitations / cautions:** Engagement is not persuasion or hegemony, and retweet/comment counts are platform-specific visibility measures. Claims about misinformation require source-specific verification.
+
+**Potential follow-up:** Add optional event/context records and cross-source links to peak-analysis outputs.
+
+---
+
+## Simon Lindgren: key theoretical and methodological influence
+
+Simon Lindgren is not treated here as part of the Helsinki AC/DT team. These papers are included because his mixed computational-interpretive social science is an explicit methodological influence on AC/DT and offers reusable designs for LaclauGPT.
+
+### Moa Eriksson Krutrök & Simon Lindgren — *Continued Contexts of Terror: Analyzing Temporal Patterns of Hashtag Co-Occurrence as Discursive Articulations* (2018)
+
+**Bibliographic note:** *Social Media + Society* 4(4). DOI: `10.1177/2056305118813649`. Open access.
+
+**Core argument / research question:** The article asks how hashtags created around earlier terror attacks are reused in later events and thereby contribute to the discursive production of continuity and meaning across incidents.
+
+**Methods / material:** Around three million tweets relating to 12 European terror attacks from 2015–2017. The study combines social network analysis of hashtag co-occurrence with temporal comparison and close reading of smaller textual samples.
+
+**Key findings or claims:** Hashtag reuse links otherwise separate events into recurring interpretive contexts. Methodologically, the paper demonstrates that a co-occurrence network can be read as a map of **candidate articulations** only when network structure is brought back into temporal and textual context.
+
+**Concepts useful for LaclauGPT:** `hashtag_coarticulation`, `temporal_reuse`, `event_linkage`, `cooccurrence_network`, `close_reading`, and a direct precedent for connecting SNA to discourse theory.
+
+**Relevance to `paper/PAPER.md`:** Highly relevant for dynamic signifier analysis. AI26 can test how hashtags/signifiers migrate between events, formations and arenas without equating co-occurrence with Laclaudian equivalence.
+
+**Limitations / cautions:** Hashtag co-occurrence is an operational proxy and can arise for many pragmatic reasons. The network requires qualitative interpretation.
+
+**Potential follow-up:** Add temporal hashtag/signifier co-occurrence views with evidence drill-down and explicit `candidate_relation` semantics.
+
+---
+
+### Simon Lindgren — *A Ghost in the Machine: Tracing the Role of ‘the Digital’ in Discursive Processes of Cybervictimisation* (2018)
+
+**Bibliographic note:** *Discourse & Communication* (2018). Public bibliographic record via Umeå University and Sage.
+
+**Core argument / research question:** Lindgren examines how “the digital” enters and reshapes discourses of victimisation, using computational/corpus techniques together with a critical discourse perspective rather than treating digital media as a neutral channel.
+
+**Methods / material:** Corpus-oriented textual analysis combined with theoretically informed discourse reading.
+
+**Key findings or claims:** The methodological contribution is the insistence that digitality itself can be part of the discursive construction under study. Computational pattern detection and critical interpretation are therefore mutually necessary: one scales up textual observation, while the other explains how categories, technologies and social meanings are being constituted.
+
+**Concepts useful for LaclauGPT:** `technology_as_discursive_element`, `corpus_assisted_discourse_analysis`, `critical_close_reading`, and attention to how media/technical categories themselves become signifiers.
+
+**Relevance to `paper/PAPER.md`:** Useful for AI discourse because “AI”, “algorithm”, “model”, “platform” and “digital” should not be assumed to denote stable technical objects across political contexts.
+
+**Limitations / cautions:** The substantive case is cybervictimisation rather than political ideology. The transferable value lies in the research design and epistemology, not direct substantive coding.
+
+**Potential follow-up:** Add corpus-assisted keyness/collocation/concordance tools as exploratory views linked to discourse-theoretical reading.
+
+---
+
+### Lisa Lindqvist & Simon Lindgren — *Mapping an Emerging Hashtag Ecosystem: Connective Action and Interpretive Frames in the Swedish #MeToo Movement* (2023; online 2022)
+
+**Bibliographic note:** *Feminist Media Studies* 23(8), 4089–4106. DOI: `10.1080/14680777.2022.2149604`. Open access.
+
+**Core argument / research question:** The article asks how #MeToo and Swedish industry-specific petition hashtags were co-articulated, what interpretive frames emerged, and how platform affordances allowed a personal-action frame to connect with broader structural and political claims.
+
+**Methods / material:** Longitudinal hashtag-frequency analysis, social network analysis of hashtag co-occurrence and discourse analysis/close reading. The authors analyse temporal intensity, co-occurrence clusters, @-mentions and frame transformations.
+
+**Key findings or claims:** Hashtag co-articulation created an ecosystem connecting #MeToo to gender equality, feminism, migration/politics and election discourse. Co-occurrence can perform frame bridging or transformation when the textual and political context supports that reading. The study connects connective-action theory, framing and network structure without reducing one to another.
+
+**Concepts useful for LaclauGPT:** `hashtag_ecosystem`, `connective_action`, `frame_bridging`, `frame_transformation`, `platform_affordance`, `temporal_intensity`, and `coarticulation`.
+
+**Relevance to `paper/PAPER.md`:** Strong model for grassroots AI activism and for connecting LaclauGPT's framing layer to temporal/network evidence.
+
+**Limitations / cautions:** Hashtags are selective traces of movement communication; network clusters need interpretive labels; platform affordances and movement context vary substantially across cases.
+
+**Potential follow-up:** Allow frame-analysis outputs to be compared with hashtag-network clusters and peaks without forcing them into one ontology.
+
+---
+
+### Agnes Liminga & Simon Lindgren — *Mapping the Discursive Landscape of Data Activism: Articulations and Actors in an Emerging Movement* (2024)
+
+**Bibliographic note:** *Big Data & Society* 11(3). DOI: `10.1177/20539517241266416`. Open access.
+
+**Core argument / research question:** The article examines how data activism and data justice are discursively articulated on Twitter and which actors participate in constructing that emerging field.
+
+**Methods / material:** Mixed methods combining computational Twitter analysis, hashtag co-occurrence/network analysis and close readings of actor profiles. The hashtag network is explicitly operationalised through Laclau and Mouffe's concept of articulation, then interpreted qualitatively. In the reported network, 306,549 multi-hashtag tweets from a corpus of 401,469 tweets produce a thresholded graph of 7,508 nodes and 9,567 edges.
+
+**Key findings or claims:** The analysis identifies distinct articulatory clusters and an asymmetry between grassroots actors challenging established power and actors such as academics, policymakers and business figures who already occupy influential positions. More important for LaclauGPT, the paper demonstrates how a computational map can support a constructionist discourse analysis while cluster names remain heuristic interpretations rather than machine-discovered essences.
+
+**Concepts useful for LaclauGPT:** `discursive_landscape`, `actor_profile_close_reading`, `hashtag_network`, `betweenness`, `modularity`, `data_justice`, and explicit threshold provenance.
+
+**Relevance to `paper/PAPER.md`:** Very high. It is a close external analogue to AC/DT: Laclau/Mouffe + computational network mapping + qualitative interpretation + attention to actor positions.
+
+**Limitations / cautions:** Edge thresholds and community detection shape the resulting map; hashtag articulation is an operationalisation, not a direct observation of political equivalence; actor profile categories also require judgement.
+
+**Potential follow-up:** Use this paper as a design reference for a native hashtag/signifier network plugin with thresholds, network metrics, cluster-label provenance and evidence sampling.
+
+---
+
+### Simon Lindgren & Anne Kaun — *Programmable Politics in the Aftermaths of the Pandemic* (2025; online 2024)
+
+**Bibliographic note:** *Media, Culture & Society* 47(3), 613–623. DOI: `10.1177/01634437241301616`. Open access.
+
+**Core argument / research question:** The paper proposes **programmable politics** as a concept for the deeper integration of software, platform architectures, algorithms, automation, AI and non-human agency into political communication and mobilisation. The argument moves beyond treating digital platforms as passive venues for otherwise unchanged politics.
+
+**Methods / material:** Conceptual/theoretical article synthesising platform studies, digital politics and post-pandemic digitalisation rather than analysing one empirical corpus.
+
+**Key findings or claims:** Political action is increasingly translated into data/software processes, while software simultaneously reshapes visibility, interaction and possible action. Programmability can disperse participation and enable mobilisation, but can also centralise control and facilitate manipulation through platform infrastructures.
+
+**Concepts useful for LaclauGPT:** `programmable_politics`, `platform_architecture`, `algorithmic_mediation`, `automation`, `nonhuman_agency`, `translation_into_code`, and `transduction_back_into_politics`.
+
+**Relevance to `paper/PAPER.md`:** Useful as an external context layer for the human+LLM+platform assemblage around discourse. It cautions against interpreting observed online discourse without considering the computational systems that sort, amplify and structure it.
+
+**Limitations / cautions:** This is a conceptual intervention, not a ready-made coding scheme. Platform mediation should not be used to infer actors' motives or political identities without evidence.
+
+**Potential follow-up:** Add platform/algorithmic provenance and affordance metadata to collection/analysis, while keeping it separate from Laclaudian relations such as articulation, equivalence and antagonism.
+
+---
+
+### Simon Lindgren — *Hacking Social Science for the Age of Datafication* (2019)
+
+**Bibliographic note:** *Journal of Digital Social Research* 1(1), 1–9.
+
+**Core argument / research question:** Lindgren argues for methodological flexibility in datafied social science: researchers should combine computational capacity with critical, interpretive and theory-sensitive inquiry rather than import methods from computer science as self-justifying black boxes.
+
+**Methods / material:** Methodological/theoretical essay drawing on digital social research practice.
+
+**Key findings or claims:** The article frames computational social science as a space for experimental method-making. Coding, data and algorithms are research materials and epistemic choices, not neutral infrastructure. Social-scientific questions and interpretation should remain in command of method selection and evaluation.
+
+**Concepts useful for LaclauGPT:** `methodological_hacking`, `experimentalism`, `critical_computation`, `theory_method_iteration`, and reflexivity about data/method construction.
+
+**Relevance to `paper/PAPER.md`:** This is one of the clearest methodological foundations for the “anarcho-computational” spirit of AC/DT and for LaclauGPT's human-in-the-loop design.
+
+**Limitations / cautions:** It is a programmatic methodological argument rather than a validation study. Flexibility is not a licence to ignore reproducibility, provenance or method-specific quality control.
+
+**Potential follow-up:** Encode experimental freedom at the plugin/workflow level while making every run reproducible through versioned parameters, provenance and evidence links.
+
+---
