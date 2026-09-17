@@ -1,0 +1,17 @@
+{
+  "study_id": "synthetic-ep",
+  "actors": [
+    {"actor_id": "actor-a", "actor_type": "party", "country": "FI"},
+    {"actor_id": "actor-b", "actor_type": "candidate", "country": "FI"}
+  ],
+  "themes": [{"theme_id": "theme-europe", "label": "Europe"}],
+  "topics": [{"topic_id": "topic-1", "top_terms": ["europe", "election", "policy"], "interpretation_mode": "exploratory_instrumentalist"}],
+  "network": {
+    "method_id": "social_network_analysis",
+    "method_version": "1.0",
+    "interpretation_mode": "measurement",
+    "nodes": [{"id": "actor-a"}, {"id": "actor-b"}],
+    "edges": [{"source": "actor-a", "target": "actor-b", "weight": 1, "evidence_record_ids": ["x:ep1"]}]
+  },
+  "guardrail": "network clusters and topics are not automatically ideological formations"
+}
