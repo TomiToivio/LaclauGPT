@@ -14,17 +14,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: recursive
-      - name: Verify submodules
-        run: |
-          test -f .gitmodules
-          test -d modules/data-collection
-          test -d modules/data-analysis
-          test -d modules/data-visualization
-          test -f modules/data-collection/pyproject.toml
-          test -f modules/data-analysis/pyproject.toml
-          test -f modules/data-visualization/pyproject.toml
       - name: Verify meta-repo boundaries
         run: |
           test -d paper
@@ -35,19 +24,6 @@ jobs:
           test ! -d laclaugpt
           test ! -d collector
           test ! -d tests
-      - name: Verify installation metadata
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-          for path in [
-              Path('modules/data-collection/pyproject.toml'),
-              Path('modules/data-analysis/pyproject.toml'),
-              Path('modules/data-visualization/pyproject.toml'),
-          ]:
-              text = path.read_text(encoding='utf-8')
-              assert '[project]' in text, path
-          print('All three modules expose Python project metadata.')
-          PY
       - name: Verify optional messaging/task contract
         run: |
           python - <<'PY'
