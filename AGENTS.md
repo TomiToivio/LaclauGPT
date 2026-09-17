@@ -26,8 +26,9 @@ Implementation belongs in the owning modules:
 - collection/acquisition/normalization -> `TomiToivio/LaclauGPT-Data-Collection`
 - NLP/LLM/statistics/discourse analysis -> `TomiToivio/LaclauGPT-Data-Analysis`
 - dashboards/plots/maps/network visualization -> `TomiToivio/LaclauGPT-Data-Visualization`
-- persistence/storage infrastructure -> `TomiToivio/LaclauGPT-Data-Storage`
 - simulation/agent-society experiments -> `TomiToivio/LaclauGPT-Social-Simulation-Laboratory`
+
+Storage is currently infrastructure rather than a separate public module boundary: MongoDB, Redis and S3-compatible object storage may run wherever the deployment requires them. Do not route ordinary persistence work to a separate Data-Storage repository unless that architecture is explicitly revived later.
 
 ## Research-assistant capabilities
 
