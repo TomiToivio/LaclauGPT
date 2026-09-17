@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/TomiToivio/LaclauGPT/schemas/rdf-project-settings.v1.schema.json",
+  "title": "LaclauGPT optional RDF project settings",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "enabled": {
+      "type": "boolean",
+      "default": false,
+      "description": "Project-level opt-in for RDF materialization and RDF-dependent capabilities."
+    },
+    "required": {
+      "type": "boolean",
+      "default": false,
+      "description": "When true, RDF materialization/validation failures may fail the run."
+    },
+    "formats": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["json-ld", "turtle", "ntriples", "nquads", "trig", "rdfxml"]
+      },
+      "uniqueItems": true,
+      "default": ["json-ld", "turtle", "nquads"]
+    },
+    "store": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "backend": {
+          "type": "string",
+          "enum": ["file", "rdflib", "oxigraph", "sparql"],
+          "default": "file"
+        }
+      }
+    },
+    "validation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "shacl": {
+          "type": "boolean",
+          "default": true
+        }
+      }
+    },
+    "graphrag": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "enabled": {"const": false}
+        },
+        "required": ["enabled"]
+      },
+      "then": {
+        "properties": {
+          "required": {"const": false},
+          "graphrag": {
+            "properties": {
+              "enabled": {"const": false}
+            }
+          }
+        }
+      }
+    }
+  ]
+}
