@@ -24,6 +24,8 @@ jobs:
           test ! -d laclaugpt
           test ! -d collector
           test ! -d tests
+      - name: Verify cross-module canonical parity fixture
+        run: python scripts/verify_cross_module_fixture.py
       - name: Verify optional messaging/task contract
         run: |
           python - <<'PY'
