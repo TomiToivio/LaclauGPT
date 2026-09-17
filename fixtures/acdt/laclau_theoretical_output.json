@@ -1,0 +1,17 @@
+{
+  "schema_version": "acdt-result/1.0",
+  "method_id": "laclau_discourse_analysis",
+  "method_version": "1.0",
+  "interpretation_mode": "theoretical_interpretive",
+  "study_id": "synthetic",
+  "input_record_ids": ["synthetic:text:1"],
+  "provenance": {"producer": "fixture", "run_id": "fixture-run"},
+  "validation": {"status": "validated", "human_review_status": "reviewed", "method": "synthetic fixture review"},
+  "evidence_refs": [{"record_id": "synthetic:text:1", "selector": {"quote": "Synthetic evidence span"}}],
+  "output": {
+    "candidate_signifiers": [{"label": "future", "role": "nodal_candidate"}],
+    "relations": [],
+    "hegemonic_claim": null,
+    "note": "The fixture demonstrates metadata semantics; it is not an empirical political finding."
+  }
+}
