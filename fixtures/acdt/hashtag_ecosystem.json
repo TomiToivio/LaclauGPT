@@ -1,0 +1,15 @@
+{
+  "schema_version": "acdt-result/1.0",
+  "method_id": "hashtag_cooccurrence",
+  "method_version": "1.0",
+  "interpretation_mode": "exploratory_instrumentalist",
+  "study_id": "synthetic",
+  "input_record_ids": ["x:1", "x:2"],
+  "provenance": {"producer": "fixture"},
+  "validation": {"status": "not_applicable", "human_review_status": "provisional"},
+  "output": {
+    "nodes": [{"id": "AI", "count": 2}, {"id": "progress", "count": 2}],
+    "edges": [{"source": "AI", "target": "progress", "count": 2, "relation": "cooccurrence_candidate", "evidence_record_ids": ["x:1", "x:2"]}],
+    "semantic_status": "cooccurrence_is_not_laclaudian_articulation"
+  }
+}
