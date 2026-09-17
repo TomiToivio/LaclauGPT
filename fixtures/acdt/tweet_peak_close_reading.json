@@ -1,0 +1,18 @@
+{
+  "records": [
+    {"id": "x:1", "created_at": "2021-08-12T10:00:00+03:00", "hashtags": ["maskit"], "text": "Synthetic post one"},
+    {"id": "x:2", "created_at": "2021-08-12T11:00:00+03:00", "hashtags": ["maskit"], "text": "Synthetic post two"},
+    {"id": "x:3", "created_at": "2021-08-12T12:00:00+03:00", "hashtags": ["maskit"], "text": "Synthetic post three"}
+  ],
+  "analysis": {
+    "schema_version": "acdt-result/1.0",
+    "method_id": "peak_analysis",
+    "method_version": "1.0",
+    "interpretation_mode": "exploratory_instrumentalist",
+    "parameters": {"threshold_rule": "absolute_count_gte", "threshold_count": 3, "bin": "day"},
+    "output": {
+      "peaks": [{"date": "2021-08-12", "count": 3, "record_ids": ["x:1", "x:2", "x:3"]}],
+      "close_reading_record_ids": ["x:1", "x:2"]
+    }
+  }
+}
