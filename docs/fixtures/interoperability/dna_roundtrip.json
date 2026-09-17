@@ -1,0 +1,72 @@
+{
+  "fixture_version": "1.0.0-draft",
+  "purpose": "Synthetic DNA/rDNA <-> LaclauGPT round-trip fixture",
+  "document": {
+    "id": "doc-fixture-002",
+    "schema_version": "1.0.0-draft",
+    "source_url": "https://example.org/fixture/2",
+    "source": {
+      "platform": "web",
+      "source_type": "statement",
+      "author": "Synthetic Actor",
+      "created_at": "2026-09-02T12:00:00Z",
+      "language": "en"
+    },
+    "content": {
+      "text": "AI development should be accelerated under public oversight.",
+      "language": "en"
+    }
+  },
+  "evidence_spans": [
+    {
+      "id": "ev-fixture-002",
+      "source_url": "https://example.org/fixture/2",
+      "start": 0,
+      "end": 58,
+      "text": "AI development should be accelerated under public oversight."
+    }
+  ],
+  "discourse_statements": [
+    {
+      "id": "stmt-fixture-001",
+      "actor_id": "actor-fixture-001",
+      "concept_id": "concept-accelerate-ai",
+      "qualifier": "agreement",
+      "source_url": "https://example.org/fixture/2",
+      "source_document_id": "doc-fixture-002",
+      "evidence_span_id": "ev-fixture-002",
+      "timestamp": "2026-09-02T12:00:00Z",
+      "attributes": {"arena": "synthetic"},
+      "producer": {"type": "human", "id": "fixture-coder"},
+      "confidence": null,
+      "review_status": "CANONICAL",
+      "provenance_id": "prov-fixture-003"
+    }
+  ],
+  "graph_projection": {
+    "id": "graph-fixture-001",
+    "type": "actor_concept_bipartite",
+    "node_semantics": ["actor", "concept"],
+    "edge_semantics": "coded actor-concept statement",
+    "weighting_method": "statement_count",
+    "temporal_scope": "2026-09-02",
+    "projection_method": "none",
+    "provenance_id": "prov-fixture-004"
+  },
+  "laclaugpt_interpretation": {
+    "id": "analysis-fixture-001",
+    "namespace": "laclaugpt.discourse_theory",
+    "proposal": "possible articulation between AI acceleration and public oversight",
+    "review_status": "PROVISIONAL",
+    "evidence_span_ids": ["ev-fixture-002"],
+    "note": "This interpretation is intentionally separate from the DNA-native actor/concept agreement statement."
+  },
+  "roundtrip_invariants": [
+    "preserve actor, concept, qualifier and timestamp",
+    "preserve source/evidence linkage",
+    "preserve coder/model identity and review state",
+    "preserve graph semantics and weighting metadata",
+    "never turn a DNA relation or graph metric directly into a Laclauian theoretical fact",
+    "report any target-format loss explicitly"
+  ]
+}
