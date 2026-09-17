@@ -1,6 +1,6 @@
 # Canonical LaclauGPT Data Contract
 
-**Version:** 1.0.0-draft  
+**Version:** 1.1.0-draft  
 **Status:** Project-wide normative specification  
 **Owner:** `TomiToivio/LaclauGPT` meta-repository
 
@@ -43,7 +43,7 @@ The field is still exposed as `source_url` in the canonical record because it is
 - It MUST survive Collection -> Analysis -> Visualization unchanged after canonicalization.
 - Backends SHOULD enforce uniqueness on the canonicalized value when practical.
 - Platform-native IDs, historical `document_id`, `video_id`, `new_id`, database primary keys and row numbers are aliases or implementation identifiers, not semantic replacements for `source_url`.
-- Derived objects such as entity mentions, representations, relations, embeddings and review events MAY have their own IDs, but MUST retain a path back to `source_url`.
+- Derived objects such as source units, observations, measurements, entity mentions, relations, interpretations, embeddings and review events MAY have their own stable IDs, but MUST retain a path back to `source_url`.
 - If a deterministic fallback must be generated, the unhashed human-readable locator SHOULD still be retained when available.
 
 ### 2.3 Canonicalization
@@ -70,6 +70,8 @@ CanonicalRecord
 ├── source_native_ids
 ├── source
 ├── content
+├── source_units
+├── alignments
 ├── evidence
 ├── analysis
 ├── provenance
@@ -87,11 +89,11 @@ CanonicalRecord
 | `content` | object | Source content and optional multimodal content references. |
 | `provenance` | array | Collection, preprocessing and analysis provenance events. |
 
-`evidence`, `analysis` and `review` MAY be empty when not applicable.
+`source_units`, `alignments`, `evidence`, `analysis` and `review` MAY be empty when not applicable.
 
 ## 4. Source section
 
-The source section generalizes the useful ingestion concepts from `CyborgAnthropology/src/models.py` while removing scraper-specific naming.
+The source section generalizes useful ingestion concepts while removing scraper-specific naming.
 
 Recommended fields:
 
@@ -112,23 +114,6 @@ source:
   raw_ref: null
 ```
 
-Mapping from the CyborgAnthropology model:
-
-| CyborgAnthropology | Canonical LaclauGPT |
-| --- | --- |
-| `scraper_url` | `source_url` |
-| `scraper_text` | `content.text` |
-| `scraper_type` | `source.source_type` |
-| `scraper_date` | `source.created_at` |
-| `scraper_file` | `content.file_references[]` or `source.raw_ref` |
-| `scraper_json` | `source.raw_metadata` or an external `raw_ref` |
-| `source_type` | `source.collection_method` |
-| `collector_id` | `source.collector` |
-| `scraped_at` | `source.collected_at` |
-| `local_file` | `content.media_references[].local_ref` |
-| `allas_file` | `content.media_references[].object_ref` |
-| `research_note` | `review.note`, never a public fixture with real content |
-
 ## 5. Content section
 
 The content section stores source-derived representations, not interpretive theory claims.
@@ -148,60 +133,222 @@ content:
   file_references: []
 ```
 
-### 5.1 Optional multimodal content
-
-Legacy EP24/TikTok fields are OPTIONAL. Text-only records remain valid without any of them.
-
-Prefer structured collections:
-
-```yaml
-transcripts:
-  - id: transcript_1
-    text: "..."
-    language: fi
-    translated_text: null
-    start_seconds: 0.0
-    end_seconds: 8.2
-    provider: whisper
-    provenance_id: prov_123
-
-ocr:
-  - id: ocr_1
-    text: "..."
-    frame_ref: frame_3
-    timestamp_seconds: 12.5
-    bbox: [0.1, 0.2, 0.8, 0.4]
-    provenance_id: prov_124
-
-frames:
-  - id: frame_3
-    timestamp_seconds: 12.5
-    media_ref: s3://bucket/key#t=12.5
-    description: null
-    provenance_id: prov_125
-```
-
-Legacy flat fields such as `ocr_1`, `ocr_2`, `frame_1`, `frame_2`, `whisper_transcript` and `whisper_translated` are adapter concerns. They MUST NOT become the canonical internal shape.
-
 Large binary media MUST remain outside the record. Store references, checksums and metadata only.
 
-## 6. Evidence section
+## 6. Addressable source units
 
-`evidence` links derived analysis back to inspectable source material.
+A `source_unit` is an inspectable portion of a source below whole-record level. It provides the common addressing layer for text spans, transcript segments, audio/video ranges, OCR regions, image regions and structured webpage sections.
 
-Typical evidence objects include:
+Recommended shape:
 
-- source text span;
-- transcript segment;
-- OCR observation;
-- sampled frame;
-- source metadata observation.
+```yaml
+source_units:
+  - unit_id: unit_transcript_001
+    source_url: https://example.org/item/1
+    unit_type: transcript_span
+    parent_unit_id: null
+    text: "..."
+    text_start: null
+    text_end: null
+    token_start: null
+    token_end: null
+    start_seconds: 12.2
+    end_seconds: 18.9
+    frame_timestamp_seconds: null
+    bbox: null
+    media_ref: s3://bucket/key
+    anchor: null
+    provenance_id: prov_123
+```
 
-Every interpretive claim SHOULD cite one or more evidence IDs when evidence is available.
+Supported addressing fields are optional and modality-dependent. Implementations MUST NOT invent coordinates, offsets or timestamps that are not known.
 
-## 7. Analysis section
+`unit_type` SHOULD use a documented vocabulary such as:
 
-The analysis section combines current LaclauGPT descriptive and discourse-theoretical outputs while preserving their distinction.
+```text
+record_text
+text_span
+transcript_span
+audio_range
+video_range
+frame
+image_region
+ocr_region
+web_section
+metadata_observation
+```
+
+Rules:
+
+- every `source_unit` MUST retain `source_url`;
+- `unit_id` MUST be stable within the serialized record and SHOULD remain stable across review/reprocessing where the addressed source region has not changed;
+- child units MAY reference `parent_unit_id`;
+- exact source anchors SHOULD be preferred over copied text when possible;
+- Collection MAY create source units only from source structure or deterministic preprocessing, never interpretive claims.
+
+## 7. Multimodal alignment
+
+`alignments` explicitly connect source units that refer to the same source moment, passage or region across modalities.
+
+Example:
+
+```yaml
+alignments:
+  - alignment_id: align_001
+    relation: same_moment
+    unit_ids:
+      - unit_transcript_001
+      - unit_frame_003
+      - unit_ocr_007
+    confidence: 1.0
+    method: deterministic_timestamp
+    provenance_id: prov_140
+```
+
+Recommended alignment relations include:
+
+```text
+same_moment
+overlaps
+contains
+same_region
+same_passage
+corresponds_to
+```
+
+Alignment is descriptive infrastructure. It MUST NOT imply that the aligned units support the same interpretation.
+
+## 8. Evidence graph
+
+The canonical evidence model is a storage-neutral graph/DAG. It consists of reusable analytical objects plus explicit typed links between them.
+
+### 8.1 Analytical object
+
+```yaml
+analysis_objects:
+  - object_id: obj_001
+    object_type: observation
+    epistemic_type: SOURCE_OBSERVATION
+    label: "speaker mentions automation"
+    value: null
+    source_url: https://example.org/item/1
+    source_unit_ids: [unit_transcript_001]
+    provenance_id: prov_200
+    review_status: PROVISIONAL
+    supersedes: null
+    metadata: {}
+```
+
+`analysis.analysis_objects` MAY contain generic qualitative objects and discourse-theoretical objects. Recommended `object_type` values include:
+
+```text
+observation
+measurement
+entity
+actor
+relation
+event
+narrative_episode
+proposition
+candidate_interpretation
+confirmed_interpretation
+research_claim
+formation
+signifier
+nodal_point
+frontier
+imaginary
+frame
+topic
+```
+
+Object type describes what the object is. `epistemic_type` describes its epistemic role. They MUST NOT be conflated.
+
+### 8.2 Evidence links
+
+```yaml
+evidence:
+  - evidence_id: edge_001
+    relation: derived_from
+    from_id: obj_measurement_001
+    to_id: unit_transcript_001
+    source_url: https://example.org/item/1
+    provenance_id: prov_201
+    review_status: PROVISIONAL
+    metadata: {}
+```
+
+Recommended relations include:
+
+```text
+derived_from
+supports
+contradicts
+refines
+same_as
+part_of
+precedes
+follows
+mentions
+involves_actor
+evidence_for
+```
+
+Rules:
+
+- evidence links MUST reference stable object/unit IDs;
+- interpretive objects SHOULD be transitively traceable to one or more source units when source evidence exists;
+- cross-source similarity MUST NOT be represented as `same_as` automatically;
+- inference/model edges MUST retain provenance and review status;
+- graph databases are optional. JSON, CSV, SQLite and MongoDB adapters MUST preserve the same logical links.
+
+## 9. Explicit epistemic stages
+
+LaclauGPT distinguishes epistemic type from workflow review status.
+
+Canonical epistemic types:
+
+```text
+SOURCE_OBSERVATION
+MEASUREMENT
+CANDIDATE_INTERPRETATION
+CONFIRMED_INTERPRETATION
+RESEARCH_CLAIM
+```
+
+Semantics:
+
+- `SOURCE_OBSERVATION`: source-bound descriptive statement, such as visible text, a spoken proposition, actor mention or directly observed event metadata.
+- `MEASUREMENT`: deterministic/statistical/computational derived feature, such as sentiment score, embedding similarity, frequency or detected object.
+- `CANDIDATE_INTERPRETATION`: model- or researcher-proposed interpretation not yet confirmed for scholarly use.
+- `CONFIRMED_INTERPRETATION`: interpretation explicitly reviewed and accepted by an authorized researcher under a known version/provenance trail.
+- `RESEARCH_CLAIM`: scholarly argument/claim that may depend on multiple confirmed interpretations, measurements and source observations.
+
+A pipeline MUST NOT promote an object from one epistemic type to another merely because processing completed successfully.
+
+### 9.1 Review status is orthogonal
+
+Workflow/review states remain:
+
+```text
+PROVISIONAL
+ACCEPTED
+REJECTED
+REVISED
+CANONICAL
+SUPERSEDED
+```
+
+Examples:
+
+- a `SOURCE_OBSERVATION` may be `REJECTED` if OCR was wrong;
+- a `MEASUREMENT` may be `ACCEPTED` without becoming an interpretation;
+- a `CANDIDATE_INTERPRETATION` may be `ACCEPTED`, then represented as a separately versioned `CONFIRMED_INTERPRETATION`;
+- a `RESEARCH_CLAIM` may be `PROVISIONAL` while a draft paper is under revision.
+
+Review status describes workflow state. Epistemic type describes the role of the object in knowledge production.
+
+## 10. Analysis section
 
 Suggested conceptual shape:
 
@@ -211,7 +358,7 @@ analysis:
   started_at: null
   completed_at: null
   summary: null
-  representations: []
+  analysis_objects: []
   entities: []
   entity_mentions: []
   topics: []
@@ -224,6 +371,9 @@ analysis:
   discourses: []
   imaginaries: []
   relations: []
+  events: []
+  actors: []
+  narrative_episodes: []
   us: []
   them: []
   frontier: []
@@ -237,37 +387,78 @@ analysis:
   model_runs: []
 ```
 
-### 7.1 Descriptive vs interpretive
+Existing specialized arrays MAY remain for ergonomic compatibility, but canonical implementations SHOULD expose stable object IDs and epistemic metadata for items that participate in the evidence graph.
 
-Descriptive NLP outputs and theoretical discourse claims MUST remain distinguishable.
+Descriptive NLP outputs and theoretical discourse claims MUST remain distinguishable. Analysis stages MUST permit abstention.
 
-Examples:
+## 11. Reusable confirmed objects and versioning
 
-- entity mention: descriptive;
-- topic assignment: descriptive/provisional depending on method;
-- formation membership: interpretive/model-proposed until reviewed;
-- floating/empty/nodal role: theoretical claim requiring evidence and review;
-- antagonism: not equivalent to generic negativity;
-- hegemony: corpus-level claim, never inferred from frequency or centrality alone.
+Researcher-confirmed observations and interpretations MAY become explicit inputs to later analyses.
 
-### 7.2 Review state and uncertainty
+Requirements:
 
-Machine-produced interpretive objects SHOULD default to a provisional state and support explicit review states such as:
+- reviewed analytical objects MUST have stable `object_id` values;
+- reuse MUST occur through explicit object references, never hidden prompt/context injection;
+- later provenance MUST record input object IDs and versions;
+- revisions MUST create a new version/object state and preserve supersession history;
+- historical provenance MUST NOT be mutated;
+- `supersedes`, `superseded_by` or equivalent explicit version links SHOULD be used;
+- cross-run reuse MUST record reviewer, review timestamp and originating run/codebook/model version where applicable.
 
-```text
-PROVISIONAL
-ACCEPTED
-REJECTED
-REVISED
-CANONICAL
-SUPERSEDED
+A confirmed object is reusable evidence, not immutable truth. Later analyses MAY contradict or supersede it while preserving the original record.
+
+## 12. Object-level human review
+
+Human review applies to individual analytical objects and evidence links, not only the whole canonical record.
+
+Recommended review event:
+
+```yaml
+review_events:
+  - review_id: review_001
+    target_id: obj_001
+    target_kind: analysis_object
+    action: confirm
+    reviewer: researcher_id
+    reviewed_at: "2026-09-17T16:00:00Z"
+    previous_status: PROVISIONAL
+    new_status: ACCEPTED
+    note: null
+    provenance_id: prov_review_001
 ```
 
-Analysis stages MUST permit abstention.
+Supported actions SHOULD include:
 
-## 8. Provenance
+```text
+confirm
+reject
+revise
+annotate
+split
+merge
+flag_unsupported
+attach_evidence
+remove_evidence
+supersede
+```
 
-Provenance is append-only logical history for transformations and analysis runs.
+Visualization SHOULD expose these actions without requiring direct database editing. Public repositories MUST use only synthetic review examples.
+
+## 13. Cross-source qualitative comparison
+
+Analysis objects MAY reference related objects from other canonical records.
+
+Rules:
+
+- every cross-source object relation MUST retain both source lineages;
+- similarity, co-reference and identity MUST be separate relation types;
+- automatic similarity MUST NOT silently merge actors/events/interpretations;
+- human-confirmed identity merges SHOULD be auditable and reversible;
+- competing interpretations of the same source unit MAY coexist.
+
+## 14. Provenance
+
+Provenance is append-only logical history for transformations, model runs, reuse and review.
 
 Recommended fields:
 
@@ -288,13 +479,13 @@ provenance:
     metadata: {}
 ```
 
+`input_refs` SHOULD include source-unit/object/version references when an analysis depends on previously derived or confirmed objects.
+
 Provenance MUST survive backend round trips.
 
-## 9. Review section
+## 15. Record-level review section
 
-Human review is attached to the canonical source identity and may contain corrections or workflow requests.
-
-Recommended fields:
+Record-level review remains available for broad workflow state and corrections:
 
 ```yaml
 review:
@@ -305,17 +496,18 @@ review:
   corrections: {}
   flags: []
   rerun_requests: []
+  review_events: []
 ```
 
-Real researcher notes, private annotations and study-specific review data MUST NOT be committed to public repositories.
+Object-level review takes precedence for claims about individual analytical objects. Real researcher notes, private annotations and study-specific review data MUST NOT be committed to public repositories.
 
-## 10. Storage-neutral serialization rules
+## 16. Storage-neutral serialization rules
 
-### 10.1 JSON / JSONL / NDJSON
+### JSON / JSONL / NDJSON
 
 Canonical nested representation. JSON is the reference wire format.
 
-### 10.2 Pandas / CSV
+### Pandas / CSV
 
 CSV is a flattened representation of the same model.
 
@@ -324,28 +516,29 @@ Rules:
 - use stable column names derived from canonical paths;
 - encode list/object values deterministically as JSON strings, not Python repr;
 - preserve `schema_version` and `source_url` in every row;
-- document whether one logical record may expand into multiple rows;
+- preserve source-unit, analytical-object, evidence-link and review IDs;
+- document whether one logical record expands into multiple rows/tables;
 - an adapter MUST reconstruct the canonical object before Analysis/Visualization semantics are applied.
 
-### 10.3 SQLite
+For normalized tabular exports, implementations MAY use separate logical tables such as `records`, `source_units`, `analysis_objects`, `evidence_links`, `alignments` and `review_events`, linked by stable IDs.
 
-SQLite MAY normalize nested structures into multiple tables, but the public repository/storage API MUST reconstruct the same canonical record.
+### SQLite
 
-`source_url` SHOULD have a uniqueness constraint or equivalent dedup rule.
+SQLite MAY normalize nested structures into multiple tables, but the public repository/storage API MUST reconstruct the same canonical record and evidence graph. `source_url` SHOULD have a uniqueness constraint or equivalent dedup rule.
 
-### 10.4 MongoDB
+### MongoDB
 
-MongoDB MAY store the canonical nested object directly. `_id` is an implementation key and MUST NOT replace `source_url`.
+MongoDB MAY store the canonical nested object directly. `_id` is an implementation key and MUST NOT replace `source_url` or canonical object/unit IDs.
 
-### 10.5 Parquet
+### Parquet
 
 Parquet MAY preserve nested structures directly or use documented deterministic encodings. Round-trip semantics remain mandatory.
 
-### 10.6 Redis and S3/Allas
+### Redis and S3/Allas
 
 Redis is cache/coordination infrastructure, not a new schema. S3/Allas stores artifacts referenced by canonical records. Neither changes record semantics.
 
-## 11. Null and missing-value policy
+## 17. Null and missing-value policy
 
 - Missing optional scalar: `null` in JSON, `None` in Python.
 - Missing optional list: empty list unless absence itself has distinct meaning and is documented.
@@ -353,20 +546,22 @@ Redis is cache/coordination infrastructure, not a new schema. S3/Allas stores ar
 - Never invent empty multimodal values merely to satisfy a flat table.
 - Pandas `NaN` is an adapter artifact and MUST be normalized at the boundary.
 
-## 12. Time policy
+## 18. Time policy
 
 - Use ISO 8601 timestamps.
 - Prefer timezone-aware UTC (`Z`) for persisted timestamps.
 - Preserve original source timezone/offset in metadata when analytically relevant.
 - Distinguish source-created time, collection time, analysis time and review time.
 
-## 13. Schema versioning
+## 19. Schema versioning
 
 `schema_version` follows semantic-version-like rules for the data contract.
 
 - PATCH: clarification or additive metadata that cannot break readers.
 - MINOR: additive optional fields or new enum values that older readers can safely ignore.
 - MAJOR: renamed/removed fields, changed meaning, changed cardinality or incompatible identity rules.
+
+Version 1.1.0 adds optional source units, multimodal alignments, first-class analytical objects/evidence links, explicit epistemic types and object-level review while retaining compatibility with 1.0 records that omit these fields.
 
 Every persisted schema change MUST include:
 
@@ -378,52 +573,43 @@ Every persisted schema change MUST include:
 
 Implementations MUST NOT silently reinterpret an old schema version as a new one.
 
-## 14. Legacy compatibility
+## 20. Legacy compatibility
 
-Legacy schemas are boundary concerns.
+Legacy schemas are boundary concerns. Adapters MAY preserve unmapped legacy values under a namespaced compatibility object such as `legacy`, but canonical code MUST NOT depend on legacy field names.
 
-Examples:
+Existing 1.0 records migrate to 1.1 by treating missing `source_units`, `alignments`, `analysis.analysis_objects`, object-level `review_events` and structured evidence links as empty. Existing flat evidence IDs MAY be retained under compatibility metadata until rewritten by module adapters.
 
-| Legacy field | Canonical destination |
-| --- | --- |
-| `document_id` | `source_native_ids.document_id` |
-| `video_id`, `new_id`, `old_id` | `source_native_ids.*` |
-| `author_username` | `source.author` |
-| `recording_datetime` | `source.created_at` |
-| `whisper_transcript` | `content.transcripts[].text` |
-| `whisper_language` | `content.transcripts[].language` |
-| `whisper_translated` | `content.transcripts[].translated_text` |
-| `ocr_1...n` | `content.ocr[]` |
-| `frame_1...n` | `content.frames[]` / evidence references |
-| `summary_analysis` | `analysis.summary` |
-| `entities`, `new_entity` | `analysis.entities[]` |
-| `topics`, `new_theme` | `analysis.topics[]` |
-| `positive/neutral/negative` | `analysis.sentiments[]` with provenance |
-| populism/formula fields | `analysis.formula_of_populism` and relations/evidence |
-
-Adapters MAY preserve unmapped legacy values under a namespaced compatibility object such as `legacy`, but canonical code MUST NOT depend on legacy field names.
-
-## 15. Module responsibilities
+## 21. Module responsibilities
 
 ### Collection
 
 - canonicalize source identity;
 - populate `source`, source-side `content`, collection provenance and media references;
+- emit addressable source units where the source/deterministic preprocessing permits;
+- preserve raw temporal/spatial/source anchors;
+- never emit interpretive analytical objects or research claims;
 - never emit a Collection-only persistent schema.
 
 ### Analysis
 
 - preserve source identity and source fields;
+- create observations, measurements and candidate interpretations with explicit epistemic types;
+- preserve graph lineage for every derived object;
+- permit abstention when evidence is insufficient;
+- reuse confirmed objects only through explicit references;
 - enrich `evidence`, `analysis` and analysis provenance;
-- never mint a replacement identity because a representation/model run has its own ID.
+- never mint a replacement source identity because a representation/model run has its own ID.
 
 ### Visualization
 
 - reconstruct canonical records before creating DataFrames/view models;
 - treat Pandas columns as a view, not the source of truth;
-- attach review actions to canonical source identity.
+- navigate from analytical object to exact supporting source unit where available;
+- expose object-level epistemic type, review status, evidence links and competing/revised interpretations;
+- support side-by-side aligned multimodal evidence where practical;
+- attach review actions to canonical source/object/evidence identities.
 
-## 16. Privacy
+## 22. Privacy
 
 The schema may describe fields that are sensitive. Public repositories MUST contain only synthetic examples.
 
@@ -440,7 +626,7 @@ Never commit real:
 - private endpoints;
 - machine-specific/CSC settings.
 
-## 17. Contract tests
+## 23. Contract tests
 
 Each implementation repository MUST test a synthetic canonical record across every supported storage adapter.
 
@@ -457,22 +643,22 @@ canonical object
 
 where supported, without semantic loss beyond explicitly documented flat-format representation.
 
-Tests MUST cover source identity, nested/list values, optional multimodal fields, timestamps, provenance, analysis fields, review status, legacy migration and missing modalities.
+Tests MUST cover:
+
+- source identity;
+- addressable text-only source units;
+- multimodal source units and alignments;
+- analytical objects across all five epistemic types;
+- evidence links and transitive traceability from interpretation to source unit;
+- object-level review independent of record-level review;
+- confirmed-object reuse and supersession/version lineage;
+- nested/list values, timestamps and provenance;
+- legacy migration and missing modalities.
 
 Live MongoDB/Ollama/Redis/S3 MUST NOT be required for normal CI.
 
-## 18. Source lineage and archaeology
+## 24. Source lineage and archaeology
 
-Before adding new schema logic, audit useful code and conventions in:
-
-- `TomiToivio/CyborgAnthropology`
-- `TomiToivio/LaclauGPT-Discourse-Analysis`
-- `TomiToivio/LaclauGPT-Multimodal-Analysis`
-- `TomiToivio/LaclauGPT-TikTok-Scraper`
-- `TomiToivio/LaclauGPT-Discourse-Analysis-Private` where authorized, with strict `PRIVATE_DO_NOT_COPY` handling
-- EP2024/postprocess repositories
-- current Collection, Analysis and Visualization repositories
-
-Classify reusable material as `ADOPT`, `ADAPT`, `ALREADY_IMPLEMENTED`, `LEGACY_COMPATIBILITY_ONLY`, `OBSOLETE`, or `PRIVATE_DO_NOT_COPY`.
+Before adding new schema logic, audit useful code and conventions in legacy/current LaclauGPT repositories where authorized. Classify reusable material as `ADOPT`, `ADAPT`, `ALREADY_IMPLEMENTED`, `LEGACY_COMPATIBILITY_ONLY`, `OBSOLETE`, or `PRIVATE_DO_NOT_COPY`.
 
 The goal is behavioral continuity without resurrecting the old monolith.
