@@ -39,6 +39,20 @@ AI26 is the canonical realistic public reference case. Public methodology/codebo
 
 Do not duplicate sibling implementations in the umbrella repository.
 
+For the current public four-repository operational surface, Hermes must know and inspect `TomiToivio/LaclauGPT`, `TomiToivio/LaclauGPT-Data-Collection`, `TomiToivio/LaclauGPT-Data-Analysis`, and `TomiToivio/LaclauGPT-Data-Visualization` while still routing implementation to the owning repository.
+
+## Hermes operations and schedules
+
+When Hermes is asked to perform repository operations, installation health checks, scheduled maintenance, or the daily public report, also load the specialized skills:
+
+- `skills/hermes-operations/SKILL.md`
+- `skills/hermes-cron/SKILL.md`
+- `skills/laclaugpt-daily-report/SKILL.md`
+
+Hermes may mutate state only when explicitly instructed by the user or when the exact mutation is authorized by a user-approved schedule. A scheduled check is not blanket autonomy.
+
+Private research/operational material must live outside public working trees under `LACLAUGPT_PRIVATE_ROOT`. Run `python tools/hermes/private_root.py check` before tasks that require private state. Never publish private research data, row-level records, researcher notes, operational source/watch lists, credentials, private endpoints, host-specific deployment details, `.env` values, or confidential installation state.
+
 ## Literature workflow
 
 Use `sources/` for publication-safe bibliographic indexing, analytical summaries and reading suggestions. Do not commit PDFs/full extracted text. Verify bibliographic details and keep source claims distinct from project interpretation.
