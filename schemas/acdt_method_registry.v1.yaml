@@ -1,0 +1,99 @@
+schema_version: acdt-method-registry/1.0
+status: normative
+interpretation_modes:
+  - exploratory_instrumentalist
+  - measurement
+  - theoretical_interpretive
+methods:
+  topic_model_lda:
+    version: '1.0'
+    default_interpretation_mode: exploratory_instrumentalist
+    source_ids: [koljonen_2023, palonen_koljonen_2021, herkman_palonen_2024]
+  topic_model_generic:
+    version: '1.0'
+    default_interpretation_mode: exploratory_instrumentalist
+    source_ids: [koljonen_2023]
+  peak_analysis:
+    version: '1.0'
+    default_interpretation_mode: exploratory_instrumentalist
+    source_ids: [palonen_koljonen_2021, koljonen_carrilho_palonen_2025]
+  close_reading_sampler:
+    version: '1.0'
+    default_interpretation_mode: exploratory_instrumentalist
+    source_ids: [koljonen_2023, koljonen_carrilho_palonen_2025, lindgren_2020]
+  thematic_analysis:
+    version: '1.0'
+    default_interpretation_mode: theoretical_interpretive
+    source_ids: [herkman_palonen_2024]
+  word_frequency:
+    version: '1.0'
+    default_interpretation_mode: exploratory_instrumentalist
+    source_ids: [herkman_palonen_2024]
+  corpus_keyness:
+    version: '1.0'
+    default_interpretation_mode: exploratory_instrumentalist
+    source_ids: [lindgren_2018]
+  hashtag_cooccurrence:
+    version: '1.0'
+    default_interpretation_mode: exploratory_instrumentalist
+    source_ids: [lindqvist_lindgren_2023, liminga_lindgren_2024]
+  social_network_analysis:
+    version: '1.0'
+    default_interpretation_mode: measurement
+    source_ids: [herkman_palonen_2024, lindqvist_lindgren_2023, liminga_lindgren_2024]
+  sentiment_analysis:
+    version: '1.0'
+    default_interpretation_mode: measurement
+    source_ids: [koljonen_2023, koljonen_ohman_ahonen_mattila_2022]
+  emotion_analysis:
+    version: '1.0'
+    default_interpretation_mode: measurement
+    source_ids: [koljonen_2023, koljonen_ohman_ahonen_mattila_2022]
+  emotion_intensity:
+    version: '1.0'
+    default_interpretation_mode: measurement
+    source_ids: [koljonen_2023, koljonen_ohman_ahonen_mattila_2022]
+  wordscores:
+    version: '1.0'
+    default_interpretation_mode: measurement
+    source_ids: [koljonen_2023, koljonen_isotalo_ahonen_mattila_2022]
+  wordfish:
+    version: '1.0'
+    default_interpretation_mode: measurement
+    source_ids: [koljonen_2023, koljonen_isotalo_ahonen_mattila_2022]
+  multimodal_rhetoric_performative:
+    version: '1.0'
+    default_interpretation_mode: theoretical_interpretive
+    source_ids: [palonen_2025]
+  discourse_network_analysis:
+    version: '1.0'
+    default_interpretation_mode: measurement
+    source_ids: [leifeld_2017]
+  laclau_discourse_analysis:
+    version: '1.0'
+    default_interpretation_mode: theoretical_interpretive
+    source_ids: [laclau_mouffe_2001, laclau_2005, palonen_2025]
+semantic_guardrails:
+  - frequency_is_not_hegemony
+  - cooccurrence_is_not_articulation
+  - network_community_is_not_ideological_formation
+  - negative_sentiment_is_not_antagonistic_frontier
+  - sentiment_is_not_affective_investment
+  - topic_is_not_frame_discourse_or_ideology_by_default
+  - theoretical_outputs_require_evidence
+  - corpus_level_theoretical_claims_require_human_review
+source_ids:
+  laclau_mouffe_2001: 'Laclau & Mouffe, Hegemony and Socialist Strategy, 2nd ed.'
+  laclau_2005: 'Laclau, On Populist Reason'
+  palonen_2025: 'Palonen, The Birth and Death of Liberal Democracy in Hungary'
+  koljonen_2023: 'Koljonen, Text as Data and Finnish Politics'
+  palonen_koljonen_2021: 'Koljonen & Palonen, Performing COVID-19 Control in Finland'
+  koljonen_carrilho_palonen_2025: 'Koljonen, Carrilho & Palonen, The Struggle over Masks on Twitter'
+  koljonen_ohman_ahonen_mattila_2022: 'Koljonen et al., Strategic Sentiments and Emotions in Post-Second World War Party Manifestos in Finland'
+  koljonen_isotalo_ahonen_mattila_2022: 'Koljonen et al., Comparing Computational and Non-Computational Methods in Party Position Estimation'
+  herkman_palonen_2024: 'Herkman & Palonen (eds.), Populism, Twitter and the European Public Sphere'
+  lindgren_2018: 'Lindgren, A Ghost in the Machine'
+  lindgren_2020: 'Lindgren, Data Theory'
+  lindqvist_lindgren_2023: 'Lindqvist & Lindgren, Mapping an Emerging Hashtag Ecosystem'
+  liminga_lindgren_2024: 'Liminga & Lindgren, Mapping the Discursive Landscape of Data Activism'
+  leifeld_2017: 'Leifeld, Discourse Network Analysis: Policy Debates as Dynamic Networks'
