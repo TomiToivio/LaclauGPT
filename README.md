@@ -28,7 +28,7 @@ Data Collection  ->  Data Analysis  ->  Data Visualization
 
 If you arrived here looking for the **paper or theory**, stay in this repository. If you want to **run or develop one pipeline stage**, use the corresponding peer repository above. If you want the **complete system**, keep the four repositories as siblings in one workspace.
 
-The current flagship research programme is **[LaclauGPT: Ideological contestation over AI](paper/PAPER.md)**. The project's canonical theoretical and methodological contract is **[THEORY.md](THEORY.md)**.
+The current flagship research programme is **[LaclauGPT: Ideological contestation over AI](paper/PAPER.md)**. The project's canonical theoretical and methodological contract is **[THEORY.md](THEORY.md)**. The four-phase development path linking paper(s), methodology, technology and the continuously running AI26 reference case is documented in **[docs/ROADMAP.md](docs/ROADMAP.md)**.
 
 The framework is developed around Ernesto Laclau and Chantal Mouffe's discourse theory and Emilia Palonen's work on populism, polarisation and hegemonic dynamics, with project-specific extensions such as Critical AI Studies and sociotechnical imaginaries. The AI/AGI study is the main development case, but LaclauGPT is deliberately a **general research framework rather than a single-purpose AI ideology classifier**.
 
@@ -133,7 +133,7 @@ See [`docs/architecture/MODULAR_ARCHITECTURE.md`](docs/architecture/MODULAR_ARCH
 
 ## Scientific paper and theory
 
-The scientific paper lives at [`paper/PAPER.md`](paper/PAPER.md). [`THEORY.md`](THEORY.md) is the canonical high-level theory and methodology source.
+The scientific paper lives at [`paper/PAPER.md`](paper/PAPER.md). [`THEORY.md`](THEORY.md) is the canonical high-level theory and methodology source. [`docs/ROADMAP.md`](docs/ROADMAP.md) describes how successive paper versions, methodological development and the technical pipeline co-evolve through four phases, with AI26 continuously guiding development while other research projects exercise the general framework.
 
 ## Where changes belong
 
