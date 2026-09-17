@@ -12,7 +12,9 @@ Treat the current production path as:
 Collection -> storage infrastructure -> Analysis -> Visualization
 ```
 
-Inspect these repositories and their current default branches before relying on memory:
+Storage (MongoDB, Redis, S3-compatible object storage) is deployment infrastructure behind each stage, not a separate pipeline stage or repository.
+
+Inspect these public repositories and their current default branches before relying on memory:
 
 1. `TomiToivio/LaclauGPT`
 2. `TomiToivio/LaclauGPT-Data-Collection`
