@@ -1,0 +1,21 @@
+{
+  "source_url": "synthetic:video:1",
+  "transcript": [
+    {"id": "asr-1", "start_seconds": 0.0, "end_seconds": 4.2, "text": "Synthetic spoken statement."}
+  ],
+  "ocr": [
+    {"id": "ocr-1", "timestamp_seconds": 2.0, "text": "SYNTHETIC SLOGAN", "frame_ref": "frame-1"}
+  ],
+  "frames": [
+    {"id": "frame-1", "timestamp_seconds": 2.0, "description": "Synthetic speaker and text card."}
+  ],
+  "analysis": {
+    "schema_version": "acdt-result/1.0",
+    "method_id": "multimodal_rhetoric_performative",
+    "method_version": "1.0",
+    "interpretation_mode": "theoretical_interpretive",
+    "validation": {"status": "partial", "human_review_status": "provisional"},
+    "evidence_refs": [{"record_id": "synthetic:video:1", "selector": {"timestamp_seconds": 2.0}}],
+    "output": {"candidate_relations": [], "media": [{"frame_ref": "frame-1", "timestamp_seconds": 2.0}]}
+  }
+}
