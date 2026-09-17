@@ -65,6 +65,8 @@ The governing rule is:
 
 `source_url` (or a stable URI-like equivalent when no normal URL exists) is the source identity anchor. CSV/Pandas, SQLite, MongoDB, JSONL, Parquet, Redis-backed workflows and S3/Allas references are storage or transport choices. They must not create different meanings or competing record schemas.
 
+The evaluated technology stack, optional distributed/HPC adapters, deployment profiles and benchmark policy are recorded in [`docs/architecture/TECHNOLOGY_RADAR.md`](docs/architecture/TECHNOLOGY_RADAR.md). Its core rule is that advanced infrastructure may enhance LaclauGPT but must never become mandatory for a useful local research workflow.
+
 ## Recommended workspace layout
 
 ```text
@@ -127,7 +129,7 @@ Secrets and machine-specific values belong in environment variables, ignored loc
 
 For restricted studies such as EP24 or Hungary26, follow [`docs/PUBLIC_PRIVATE_STUDY_ARCHITECTURE.md`](docs/PUBLIC_PRIVATE_STUDY_ARCHITECTURE.md): reusable engineering stays public, while study data, codebooks, researcher material, credentials, CSC identifiers/paths and unpublished outputs stay in the private runtime layer.
 
-See [`docs/architecture/MODULAR_ARCHITECTURE.md`](docs/architecture/MODULAR_ARCHITECTURE.md), [`docs/architecture/PLUGIN_PLATFORM_ARCHITECTURE.md`](docs/architecture/PLUGIN_PLATFORM_ARCHITECTURE.md), [`docs/CANONICAL_DATA_CONTRACT.md`](docs/CANONICAL_DATA_CONTRACT.md) and [`docs/INTEROPERABILITY_SPEC.md`](docs/INTEROPERABILITY_SPEC.md).
+See [`docs/architecture/MODULAR_ARCHITECTURE.md`](docs/architecture/MODULAR_ARCHITECTURE.md), [`docs/architecture/PLUGIN_PLATFORM_ARCHITECTURE.md`](docs/architecture/PLUGIN_PLATFORM_ARCHITECTURE.md), [`docs/architecture/TECHNOLOGY_RADAR.md`](docs/architecture/TECHNOLOGY_RADAR.md), [`docs/CANONICAL_DATA_CONTRACT.md`](docs/CANONICAL_DATA_CONTRACT.md) and [`docs/INTEROPERABILITY_SPEC.md`](docs/INTEROPERABILITY_SPEC.md).
 
 ## Scientific paper and theory
 
