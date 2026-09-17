@@ -45,6 +45,37 @@ The ownership boundary is important:
 
 Machine profiles must never contain an `analysis` section. Execution profiles must not redefine analytical modules or infrastructure policy. Agents must use the same composed configuration as human CLI runs rather than creating an alternate hidden configuration path.
 
+### Optional RDF / Linked Data module
+
+RDF is a project-level opt-in capability. Projects that do not explicitly enable it MUST behave exactly as non-RDF projects and MUST NOT require RDF libraries, a triple store, RDF visualization, or RDF GraphRAG.
+
+Recommended project profile fragment:
+
+```yaml
+analysis:
+  rdf:
+    enabled: false
+    required: false
+    formats: [json-ld, turtle, nquads]
+    store:
+      backend: file
+    validation:
+      shacl: true
+    graphrag:
+      enabled: false
+```
+
+Rules:
+
+- omitting `analysis.rdf` is equivalent to `enabled: false`;
+- machine profiles may supply paths/endpoints/capabilities for an enabled RDF backend but may not switch RDF on;
+- RDF GraphRAG is effective only when both RDF and GraphRAG are enabled;
+- `required: false` isolates RDF adapter failures from the ordinary canonical pipeline;
+- `required: true` is reserved for projects whose research protocol explicitly requires RDF output;
+- dashboard RDF controls should be hidden/unavailable when the project has RDF disabled.
+
+The normative semantics, minimal vocabulary and SHACL baseline are defined in [`RDF_APPLICATION_PROFILE.md`](RDF_APPLICATION_PROFILE.md), [`../schemas/laclaugpt-rdf-profile.ttl`](../schemas/laclaugpt-rdf-profile.ttl), [`../schemas/laclaugpt-rdf.shacl.ttl`](../schemas/laclaugpt-rdf.shacl.ttl) and [`../schemas/rdf-project-settings.v1.schema.json`](../schemas/rdf-project-settings.v1.schema.json).
+
 Examples:
 
 ```bash
