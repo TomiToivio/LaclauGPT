@@ -1,0 +1,54 @@
+@prefix laclaugpt: <https://w3id.org/laclaugpt/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+laclaugpt: a owl:Ontology ;
+    rdfs:label "LaclauGPT minimal discourse-analysis vocabulary"@en ;
+    rdfs:comment "A deliberately small vocabulary for LaclauGPT-specific discourse-theoretical semantics. Generic metadata, provenance, annotations, lexical semantics, datasets, people, organizations, places and time should use established external vocabularies."@en .
+
+laclaugpt:Articulation a owl:Class ; rdfs:label "Articulation"@en .
+laclaugpt:DiscourseFormation a owl:Class ; rdfs:label "Discourse formation"@en .
+laclaugpt:Signifier a owl:Class ; rdfs:label "Signifier"@en .
+laclaugpt:EmptySignifier a owl:Class ; rdfs:subClassOf laclaugpt:Signifier ; rdfs:label "Empty signifier"@en .
+laclaugpt:FloatingSignifier a owl:Class ; rdfs:subClassOf laclaugpt:Signifier ; rdfs:label "Floating signifier"@en .
+laclaugpt:NodalPoint a owl:Class ; rdfs:subClassOf laclaugpt:Signifier ; rdfs:label "Nodal point"@en .
+laclaugpt:ChainOfEquivalence a owl:Class ; rdfs:label "Chain of equivalence"@en .
+laclaugpt:Antagonism a owl:Class ; rdfs:label "Antagonism"@en .
+laclaugpt:DiscursiveFrontier a owl:Class ; rdfs:label "Discursive frontier"@en .
+
+laclaugpt:articulates a owl:ObjectProperty ;
+    rdfs:domain laclaugpt:Articulation ;
+    rdfs:label "articulates"@en .
+
+laclaugpt:participatesInFormation a owl:ObjectProperty ;
+    rdfs:range laclaugpt:DiscourseFormation ;
+    rdfs:label "participates in formation"@en .
+
+laclaugpt:hasNodalPoint a owl:ObjectProperty ;
+    rdfs:range laclaugpt:NodalPoint ;
+    rdfs:label "has nodal point"@en .
+
+laclaugpt:hasEquivalentMoment a owl:ObjectProperty ;
+    rdfs:label "has equivalent moment"@en .
+
+laclaugpt:constructsAntagonism a owl:ObjectProperty ;
+    rdfs:range laclaugpt:Antagonism ;
+    rdfs:label "constructs antagonism"@en .
+
+laclaugpt:constructsFrontier a owl:ObjectProperty ;
+    rdfs:range laclaugpt:DiscursiveFrontier ;
+    rdfs:label "constructs frontier"@en .
+
+laclaugpt:hasEvidence a owl:ObjectProperty ;
+    rdfs:label "has evidence"@en ;
+    rdfs:comment "Points from a LaclauGPT-specific analytical object to an evidence resource, normally represented with Web Annotation semantics."@en .
+
+laclaugpt:reviewState a owl:DatatypeProperty ;
+    rdfs:range xsd:string ;
+    rdfs:label "review state"@en .
+
+laclaugpt:confidence a owl:DatatypeProperty ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "confidence"@en .
