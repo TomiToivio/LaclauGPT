@@ -1,0 +1,11 @@
+---
+layout: null
+permalink: /sitemap.xml
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>{{ site.url }}{{ site.baseurl }}/</loc></url>
+  <url><loc>{{ site.url }}{{ site.baseurl }}/project/</loc></url>
+  <url><loc>{{ site.url }}{{ site.baseurl }}/research/</loc></url>
+  <url><loc>{{ site.url }}{{ site.baseurl }}/archive/</loc></url>
+</urlset>
