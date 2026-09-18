@@ -23,7 +23,7 @@ This file stages new source summaries to be merged into `sources/SUMMARIES.md`. 
 
 **Concepts useful for LaclauGPT:** White supplies a bridge between discourse and SNA. `stories ↔ ties`, `netdoms`, switching, identities, rhetorics, structural equivalence, control regimes, and recursive network populations can enrich discourse-network representations. A LaclauGPT graph need not treat actors as fixed nodes and statements as inert edges: identities themselves can be modeled as emerging from changing configurations of actors, signifiers, stories, and relations.
 
-**Relevance to `paper/PAPER.md`:** White should be treated as a relational supplement, not a replacement. Laclau provides articulation, nodal points, equivalence/difference, antagonism, subject positions, and hegemony; White helps explain how identities and meanings emerge within concrete networks and how relational structures recursively change. This suggests a future `Laclau + White + DNA/SNA` layer.
+**Relevance to `paper/PHASE_1_PAPER.md`:** White should be treated as a relational supplement, not a replacement. Laclau provides articulation, nodal points, equivalence/difference, antagonism, subject positions, and hegemony; White helps explain how identities and meanings emerge within concrete networks and how relational structures recursively change. This suggests a future `Laclau + White + DNA/SNA` layer.
 
 **Limitations / cautions:** White's terminology is dense and idiosyncratic. `Control`, `identity`, `story`, and `rhetoric` should not be mechanically equated with Laclaudian concepts. The book is also not a ready-made computational discourse-analysis method; operationalization requires explicit theoretical choices and human validation.
 
@@ -50,7 +50,7 @@ This file stages new source summaries to be merged into `sources/SUMMARIES.md`. 
 
 **Concepts useful for LaclauGPT:** `artificial communication`, communication partner, difference processing, contingency, prediction, opacity, and second-order observation provide a strong framework for LLM-assisted discourse analysis. An LLM can be treated neither simply as an intelligent analyst nor merely as a neutral tool, but as an algorithmic participant in a human-machine research communication loop whose outputs require observation and validation.
 
-**Relevance to `paper/PAPER.md`:** Esposito is particularly useful for the project's human-in-the-loop stance and LLM Structuralism. The pipeline can be conceptualized as recursive communication: `corpus → algorithmic distinction/pattern production → researcher interpretation/validation → revised prompts/codebooks/models → new observations`.
+**Relevance to `paper/PHASE_1_PAPER.md`:** Esposito is particularly useful for the project's human-in-the-loop stance and LLM Structuralism. The pipeline can be conceptualized as recursive communication: `corpus → algorithmic distinction/pattern production → researcher interpretation/validation → revised prompts/codebooks/models → new observations`.
 
 **Limitations / cautions:** The book predates the full post-ChatGPT generative-AI wave and should not be treated as empirical evidence about current LLM systems. Its theoretical vocabulary comes primarily from systems theory rather than Laclau/Mouffe. Esposito should theorize algorithmic participation and observation, not replace discourse theory.
 
@@ -79,7 +79,7 @@ This file stages new source summaries to be merged into `sources/SUMMARIES.md`. 
 
 **Concepts useful for LaclauGPT:** `platform ecosystem`, infrastructural/sectoral platform distinction, datafication, commodification, selection, algorithmic visibility, dependency, and public values provide an infrastructural layer around discourse networks. Discourse observed on TikTok, X, Telegram, Reddit, or other systems is already filtered and constituted by platform mechanisms.
 
-**Relevance to `paper/PAPER.md`:** LaclauGPT analyzes articulation and hegemonic contestation, but its empirical corpora are platform-mediated. Platform selection affects which statements become visible, datafication determines what researchers can collect, and commodification shapes the infrastructures through which political discourse circulates. Collected social-media data must therefore not be treated as a transparent sample of `public discourse`.
+**Relevance to `paper/PHASE_1_PAPER.md`:** LaclauGPT analyzes articulation and hegemonic contestation, but its empirical corpora are platform-mediated. Platform selection affects which statements become visible, datafication determines what researchers can collect, and commodification shapes the infrastructures through which political discourse circulates. Collected social-media data must therefore not be treated as a transparent sample of `public discourse`.
 
 **Limitations / cautions:** Published in 2018, the book predates generative AI and many subsequent changes in recommender systems and platform governance. Its cases are primarily North American and Western European. The three mechanisms are analytically useful but should not become universal automatic labels for every platform event.
 
@@ -106,7 +106,7 @@ This file stages new source summaries to be merged into `sources/SUMMARIES.md`. 
 
 **Concepts useful for LaclauGPT:** `Stack`, `layer`, `Cloud Polis`, `User`, `Interface`, `Address`, `platform sovereignty`, `overlapping jurisdiction`, `planetary computation`, and `political machine`. Bratton provides a material-infrastructural complement to discourse and network analysis: statements and actors exist inside computational architectures that allocate addresses, visibility, access, identity, and agency.
 
-**Relevance to `paper/PAPER.md`:** Bratton is especially relevant as an optional infrastructural theory for AI26 rather than as a core discourse methodology. In an LLM era, his nonhuman `User` becomes particularly useful because AI agents can be analyzed as actors inside computational stacks without requiring anthropomorphic assumptions. The Stack can frame how AI discourse, platforms, APIs, data centers, interfaces, and geopolitical infrastructures interlock.
+**Relevance to `paper/PHASE_1_PAPER.md`:** Bratton is especially relevant as an optional infrastructural theory for AI26 rather than as a core discourse methodology. In an LLM era, his nonhuman `User` becomes particularly useful because AI agents can be analyzed as actors inside computational stacks without requiring anthropomorphic assumptions. The Stack can frame how AI discourse, platforms, APIs, data centers, interfaces, and geopolitical infrastructures interlock.
 
 **Limitations / cautions:** The book is highly synthetic and metaphorically ambitious. Its six-layer model should not be mistaken for an empirically complete ontology of digital society. It also predates the generative-AI boom, so applications to LLM agents require extension rather than direct transcription.
 
@@ -133,7 +133,7 @@ This file stages new source summaries to be merged into `sources/SUMMARIES.md`. 
 
 **Concepts useful for LaclauGPT:** `Corporate Platform Complex`, `network culture`, `automation`, `free/digital labor`, `common`, `collective intelligence`, `algorithmic organization`, and the fusion of communication with computation. Terranova gives LaclauGPT a political-economic account of the infrastructures through which discourse is produced, circulated, measured, and captured.
 
-**Relevance to `paper/PAPER.md`:** High as a contextual and future-theory source. Terranova can connect Castells-style network society, platform political economy, and AI-era computation. For AI26, she supports treating ideological discourse as materially embedded in platforms, data infrastructures, capital, and automated systems rather than as a free-floating linguistic field.
+**Relevance to `paper/PHASE_1_PAPER.md`:** High as a contextual and future-theory source. Terranova can connect Castells-style network society, platform political economy, and AI-era computation. For AI26, she supports treating ideological discourse as materially embedded in platforms, data infrastructures, capital, and automated systems rather than as a free-floating linguistic field.
 
 **Limitations / cautions:** The book is theoretical rather than a computational method, and its autonomist political vocabulary should not be mechanically translated into Laclaudian categories. Its broad diagnosis of platform capital also needs platform- and case-specific empirical validation.
 
@@ -161,7 +161,7 @@ This file stages new source summaries to be merged into `sources/SUMMARIES.md`. 
 
 **Concepts useful for LaclauGPT:** `implicit feudalism`, `governable spaces`, `governable stacks`, `modular politics`, `self-governance`, `interoperability`, `community control`, and `metagovernance`. Schneider adds an explicit governance/design layer to the platform and network literature.
 
-**Relevance to `paper/PAPER.md`:** Indirect for the current methodological paper, but valuable for later work on AI governance and participatory infrastructures. It provides a concrete vocabulary for analyzing whether platforms and AI systems merely host political discourse or also structure who can govern the spaces in which discourse takes place.
+**Relevance to `paper/PHASE_1_PAPER.md`:** Indirect for the current methodological paper, but valuable for later work on AI governance and participatory infrastructures. It provides a concrete vocabulary for analyzing whether platforms and AI systems merely host political discourse or also structure who can govern the spaces in which discourse takes place.
 
 **Limitations / cautions:** Schneider's project is explicitly normative and democratic rather than a neutral descriptive sociology. His cases are heterogeneous, and the feasibility of scaling community governance across large platform ecosystems remains an open empirical problem.
 
