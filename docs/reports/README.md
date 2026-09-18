@@ -4,7 +4,7 @@ This directory stores concise daily research-and-development briefs for the **La
 
 ## Source of truth
 
-- `paper/PAPER.md` is the paper source of truth.
+- `paper/PHASE_1_PAPER.md` is the paper source of truth.
 - Reports are secondary working notes and recommendations. They do not override the paper, theory documentation, validation protocol, issues, or code.
 - There is no implied paper deadline or countdown unless one is explicitly established in the repository.
 
