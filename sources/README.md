@@ -17,7 +17,7 @@ Recommended agent behavior for each new PDF:
 - add or update one entry in `SOURCES.md`;
 - add a concise analytical summary in `SUMMARIES.md`;
 - distinguish the source's claims from LaclauGPT's interpretation;
-- explain relevance to the current paper in `paper/PAPER.md` when material;
+- explain relevance to the current paper in `paper/PHASE_1_PAPER.md` when material;
 - note useful concepts, methods, datasets, findings, limitations, and quotations only when necessary;
 - avoid copying long copyrighted passages;
 - do not infer bibliographic details that cannot be verified from the PDF;
