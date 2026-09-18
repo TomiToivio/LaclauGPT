@@ -1,6 +1,6 @@
 # AI26 public reference case
 
-AI26, **Ideological contestation over AI**, is the canonical public example study for the current LaclauGPT architecture. The study is directly tied to `paper/PAPER.md`, so it provides a realistic, inspectable path from theory to Collection, Analysis and Visualization without making the software itself AI26-specific.
+AI26, **Ideological contestation over AI**, is the canonical public example study for the current LaclauGPT architecture. The study is directly tied to `paper/PHASE_1_PAPER.md`, so it provides a realistic, inspectable path from theory to Collection, Analysis and Visualization without making the software itself AI26-specific.
 
 ## Research design
 
