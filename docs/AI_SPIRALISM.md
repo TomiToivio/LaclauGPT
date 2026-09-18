@@ -113,7 +113,7 @@ See `docs/DATA_COLLECTION_CONFIGURATION.md` for the public/private boundary.
 ## Literature anchors
 
 Verified 2026-09-11 against Crossref/arXiv; full entries are also retained in
-`paper/PAPER.md`.
+`paper/PHASE_1_PAPER.md`.
 
 Human-LLM feedback and belief amplification:
 
