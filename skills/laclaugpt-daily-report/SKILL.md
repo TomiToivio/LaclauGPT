@@ -13,7 +13,7 @@ Review the current public state of:
 
 For all four, inspect relevant recent commits, open issues/PRs, CI/test status, unresolved review discussion and important documentation changes. Search before creating duplicate work.
 
-Also read the current `paper/PAPER.md`, `THEORY.md`, AI26 reference material, the previous daily report when available, and new entries in `sources/`.
+Also read the current `paper/PHASE_1_PAPER.md`, `THEORY.md`, AI26 reference material, the previous daily report when available, and new entries in `sources/`.
 
 ## Research/news scan
 
@@ -30,7 +30,7 @@ When a substantial new scientific source is genuinely relevant, update publicati
 
 ## Paper review
 
-Comment on meaningful changes, tensions, omissions or implications in `paper/PAPER.md`; do not rewrite the paper unless separately authorized. Check whether repo implementation/documentation is drifting from the paper's theoretical and methodological claims.
+Comment on meaningful changes, tensions, omissions or implications in `paper/PHASE_1_PAPER.md`; do not rewrite the paper unless separately authorized. Check whether repo implementation/documentation is drifting from the paper's theoretical and methodological claims.
 
 Pay special attention to category errors the project already guards against, including treating graph centrality as a nodal point, sentiment as antagonism, embedding similarity as ideological identity, model confidence as substantive validity, or codebook/context material as source evidence.
 
