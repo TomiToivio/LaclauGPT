@@ -6,7 +6,7 @@ canonical paper state, public repository changes, and epistemic or
 methodological observations.
 
 The paper is never edited through this journal; the canonical source is
-mirrored to `paper/PAPER.md` in this repository.
+mirrored to `paper/PHASE_1_PAPER.md` in this repository.
 
 Publication rule: this journal records research and software decisions, not
 machine-local operations. Hostnames, private network addresses, credentials,
