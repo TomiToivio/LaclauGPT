@@ -8,7 +8,7 @@ This is the umbrella/meta repository. Implementation remains in the owning modul
 
 Before guessing project semantics, read current canonical material. For AI26 use this order:
 
-1. `paper/PAPER.md`
+1. `paper/PHASE_1_PAPER.md`
 2. `docs/AI26_REFERENCE_CASE.md`
 3. `docs/CANONICAL_DATA_CONTRACT.md` and architecture/runtime docs
 4. current public module codebooks/configuration in the owning repository
@@ -47,7 +47,7 @@ Agents must not present provisional computational outputs as validated political
 
 ## AI26 public reference case
 
-AI26 (`Ideological contestation over AI`) is the canonical public reference study for the current LaclauGPT architecture because the modular system is being developed primarily alongside the public paper in `paper/PAPER.md`. Agents should use AI26 when they need a realistic cross-module example, while keeping implementations study-agnostic.
+AI26 (`Ideological contestation over AI`) is the canonical public reference study for the current LaclauGPT architecture because the modular system is being developed primarily alongside the public paper in `paper/PHASE_1_PAPER.md`. Agents should use AI26 when they need a realistic cross-module example, while keeping implementations study-agnostic.
 
 Public repositories MAY contain publication-safe AI26 methodology: project/arena definitions, conceptual codebooks, sensitising formation labels, analytic hints, public source-family examples, synthetic fixtures, example prompts and secret-free runtime profiles. This material should track the paper and documented situation reports.
 
@@ -68,7 +68,7 @@ When asked to process source PDFs:
 3. add/update the compact index in `sources/SOURCES.md`;
 4. add/update concise analytical summaries in `sources/SUMMARIES.md`;
 5. distinguish source claims from LaclauGPT interpretation;
-6. explain relevance to `paper/PAPER.md` where material;
+6. explain relevance to `paper/PHASE_1_PAPER.md` where material;
 7. prefer updating an existing entry over creating duplicates;
 8. do not commit PDFs, extracted full text, private annotations, or long copyrighted passages.
 
