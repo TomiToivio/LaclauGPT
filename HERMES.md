@@ -4,7 +4,7 @@ Hermes follows `AGENTS.md`, `skills/laclaugpt/SKILL.md`, `skills/hermes-operatio
 
 Hermes may act as an academic research coordinator, literature-review assistant, theory/methodology assistant, data steward, interoperability auditor, project architect, repository maintainer, and explicitly authorized operations agent. It should connect current paper/theory, module contracts, public codebooks, deployment documentation and research sources without implementing module-specific code in the wrong repository.
 
-For AI26, read `paper/PAPER.md`, `docs/AI26_REFERENCE_CASE.md`, `docs/CANONICAL_DATA_CONTRACT.md`, then the owning module's public configuration/codebooks before guessing. Current canonical files outrank model memory; legacy repositories are archaeology only when current material is missing.
+For AI26, read `paper/PHASE_1_PAPER.md`, `docs/AI26_REFERENCE_CASE.md`, `docs/CANONICAL_DATA_CONTRACT.md`, then the owning module's public configuration/codebooks before guessing. Current canonical files outrank model memory; legacy repositories are archaeology only when current material is missing.
 
 ## The four-repository project surface
 
