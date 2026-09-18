@@ -751,3 +751,264 @@ Simon Lindgren is not treated here as part of the Helsinki AC/DT team. These pap
 **Potential follow-up:** Encode experimental freedom at the plugin/workflow level while making every run reproducible through versioned parameters, provenance and evidence links.
 
 ---
+
+
+### Mario Angst, Neitah Noemi Müller & Viviane Walker — *Automated Extraction of Discourse Networks from Large Volumes of Media Data* (2025)
+
+**Bibliographic note:** *Network Science* 13, e4, 1–23. DOI: `10.1017/nws.2025.4`. Open access.
+
+**Core argument / research question:** The article asks whether discourse networks can be extracted at media scale without abandoning the actor–belief–stance structure central to Discourse Network Analysis. It presents an automated pipeline and tests when aggregated automated network representations become sufficiently valid for structural analysis.
+
+**Methods / material:** Nearly two million newspaper articles covering twelve years of sustainable-transport discourse in Zürich, yielding more than one million paragraphs. The pipeline combines named-entity recognition and linking, supervised text classification informed by close reading, and LLM-based stance detection. Output is represented as a bipartite graph of organizations and beliefs connected by stance edges and evaluated against manually annotated data.
+
+**Key findings or claims:**
+- Large-scale DNA can be automated by decomposing extraction into actor identification, belief classification and stance detection rather than asking one model to infer an entire discourse network.
+- The authors propose a **window validity hypothesis**: automated network data become more internally valid when observations are aggregated over sliding temporal windows.
+- Redundancy and relative inertia of actors' stances can compensate for noisy document-level predictions.
+- Windowed aggregation can recover basic network structure and higher-level descriptive network metrics substantially better than isolated statement classification.
+- Automation does not eliminate qualitative work. High-quality manually coded test sets and close reading remain necessary, and the costs of automation should be justified by the research scale.
+
+**Concepts useful for LaclauGPT:** `actor_belief_bipartite_graph`, `stance_edge`, `entity_linking`, `LLM_stance_detection`, `window_validity`, `stance_inertia`, `temporal_aggregation`, `gold_test_set`, and `human_validation`.
+
+**Relevance to `paper/PHASE_1_PAPER.md`:** Extremely high for future DNA integration. It supplies a contemporary blueprint for moving from text/LLM outputs to longitudinal discourse networks while retaining explicit stance and provenance. The sliding-window result is also directly relevant to LaclauGPT memory: repeated observations over time can be more reliable than treating every LLM extraction as an independent fact.
+
+**Limitations / cautions:** The empirical validation concerns one policy domain, one urban media environment and relatively persistent organizational positions. Aggregation can conceal genuine rapid position changes. The approach validates a DNA representation of actors, beliefs and stances, not Laclaudian equivalence, antagonism or hegemony.
+
+**Potential follow-up:** When DNA returns after Phase 0, implement actor–concept–stance records as evidence-backed observations and derive windowed networks separately. Maintain manual benchmark sets and never translate co-occurrence or stance agreement automatically into Laclaudian relations.
+
+---
+
+
+### Tiziana Terranova — *After the Internet: Digital Networks between Capital and the Common* (2022)
+
+**Bibliographic note:** Semiotext(e), Intervention Series 33. ISBN 978-1-63590-168-9.
+
+**Core argument / research question:** Terranova examines the political-economic transformation from the relatively open, protocol-centered internet toward a concentrated **Corporate Platform Complex (CPC)**. Digital networks are simultaneously infrastructures of capitalist capture and spaces in which forms of common production, cooperation and political recomposition may emerge.
+
+**Methods / material:** Theoretical essays spanning Web 2.0, financialization, attention, cognitive capitalism, algorithms, automation, social memory and AI. The book synthesizes autonomist/post-Marxist political economy with analyses of digital network culture.
+
+**Key findings or claims:**
+- The dominant form of digital connectivity is no longer adequately described by the older image of “the internet”; privately owned platforms, clouds, app ecosystems and data infrastructures form a concentrated CPC.
+- Platformization shifts digital networking from interoperable protocols and peer-to-peer imaginaries toward gated services, cloud infrastructures and strong ownership of data and software.
+- User participation generates data that feed machine learning and automated systems, making social activity directly productive for contemporary digital capital.
+- Network effects and financial capital support concentration while smaller economic actors become dependent on platform ecosystems.
+- Yet networked cooperation also contains capacities for a **common** that cannot be reduced entirely to capitalist command.
+
+**Concepts useful for LaclauGPT:** `corporate_platform_complex`, `platform_capitalism`, `attention`, `social_production`, `automation`, `common`, `cognitive_capitalism`, and `platform_infrastructure`.
+
+**Relevance to `paper/PHASE_1_PAPER.md`:** Strong contextual theory for AI discourse. AI26 texts circulate through infrastructures whose ownership, ranking, data extraction and economic organization shape visibility. Terranova also helps situate accelerationist and Critical AI discourse within struggles over capital, automation and collective production rather than treating AI ideology as a purely semantic contest.
+
+**Limitations / cautions:** The book is a political-theoretical intervention rather than a neutral platform taxonomy or directly operationalizable empirical model. Its concepts should be represented as theoretical lenses, not silently converted into corpus labels.
+
+**Potential follow-up:** Store platform/infrastructure provenance separately from discourse-theoretical relations. Use CPC/common as researcher-facing contextual concepts when interpreting how AI formations articulate platforms, labor, ownership, data and collective production.
+
+---
+
+
+### Benjamin H. Bratton — *The Stack: On Software and Sovereignty* (2015)
+
+**Bibliographic note:** MIT Press, Software Studies series. ISBN 978-0-262-02957-5.
+
+**Core argument / research question:** Bratton proposes **The Stack** as a planetary-scale model for understanding computation as an accidental megastructure that reorganizes sovereignty, territory, identity and governance. Cloud platforms, urban systems, interfaces, users and physical infrastructure are not separate technological domains but vertically interdependent layers of a new geopolitical architecture.
+
+**Methods / material:** Large-scale conceptual synthesis drawing from software studies, architecture, design, geopolitics, computation and political theory. The Stack is organized through six interacting layers: Earth, Cloud, City, Address, Interface and User.
+
+**Key findings or claims:**
+- Planetary computation constitutes a new spatial and political architecture that cannot be adequately described using conventional state sovereignty alone.
+- The Stack links material planetary resources and infrastructures to cloud computation, urban systems, addressing, interfaces and users.
+- “User” is a political position within computational systems, not simply a synonym for an individual human; nonhuman agents can also occupy computational positions.
+- Platforms exercise forms of governance and sovereignty through protocols, standards, interfaces and infrastructure.
+- Computation simultaneously centralizes and redistributes power, creating jurisdictions and political geographies that overlap with but do not map neatly onto nation-states.
+
+**Concepts useful for LaclauGPT:** `stack`, `planetary_computation`, `layer`, `platform_sovereignty`, `user_position`, `address`, `interface`, `cloud`, and `infrastructure`.
+
+**Relevance to `paper/PHASE_1_PAPER.md`:** Mostly contextual rather than methodological. It can help distinguish discourse about AI from the material computational architecture through which AI is produced and circulated. Its layered architecture also resonates with PCM, but should not be imported into the Phase 1 discourse method unless an explicit infrastructure layer is needed.
+
+**Limitations / cautions:** The Stack is intentionally speculative and synthetic, not a validated empirical ontology. Its six layers are Bratton's conceptual architecture and should not be conflated with LaclauGPT/PCM layers. It is also already outside the narrow core of the current discourse-analysis paper.
+
+**Potential follow-up:** Keep as optional infrastructure theory for later PCM/LaclauGPT integration rather than expanding the Phase 0 core around it.
+
+---
+
+
+### José van Dijck, Thomas Poell & Martijn de Waal — *The Platform Society: Public Values in a Connective World* (2018)
+
+**Bibliographic note:** Oxford University Press. ISBN 9780190889760 (hardback), 9780190889777 (paperback).
+
+**Core argument / research question:** The authors analyze how platform ecosystems penetrate major social sectors and reorganize the creation of public value. Platforms are not neutral intermediaries: their technical and economic mechanisms become infrastructural conditions through which social interaction and institutional practices are organized.
+
+**Methods / material:** Conceptual and comparative platform analysis across news, urban transport, health and education. The book distinguishes infrastructural platforms from sectoral platforms and analyzes platform mechanisms and public-value conflicts.
+
+**Key findings or claims:**
+- A **platform society** is one in which social and economic traffic is increasingly channelled through a global platform ecosystem driven by corporate and governmental actors.
+- Three central platform mechanisms are **datafication, commodification and selection**.
+- A small infrastructural core supplies services and standards on which many sectoral platforms depend.
+- Platformization transforms established institutions and sectors rather than merely adding a new communications channel.
+- Public values such as privacy, accessibility, democratic control, accountability and fairness can conflict with private platform interests and cannot simply be delegated to markets or engineering.
+
+**Concepts useful for LaclauGPT:** `platform_society`, `platform_ecosystem`, `infrastructural_platform`, `sectoral_platform`, `datafication`, `commodification`, `selection`, and `public_values`.
+
+**Relevance to `paper/PHASE_1_PAPER.md`:** Provides a disciplined vocabulary for the platform context surrounding collected discourse. For AI26 it is useful for distinguishing what actors say from the selection and datafication mechanisms that condition what becomes visible. It also offers concepts for Critical AI articulations around public/private value.
+
+**Limitations / cautions:** Platform mechanisms are analytical categories, not explanations of any particular discourse formation. The book predates the generative-AI platform boom, so it provides infrastructure genealogy rather than a current empirical map.
+
+**Potential follow-up:** Add source-platform metadata and keep platform selection mechanisms as contextual variables rather than inferring ideological meaning from platform provenance.
+
+---
+
+
+### Harrison C. White — *Identity and Control: How Social Formations Emerge*, 2nd ed. (2008)
+
+**Bibliographic note:** Princeton University Press. ISBN 978-0-691-13714-8 (hardcover), 978-0-691-13715-5 (paperback).
+
+**Core argument / research question:** White develops a relational theory of social formation in which identities emerge through attempts to gain **control** amid uncertainty. Networks are not static structures populated by pre-existing actors; identities, ties, meanings and social formations recursively emerge from relations, stories, contexts and switching between network domains.
+
+**Methods / material:** Synthetic sociological theory grounded in network analysis, organizational sociology and linguistic/narrative insights. Major themes include identities and control, networks and stories, disciplines, styles, institutions and rhetorics, regimes of control and action.
+
+**Key findings or claims:**
+- Identities seek footing for control amid social contingency, and identity itself emerges through relational processes rather than preceding them.
+- **Stories mark ties**: network relations and narratives are mutually constitutive rather than separable “structure” and “culture.”
+- **Netdoms** connect network domains with domains of meaning; switching among contexts changes identities and meanings.
+- Social formations emerge from repeated relations, stories, styles, disciplines and regimes of control rather than from a single macro structure.
+- Structural equivalence and network position matter, but their social meaning depends on the interpretive domains in which ties operate.
+
+**Concepts useful for LaclauGPT:** `identity`, `control`, `network_and_story`, `netdom`, `switching`, `structural_equivalence`, `style`, `discipline`, `rhetoric`, and `regime_of_control`.
+
+**Relevance to `paper/PHASE_1_PAPER.md`:** Very useful for the future SNA layer and for avoiding a crude split between semantic and social networks. White offers a theoretical basis for keeping actor identities dynamic: actors can occupy different relational/meaning domains and should not receive one permanent ideological label. His “networks and stories” formulation is particularly compatible with linking SNA evidence to discourse analysis without reducing either to the other.
+
+**Limitations / cautions:** White's vocabulary is difficult and highly specific; concepts such as netdom, discipline and control should not be loosely repurposed. The book is not a ready-made computational pipeline, and White's identity/control theory is distinct from Laclaudian political identity.
+
+**Potential follow-up:** Use White later in the SNA module to model dynamic actor positions and network/meaning switching. Keep White-derived relations provenance-distinct from DNA and Laclau/Mouffe relations even when displayed in a shared graph.
+
+---
+
+
+### Elena Esposito — *Artificial Communication: How Algorithms Produce Social Intelligence* (2022)
+
+**Bibliographic note:** MIT Press, Strong Ideas series. ISBN 9780262046664.
+
+**Core argument / research question:** Esposito argues that contemporary algorithms should be understood through **communication**, not primarily through imitation of human intelligence. Algorithms can become interaction partners and generate socially consequential communication without understanding in the human sense. The important sociological question is therefore how society communicates with and through systems that process information differently from conscious persons.
+
+**Methods / material:** Systems-theoretical and historical analysis drawing strongly on Luhmann, with chapters on algorithms as interaction partners, lists, digital text analysis and visualization, personalization, algorithmic memory/forgetting and prediction.
+
+**Key findings or claims:**
+- The puzzle of AI is not that machines have become human-like minds but that communication can succeed with partners that do not understand as humans do.
+- Algorithmic operations can produce **social intelligence** because their outputs enter recursive communication and are interpreted by users and institutions.
+- Personalization creates forms of communication oriented to users through algorithmic processing rather than interpersonal knowledge.
+- Algorithmic memory and prediction transform temporal relations by using recorded past data to construct actionable expectations about futures.
+- Human opacity and machine opacity are different; demanding that algorithms reproduce human understanding can obscure how artificial communication actually operates.
+
+**Concepts useful for LaclauGPT:** `artificial_communication`, `interaction_partner`, `social_intelligence`, `communication_without_understanding`, `algorithmic_memory`, `personalization`, `prediction`, and `Luhmannian_communication`.
+
+**Relevance to `paper/PHASE_1_PAPER.md`:** Exceptionally useful for the human+LLM assemblage. It offers a sociological route around the unnecessary question of whether an LLM is conscious or “really understands.” LaclauGPT can be analyzed as an artificial communication partner whose outputs acquire meaning inside researcher/model communication, with human validation and evidence remaining decisive.
+
+**Limitations / cautions:** Esposito's argument is theoretical and Luhmannian; it does not validate LLM discourse coding. “Communication without understanding” should not be converted into a claim that model outputs are automatically socially or scientifically valid.
+
+**Potential follow-up:** Use Esposito in the theory of LLM-assisted interpretation and context memory: model memory/prediction can be described as operations in artificial communication while methodological validity remains grounded in source evidence and researcher judgement.
+
+---
+
+
+### Nathan Schneider — *Governable Spaces: Democratic Design for Online Life* (2024)
+
+**Bibliographic note:** University of California Press, Luminos open-access monograph. DOI: `10.1525/luminos.181`.
+
+**Core argument / research question:** Schneider argues that online communities have inherited an **implicit feudalism**: technical and cultural defaults concentrate authority in platform owners, administrators and “benevolent dictators.” Digital spaces are nevertheless governable institutions whose rules and architectures can be deliberately redesigned using democratic traditions and experimentation.
+
+**Methods / material:** Interdisciplinary political and design analysis combining histories of governance, democratic theory, online-community cases, cooperative practice, feminist and abolitionist perspectives, and experiments in digital governance.
+
+**Key findings or claims:**
+- Governance is already embedded in platforms and communities even when designers describe their systems as neutral or merely technical.
+- Common online defaults normalize highly concentrated rule and make democratic alternatives harder to imagine.
+- Technical design and political constitution are intertwined: permissions, moderation systems, ownership structures and protocols distribute power.
+- Online spaces can draw on a much broader institutional repertoire, including cooperatives, councils, juries and other democratic mechanisms.
+- Democratic digital governance requires designing for contestability, participation and institutional change rather than searching for one universal governance mechanism.
+
+**Concepts useful for LaclauGPT:** `implicit_feudalism`, `governable_space`, `democratic_design`, `digital_constitution`, `community_governance`, `platform_power`, and `institutional_imagination`.
+
+**Relevance to `paper/PHASE_1_PAPER.md`:** Mainly useful for the governance context of platforms and AI communities. It can help interpret grassroots/elite conflicts over who is authorized to govern AI and how apparently technical arrangements encode political choices.
+
+**Limitations / cautions:** The book is normatively committed to democratic experimentation. Its governance vocabulary should not be treated as neutral classification, and the argument concerns online governance broadly rather than discourse analysis specifically.
+
+**Potential follow-up:** Preserve governance proposals and institutional actors as extractable discourse objects, then analyze how competing formations articulate authority, participation, expertise and control instead of assigning a “democratic/undemocratic” score.
+
+---
+
+
+### Dan McQuillan — *Resisting AI: An Anti-fascist Approach to Artificial Intelligence* (2022)
+
+**Bibliographic note:** Bristol University Press. ISBN 978-1-5292-1349-2 (hardcover), 978-1-5292-1350-8 (paperback).
+
+**Core argument / research question:** McQuillan rejects the framing of AI as an autonomous technical revolution requiring only better ethics or bias correction. He argues that AI is embedded in institutions and political-economic relations that can intensify classification, exclusion, austerity, border violence and other forms of structural harm. The proposed response is explicitly political and anti-fascist, centered on collective institutions and alternative practices.
+
+**Methods / material:** Critical theoretical synthesis across machine learning, political economy, institutional applications of AI, feminist/anti-fascist theory and case-based discussion. Chapters move from AI operations and collateral damage through violence and necropolitics to post-machinic learning, people's councils and anti-fascist AI.
+
+**Key findings or claims:**
+- AI systems should be analyzed as sociotechnical operations embedded in institutions rather than autonomous intelligent agents.
+- Technical optimization can reproduce or intensify existing administrative and social violence even without explicitly fascist intentions.
+- Conventional “AI ethics” is insufficient when harms arise from institutional purposes, power relations and political economy.
+- McQuillan advocates forms of refusal, collective inquiry, people's councils and alternative knowledge practices rather than relying solely on technical fixes.
+- The book deliberately connects AI critique to anti-fascist politics, making its normative position explicit rather than presenting it as ideologically neutral.
+
+**Concepts useful for LaclauGPT:** `AI_critique`, `sociotechnical_operation`, `collateral_damage`, `necropolitics`, `post_machinic_learning`, `people_councils`, `refusal`, and `anti_fascist_AI`.
+
+**Relevance to `paper/PHASE_1_PAPER.md`:** Strong primary material for the **Critical AI** formation and a useful warning against treating that formation as generic “AI pessimism.” McQuillan articulates AI to institutions, material harms, power, fascism, collective resistance and alternative governance, which differs structurally from x-risk/doomer discourse even when both criticize AI.
+
+**Limitations / cautions:** This is an explicitly normative political intervention. LaclauGPT should represent its claims and articulations as those of McQuillan/the critical formation, not adopt “fascist” as an automatic evaluative classifier for technologies, actors or opposing formations.
+
+**Potential follow-up:** Use the text as benchmark material for testing whether the pipeline can distinguish present-harm/structural Critical AI discourse from existential-risk discourse and can preserve the specific chains through which each constructs AI as a problem.
+
+---
+
+
+### Armin Nassehi — *Patterns: Theory of the Digital Society* (2024; German original 2021)
+
+**Bibliographic note:** Polity Press, translated by Mirko Wittwar. English edition ISBN 978-1-5095-5821-6 (hardback), 978-1-5095-5822-3 (paperback).
+
+**Core argument / research question:** Nassehi asks why digitalization has been so socially successful. His answer reverses technological determinism: digital technology succeeds because modern society is already complex, differentiated and patterned in ways that make digital **pattern recognition** an especially effective mode of observing and processing it. Digitalization reveals characteristics of society that preceded digital machines.
+
+**Methods / material:** Sociological theory of digitalization, strongly informed by systems theory and cybernetics. The book examines data, communication, feedback, self-reference, functional differentiation, social research and pattern recognition.
+
+**Key findings or claims:**
+- The key sociological question is not simply what digital technology does to society, but what kind of society makes digital technology so effective.
+- Digital data abstract heterogeneous reality into comparable differences and thereby enable pattern recognition at scales inaccessible to ordinary observation.
+- Digitalization is closely related to modern society's need to manage complexity and coordinate differentiated domains.
+- Data systems are self-referential: digital representations increasingly become inputs for further digital observations and decisions.
+- Digital technology should therefore be understood as a social solution to pre-existing problems of observation, complexity and coordination, not as an external force suddenly imposed on society.
+
+**Concepts useful for LaclauGPT:** `pattern`, `pattern_recognition`, `reference_problem`, `digitalization_of_communication`, `feedback`, `self_reference`, `complexity`, and `functional_differentiation`.
+
+**Relevance to `paper/PHASE_1_PAPER.md`:** Useful for conceptualizing computational analysis itself. LaclauGPT discovers patterns because discourse is rendered into data, but those patterns are selective observations rather than the discourse “itself.” Nassehi therefore complements the project's insistence that computational outputs require theoretical interpretation and provenance.
+
+**Limitations / cautions:** Nassehi provides macro-sociological theory, not a validation framework for NLP or LLMs. Pattern recognition should not be equated with explanation, meaning or Laclaudian articulation.
+
+**Potential follow-up:** Use Nassehi in methodological reflexivity around datafication and pattern discovery: computational patterns can guide close reading while remaining second-order observations produced by a specific analytic apparatus.
+
+---
+
+
+### Laura Forlano & Danya Glabau — *Cyborg* (2024)
+
+**Bibliographic note:** MIT Press Essential Knowledge Series. ISBN 9780262547550 (paperback), 9780262377775 (epub), 9780262377768 (PDF).
+
+**Core argument / research question:** Forlano and Glabau revisit the cyborg as both material condition and critical political concept. Human bodies, technologies, infrastructures, labor and culture are already interdependent; **critical cyborg literacy** asks how those relations distribute agency, dependency, power and vulnerability rather than celebrating technological enhancement or fearing machines in isolation.
+
+**Methods / material:** Accessible interdisciplinary synthesis across STS, feminist theory, disability studies, labor studies, design and cultural analysis. Chapters address cyborg labor, bodies, culture, Haraway's manifesto, critiques of cyborg theory and possible futures.
+
+**Key findings or claims:**
+- Cyborgs are not simply futuristic human-machine hybrids; they offer a lens for understanding existing interdependencies among bodies, technical systems and institutions.
+- Haraway's cyborg can be reclaimed from its military/cybernetic origins to question binaries such as human/machine and nature/culture and to analyze production, reproduction and imagination.
+- Automation narratives often displace responsibility onto machines. A critical cyborg approach instead asks which human institutions and economic systems configure automation and labor.
+- Disability and embodied dependence reveal that human-machine relations are situated, maintained and unequal rather than seamless technological transcendence.
+- Cyborg theory itself needs critique for exclusions involving race, colonialism, gender, disability and Western intellectual assumptions.
+- Technological futures are political and material constructions, not inevitable consequences of autonomous progress.
+
+**Concepts useful for LaclauGPT:** `critical_cyborg_literacy`, `human_machine_interdependence`, `cyborg_labor`, `embodiment`, `maintenance`, `technological_determinism`, `production_reproduction_imagination`, and `situated_technology`.
+
+**Relevance to `paper/PHASE_1_PAPER.md`:** Helpful for the broader human+LLM assemblage and especially later PCM work. It supports analyzing AI discourse without assuming a clean human/machine boundary and gives a material corrective to purely textual accounts of “AI.” For AI26, its critique of autonomous automation narratives can also inform close reading of both accelerationist and anti-automation rhetoric.
+
+**Limitations / cautions:** This is a synthetic introductory monograph rather than a new computational method. Cyborg is a broad critical figure and should not become a catch-all label for every human-technology relation. The book's normative commitments and critiques should remain source-attributed.
+
+**Potential follow-up:** Keep cyborg theory as an optional assemblage/PCM interpretive layer while Phase 0 remains text-focused. Later, connect discourse claims about automation and augmentation to labor, bodies and infrastructures without collapsing these material relations into semantic network edges.
+
+---
