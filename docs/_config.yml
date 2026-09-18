@@ -1,0 +1,19 @@
+title: LaclauGPT
+description: Open research framework for LLM-assisted computational discourse analysis.
+url: https://tomitoivio.github.io
+baseurl: /LaclauGPT
+repository: TomiToivio/LaclauGPT
+theme: minima
+
+author:
+  name: Tomi Toivio
+
+header_pages:
+  - index.md
+  - project.md
+  - research.md
+  - archive.md
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
