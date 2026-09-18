@@ -6,7 +6,7 @@
 #
 # Sampling strata (accelerationist / xrisk_control / critical_ai /
 # anti_ai / contested_arena) are SENSITISING HEURISTICS only
-# (paper/PAPER.md §2.2). LaclauGPT infers ideological articulations
+# (paper/PHASE_1_PAPER.md §2.2). LaclauGPT infers ideological articulations
 # from text; the stratum never labels a document.
 
 project: ai26
