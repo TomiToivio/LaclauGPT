@@ -6,7 +6,7 @@ Use this skill when an agent operates the LaclauGPT umbrella/meta repository. Th
 
 For AI26/project-level work, inspect:
 
-1. `paper/PAPER.md`
+1. `paper/PHASE_1_PAPER.md`
 2. `docs/AI26_REFERENCE_CASE.md`
 3. `docs/CANONICAL_DATA_CONTRACT.md` and architecture/runtime docs
 4. the owning module's current public codebooks/configuration
