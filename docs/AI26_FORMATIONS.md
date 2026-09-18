@@ -9,7 +9,7 @@ AI26 uses a deliberately small computational vocabulary for ideological formatio
 - `ai critical`
 - `anti-ai`
 
-These labels are **provisional sensitising concepts**, consistent with `paper/PAPER.md`. They are not a closed ontology of political thought and must not be inferred from actor identity alone.
+These labels are **provisional sensitising concepts**, consistent with `paper/PHASE_1_PAPER.md`. They are not a closed ontology of political thought and must not be inferred from actor identity alone.
 
 Research vocabulary remains richer than the aggregation vocabulary. Terms such as techno-optimism, singularitarianism, TESCREAL, alignment, auditism, anti-hype, anti-Big-Tech, open-source advocacy, and policy governance may remain in evidence, source text, theoretical discussion, tags, and provenance without becoming additional top-level formations.
 
