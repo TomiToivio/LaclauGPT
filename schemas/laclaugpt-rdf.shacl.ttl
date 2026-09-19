@@ -27,15 +27,33 @@ laclaugpt:ArticulationShape a sh:NodeShape ;
         sh:maxInclusive 1
     ] .
 
-laclaugpt:SignifierRoleShape a sh:NodeShape ;
-    sh:targetClass laclaugpt:EmptySignifier, laclaugpt:FloatingSignifier, laclaugpt:NodalPoint ;
+laclaugpt:DiscursiveRoleAssignmentShape a sh:NodeShape ;
+    sh:targetClass laclaugpt:DiscursiveRoleAssignment ;
+    sh:property [
+        sh:path laclaugpt:concept ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "A discursive role assignment must identify the signifier/concept being assigned a role."@en
+    ] ;
+    sh:property [
+        sh:path laclaugpt:role ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "A discursive role assignment must identify its contextual role."@en
+    ] ;
     sh:property [
         sh:path prov:wasGeneratedBy ;
         sh:minCount 1 ;
-        sh:message "Theory-specific signifier-role claims must retain provenance."@en
+        sh:message "Theory-specific role assignments must retain analytical-run provenance."@en
     ] ;
     sh:property [
         sh:path laclaugpt:reviewState ;
         sh:minCount 1 ;
-        sh:datatype xsd:string
+        sh:datatype xsd:string ;
+        sh:in ("PROVISIONAL" "ACCEPTED" "REJECTED" "REVISED" "CANONICAL" "SUPERSEDED")
+    ] ;
+    sh:property [
+        sh:path laclaugpt:confidence ;
+        sh:minInclusive 0 ;
+        sh:maxInclusive 1
     ] .
