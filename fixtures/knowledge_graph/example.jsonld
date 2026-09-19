@@ -1,0 +1,49 @@
+{
+  "@context": "../../schemas/laclaugpt-context.v1.jsonld",
+  "@graph": [
+    {
+      "id": "https://w3id.org/laclaugpt/resource/demo/study/kg-demo",
+      "type": "schema:Dataset",
+      "label": "Knowledge graph demo",
+      "dcterms:identifier": "kg-demo"
+    },
+    {
+      "id": "https://w3id.org/laclaugpt/resource/demo/document/doc-1",
+      "type": ["schema:SocialMediaPosting", "prov:Entity"],
+      "project": "https://w3id.org/laclaugpt/resource/demo/study/kg-demo",
+      "label": "Synthetic source post",
+      "language": "en"
+    },
+    {
+      "id": "https://w3id.org/laclaugpt/resource/demo/actor/actor-1",
+      "type": ["schema:Person", "prov:Agent"],
+      "label": "Synthetic actor"
+    },
+    {
+      "id": "https://w3id.org/laclaugpt/resource/demo/run/run-1",
+      "type": "prov:Activity",
+      "label": "Synthetic analysis run"
+    },
+    {
+      "id": "https://w3id.org/laclaugpt/resource/demo/concept/freedom",
+      "type": ["skos:Concept", "laclaugpt:Signifier"],
+      "label": "freedom"
+    },
+    {
+      "id": "https://w3id.org/laclaugpt/resource/demo/statement/st-1",
+      "type": "laclaugpt:Statement",
+      "source": "https://w3id.org/laclaugpt/resource/demo/document/doc-1",
+      "actor": "https://w3id.org/laclaugpt/resource/demo/actor/actor-1",
+      "generatedBy": "https://w3id.org/laclaugpt/resource/demo/run/run-1"
+    },
+    {
+      "id": "https://w3id.org/laclaugpt/resource/demo/role/role-1",
+      "type": "laclaugpt:DiscursiveRoleAssignment",
+      "concept": "https://w3id.org/laclaugpt/resource/demo/concept/freedom",
+      "role": "laclaugpt:NodalPointRole",
+      "generatedBy": "https://w3id.org/laclaugpt/resource/demo/run/run-1",
+      "confidence": 0.82,
+      "reviewState": "PROVISIONAL"
+    }
+  ]
+}
