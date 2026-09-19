@@ -7,7 +7,7 @@ permalink: /project/
 
 # Project
 
-LaclauGPT was developed by [Tomi Toivio](https://github.com/TomiToivio) during **2023–2026**. Contact: [tomi.toivio@helsinki.fi](mailto:tomi.toivio@helsinki.fi).
+LaclauGPT has been under development by [Tomi Toivio](https://github.com/TomiToivio) since **2023**. Contact: [tomi.toivio@helsinki.fi](mailto:tomi.toivio@helsinki.fi).
 
 It was originally created for the **EP24 research project** in connection with [HEPP](https://www.helsinki.fi/en/researchgroups/emotions-populism-and-polarisation) and [HSSH](https://www.helsinki.fi/en/helsinki-institute-social-sciences-and-humanities). The current version is guided primarily by the **AI26 research project** and is also used to support other research projects.
 
