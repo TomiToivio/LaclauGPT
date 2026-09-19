@@ -1,6 +1,5 @@
 @prefix laclaugpt: <https://w3id.org/laclaugpt/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
@@ -11,9 +10,13 @@ laclaugpt: a owl:Ontology ;
 laclaugpt:Articulation a owl:Class ; rdfs:label "Articulation"@en .
 laclaugpt:DiscourseFormation a owl:Class ; rdfs:label "Discourse formation"@en .
 laclaugpt:Signifier a owl:Class ; rdfs:label "Signifier"@en .
-laclaugpt:EmptySignifier a owl:Class ; rdfs:subClassOf laclaugpt:Signifier ; rdfs:label "Empty signifier"@en .
-laclaugpt:FloatingSignifier a owl:Class ; rdfs:subClassOf laclaugpt:Signifier ; rdfs:label "Floating signifier"@en .
-laclaugpt:NodalPoint a owl:Class ; rdfs:subClassOf laclaugpt:Signifier ; rdfs:label "Nodal point"@en .
+laclaugpt:Statement a owl:Class ; rdfs:label "Analytical statement"@en .
+laclaugpt:DiscursiveRoleAssignment a owl:Class ;
+    rdfs:label "Discursive role assignment"@en ;
+    rdfs:comment "A contextual analytical assignment of a role to a signifier in a discourse or empirical context."@en .
+laclaugpt:NodalPointRole a owl:Class ; rdfs:label "Nodal point role"@en .
+laclaugpt:FloatingSignifierRole a owl:Class ; rdfs:label "Floating signifier role"@en .
+laclaugpt:EmptySignifierRole a owl:Class ; rdfs:label "Empty signifier role"@en .
 laclaugpt:ChainOfEquivalence a owl:Class ; rdfs:label "Chain of equivalence"@en .
 laclaugpt:Antagonism a owl:Class ; rdfs:label "Antagonism"@en .
 laclaugpt:DiscursiveFrontier a owl:Class ; rdfs:label "Discursive frontier"@en .
@@ -26,9 +29,22 @@ laclaugpt:participatesInFormation a owl:ObjectProperty ;
     rdfs:range laclaugpt:DiscourseFormation ;
     rdfs:label "participates in formation"@en .
 
-laclaugpt:hasNodalPoint a owl:ObjectProperty ;
-    rdfs:range laclaugpt:NodalPoint ;
-    rdfs:label "has nodal point"@en .
+laclaugpt:hasDiscursiveRole a owl:ObjectProperty ;
+    rdfs:range laclaugpt:DiscursiveRoleAssignment ;
+    rdfs:label "has discursive role"@en .
+
+laclaugpt:role a owl:ObjectProperty ;
+    rdfs:domain laclaugpt:DiscursiveRoleAssignment ;
+    rdfs:label "role"@en .
+
+laclaugpt:concept a owl:ObjectProperty ;
+    rdfs:domain laclaugpt:DiscursiveRoleAssignment ;
+    rdfs:label "concept/signifier"@en .
+
+laclaugpt:actor a owl:ObjectProperty ; rdfs:label "actor"@en .
+laclaugpt:statement a owl:ObjectProperty ; rdfs:label "statement"@en .
+laclaugpt:sourceNode a owl:ObjectProperty ; rdfs:label "source node"@en .
+laclaugpt:targetNode a owl:ObjectProperty ; rdfs:label "target node"@en .
 
 laclaugpt:hasEquivalentMoment a owl:ObjectProperty ;
     rdfs:label "has equivalent moment"@en .
@@ -44,6 +60,11 @@ laclaugpt:constructsFrontier a owl:ObjectProperty ;
 laclaugpt:hasEvidence a owl:ObjectProperty ;
     rdfs:label "has evidence"@en ;
     rdfs:comment "Points from a LaclauGPT-specific analytical object to an evidence resource, normally represented with Web Annotation semantics."@en .
+
+laclaugpt:project a owl:ObjectProperty ; rdfs:label "project"@en .
+laclaugpt:edgeType a owl:DatatypeProperty ; rdfs:range xsd:string ; rdfs:label "edge type"@en .
+laclaugpt:directed a owl:DatatypeProperty ; rdfs:range xsd:boolean ; rdfs:label "directed"@en .
+laclaugpt:weight a owl:DatatypeProperty ; rdfs:range xsd:decimal ; rdfs:label "weight"@en .
 
 laclaugpt:reviewState a owl:DatatypeProperty ;
     rdfs:range xsd:string ;
