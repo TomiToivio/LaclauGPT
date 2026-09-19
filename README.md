@@ -4,6 +4,9 @@
 
 **LaclauGPT** is an open social-science research framework for **LLM-assisted computational discourse analysis** of large textual and multimodal corpora. It combines computational methods with interpretive political research while keeping model outputs traceable to source evidence, uncertainty, provenance and human review.
 
+> [!NOTE]
+> **Draft research plan.** The Phase 1 paper is a working research-plan manuscript. It has not been formally published or peer reviewed, and its arguments, methods, scope, and wording may change as the research develops.
+
 ## Start here: project map
 
 **This repository is the LaclauGPT meta-repository and the main entry point to the project.** It contains the scientific paper, theory, project-wide architecture, canonical data contract, interoperability rules and full-system documentation. The executable pipeline is split into three focused peer repositories:
