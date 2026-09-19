@@ -75,9 +75,11 @@ The first profile defines only theory-specific classes and relations needed by L
 - `laclaugpt:Articulation`
 - `laclaugpt:DiscourseFormation`
 - `laclaugpt:Signifier`
-- `laclaugpt:EmptySignifier`
-- `laclaugpt:FloatingSignifier`
-- `laclaugpt:NodalPoint`
+- `laclaugpt:Statement`
+- `laclaugpt:DiscursiveRoleAssignment`
+- `laclaugpt:NodalPointRole`
+- `laclaugpt:FloatingSignifierRole`
+- `laclaugpt:EmptySignifierRole`
 - `laclaugpt:ChainOfEquivalence`
 - `laclaugpt:Antagonism`
 - `laclaugpt:DiscursiveFrontier`
