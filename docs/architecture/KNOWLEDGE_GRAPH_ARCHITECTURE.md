@@ -87,6 +87,29 @@ SNA reuses account/person/organization identities and adds typed interaction edg
 
 Edges carry direction, weight, temporal scope and platform/source context. Community assignments and graph metrics are derived analytical outputs with their own run provenance.
 
+## Core ontology / schema diagram
+
+```mermaid
+flowchart LR
+    Study --> Document
+    Actor -->|AUTHORS| Document
+    Document --> Statement
+    Statement -->|REFERS_TO| Signifier
+    Statement -->|SUPPORTED_BY| Evidence
+    AnalysisRun -->|prov:generated| Statement
+    Signifier --> RoleAssignment
+    RoleAssignment -->|role| Role
+    RoleAssignment -->|prov:wasGeneratedBy| AnalysisRun
+    Articulation --> Signifier
+    Articulation --> Evidence
+    Articulation --> AnalysisRun
+    Actor -->|DNA projection| Statement
+    Statement -->|DNA projection| Concept
+    Actor -->|SNA interaction| Actor
+```
+
+The diagram is conceptual. Physical backends may store the same objects as rows, documents, vertices/edges or RDF resources.
+
 ## Stable URI policy
 
 Recommended URI form:
