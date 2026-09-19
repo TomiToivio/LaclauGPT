@@ -2,7 +2,7 @@
 
 **Status:** normative interoperability specification  
 **Scope:** optional semantic interchange layer  
-**Issue:** #37
+**Issues:** #37, #60
 
 ## 1. Purpose
 
@@ -82,13 +82,13 @@ The first profile defines only theory-specific classes and relations needed by L
 - `laclaugpt:Antagonism`
 - `laclaugpt:DiscursiveFrontier`
 
-`EmptySignifier`, `FloatingSignifier` and `NodalPoint` are specializations of `Signifier`. These are analytical claims, not intrinsic properties of lexical strings. Machine-generated instances therefore MUST retain provenance, evidence and review state.
+Nodal-point, floating-signifier and empty-signifier status are contextual analytical roles. They MUST be represented through `DiscursiveRoleAssignment` rather than by permanently retyping a signifier. A role assignment links the signifier/concept to a role plus discourse/context, evidence, provenance, confidence and review state. This keeps the RDF layer aligned with the canonical discourse graph.
 
 ### Relations
 
 - `laclaugpt:articulates`
 - `laclaugpt:participatesInFormation`
-- `laclaugpt:hasNodalPoint`
+- `laclaugpt:hasDiscursiveRole`\n- `laclaugpt:role`\n- `laclaugpt:concept`
 - `laclaugpt:hasEquivalentMoment`
 - `laclaugpt:constructsAntagonism`
 - `laclaugpt:constructsFrontier`
