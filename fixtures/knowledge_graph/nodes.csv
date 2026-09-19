@@ -1,0 +1,6 @@
+id,type,label,project_id,generated_by
+https://w3id.org/laclaugpt/resource/demo/document/doc-1,document,Synthetic source post,kg-demo,
+https://w3id.org/laclaugpt/resource/demo/actor/actor-1,actor,Synthetic actor,kg-demo,
+https://w3id.org/laclaugpt/resource/demo/statement/st-1,statement,Synthetic statement,kg-demo,https://w3id.org/laclaugpt/resource/demo/run/run-1
+https://w3id.org/laclaugpt/resource/demo/concept/freedom,concept,freedom,kg-demo,
+https://w3id.org/laclaugpt/resource/demo/role/role-1,discursive_role_assignment,Nodal-point assignment,kg-demo,https://w3id.org/laclaugpt/resource/demo/run/run-1
