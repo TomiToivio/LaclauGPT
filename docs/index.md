@@ -10,6 +10,10 @@ description: Open research framework for LLM-assisted computational discourse an
 
 LaclauGPT is an open social-science research framework for studying large textual and multimodal corpora with computational methods and LLM assistance. It keeps interpretation traceable to source evidence, uncertainty, provenance, and human researcher review.
 
+## Research status
+
+> **Draft research plan.** The current Phase 1 paper is a working research-plan manuscript. It has not been formally published or peer reviewed, and its arguments, methods, scope, and wording may change as the research develops.
+
 ## About and authorship
 
 LaclauGPT has been under development by [Tomi Toivio](https://github.com/TomiToivio) since **2023**.
