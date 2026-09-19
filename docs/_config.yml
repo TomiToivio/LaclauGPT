@@ -5,8 +5,8 @@ baseurl: /LaclauGPT
 repository: TomiToivio/LaclauGPT
 theme: minima
 
-author:
-  name: Tomi Toivio
+author: Tomi Toivio
+email: tomi.toivio@helsinki.fi
 
 header_pages:
   - index.md
