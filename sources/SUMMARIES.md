@@ -1036,3 +1036,59 @@ He also gives the SNA layer a principled route to Luhmannian functional differen
 **Potential follow-up:** Keep cyborg theory as an optional assemblage/PCM interpretive layer while Phase 0 remains text-focused. Later, connect discourse claims about automation and augmentation to labor, bodies and infrastructures without collapsing these material relations into semantic network edges.
 
 ---
+
+---
+
+### Hanna Wanselin, Kristina Danielsson & Susanne Wikman — *Analysing Multimodal Texts in Science—a Social Semiotic Perspective* (2022)
+
+**Bibliographic note:** *Research in Science Education* 52:891–907. DOI: `10.1007/s11165-021-10027-5`. The paper develops a multimodal analytical framework from social semiotics, Systemic Functional Linguistics (SFL), Kress & van Leeuwen's visual grammar, and research on image–text relations.
+
+**Core argument / research question:** The paper asks how multimodal texts can be analysed so that researchers can identify what content is expressed, which semiotic resources are used to express it, how those resources interact, and how authors position themselves through their semiotic choices. A central social-semiotic premise is that form and function are intertwined: a sign can be a word, image, gesture, or other meaning-making resource, and different modes have different affordances.
+
+**Methods / material:** The authors combine SFL's textual, ideational, and interpersonal metafunctions with multimodal analysis. Their framework examines text organisation, choice and combination of modes, reading order, relative size and scale; processes, participants and circumstances; narrative versus conceptual visual functions; image–writing relations; positioning, speech roles, formality, and explicit or implicit values. Empirical examples are a student-produced ecology text and a digital teaching resource about the greenhouse effect.
+
+**Key findings or claims:**
+
+- Multimodal meaning cannot be recovered adequately from language alone. Image, writing, symbols, layout, scale, arrows, and other semiotic resources contribute differently to meaning.
+- Modes have different **affordances**, so analysis should ask not only what is represented but why a given resource is suitable for representing it.
+- The **textual metafunction** concerns organisation and coherence: layout, reading order, mode choice, size, scale, and composition.
+- The **ideational metafunction** concerns represented content: processes, participants, circumstances, and whether visual structures are narrative or conceptual.
+- Relations between modes can be **redundant, complementary/extending, elaborating, or contrasting**. Meaning can therefore lie in the relation between image and writing rather than in either mode alone.
+- The **interpersonal metafunction** concerns relations between author, represented content, and reader, including speech roles, formality, and explicit or implicit value-positioning.
+- The framework is designed to expose how meaning is made across resources rather than assuming that one mode simply illustrates another.
+
+**Concepts useful for LaclauGPT:** This paper provides a strong methodology for the **pre-discourse multimodal first pass**. It can ground frame and summary prompts in social semiotics before Laclauian discourse analysis begins. Useful concepts include semiotic resources, mode, affordance, salience/composition, processes/participants/circumstances, narrative versus conceptual representation, reading order, image–text relations, and cautious description of positioning. The output of this stage should preserve salient signifiers and relations without yet classifying nodal points, empty/floating signifiers, chains of equivalence, antagonisms, populism, ideology, or hegemonic formations.
+
+A suitable conceptual pipeline is:
+
+```text
+raw image/video/text/audio/metadata
+    ↓
+multimodal social-semiotic description
+    ↓
+structuralist representation of signs and relations
+    ↓
+LaclauGPT discourse analysis
+```
+
+This creates a clean bridge to **LLM Structuralism**. Saussure supplies relational signification and difference; Barthes can contribute the practical distinction between denotation and culturally available connotation; social semiotics supplies the multimodal methodology; Laclau then analyzes political articulation. The pre-analysis should therefore identify what signs are present, how they are combined, which modes carry them, what contrasts and associations are observable, and where interpretation is uncertain, while leaving political/discourse interpretation to later stages.
+
+**Suggested first-pass schema for LaclauGPT:**
+
+1. **Denotative description:** what is literally visible, audible, written, spoken, or otherwise present.
+2. **Semiotic resources / modes:** linguistic, visual, auditory, spatial, gestural, typographic, editing/montage, interface/platform elements.
+3. **Salient signs/signifiers:** repeated, foregrounded, unusually prominent, or explicitly emphasized words, objects, symbols, sounds, gestures, and visual elements. Record them descriptively, without assigning Laclaudian status.
+4. **Processes, participants, circumstances:** who/what appears, what happens, and where/when/how it happens.
+5. **Composition and salience:** foreground/background, centre/periphery, size, scale, sequencing, reading/viewing order, repetition, visual/sonic emphasis.
+6. **Intermodal relations:** whether modes repeat, extend, elaborate, anchor, or contrast with one another.
+7. **Connotation / culturally available associations:** only when strongly supported by the material; keep denotation and interpretation explicitly separated.
+8. **Ambiguity and uncertainty:** identify unclear references, OCR/transcription uncertainty, ambiguous symbols, missing context, and competing plausible readings.
+9. **Neutral frame description:** summarize the principal way the material organizes attention and meaning, without political classification or discourse analysis.
+10. **Neutral multimodal summary:** preserve salient signs, actors, actions, quoted/visible text, and cross-modal relations for downstream analysis.
+
+**Relevance to `paper/PHASE_1_PAPER.md`:** High methodological relevance. Phase 1 currently depends on a first-pass summary/frame layer before discourse analysis. Giving that layer an explicit social-semiotic methodology makes the complete pipeline theoretically interpretable rather than treating multimodal preprocessing as a generic LLM description task. This is especially important for social-media data where speech, captions, typography, music, editing, screenshots, reaction video, memes, platform UI, and visual symbolism may jointly produce the source material later analyzed by LaclauGPT.
+
+**Limitations / cautions:** The paper's empirical framework was designed for static multimodal educational texts, and the authors explicitly delimit their use of “multimodal texts” from animations. Applying it to TikTok, Instagram, video, audio, memes, screenshots, and other born-digital material is therefore an extension of the framework, not something directly validated by this study. LaclauGPT should retain the framework's core principles while adding temporal sequence, editing/montage, speech/prosody, music/sound, gesture, and platform-interface resources. The first pass must also avoid turning “positioning” or “implicit values” into premature political inference.
+
+**Potential follow-up:** In Phase 1, redesign `puhti_frame.py` and `puhti_summary.py` prompts as a modality-agnostic **Multimodal Social-Semiotic Pre-Analysis** stage. Document the methodology in the Phase 1 paper and general documentation once implementation is validated. Add tests ensuring that the first pass remains descriptive and does not perform Laclauian, ideological, partisan, populism, sentiment, or political classification that belongs downstream.
+
