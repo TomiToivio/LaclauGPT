@@ -1,0 +1,5 @@
+id,type,source,target,directed,weight,generated_by
+https://w3id.org/laclaugpt/resource/demo/edge/authors-1,AUTHORS,https://w3id.org/laclaugpt/resource/demo/actor/actor-1,https://w3id.org/laclaugpt/resource/demo/document/doc-1,true,1,
+https://w3id.org/laclaugpt/resource/demo/edge/source-1,IN_DOCUMENT,https://w3id.org/laclaugpt/resource/demo/statement/st-1,https://w3id.org/laclaugpt/resource/demo/document/doc-1,true,1,https://w3id.org/laclaugpt/resource/demo/run/run-1
+https://w3id.org/laclaugpt/resource/demo/edge/concept-1,REFERS_TO,https://w3id.org/laclaugpt/resource/demo/statement/st-1,https://w3id.org/laclaugpt/resource/demo/concept/freedom,true,1,https://w3id.org/laclaugpt/resource/demo/run/run-1
+https://w3id.org/laclaugpt/resource/demo/edge/role-1,HAS_DISCURSIVE_ROLE,https://w3id.org/laclaugpt/resource/demo/concept/freedom,https://w3id.org/laclaugpt/resource/demo/role/role-1,true,1,https://w3id.org/laclaugpt/resource/demo/run/run-1
