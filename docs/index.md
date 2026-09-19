@@ -42,8 +42,8 @@ Data Collection → Data Analysis → Data Visualization
 
 The current flagship research programme is **LaclauGPT: Ideological contestation over AI**. The framework is grounded in discourse theory associated with Ernesto Laclau and Chantal Mouffe and is designed for human-in-the-loop computational social-science research.
 
-- [Scientific paper](../paper/PHASE_1_PAPER.md)
-- [Theory and methodology](../THEORY.md)
+- [Scientific paper]({{ '/paper/PHASE_1_PAPER.html' | relative_url }})
+- [Theory and methodology]({{ '/THEORY.html' | relative_url }})
 - [Roadmap](ROADMAP.md)
 - [Canonical data contract](CANONICAL_DATA_CONTRACT.md)
 - [Plugin platform architecture](architecture/PLUGIN_PLATFORM_ARCHITECTURE.md)
