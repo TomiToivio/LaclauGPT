@@ -12,7 +12,7 @@ LaclauGPT is an open social-science research framework for studying large textua
 
 ## About and authorship
 
-LaclauGPT was developed by [Tomi Toivio](https://github.com/TomiToivio) during **2023–2026**.
+LaclauGPT has been under development by [Tomi Toivio](https://github.com/TomiToivio) since **2023**.
 
 Contact: [tomi.toivio@helsinki.fi](mailto:tomi.toivio@helsinki.fi) · [GitHub profile](https://github.com/TomiToivio)
 
