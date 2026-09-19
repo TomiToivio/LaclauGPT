@@ -1092,3 +1092,220 @@ This creates a clean bridge to **LLM Structuralism**. Saussure supplies relation
 
 **Potential follow-up:** In Phase 1, redesign `puhti_frame.py` and `puhti_summary.py` prompts as a modality-agnostic **Multimodal Social-Semiotic Pre-Analysis** stage. Document the methodology in the Phase 1 paper and general documentation once implementation is validated. Add tests ensuring that the first pass remains descriptive and does not perform Laclauian, ideological, partisan, populism, sentiment, or political classification that belongs downstream.
 
+---
+
+### Niklas Luhmann — *Introduction to Systems Theory* (lectures 1991–1992; German edition 2002)
+
+**Bibliographic note:** English translation of Luhmann's 1991–1992 Bielefeld lecture course, transcribed and edited by Dirk Baecker and translated by Peter Gilgen. The uploaded edition has ISBN `9780745645728`.
+
+**Core argument / research question:** Luhmann presents systems theory as an attempt to rebuild sociology around a sufficiently general theory of the social rather than around inherited classical categories or isolated middle-range findings. The decisive move is from systems understood as wholes made of parts to systems understood through the distinction between **system and environment**, operational closure, autopoiesis, observation, meaning, and communication.
+
+**Methods / material:** The book is a theoretically oriented lecture course. It moves from Parsons and open-systems theory through operational closure, self-organization, autopoiesis, structural coupling, observation, re-entry and complexity, then applies these concepts to time, meaning, psychic/social systems, communication, double contingency, structure and conflict.
+
+**Key findings or claims:**
+
+- A system is produced recursively by its own operations; for social systems the relevant operation is **communication**.
+- Operational closure does not mean empirical isolation. Systems remain environmentally dependent while reproducing their own operations according to internally available distinctions and structures.
+- Social and psychic systems both operate in the medium of meaning, but they are operationally distinct: communication cannot be reduced to individual thought.
+- Communication should not be modeled simply as transmission of a thing from sender to receiver. It is an emergent social operation that produces further communicative connectivity and redundancy.
+- Observation is an operation that draws distinctions. Second-order observation asks how another observer distinguishes and thereby makes visible the contingency of observations.
+- **Double contingency** reformulates the classical problem of social order: communication must stabilize expectations among actors who each know the other's behavior is contingent.
+- Complexity is handled through selective distinctions and structures rather than eliminated once and for all.
+
+**Concepts useful for LaclauGPT:** `system/environment`, `autopoiesis`, `operational closure`, `structural coupling`, `observation`, `second-order observation`, `re-entry`, `complexity`, `meaning`, `communication`, and `double contingency`. These concepts are especially useful for a later social-systems/network layer: discourse can be studied as communication that is selected differently by politics, science, economy, media, law, organizations and interactions.
+
+**Relevance to `paper/PHASE_1_PAPER.md`:** Primarily a Phase-2 theoretical extension rather than a replacement for Laclau. Luhmann offers a theory of how communication reproduces differentiated social contexts; Laclau offers a theory of articulation, antagonism, political identification and hegemony. Together they suggest a useful separation between the internal organization of political discourse and the cross-system circulation of the same signifiers.
+
+**Limitations / cautions:** The book is a lecture-course introduction, not an empirical method manual. Its anti-humanist and strongly systems-theoretical vocabulary can flatten conflict, domination, political economy and coloniality if used as a complete social theory. LaclauGPT should therefore use it as one analytic layer among others, not as a totalizing substitute for discourse analysis.
+
+**Potential follow-up:** Use this book as a conceptual source for the Phase-2 social-systems layer and for metadata that distinguish interaction, organization and function-system contexts. Keep system-level interpretation separate from document-level LLM extraction.
+
+---
+
+### Jan Skopek (ed.) — *Research Handbook on Digital Sociology* (2023)
+
+**Bibliographic note:** Edward Elgar Publishing, 2023. DOI: `10.4337/9781789906769`.
+
+**Core argument / research question:** The volume treats “digital sociology” less as a permanently separate subdiscipline than as part of sociology's wider transformation under digital conditions. Skopek frames the digital as simultaneously an object of study, an environment of social interaction, and a methodological opportunity for collecting and analyzing new forms of social data.
+
+**Methods / material:** Interdisciplinary research handbook with contributions from sociology, computational social science, demography, methodology, communication, information science, psychology and related fields. The methodological chapters cover digital/computational demography, surveys, mobile-device data, big data, regression and machine learning, agent-based models, YouTube research and automated image analysis, alongside substantive chapters on digital relationships, inequality, organizations and participation.
+
+**Key findings or claims:**
+
+- Digitalization is now embedded deeply enough in everyday life that separating a bounded “digital” sphere from society is increasingly difficult.
+- A useful digital sociology combines four orientations: studying digital technology use, analyzing digital data, maintaining critical/reflexive attention to digital society, and adapting sociological research practice itself.
+- Digital technologies create new observational opportunities but do not remove classic problems of validity, measurement, sampling, inequality, ethics and theory.
+- Computational methods are most valuable when connected to substantive social-science questions rather than treated as autonomous technical solutions.
+- Digital research encourages convergence between sociology and adjacent computational, communication and information sciences.
+- Multimodal digital data require methods that can handle text, images, video, audio and behavioral traces without assuming that platform data transparently represent social life.
+
+**Concepts useful for LaclauGPT:** digital trace data, computational social science, multimodal social research, data validity, mixed methods, machine learning, agent-based modeling, automated image analysis, platform data and methodological reflexivity. The handbook provides a broad disciplinary scaffold around LaclauGPT's more specialized discourse-analysis pipeline.
+
+**Relevance to `paper/PHASE_1_PAPER.md`:** High as methodological context. It supports positioning LaclauGPT as theory-guided computational social science rather than as “AI replacing qualitative interpretation.” It also reinforces the need for provenance, validation and human interpretation when working with large-scale social-media corpora.
+
+**Limitations / cautions:** Because it is a broad handbook, chapters differ in theory, data, method and evidentiary standards. It does not offer a single integrated methodology for discourse analysis. Its computational chapters should therefore be used as methodological references, not as one unified pipeline specification.
+
+**Potential follow-up:** Mine the methodological chapters for concrete validation practices and interoperable Python/R workflows that can strengthen LaclauGPT's conventional statistical, multimodal and computational-social-science layers.
+
+---
+
+### Matthew Handelman — *The Mathematical Imagination: On the Origins and Promise of Critical Theory* (2019)
+
+**Bibliographic note:** Fordham University Press, 2019.
+
+**Core argument / research question:** Handelman challenges the familiar opposition between critical theory and mathematics. He reconstructs an alternative genealogy in which Gershom Scholem, Franz Rosenzweig and Siegfried Kracauer used mathematical logic, infinitesimal calculus and geometry to develop critical approaches to language, history, aesthetics and modernity. Mathematics can therefore function as a resource for critique rather than only as an emblem of instrumental reason.
+
+**Methods / material:** Intellectual history and close theoretical reading. The book reconstructs early twentieth-century debates around mathematics, logical positivism and critical theory, then develops case studies of Scholem, Rosenzweig and Kracauer. The conclusion explicitly returns to digital humanities and contemporary computational inquiry.
+
+**Key findings or claims:**
+
+- Horkheimer and Adorno's critique of mathematization became influential enough to obscure other mathematically engaged strands near the origins of critical theory.
+- Handelman's concept of **negative mathematics** emphasizes mathematical treatments of absence, lack, division, limits and privation rather than a positivist fantasy of complete quantification.
+- Scholem, Rosenzweig and Kracauer used mathematical forms not to eliminate interpretation but to rethink representation, history, subjectivity and space.
+- Contemporary digital humanities repeat an older tension: computation can widen analytic possibilities while also appearing to threaten historical specificity, interpretation and critique.
+- The constructive alternative is neither computational triumphalism nor anti-quantitative refusal, but critical use of mathematical and digital techniques that preserves interpretive and political reflexivity.
+
+**Concepts useful for LaclauGPT:** negative mathematics, formalization without positivism, limits of representation, critical computation, digital humanities and epistemological reflexivity. This is particularly useful for articulating why embeddings, networks, statistics and LLM-derived structures should be treated as analytic representations rather than as exhaustive models of social meaning.
+
+**Relevance to `paper/PHASE_1_PAPER.md`:** Conceptually useful for the methodological reflexivity section. LaclauGPT depends on computational formalization while insisting that hegemonic meaning, ideology and political articulation remain interpretive and relational. Handelman supplies a historical argument that formal methods and critical theory need not be enemies.
+
+**Limitations / cautions:** The book is an intellectual history of critical theory and mathematics, not a validation framework for machine learning or computational social science. Its concept of negative mathematics should not be converted into a technical feature without further methodological work.
+
+**Potential follow-up:** Use Handelman when explaining LaclauGPT's stance toward computational formalization: formal models can clarify relations and absences while remaining partial, theory-laden and open to critical interpretation.
+
+---
+
+### Deana A. Rohlinger & Sarah Sobieraj (eds.) — *The Oxford Handbook of Digital Media Sociology* (2022)
+
+**Bibliographic note:** Oxford University Press, 2022. DOI: `10.1093/oxfordhb/9780197510636.001.0001`.
+
+**Core argument / research question:** The handbook asks what sociology contributes once digital media have become mundane infrastructure of everyday social life rather than extraordinary new objects. Its recurring answer is to analyze digital media relationally: technologies are shaped by institutions, identities, inequalities and power, while simultaneously reshaping those contexts.
+
+**Methods / material:** Large interdisciplinary handbook organized around theoretical approaches, social institutions, everyday life, community and identity, inequality, and politics/power. Chapters address time, social construction of reality, curation, affective publics, data from the Global South, journalism, gig work, apps, IoT, identity, activism, e-waste, digital war, disinformation, harassment and political engagement.
+
+**Key findings or claims:**
+
+- Digital technologies rarely act as independent causes; their effects emerge through interaction with pre-existing institutions, cultural norms, organizational practices and inequalities.
+- A sociological approach should move beyond simple “impact” questions and ask how technology and social structures mutually constitute one another.
+- Race, class, gender, sexuality, citizenship and geography shape access, participation, labor, identity and exposure to harms across digital environments.
+- Platforms organize participation through infrastructures, governance and affordances that can enable mobilization while also enabling manipulation, harassment and exclusion.
+- The editors stress the need for more research outside North America, Europe and Australia and for genuinely cross-national analysis of global power relations.
+- Digital sociology is necessarily interdisciplinary because major debates about platforms, data, politics and inequality already span communication, media studies, STS, political science and computational research.
+
+**Concepts useful for LaclauGPT:** sociotechnical context, power, inequality, platform mediation, affective publics, curation, social construction of reality, digital activism, disinformation and cross-national comparison. These provide context layers around the narrower discourse-theoretical analysis of signifiers and articulations.
+
+**Relevance to `paper/PHASE_1_PAPER.md`:** Strong contextual relevance for AI26 and future social-media studies. It supports treating platform discourse as institutionally and materially situated rather than as free-floating text. It also strengthens the case for retaining arena, platform, region, language and social-position metadata alongside textual analysis.
+
+**Limitations / cautions:** The handbook is heterogeneous and does not define one common computational method. Its substantive chapters also predate some of the post-2022 generative-AI transformations central to AI26.
+
+**Potential follow-up:** Use the handbook to strengthen platform/context metadata and to identify sociological covariates that can be studied alongside discourse formations without collapsing social structure into textual meaning.
+
+---
+
+### Gorm Harste — *The Habermas–Luhmann Debate* (2021)
+
+**Bibliographic note:** Columbia University Press, 2021.
+
+**Core argument / research question:** Harste reconstructs the long-running Habermas–Luhmann controversy not as a contest with a simple winner but as a productive confrontation over how social theory should understand communication, meaning, legitimacy, history and evolution. A recurring fault line is the difference between Habermasian participation and pragmatic language use on one side and Luhmannian observation, systems differentiation and complexity on the other.
+
+**Methods / material:** Historical reconstruction and comparative theoretical analysis based on the authors' published works, debates and intellectual context. Chapters cover intersubjectivity and lifeworld, history/evolution, legitimacy, crises and risks, law, and broader comparison with Foucault and Bourdieu.
+
+**Key findings or claims:**
+
+- The debate helped both theorists sharpen their accounts of communication and modern society over decades rather than in one isolated exchange.
+- Habermas foregrounds participation, intersubjective validity claims, learning processes and the normative possibilities of communicative reason.
+- Luhmann foregrounds observation, functional differentiation, operational closure, complexity and the self-reproduction of communication systems.
+- The contrast cannot be reduced to “normative versus descriptive”: both develop ambitious theories of modernity, communication, legitimacy and social evolution.
+- Harste identifies an enduring double perspective between **observation and participation**, suggesting that social communication can be analyzed as something actors participate in and observers reconstruct.
+- Questions of legitimacy, crisis and democratic complexity reveal both the strength and limits of each framework.
+
+**Concepts useful for LaclauGPT:** observation/participation, lifeworld/system, legitimacy, communication, complexity, functional differentiation, historical learning and second-order observation. The book is useful as a reminder that computational observation of discourse and situated political participation are not the same epistemic position.
+
+**Relevance to `paper/PHASE_1_PAPER.md`:** Indirect but important for methodological reflexivity. LaclauGPT is an observing apparatus that reconstructs patterns in communication; human actors participate in those communications and attach normative stakes to them. Harste's reconstruction helps keep those levels distinct.
+
+**Limitations / cautions:** This is a history and interpretation of a major theoretical controversy, not an empirical coding protocol. Habermas and Luhmann should not be reduced to a binary choice or imported wholesale into the existing Laclauian core.
+
+**Potential follow-up:** Use the observation/participation distinction when designing human-review workflows and when clarifying how LLM-assisted analysis relates to actors' own self-understandings and normative claims.
+
+---
+
+### Søren Brier — *Cybersemiotics: Why Information Is Not Enough!* (2008)
+
+**Bibliographic note:** University of Toronto Press, 2008. The subtitle describes the project as integrating Niklas Luhmann's communication theory with C. S. Peirce's semiotics.
+
+**Core argument / research question:** Brier argues that information-processing models are insufficient for a general theory of cognition, meaning and communication because syntactic information alone cannot explain signification, interpretation, embodiment, social communication or lived meaning. **Cybersemiotics** integrates second-order cybernetics, autopoiesis, Luhmannian communication theory, Peircean semiotics and biosemiotics.
+
+**Methods / material:** Transdisciplinary theoretical synthesis. The book reviews information theory, cybernetics, cognitive science, library/information science, autopoiesis, phenomenology, Peirce, biosemiotics and Luhmann, supported by extensive conceptual diagrams of sign processes and communicative/autopoietic systems.
+
+**Key findings or claims:**
+
+- Shannon-style information is powerful for formal transmission problems but does not by itself explain semantic content or meaning.
+- The information-processing paradigm can model syntactic transformations while leaving the relation between symbols, interpretation and lived/social meaning unresolved.
+- Human communication must be approached as signification in social and cultural contexts, not merely transfer of objective information.
+- Peirce's triadic semiotics adds interpretation and sign relations that binary sender-message models omit.
+- Luhmann contributes a theory of autonomous social communication; biosemiotics adds embodied and organismic sign processes.
+- Cybersemiotics therefore treats cognition and communication as layered processes involving material, biological, psychological, social and semiotic dimensions.
+
+**Concepts useful for LaclauGPT:** sign, interpretant, semiosis, meaning, information versus signification, autopoiesis, second-order cybernetics, observer, communication and biosemiotics. It offers a particularly interesting bridge between the project's semiotic pre-analysis and a later Luhmannian social-systems layer.
+
+**Relevance to `paper/PHASE_1_PAPER.md`:** The direct Phase-1 relevance is methodological: LLM outputs should not be treated as neutral recovery of “information.” Meaning is relational, interpretive and socially situated. Cybersemiotics also complements the emerging multimodal social-semiotic pre-analysis by emphasizing that signs cannot be reduced to encoded data.
+
+**Limitations / cautions:** Cybersemiotics is a very broad synthetic framework with substantial commitments in philosophy of mind, biology and semiotics. Incorporating it wholesale would greatly expand LaclauGPT's ontology. For the current project it is better treated as a bridge/source of concepts than as the governing theory.
+
+**Potential follow-up:** Explore a bounded “cybersemiotic bridge” connecting multimodal signs → interpreted meaning → communication systems, while leaving Laclaudian political articulation as a distinct downstream analysis.
+
+---
+
+### Claudio Baraldi, Giancarlo Corsi & Elena Esposito — *Unlocking Luhmann: A Keyword Introduction to Systems Theory* (2021)
+
+**Bibliographic note:** Bielefeld University Press / transcript Verlag, 2021. DOI: `10.14361/9783839456743`. Open-access keyword reference.
+
+**Core argument / research question:** The book provides a concept-by-concept map of Luhmann's systems theory rather than a linear monograph. Its aim is to make the theory operationally readable through a network of interlinked entries such as autopoiesis, code, communication, complexity, differentiation, meaning, observation, social system, society, structural coupling and system/environment.
+
+**Methods / material:** Reference work organized alphabetically by theoretical keywords, with cross-references among concepts and references to Luhmann's primary texts.
+
+**Key findings or claims:**
+
+- A **social system** is an autopoietic, self-referential, meaning-constituting system whose operations are communications.
+- Social systems are distinct from psychic systems; thoughts do not become components of social systems, although psychic and social systems can be structurally coupled.
+- Society is the encompassing social system of all communication, not an aggregate of individuals or a territorially bounded container.
+- Modern society is internally differentiated into multiple function systems that reproduce communication under distinct conditions.
+- Symbolically generalized media such as money, power, truth and love increase the probability that highly selective communications will be accepted.
+- Mass media operate through the distinction information/non-information and contribute to society's shared, constantly renewed reference reality.
+- Observation and constructivism emphasize that social descriptions are themselves operations performed from particular distinctions rather than transparent mirrors of an external whole.
+
+**Concepts useful for LaclauGPT:** This is an excellent reference vocabulary for implementing a social-systems metadata layer: `communication`, `meaning`, `system/environment`, `code`, `program`, `function system`, `organization`, `interaction`, `structural coupling`, `observation`, `semantics`, `mass media`, `political system`, `economic system`, `scientific system`, `protest` and `symbolically generalized media`.
+
+**Relevance to `paper/PHASE_1_PAPER.md`:** Mostly preparatory for Phase 2. It is particularly useful because it turns Luhmann's dense theory into a stable terminology that can be mapped onto data schemas and human-readable annotations without pretending that the theory itself is an automated classifier.
+
+**Limitations / cautions:** Keyword presentation can make concepts look more modular and separable than they are in Luhmann's theory. The entries are explanatory reference points, not empirical variables by default.
+
+**Potential follow-up:** Use the vocabulary to design a restrained optional social-systems annotation layer, with human validation and explicit separation from Laclauian discourse categories.
+
+---
+
+### M. Beatrice Fazi, Alexander R. Galloway, Matthew Handelman & Leif Weatherby — *Digital Theory* (2025)
+
+**Bibliographic note:** meson press / University of Minnesota Press, 2025. DOI: `10.14619/0849`. Open access under CC BY-NC 4.0.
+
+**Core argument / research question:** The volume argues that **the digital is theoretical**. Rather than treating “digital” only as a label for contemporary devices or industries, the authors ask what the digital is as a form of mediation and as a concept entangled with mathematics, logic, philosophy and rationality. Their minimal starting definition is mediation through **discrete units**, which the essays then complicate historically and philosophically.
+
+**Methods / material:** Three linked philosophical/media-theoretical essays. Fazi asks what digital theory is; Galloway reconstructs a history of digital philosophy through key expressions; Handelman and Weatherby develop “digital dialectics,” connecting logical positivism, mathematics, representation, signs and computation.
+
+**Key findings or claims:**
+
+- Restricting the digital to contemporary consumer electronics narrows its conceptual and historical scope.
+- Digitality should be examined as a form of mediation based on discreteness, distinction and formal operations.
+- A theory of the digital requires engagement with mathematics and technical form as well as cultural and political theory.
+- Logical positivism and twentieth-century formal logic contributed conceptual resources that later shaped digital computation, but formalization never exhausts representation or meaning.
+- The concluding dialectical argument reframes the digital as a semiotic problem at the intersection of quantity, concepts, materiality and signification.
+- The relation among mathematics, logic and language is therefore central to understanding digital mediation, including contemporary machine-learning systems.
+
+**Concepts useful for LaclauGPT:** discreteness, mediation, formal/informal representation, digital ontology versus theory of the digital, dialectics, semiotics, quantity/concept relations and machine-mediated thought. The book is a natural philosophical companion to LLM Structuralism because it asks how formal operations and sign systems meet rather than assuming that computation transparently captures meaning.
+
+**Relevance to `paper/PHASE_1_PAPER.md`:** Useful for the project's conceptual framing of LLMs and computational mediation. It supports treating LLM-based analysis as a historically specific form of digital sign processing that interacts with language and theory, not as a neutral window onto discourse.
+
+**Limitations / cautions:** This is philosophical media theory, not a social-science method or empirical evaluation of LLMs. Its abstract account of digital mediation should complement, not replace, computational validation and sociological analysis.
+
+**Potential follow-up:** Bring `Digital Theory` into the LLM Structuralism literature as a philosophical account of discreteness, representation and signification, especially when clarifying the relation between embedding/formal structure and interpretive meaning.
+
