@@ -1,6 +1,7 @@
 # LaclauGPT: Ideological contestation over AI
 
 > **Status:** Phase 1 current executable research-plan paper.
+> **Publication status:** This is a draft research plan and working manuscript. It has not been formally published or peer reviewed, and its arguments, methods, scope, and wording may change as the research develops.
 > **Phase progression:** [Phase 1](PHASE_1_PAPER.md) · [Phase 2 draft plan](PHASE_2_PAPER_DRAFT.md) · [Phase 3 draft plan](PHASE_3_PAPER_DRAFT.md) · [Phase 4 draft plan](PHASE_4_PAPER_DRAFT.md)
 
 ## Abstract
