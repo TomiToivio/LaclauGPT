@@ -9,7 +9,7 @@ permalink: /research/
 
 LaclauGPT is an open social-science research framework for **LLM-assisted computational discourse analysis** of large textual and multimodal corpora. It combines computational methods with interpretive political research while keeping model outputs traceable to source evidence, uncertainty, provenance, and human review.
 
-LaclauGPT was developed by [Tomi Toivio](https://github.com/TomiToivio) during **2023–2026**. Contact: [tomi.toivio@helsinki.fi](mailto:tomi.toivio@helsinki.fi).
+LaclauGPT has been under development by [Tomi Toivio](https://github.com/TomiToivio) since **2023**. Contact: [tomi.toivio@helsinki.fi](mailto:tomi.toivio@helsinki.fi).
 
 The framework originated in the **EP24 research project**, connected with the [Helsinki Hub on Emotions, Populism and Polarisation (HEPP)](https://www.helsinki.fi/en/researchgroups/emotions-populism-and-polarisation) and the [Helsinki Institute for Social Sciences and Humanities (HSSH)](https://www.helsinki.fi/en/helsinki-institute-social-sciences-and-humanities). The present version is guided primarily by the **AI26 research project**, together with other ongoing research projects and methodological work.
 
