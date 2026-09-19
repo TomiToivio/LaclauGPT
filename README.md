@@ -132,7 +132,7 @@ Secrets and machine-specific values belong in environment variables, ignored loc
 
 For restricted studies such as EP24 or Hungary26, follow [`docs/PUBLIC_PRIVATE_STUDY_ARCHITECTURE.md`](docs/PUBLIC_PRIVATE_STUDY_ARCHITECTURE.md): reusable engineering stays public, while study data, codebooks, researcher material, credentials, CSC identifiers/paths and unpublished outputs stay in the private runtime layer.
 
-See [`docs/architecture/MODULAR_ARCHITECTURE.md`](docs/architecture/MODULAR_ARCHITECTURE.md), [`docs/architecture/PLUGIN_PLATFORM_ARCHITECTURE.md`](docs/architecture/PLUGIN_PLATFORM_ARCHITECTURE.md), [`docs/architecture/TECHNOLOGY_RADAR.md`](docs/architecture/TECHNOLOGY_RADAR.md), [`docs/CANONICAL_DATA_CONTRACT.md`](docs/CANONICAL_DATA_CONTRACT.md) and [`docs/INTEROPERABILITY_SPEC.md`](docs/INTEROPERABILITY_SPEC.md).
+See [`docs/architecture/MODULAR_ARCHITECTURE.md`](docs/architecture/MODULAR_ARCHITECTURE.md), [`docs/architecture/PLUGIN_PLATFORM_ARCHITECTURE.md`](docs/architecture/PLUGIN_PLATFORM_ARCHITECTURE.md), [`docs/architecture/TECHNOLOGY_RADAR.md`](docs/architecture/TECHNOLOGY_RADAR.md), [`docs/architecture/KNOWLEDGE_GRAPH_ARCHITECTURE.md`](docs/architecture/KNOWLEDGE_GRAPH_ARCHITECTURE.md), [`docs/CANONICAL_DATA_CONTRACT.md`](docs/CANONICAL_DATA_CONTRACT.md), [`docs/RDF_APPLICATION_PROFILE.md`](docs/RDF_APPLICATION_PROFILE.md) and [`docs/INTEROPERABILITY_SPEC.md`](docs/INTEROPERABILITY_SPEC.md).
 
 ## Scientific paper and theory
 
