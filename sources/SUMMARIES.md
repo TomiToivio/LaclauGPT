@@ -859,52 +859,68 @@ Simon Lindgren is not treated here as part of the Helsinki AC/DT team. These pap
 
 ### Harrison C. White — *Identity and Control: How Social Formations Emerge*, 2nd ed. (2008)
 
-**Bibliographic note:** Princeton University Press. ISBN 978-0-691-13714-8 (hardcover), 978-0-691-13715-5 (paperback).
+**Bibliographic note:** Princeton University Press, second edition. White develops a relational sociology in which identities, ties, stories, styles, disciplines, institutions, and regimes emerge through attempts to obtain social footing and control amid contingency.
 
-**Core argument / research question:** White develops a relational theory of social formation in which identities emerge through attempts to gain **control** amid uncertainty. Networks are not static structures populated by pre-existing actors; identities, ties, meanings and social formations recursively emerge from relations, stories, contexts and switching between network domains.
+**Core argument / research question:** White rejects fixed, self-contained actors as the natural starting point of sociology. An identity emerges relationally through attempts to secure footing in situations of uncertainty. “Control” does not primarily mean domination; it means attempts to stabilize orientation in relation to other identities. Identities and social formations emerge together through ties, stories, switching among network-domains (“netdoms”), embedding, decoupling, and recursive social processes.
 
-**Methods / material:** Synthetic sociological theory grounded in network analysis, organizational sociology and linguistic/narrative insights. Major themes include identities and control, networks and stories, disciplines, styles, institutions and rhetorics, regimes of control and action.
+**Methods / material:** A theoretical and synthetic work combining formal and descriptive social-network analysis, relational sociology, historical examples, organizational studies, linguistics, cultural analysis, and empirical network research. The book moves from identities and networks to stories, disciplines, styles, institutions, rhetorics, regimes of control, and collective action.
 
 **Key findings or claims:**
-- Identities seek footing for control amid social contingency, and identity itself emerges through relational processes rather than preceding them.
-- **Stories mark ties**: network relations and narratives are mutually constitutive rather than separable “structure” and “culture.”
-- **Netdoms** connect network domains with domains of meaning; switching among contexts changes identities and meanings.
-- Social formations emerge from repeated relations, stories, styles, disciplines and regimes of control rather than from a single macro structure.
-- Structural equivalence and network position matter, but their social meaning depends on the interpretive domains in which ties operate.
 
-**Concepts useful for LaclauGPT:** `identity`, `control`, `network_and_story`, `netdom`, `switching`, `structural_equivalence`, `style`, `discipline`, `rhetoric`, and `regime_of_control`.
+- Identity is not restricted to an individual person. Firms, communities, crowds, roles, and other entities can function as identities when meaningful action is attributed to them.
+- Identities gain footing through relations with other identities. Social order is an emergent and provisional outcome of overlapping control efforts.
+- A **netdom** combines a network of relations with a domain of meanings/topics. Identities switch among netdoms, so an actor should not be assumed to have one context-independent identity.
+- Networks and stories are inseparable: stories mark, interpret, justify, and reproduce ties.
+- White uses structural equivalence, blockmodeling, tie types, coupling/decoupling, switching, styles, institutions, rhetorics, and regimes to describe emergent social formations at different scales.
+- Cultural and social structure are intertwined. Meaning is generated in context, and communication is part of social structure/process rather than a separate layer added after network formation.
+- White repeatedly engages Niklas Luhmann and treats recursive communication, functional subsystems, and self-reproduction as neighboring ideas while retaining a distinct network-relational vocabulary.
+- Relations among identities can generate higher-order identities and formations, which can in turn constrain or reorganize lower-level relations.
 
-**Relevance to `paper/PHASE_1_PAPER.md`:** Very useful for the future SNA layer and for avoiding a crude split between semantic and social networks. White offers a theoretical basis for keeping actor identities dynamic: actors can occupy different relational/meaning domains and should not receive one permanent ideological label. His “networks and stories” formulation is particularly compatible with linking SNA evidence to discourse analysis without reducing either to the other.
+**Concepts useful for LaclauGPT:** `identity`, `control`, `footing`, `netdom`, `network_story`, `switching`, `structural_equivalence`, `embedding`, `decoupling`, `discipline`, `style`, `rhetoric`, `regime_of_control`, `recursive_social_formation`.
 
-**Limitations / cautions:** White's vocabulary is difficult and highly specific; concepts such as netdom, discipline and control should not be loosely repurposed. The book is not a ready-made computational pipeline, and White's identity/control theory is distinct from Laclaudian political identity.
+**Relevance to `paper/PHASE_2_PAPER_DRAFT.md`:** White is one of the three primary theoretical sources proposed for the Phase 2 SNA layer. He provides a strong bridge between conventional SNA and discourse-oriented theory because he does not reduce networks to topology. Ties are inseparable from stories, identities are relational achievements rather than pre-given node attributes, and social formations emerge through changing configurations of relations and meanings.
 
-**Potential follow-up:** Use White later in the SNA module to model dynamic actor positions and network/meaning switching. Keep White-derived relations provenance-distinct from DNA and Laclau/Mouffe relations even when displayed in a shared graph.
+White is especially useful for keeping the **actor model dynamic**. A social-media account, researcher, company, government agency, activist organization, or AI-linked hybrid should not automatically be treated as one stable actor across every arena. The same entity may occupy different netdoms and acquire different relational identities as topics, institutions, and communication contexts change.
+
+The productive bridge to Laclau is not theoretical equivalence. White asks how identities and social formations emerge through networks, stories, and control; Laclau asks how political identities and hegemonic formations emerge through articulation, equivalence/difference, signification, and antagonism. Phase 2 can use White to theorize the social-relational layer while preserving Laclau as the primary theory of political meaning.
+
+**Limitations / cautions:** White's vocabulary is dense and not a ready-made SNA codebook. Concepts such as netdom, style, discipline, rhetoric, and regime should not be converted automatically into graph metrics. His deliberate decentering of persons and consciousness should also not erase agency, institutional responsibility, or material differences among humans, organizations, and computational systems.
+
+**Potential follow-up:** Use White selectively for the Phase 2 actor/identity ontology, multiplex network representation, contextual actor resolution, and bridges between stories and ties. Later empirical work can ask whether interaction communities correspond to discursive formations, whether switching across arenas changes actor position, and whether brokers between network domains translate political articulations.
 
 ---
 
 
 ### Elena Esposito — *Artificial Communication: How Algorithms Produce Social Intelligence* (2022)
 
-**Bibliographic note:** MIT Press, Strong Ideas series. ISBN 9780262046664.
+**Bibliographic note:** MIT Press, Strong Ideas series. Esposito develops a Luhmann-inspired account of machine learning and algorithms as participants in **artificial communication**, shifting the analytical question away from whether machines possess human-like intelligence.
 
-**Core argument / research question:** Esposito argues that contemporary algorithms should be understood through **communication**, not primarily through imitation of human intelligence. Algorithms can become interaction partners and generate socially consequential communication without understanding in the human sense. The important sociological question is therefore how society communicates with and through systems that process information differently from conscious persons.
+**Core argument / research question:** Esposito argues that comparing algorithmic performance with human intelligence is often misleading. The socially significant development is that algorithms can participate in communication without understanding in the human sense. The central question becomes how communication changes when computational systems can generate relevant, personalized, predictive, and actionable contributions to social communication.
 
-**Methods / material:** Systems-theoretical and historical analysis drawing strongly on Luhmann, with chapters on algorithms as interaction partners, lists, digital text analysis and visualization, personalization, algorithmic memory/forgetting and prediction.
+**Methods / material:** Sociological theory supported by historical and contemporary examples. The book analyzes communication with algorithms through lists, visualization and digital text analysis, personalization, algorithmic memory, forgetting, and prediction. Niklas Luhmann's theory of communication is a major conceptual foundation.
 
 **Key findings or claims:**
-- The puzzle of AI is not that machines have become human-like minds but that communication can succeed with partners that do not understand as humans do.
-- Algorithmic operations can produce **social intelligence** because their outputs enter recursive communication and are interpreted by users and institutions.
-- Personalization creates forms of communication oriented to users through algorithmic processing rather than interpersonal knowledge.
-- Algorithmic memory and prediction transform temporal relations by using recorded past data to construct actionable expectations about futures.
-- Human opacity and machine opacity are different; demanding that algorithms reproduce human understanding can obscure how artificial communication actually operates.
 
-**Concepts useful for LaclauGPT:** `artificial_communication`, `interaction_partner`, `social_intelligence`, `communication_without_understanding`, `algorithmic_memory`, `personalization`, `prediction`, and `Luhmannian_communication`.
+- Communicative capacity and intelligence should be analytically distinguished. An algorithm may function as a communication partner without being treated as a human-like mind.
+- Machine-learning systems exploit differences and traces generated by users, recombining them into new information. Human contingency remains an indispensable input even when outputs are generated through opaque computational procedures.
+- Successful communication does not require transparent access to another participant's cognition or intentions.
+- Algorithmic personalization constructs individualized communication from population-scale behavioral traces rather than interpersonal knowledge.
+- Algorithmic memory and prediction reorganize temporal relations by turning stored past behavior into expectations and interventions concerning possible futures.
+- Prediction can work without causal explanation or human-style understanding, creating new capacities as well as feedback loops, opacity, overfitting, and self-fulfilling effects.
+- Bias cannot be understood only as programmers' individual prejudice. Algorithms participate in already unequal and non-neutral communication and learn from data produced within those conditions.
+- Problems surrounding algorithms are therefore communicative as well as technical, and different social domains require different forms of acceptable explanation, interpretation, ambiguity, responsibility, and control.
 
-**Relevance to `paper/PHASE_1_PAPER.md`:** Exceptionally useful for the human+LLM assemblage. It offers a sociological route around the unnecessary question of whether an LLM is conscious or “really understands.” LaclauGPT can be analyzed as an artificial communication partner whose outputs acquire meaning inside researcher/model communication, with human validation and evidence remaining decisive.
+**Concepts useful for LaclauGPT:** `artificial_communication`, `algorithm_as_communication_partner`, `communication_without_understanding`, `social_intelligence`, `algorithmic_personalization`, `algorithmic_memory`, `prediction`, `feedback`, `communication_opacity`, `Luhmannian_communication`.
 
-**Limitations / cautions:** Esposito's argument is theoretical and Luhmannian; it does not validate LLM discourse coding. “Communication without understanding” should not be converted into a claim that model outputs are automatically socially or scientifically valid.
+**Relevance to `paper/PHASE_2_PAPER_DRAFT.md`:** Esposito is the most direct theoretical bridge between the Phase 2 SNA/communication layer and AI26. AI is not only the topic being contested; algorithms, recommender systems, bots, and LLMs increasingly participate in infrastructures through which communication is generated, selected, personalized, summarized, amplified, and answered.
 
-**Potential follow-up:** Use Esposito in the theory of LLM-assisted interpretation and context memory: model memory/prediction can be described as operations in artificial communication while methodological validity remains grounded in source evidence and researcher judgement.
+Her framework allows LaclauGPT to represent computational systems as **communication participants or mediators without equating them with human actors**. A human, organization, bot, recommender system, and LLM may all occupy roles in a communication graph, but they should not automatically be treated as ontologically or normatively equivalent.
+
+Esposito also strengthens the methodological account of LLM-assisted analysis. LaclauGPT does not need to settle whether an LLM “really understands” discourse in order to study the communicative relation among researcher, corpus, prompt, model output, and human validation. The scientific question is whether this artificial communication yields reliable, inspectable, evidence-linked analytical operations.
+
+**Limitations / cautions:** This is a sociological theory of algorithmic communication, not a validation study of LLM-based discourse analysis. “Communication partner” should not imply human-equivalent agency, intention, consciousness, responsibility, or political membership. The book also predates the mass adoption of post-2022 generative AI, so Phase 2 should extend its concepts cautiously.
+
+**Potential follow-up:** Use Esposito to define typed communicator roles in Phase 2: human author, organization, platform, bot, recommender/ranking system, LLM-generated message, AI-assisted message, and researcher-model analytical interaction. Preserve provenance so LaclauGPT can distinguish who initiated, generated, selected, transformed, or amplified a communication event.
 
 ---
 
@@ -961,28 +977,36 @@ Simon Lindgren is not treated here as part of the Helsinki AC/DT team. These pap
 ---
 
 
-### Armin Nassehi — *Patterns: Theory of the Digital Society* (2024; German original 2021)
+### Armin Nassehi — *Patterns: Theory of the Digital Society* (2024; German edition cited in the translation 2021)
 
-**Bibliographic note:** Polity Press, translated by Mirko Wittwar. English edition ISBN 978-1-5095-5821-6 (hardback), 978-1-5095-5822-3 (paperback).
+**Bibliographic note:** Polity Press, translated by Mirko Wittwar. The English edition presents Nassehi's systems-theoretical sociology of digitalization. Rather than asking primarily what digital technology does to society, he asks what structural problem of modern society digitalization solves.
 
-**Core argument / research question:** Nassehi asks why digitalization has been so socially successful. His answer reverses technological determinism: digital technology succeeds because modern society is already complex, differentiated and patterned in ways that make digital **pattern recognition** an especially effective mode of observing and processing it. Digitalization reveals characteristics of society that preceded digital machines.
+**Core argument / research question:** Nassehi argues that digitalization succeeds because modern society already has a structure that makes digital pattern recognition useful. Modern society is highly complex, functionally differentiated, difficult to observe as a whole, and full of recurring regularities that become visible through data. Digital technology is therefore not simply an external force imposed on society; it is a technological response to pre-existing problems of complexity, invisibility, coordination, and observation.
 
-**Methods / material:** Sociological theory of digitalization, strongly informed by systems theory and cybernetics. The book examines data, communication, feedback, self-reference, functional differentiation, social research and pattern recognition.
+**Methods / material:** Social theory informed strongly by Niklas Luhmann, cybernetics, sociology of technology, and the history of quantification. The book develops its argument through the reference problem of digitalization, data, feedback, self-reference, duplication, traces, patterns, networks, coding/programming, learning technologies, the internet as mass media, privacy, and functional differentiation.
 
 **Key findings or claims:**
-- The key sociological question is not simply what digital technology does to society, but what kind of society makes digital technology so effective.
-- Digital data abstract heterogeneous reality into comparable differences and thereby enable pattern recognition at scales inaccessible to ordinary observation.
-- Digitalization is closely related to modern society's need to manage complexity and coordinate differentiated domains.
-- Data systems are self-referential: digital representations increasingly become inputs for further digital observations and decisions.
-- Digital technology should therefore be understood as a social solution to pre-existing problems of observation, complexity and coordination, not as an external force suddenly imposed on society.
 
-**Concepts useful for LaclauGPT:** `pattern`, `pattern_recognition`, `reference_problem`, `digitalization_of_communication`, `feedback`, `self_reference`, `complexity`, and `functional_differentiation`.
+- The guiding question is functional: **what problem does digitalization solve?** Nassehi locates the reference problem in the structure and complexity of modern society itself.
+- Digitalization makes otherwise difficult-to-observe social regularities visible as patterns. The relevant object is not merely individual data points but recurring relations and distributions across many traces.
+- Modern social research already practiced forms of pattern recognition before contemporary digital technologies. Digitalization radicalizes and automates this observational capacity.
+- Data are not transparent copies of the world. Digital representations are selective duplications and observations that can become inputs for further observations, producing self-referential data worlds.
+- Cybernetic feedback and digital communication create recursive relations among measurement, observation, decision, and subsequent behavior.
+- Modern society is functionally differentiated. Political, economic, scientific, legal, media, religious, and other systems operate according to distinct communicative codes and programs while remaining mutually interdependent.
+- Nassehi draws an analogy between the simple binary medium of digital technology and the simple codes through which functionally differentiated systems generate enormous complexity at the level of programs and forms.
+- Digital technologies work partly because social structures are stable enough to generate patterns. Digitalization therefore reveals repetition and structural stability as well as change and fluidity.
 
-**Relevance to `paper/PHASE_1_PAPER.md`:** Useful for conceptualizing computational analysis itself. LaclauGPT discovers patterns because discourse is rendered into data, but those patterns are selective observations rather than the discourse “itself.” Nassehi therefore complements the project's insistence that computational outputs require theoretical interpretation and provenance.
+**Concepts useful for LaclauGPT:** `pattern`, `pattern_recognition`, `reference_problem`, `digital_observation`, `data_as_observer`, `trace`, `feedback`, `self_reference`, `functional_differentiation`, `social_complexity`, `coding_and_programming`, `digitalization_of_communication`.
 
-**Limitations / cautions:** Nassehi provides macro-sociological theory, not a validation framework for NLP or LLMs. Pattern recognition should not be equated with explanation, meaning or Laclaudian articulation.
+**Relevance to `paper/PHASE_2_PAPER_DRAFT.md`:** Nassehi is proposed as the third primary theoretical source for the Phase 2 SNA layer, alongside White and Esposito. He supplies a macro-sociological account of why digital network data are analytically possible in the first place. LaclauGPT does not encounter “society itself” in platform data; it encounters digital traces generated by communications and institutions, transformed into observable patterns through data infrastructures and analytical choices.
 
-**Potential follow-up:** Use Nassehi in methodological reflexivity around datafication and pattern discovery: computational patterns can guide close reading while remaining second-order observations produced by a specific analytic apparatus.
+This is important because Phase 2 relies on network construction. A network is not simply found waiting inside a corpus. Nodes, edges, time windows, platform boundaries, entity-resolution rules, and projections are observational decisions that produce a patterned representation. Nassehi therefore supports methodological reflexivity around datafication and second-order observation.
+
+He also gives the SNA layer a principled route to Luhmannian functional differentiation. Politics, economy, science, law, media, education, and other domains can be treated as differentiated communicative systems or contexts rather than as unrelated top-level ontologies.
+
+**Limitations / cautions:** *Patterns* is macro-sociological theory, not an SNA manual or computational validation framework. Pattern recognition should not be equated with explanation, meaning, causality, ideology, or Laclaudian articulation. Used alone, systems theory can underplay conflict, domination, political economy, coloniality, labor, and unequal infrastructures; Phase 2 therefore needs Critical AI Studies and political sociology as counterweights.
+
+**Potential follow-up:** Use Nassehi in the methodological-reflexivity section, the theory of digital traces, and social-system/context metadata. Later empirical work can test how discourse and communication patterns differ across functionally differentiated arenas without treating those patterns as self-explanatory.
 
 ---
 
