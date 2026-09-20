@@ -1,5 +1,8 @@
 # LaclauGPT
 
+> [!IMPORTANT]
+> **Current development phase: Phase 1.** `main` is based on and synchronized with `phase-1`. The `phase-0` branch remains the preserved Phase 0 baseline; Phase 0 documentation and code remain Phase 0 and are not reclassified as Phase 1.
+
 [![Meta-repo checks](https://github.com/TomiToivio/LaclauGPT/actions/workflows/ci.yml/badge.svg)](https://github.com/TomiToivio/LaclauGPT/actions/workflows/ci.yml)
 
 **LaclauGPT** is an open social-science research framework for **LLM-assisted computational discourse analysis** of large textual and multimodal corpora. It combines computational methods with interpretive political research while keeping model outputs traceable to source evidence, uncertainty, provenance and human review.
