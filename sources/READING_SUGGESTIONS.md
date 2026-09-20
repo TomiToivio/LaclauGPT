@@ -136,3 +136,12 @@ When new literature is found, add it here if it is plausibly relevant to one or 
 - methods that can triangulate or challenge LaclauGPT outputs, including geometric data analysis, network science, temporal semantic change and human-in-the-loop coding.
 
 Do not treat inclusion here as endorsement or as incorporation into the paper. This is a reading queue and related-work map.
+
+## Multimodal social-semiotic pre-analysis
+
+### Hanna Wanselin, Kristina Danielsson & Susanne Wikman — *Analysing Multimodal Texts in Science—a Social Semiotic Perspective* (2022)
+
+- **Venue:** Research in Science Education 52, 891–907; published online 16 October 2021.
+- **DOI:** https://doi.org/10.1007/s11165-021-10027-5
+- **Why read for LaclauGPT:** Applied methodological reference for describing semiotic resources and their relations before discourse interpretation. Already summarized in `sources/SUMMARIES.md`.
+- **Boundary:** Its educational text examples do not validate automated video/audio analysis. The temporal, acoustic and platform extensions in the [Phase 1 technical plan](../docs/PHASE1_SOCIAL_SEMIOTIC_PREANALYSIS_PLAN.md) are proposed LaclauGPT adaptations requiring separate validation.
