@@ -141,3 +141,12 @@ Do not treat inclusion here as endorsement or as incorporation into the paper. T
 *Research in Science Education* 52:891–907. DOI: `10.1007/s11165-021-10027-5`.
 
 **Why read:** The most direct applied reference for LaclauGPT's Phase 1 descriptive multimodal first pass. It operationalises textual, ideational, and interpersonal metafunctions across writing/image, transitivity, composition, and intermodal relations. Read with the explicit caveat that its empirical examples are static educational texts, so LaclauGPT's video/audio/platform layer is an adaptation requiring separate validation.
+
+## Multimodal social-semiotic pre-analysis
+
+### Hanna Wanselin, Kristina Danielsson & Susanne Wikman — *Analysing Multimodal Texts in Science—a Social Semiotic Perspective* (2022)
+
+- **Venue:** Research in Science Education 52, 891–907; published online 16 October 2021.
+- **DOI:** https://doi.org/10.1007/s11165-021-10027-5
+- **Why read for LaclauGPT:** Applied methodological reference for describing semiotic resources and their relations before discourse interpretation. Already summarized in `sources/SUMMARIES.md`.
+- **Boundary:** Its educational text examples do not validate automated video/audio analysis. The temporal, acoustic and platform extensions in the [Phase 1 technical plan](../docs/PHASE1_SOCIAL_SEMIOTIC_PREANALYSIS_PLAN.md) are proposed LaclauGPT adaptations requiring separate validation.
