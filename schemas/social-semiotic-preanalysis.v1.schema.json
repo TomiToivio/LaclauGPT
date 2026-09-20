@@ -1,0 +1,441 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tomitoivio.github.io/LaclauGPT/schemas/social-semiotic-preanalysis.v1.schema.json",
+  "title": "LaclauGPT Multimodal Social-Semiotic Pre-Analysis v1",
+  "description": "Descriptive evidence-preserving pre-analysis. Downstream political/discourse classifications are intentionally absent.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "prompt_version",
+    "summary",
+    "modalities_present",
+    "evidence",
+    "uncertainty"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "social-semiotic-preanalysis.v1"
+    },
+    "prompt_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "summary": {
+      "type": "string"
+    },
+    "denotative_description": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "source_languages": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "modalities_present": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/mode"
+      }
+    },
+    "modalities_missing": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/mode"
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/evidence"
+      }
+    },
+    "semiotic_resources": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/resource"
+      }
+    },
+    "participants": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/observation"
+      }
+    },
+    "processes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/observation"
+      }
+    },
+    "circumstances": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/observation"
+      }
+    },
+    "composition": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/observation"
+      }
+    },
+    "salient_signs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/sign"
+      }
+    },
+    "sign_relations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/relation"
+      }
+    },
+    "intermodal_relations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/intermodal"
+      }
+    },
+    "cautious_connotations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/connotation"
+      }
+    },
+    "cross_modal_synthesis": {
+      "type": "string"
+    },
+    "uncertainty": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/uncertainty"
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "$defs": {
+    "mode": {
+      "enum": [
+        "linguistic",
+        "visual",
+        "auditory",
+        "gestural",
+        "spatial",
+        "typographic",
+        "symbolic_graphic",
+        "temporal_editing",
+        "interface_platform",
+        "metadata",
+        "other"
+      ]
+    },
+    "confidence": {
+      "enum": [
+        "high",
+        "medium",
+        "low",
+        "unknown"
+      ]
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evidence_id",
+        "modality"
+      ],
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "modality": {
+          "$ref": "#/$defs/mode"
+        },
+        "source_ref": {
+          "type": "string"
+        },
+        "exact_text": {
+          "type": "string"
+        },
+        "frame_id": {
+          "type": "string"
+        },
+        "timestamp_start": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "timestamp_end": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "confidence": {
+          "$ref": "#/$defs/confidence"
+        },
+        "uncertainty": {
+          "type": "string"
+        }
+      }
+    },
+    "resource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "description"
+      ],
+      "properties": {
+        "mode": {
+          "$ref": "#/$defs/mode"
+        },
+        "description": {
+          "type": "string"
+        },
+        "affordance_observed": {
+          "type": "string"
+        },
+        "evidence_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "confidence": {
+          "$ref": "#/$defs/confidence"
+        }
+      }
+    },
+    "observation": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "description"
+      ],
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "evidence_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "confidence": {
+          "$ref": "#/$defs/confidence"
+        }
+      }
+    },
+    "sign": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sign_id",
+        "source_form"
+      ],
+      "properties": {
+        "sign_id": {
+          "type": "string"
+        },
+        "source_form": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "modes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/mode"
+          }
+        },
+        "salience_basis": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "evidence_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "confidence": {
+          "$ref": "#/$defs/confidence"
+        }
+      }
+    },
+    "relation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "relation_type",
+        "source_sign_ref",
+        "target_sign_ref"
+      ],
+      "properties": {
+        "relation_type": {
+          "enum": [
+            "contrast",
+            "opposition",
+            "pairing",
+            "repetition",
+            "cooccurrence",
+            "sequence",
+            "label",
+            "part_whole",
+            "spatial_proximity",
+            "other"
+          ]
+        },
+        "source_sign_ref": {
+          "type": "string"
+        },
+        "target_sign_ref": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "evidence_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "confidence": {
+          "$ref": "#/$defs/confidence"
+        }
+      }
+    },
+    "intermodal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "relation_type",
+        "modes",
+        "description"
+      ],
+      "properties": {
+        "relation_type": {
+          "enum": [
+            "redundancy",
+            "repetition",
+            "extension",
+            "complementarity",
+            "elaboration",
+            "anchoring",
+            "contrast",
+            "conflict",
+            "ambiguity",
+            "other"
+          ]
+        },
+        "modes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/mode"
+          }
+        },
+        "description": {
+          "type": "string"
+        },
+        "evidence_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "confidence": {
+          "$ref": "#/$defs/confidence"
+        }
+      }
+    },
+    "connotation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "description",
+        "basis"
+      ],
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "basis": {
+          "type": "string"
+        },
+        "alternatives": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "evidence_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "confidence": {
+          "$ref": "#/$defs/confidence"
+        }
+      }
+    },
+    "uncertainty": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "category",
+        "description"
+      ],
+      "properties": {
+        "category": {
+          "enum": [
+            "ocr",
+            "asr",
+            "translation",
+            "visual",
+            "audio",
+            "speaker",
+            "temporal",
+            "missing_modality",
+            "source_context",
+            "model",
+            "other"
+          ]
+        },
+        "description": {
+          "type": "string"
+        },
+        "affected_evidence_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "confidence": {
+          "$ref": "#/$defs/confidence"
+        }
+      }
+    }
+  }
+}
