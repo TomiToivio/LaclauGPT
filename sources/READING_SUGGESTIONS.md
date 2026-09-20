@@ -136,3 +136,8 @@ When new literature is found, add it here if it is plausibly relevant to one or 
 - methods that can triangulate or challenge LaclauGPT outputs, including geometric data analysis, network science, temporal semantic change and human-in-the-loop coding.
 
 Do not treat inclusion here as endorsement or as incorporation into the paper. This is a reading queue and related-work map.
+### Wanselin, Hanna, Kristina Danielsson & Susanne Wikman (2022) — *Analysing Multimodal Texts in Science—a Social Semiotic Perspective*
+
+*Research in Science Education* 52:891–907. DOI: `10.1007/s11165-021-10027-5`.
+
+**Why read:** The most direct applied reference for LaclauGPT's Phase 1 descriptive multimodal first pass. It operationalises textual, ideational, and interpersonal metafunctions across writing/image, transitivity, composition, and intermodal relations. Read with the explicit caveat that its empirical examples are static educational texts, so LaclauGPT's video/audio/platform layer is an adaptation requiring separate validation.
