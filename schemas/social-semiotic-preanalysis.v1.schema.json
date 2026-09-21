@@ -122,9 +122,241 @@
       "items": {
         "type": "string"
       }
+    },
+    "narrative": {
+      "type": "string",
+      "description": "Compatibility projection. Neutral rendering of the descriptive narrative for existing renderers; carries no additional analytical claim."
+    },
+    "semiotic_modes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Compatibility projection. Flat list form of the observed semiotic modes for existing renderers."
+    },
+    "cross_modal_relations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Compatibility projection. Flat list form of the intermodal relations for existing renderers."
+    },
+    "difficult_language": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Compatibility projection. Descriptive note on language that may impede comprehension; not a readability or sentiment judgement."
+    },
+    "topics": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Compatibility projection. Descriptive topic mentions. Not a thematic or ideological classification and not an input to downstream political labelling."
+    },
+    "entities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Compatibility projection. Descriptive named-entity mentions as they appear in the source. Actor identity is context, never evidence of ideology or alignment."
+    },
+    "claims": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Compatibility projection. Descriptive report of claims made in the source, without assessing their validity or political function."
+    },
+    "event_candidates": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/event_candidate"
+      },
+      "description": "Compatibility projection. Descriptive event candidates retained for canonical compatibility."
     }
   },
   "$defs": {
+    "frame_analysis": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Frame-level companion to the item-level pre-analysis. It shares schema_version social-semiotic-preanalysis.v1 and describes what is directly observable within one frame or keyframe; it carries no item-level summary or modality coverage because those belong to the item pass. Frame here means descriptive composition, never political framing analysis.",
+      "required": [
+        "schema_version",
+        "prompt_version"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "social-semiotic-preanalysis.v1"
+        },
+        "prompt_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidence"
+          }
+        },
+        "denotation": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "semiotic_resources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/resource"
+          }
+        },
+        "participants": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/observation"
+          }
+        },
+        "processes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/observation"
+          }
+        },
+        "circumstances": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/observation"
+          }
+        },
+        "composition": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/observation"
+          }
+        },
+        "salient_signs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/sign"
+          }
+        },
+        "uncertainty": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/uncertainty"
+          }
+        },
+        "material_canvas_organisation": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Compatibility projection for existing renderers."
+        },
+        "scene_and_participants": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Compatibility projection for existing renderers."
+        },
+        "subjects": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Compatibility projection: depicted subjects, descriptively."
+        },
+        "objects": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Compatibility projection: depicted objects, descriptively."
+        },
+        "activities": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Compatibility projection: depicted activities, descriptively."
+        },
+        "visual_composition": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Compatibility projection for existing renderers."
+        },
+        "visible_text": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Compatibility projection: text visible in the frame, preserving the source form."
+        },
+        "usernames": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Compatibility projection: platform identifiers visible in the frame, as sampling/source context."
+        },
+        "symbols_and_interface_cues": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Compatibility projection for existing renderers."
+        },
+        "provenance_and_usage_cues": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Compatibility projection for existing renderers."
+        },
+        "semiotic_contribution": {
+          "type": "string",
+          "description": "Descriptive note on how this frame contributes semiotically to the item. Not a political framing claim."
+        }
+      }
+    },
+    "event_candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "time": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "actors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      },
+      "description": "Descriptive event candidate retained for canonical compatibility."
+    },
     "mode": {
       "enum": [
         "linguistic",
