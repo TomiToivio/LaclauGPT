@@ -24,19 +24,25 @@ The project was originally created for the **EP24 research project** in connecti
 
 ## Project background and funding
 
-LaclauGPT grew out of research-software work at the **[Helsinki Hub on Emotions, Populism and Polarisation (HEPP)](https://www.helsinki.fi/en/researchgroups/emotions-populism-and-polarisation), University of Helsinki**, and the **2024 European Parliament election (EP24)** research programme. The original pipeline collected and analysed multimodal TikTok and Instagram material across multiple European countries. The current modular framework generalises that work into reusable collection, analysis and visualization components.
+LaclauGPT grew out of research-software work at the **[Helsinki Hub on Emotions, Populism and Polarisation (HEPPsinki)](https://www.helsinki.fi/en/researchgroups/emotions-populism-and-polarisation), University of Helsinki**, and has been developed in connection with the **CO3**, **PLEDGE**, and **ENDURE** research projects.
 
-The software has been developed in connection with **CO3**, **ENDURE** and **PLEDGE**, supported by the European Union and the Research Council of Finland / Academy of Finland. Click a project logo to visit its official project page.
-
-<p class="project-logos" align="center">
-  <a href="https://www.co3socialcontract.eu/" title="CO3"><img src="https://www.helsinki.fi/assets/drupal/styles/16_10_fallback/s3/media-image/co3_rgb%20%281%29.jpg.jpeg?itok=2G8xjx4J" height="100" alt="CO3 project logo"></a>
+<p align="center">
+  <a href="https://www.co3socialcontract.eu/"><img src="https://www.co3socialcontract.eu/favicon.ico" width="88" height="88" alt="CO3 project logo"></a>
   &nbsp;&nbsp;&nbsp;&nbsp;
-  <a href="https://www.endure-project.org/" title="ENDURE"><img src="https://www.endure-project.org/favicon.ico" height="76" alt="ENDURE project logo"></a>
+  <a href="https://www.pledgeproject.eu/"><img src="https://www.pledgeproject.eu/favicon.ico" width="88" height="88" alt="PLEDGE project logo"></a>
   &nbsp;&nbsp;&nbsp;&nbsp;
-  <a href="https://www.pledgeproject.eu/" title="PLEDGE"><img src="https://cdn.myportfolio.com/80780752-1793-414b-936a-f0cd10a2ac7d/57c00d24-bb6a-4af2-a001-c65a765651f9_rw_1920.png?h=41199a43847532a5a8800551fe811ed5" height="100" alt="PLEDGE project logo"></a>
+  <a href="https://www.endure-project.org/"><img src="https://www.endure-project.org/favicon.ico" width="88" height="88" alt="ENDURE project logo"></a>
 </p>
 
-**[CO3](https://www.co3socialcontract.eu/)** studies resilient social contracts and is funded by Horizon Europe under grant agreement **101132631**. **[ENDURE](https://www.endure-project.org/)** studied inequalities, community resilience and post-pandemic governance through the Trans-Atlantic Platform Recovery, Renewal and Resilience programme, with Finnish participation supported by the Academy of Finland / Research Council of Finland. **[PLEDGE](https://www.pledgeproject.eu/)** studies the emotional dynamics of political grievances and democratic governance and is funded by Horizon Europe under grant agreement **101132560**.
+<p align="center">
+  <a href="https://european-union.europa.eu/principles-countries-history/symbols/european-flag_en"><img src="https://www.pledgeproject.eu/wp-content/uploads/2024/04/co-funded-by-european-union.png" height="64" alt="European Union flag and funding acknowledgement"></a>
+</p>
+
+- **[CO3](https://www.co3socialcontract.eu/)** — Continuous Construction of Resilient Social Contracts Through Societal Transformations.
+- **[PLEDGE](https://www.pledgeproject.eu/)** — Politics of Grievance and Democratic Governance.
+- **[ENDURE](https://www.endure-project.org/)** — Inequalities, Community Resilience and New Governance Modalities in a Post-Pandemic World.
+
+**Funding.** CO3 and PLEDGE have been funded in the **Horizon Europe framework of the European Union (2024–27)**. ENDURE was a **Trans-Atlantic Platform funded consortium**; the work at the **University of Helsinki was funded by the Research Council of Finland (2022–25)**.
 
 ## Active project
 
