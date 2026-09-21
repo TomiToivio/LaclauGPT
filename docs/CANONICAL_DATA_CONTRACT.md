@@ -530,6 +530,8 @@ SQLite MAY normalize nested structures into multiple tables, but the public repo
 
 MongoDB MAY store the canonical nested object directly. `_id` is an implementation key and MUST NOT replace `source_url` or canonical object/unit IDs.
 
+For the canonical Analysis -> Visualization handoff, Analysis MUST persist analyzed canonical records to `<project>__analysis_results`, and Visualization MUST use that same collection as its default canonical MongoDB read source. This handoff is named `laclaugpt-analysis-visualization-v1`. Implementations MUST NOT require a second shadow `annotations` collection for the canonical path. A separate `<project>__relations` collection MAY exist as an optional graph index, but embedded `analysis.relations` in the canonical analysis result remain sufficient for the portable Visualization path.
+
 ### Parquet
 
 Parquet MAY preserve nested structures directly or use documented deterministic encodings. Round-trip semantics remain mandatory.
