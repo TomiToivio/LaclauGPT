@@ -1,13 +1,13 @@
 # Phase 1: multimodal social-semiotic pre-analysis
 
-**Status:** Proposed technical design; not implemented or empirically validated.  
+**Status:** Implemented in the canonical Phase 1 pipeline; empirical validation remains an ongoing research task.  
 **Issue:** [LaclauGPT #61](https://github.com/TomiToivio/LaclauGPT/issues/61)  
 **Date:** 2026-09-20  
 **Implementation owner:** LaclauGPT-Data-Analysis.  
-**Branch boundary:** All implementation starts from and targets `phase-1`. No promotion to `main` or `phase-0`.  
-**Method identifier proposed:** `social_semiotic_preanalysis`; method version `0.1.0`; output schema `social-semiotic-preanalysis/0.1.0`.
+**Branch boundary:** Phase 1 development now lands directly on `main`; the historical `phase-1` branch is kept synchronized with `main`.  
+**Method contract:** `social-semiotic-preanalysis.v1`; canonical multimodal prompt resources use v2 provenance.
 
-This document specifies a descriptive, evidence-preserving stage for text, images, video and audio before relational representation and Laclaudian interpretation. It does not revise the Phase 1 paper's discourse-theoretical framework. “Pre-analysis” here means the social-semiotic first pass; the paper also uses that word more broadly for provisional LLM-assisted discourse analysis.
+This document records the design rationale for the implemented descriptive, evidence-preserving stage for text, images, video and audio before relational representation and Laclaudian interpretation. It does not revise the Phase 1 paper's discourse-theoretical framework. “Pre-analysis” here means the social-semiotic first pass; the paper also uses that word more broadly for provisional LLM-assisted discourse analysis.
 
 ## 1. Decisions and current implementation gaps
 
@@ -317,13 +317,13 @@ Proposed pilot promotion gates: all structural tests pass; no unflagged fabricat
 
 ## 10. Phase isolation, rollout and rollback
 
-- Start implementation branches from each owning repository's `phase-1`; PR base is `phase-1`.
+- Phase 1 implementation targets `main`; keep the historical `phase-1` branch synchronized with `main`.
 - Add an explicit opt-in profile/config selection for the new plugin chain, disabled by default. Proposed flags are design names, not currently supported CLI switches.
 - Do not change Phase 0 profiles, shared prompt versions, legacy Puhti scripts, deployed cron/Slurm jobs, persistent data schema or main/submodule pointers.
 - Begin with standalone pre-analysis and evidence export; then enable the dedicated downstream adapter in the Phase 1 pilot only.
 - Keep old results readable and histories append-only. Rollback selects the previous Phase 1 profile and leaves new bundles inspectable.
-- Promote to a Phase 1 default only after validation. Promotion of the active project phase or synchronization into `main` requires Tomi's explicit approval.
-- Keep #61 open until implementation and validation acceptance criteria are met. A completed design is not a completed feature.
+- Promotion to broader/default use remains evidence-driven, but code and documentation for Phase 1 live on `main` under the current repository policy.
+- #61 can close when the implementation, schema/provenance contract, descriptive-boundary tests, and documentation are present; empirical validation continues as a research-quality activity rather than blocking software completion.
 
 ## 11. References and source of truth
 
