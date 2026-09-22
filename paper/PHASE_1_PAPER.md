@@ -6,7 +6,7 @@
 
 ## Abstract
 
-Artificial intelligence is not only a heterogeneous set of technologies and sociotechnical arrangements but also a contested political signifier around which competing visions of society are increasingly articulated. Different actors connect AI to economic growth, abundance, unemployment, surveillance, existential risk, democratic control, technological emancipation, or the concentration of political and economic power. This paper studies this ideological contestation through Ernesto Laclau and Chantal Mouffe’s discourse theory, Emilia Palonen’s Formula of Populism, and the concept of sociotechnical imaginaries. Accelerationism, existential-risk discourse, Critical AI, opposition to AI, and left-wing techno-optimism are treated as starting points for analysis rather than fixed ideological categories. The paper also develops LaclauGPT, an LLM-assisted methodology for computational discourse analysis designed to identify candidate signifiers, articulations, demands, collective identities, political frontiers, affects, and sociotechnical imaginaries in large textual datasets. The model does not perform the final discourse analysis but produces theory-guided pre-analysis that remains linked to source material and can be accepted, rejected, or revised by human researchers. The proposed research programme compares three arenas of AI politics: AI elites, grassroots mobilisation, and parliamentary and electoral politics. The paper therefore makes two connected contributions by developing a theoretical framework for analysing the ideological struggle over AI and a computational method for scaling Laclaudian discourse analysis while keeping interpretation traceable to evidence.
+Artificial intelligence is not only a heterogeneous set of technologies and sociotechnical arrangements but also a contested political signifier around which competing visions of society are increasingly articulated. Different actors connect AI to economic growth, abundance, unemployment, surveillance, existential risk, democratic control, technological emancipation, or the concentration of political and economic power. This paper studies this ideological contestation through Ernesto Laclau and Chantal Mouffe’s discourse theory, Emilia Palonen’s Formula of Populism, and the concept of sociotechnical imaginaries. Accelerationism, existential-risk discourse, Critical AI, opposition to AI, and left-wing techno-optimism are treated as starting points for analysis rather than fixed ideological categories. The paper also develops LaclauGPT, an LLM-assisted methodology for computational discourse analysis designed to identify candidate signifiers, articulations, demands, collective identities, political frontiers, affects, and sociotechnical imaginaries in large textual datasets. The model does not perform the final discourse analysis but produces theory-guided pre-analysis that remains linked to source material and can be accepted, rejected, or revised by human researchers. Because the corpus includes audiovisual and mixed social-media material, the method specifies an explicit descriptive first pass — a multimodal social-semiotic pre-analysis drawing on social semiotics, Systemic Functional Linguistics and image–text relation research — that records evidence, modality coverage and uncertainty before any political or discourse-theoretical interpretation is proposed. The proposed research programme compares three arenas of AI politics: AI elites, grassroots mobilisation, and parliamentary and electoral politics. The paper therefore makes two connected contributions by developing a theoretical framework for analysing the ideological struggle over AI and a computational method for scaling Laclaudian discourse analysis while keeping interpretation traceable to evidence.
 
 **Keywords:** artificial intelligence; ideology; discourse theory; LaclauGPT; hegemony; sociotechnical imaginaries; large language models; critical AI studies; computational social science
 
@@ -109,6 +109,34 @@ Every theoretical proposition should retain its provenance, including the docume
 
 The overall design should remain independent of one particular LLM family or hardware configuration. Each research run should record the model, prompt, contextual material, generation parameters, serving environment, and preprocessing steps so that changes in the analytical pipeline remain visible. Local inference can be useful for privacy, control, and reproducibility, but running a model locally does not automatically make the analysis valid, just as setting temperature to zero does not convert interpretation into deterministic measurement. The current pipeline should therefore be understood as a methodological design under development whose reliability depends on empirical validation rather than technological sophistication alone.
 
+### 3.5 Social-semiotic pre-analysis as a bounded first pass
+
+The workflow above describes what LaclauGPT should eventually infer. Before any of it, audiovisual and mixed social-media material has to be turned into something the later stages can reason over without losing the evidence that made it analysable. The revised architecture therefore interposes an explicit **Multimodal Social-Semiotic Pre-Analysis** stage between the raw source and theoretical coding:
+
+```text
+raw text / image / video / audio / metadata
+    ↓
+Multimodal Social-Semiotic Pre-Analysis   (descriptive, this section)
+    ↓
+LLM Structuralism / relational representation
+    ↓
+Laclau discourse analysis                 (sections 3.1–3.4)
+```
+
+The stage exists because the earlier workflow collapsed description and interpretation. In the 2024 workflow, prompts adapted from the legacy `puhti_frame.py` and `puhti_summary.py` scripts asked a model for frame and summary output while also eliciting political characterisations, so an observation such as “the caption names a party leader” and an inference such as “the clip articulates a populist frontier” arrived in the same field. Once aggregated, the two were no longer separable, and the resulting categories could not be audited against the media they were supposed to describe. Separating them is a methodological requirement rather than a software preference: a claim about antagonism is only as good as the evidence that a frontier was being constructed, and that evidence cannot be recovered if the descriptive layer already committed to the interpretation.
+
+The methodological core of the stage is multimodal social semiotics and Systemic Functional Linguistics. Halliday's textual, ideational and interpersonal metafunctions supply an organising grammar for what a text is doing; Kress and van Leeuwen extend functional analysis to visual representation, composition and the grammar of images (Kress & van Leeuwen, 2021); Martinec and Salway (2005) provide a taxonomy for image–text status and logico-semantic relations; and a light Saussurean vocabulary supplies signifiers, difference, relations, opposition and co-occurrence without importing Laclaudian status. The Barthesian denotation/connotation distinction (Barthes, 1977) is retained in a deliberately cautious form: denotation is what is observably written, spoken, visible, audible, gestured, arranged, edited or exposed by the interface, while connotation is recorded separately with its basis, alternatives and confidence rather than asserted as the meaning of the sign.
+
+The closest applied reference is Wanselin, Danielsson and Wikman (2022), whose framework organises multimodal analysis around semiotic resources and their affordances, transitivity in the ideational metafunction, narrative and conceptual visual function, composition and relative size/scale, interpersonal positioning, and relations between image and writing. Their framework treats the interpersonal layer in particular as an analytical site, asking how a text positions its reader. LaclauGPT constrains that layer sharply. Observable address, offer/demand form, formality, gaze, typography or explicit evaluative wording may be described; political positioning, motive, ideological alignment, hegemony and populism are downstream interpretations and are excluded. Wanselin et al. analyse two static educational texts and explicitly delimit their use of multimodal text from animation, so the extension to born-digital social media is treated here as a LaclauGPT adaptation requiring validation rather than as an application of an established result.
+
+That adaptation adds resources absent from static print: temporal sequence and duration; cuts, montage and transitions; speech and prosody when audio is actually processed; sound, music and silence; gesture; subtitles, OCR and ASR output; screenshot, meme and reaction-video layouts; and platform/interface resources such as usernames, repost markers, watermarks and embedded-media boundaries. Each of these is a semiotic resource with its own affordances, and each can fail independently, which is why OCR and ASR uncertainty is recorded as first-class rather than as a single generic model weakness.
+
+The stage is specified as a versioned data contract (`social-semiotic-preanalysis.v1`) rather than as prompt prose. Every item records its schema and prompt version, evidence pointers retaining modality, source field, exact text, frame or timestamp coordinates, confidence and uncertainty, and explicit coverage of which modalities were present and which were missing. Salient signs keep their exact source form and salience basis without being assigned Laclaudian status; observable sign relations are limited to contrast, opposition, pairing, repetition, co-occurrence, sequence, labelling, part–whole and spatial proximity; intermodal relations are normalised into redundancy, extension, elaboration, contrast/conflict and ambiguity, and conflicting modes remain recorded as conflict rather than resolved into a summary. “Frame” here denotes descriptive organisation and presentation — what composes the image — and never political framing analysis.
+
+The boundary is enforced rather than merely documented. The stage must not emit analyst classifications for empty or floating signifiers, nodal points, chains of equivalence or difference, antagonisms or frontiers, populism, ideology or ideological formations, party or political alignment, hegemony, political subjects or demands, or sentiment. Those words may occur in source evidence and are preserved as evidence when they do, but they must not become analyst categories in the first pass. A fail-closed guard rejects any attempt to persist a downstream field at this stage. Text-only material remains fully valid input: the schema describes which modalities are absent rather than manufacturing multimodality to satisfy its own shape.
+
+The output is consequently evidence-preserving structured description rather than an already interpreted political summary, which is what the subsequent LLM Structuralism step requires. That step can propose relations over a described object; it cannot recover relations from a description that has already chosen them. This is also why the stage is usable for non-political corpora: nothing in the contract presumes that the material under analysis is political, and the political vocabulary enters only downstream, where the researcher's theoretical framework is deliberately applied and can be inspected, revised or rejected.
+
 ## 4. Research design and validation
 
 ### 4.1 Three arenas of AI contestation
@@ -159,6 +187,8 @@ The next step is empirical validation and application across AI elite discourse,
 
 Andreessen, M. (2023, October 16). *The techno-optimist manifesto*. Andreessen Horowitz.
 
+Barthes, R. (1977). *Image, music, text* (S. Heath, Trans.). Fontana Press.
+
 Bastani, A. (2019). *Fully automated luxury communism*. Verso.
 
 DeLanda, M. (2016). *Assemblage theory*. Edinburgh University Press.
@@ -171,6 +201,8 @@ Gebru, T., & Torres, É. P. (2024). The TESCREAL bundle: Eugenics and the promis
 
 Grimmer, J., Roberts, M. E., & Stewart, B. M. (2022). *Text as data: A new framework for machine learning and the social sciences*. Princeton University Press.
 
+Halliday, M. A. K., & Matthiessen, C. M. I. M. (2014). *Halliday's introduction to functional grammar* (4th ed.). Routledge.
+
 Haraway, D. J. (1991). A cyborg manifesto: Science, technology, and socialist-feminism in the late twentieth century. In *Simians, cyborgs, and women: The reinvention of nature* (pp. 149–181). Routledge.
 
 Jasanoff, S. (2015). Future imperfect: Science, technology, and the imaginations of modernity. In S. Jasanoff & S.-H. Kim (Eds.), *Dreamscapes of modernity: Sociotechnical imaginaries and the fabrication of power* (pp. 1–33). University of Chicago Press.
@@ -178,6 +210,8 @@ Jasanoff, S. (2015). Future imperfect: Science, technology, and the imaginations
 Koljonen, J., Carrilho, K., & Palonen, E. (2025). The struggle over masks on Twitter: An AC/DT approach to Finnish pandemic governance. In E. Kerr, E. Bužinkić, & J. Foley (Eds.), *The organisation of irresponsibility? Reassessing COVID-19 in Europe* (pp. 132–163). Brill.
 
 Kozlowski, A. C. (2026). Computational structuralism: Toward a formal theory of meaning in the age of digital intelligence. *Theory and Society*.
+
+Kress, G., & van Leeuwen, T. (2021). *Reading images: The grammar of visual design* (3rd ed.). Routledge.
 
 Kurzweil, R. (2005). *The singularity is near: When humans transcend biology*. Viking.
 
@@ -192,6 +226,8 @@ Laclau, E., & Mouffe, C. (2001). *Hegemony and socialist strategy: Towards a rad
 Lindgren, S. (2020). *Data theory: Interpretive sociology and computational methods*. Polity.
 
 Lindgren, S. (2023). Introducing critical studies of artificial intelligence. In S. Lindgren (Ed.), *Handbook of critical studies of artificial intelligence* (pp. 1–19). Edward Elgar Publishing.
+
+Martinec, R., & Salway, A. (2005). A system for image–text relations in new (and old) media. *Visual Communication, 4*(3), 337–371.
 
 Nelimarkka, M. (2026). MarxistLLM: Fine-tuning a language model with a Marxist worldview. *Big Data & Society, 13*(2).
 
@@ -208,6 +244,8 @@ Toivio, T. (2025a). *LaclauGPT multimodal analysis* [Computer software]. GitHub.
 Toivio, T. (2025b). *LaclauGPT TikTok scraper* [Computer software]. GitHub.
 
 Wachinger, J., Bärnighausen, K., Schäfer, L. N., Scott, K., & McMahon, S. A. (2025). Prompts, pearls, imperfections: Comparing ChatGPT and a human researcher in qualitative data analysis. *Qualitative Health Research, 35*(9), 951–966.
+
+Wanselin, H., Danielsson, K., & Wikman, S. (2022). Analysing multimodal texts in science—A social semiotic perspective. *Research in Science Education, 52*, 891–907. https://doi.org/10.1007/s11165-021-10027-5
 
 Weatherby, L. (2025). *Language machines: Cultural AI and the end of remainder humanism*. University of Minnesota Press.
 

@@ -26,6 +26,8 @@ jobs:
           test ! -d tests
       - name: Verify cross-module canonical parity fixture
         run: python scripts/verify_cross_module_fixture.py
+      - name: Verify social-semiotic pre-analysis contract
+        run: python scripts/verify_social_semiotic_contract.py
       - name: Verify optional messaging/task contract
         run: |
           python - <<'PY'
