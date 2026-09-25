@@ -145,3 +145,27 @@ Do not treat inclusion here as endorsement or as incorporation into the paper. T
 - **DOI:** https://doi.org/10.1007/s11165-021-10027-5
 - **Why read for LaclauGPT:** Applied methodological reference for describing semiotic resources and their relations before discourse interpretation. Already summarized in `sources/SUMMARIES.md`.
 - **Boundary:** Its educational text examples do not validate automated video/audio analysis. The temporal, acoustic and platform extensions in the [Phase 1 technical plan](../docs/PHASE1_SOCIAL_SEMIOTIC_PREANALYSIS_PLAN.md) are proposed LaclauGPT adaptations requiring separate validation.
+
+
+## Laclau and Luhmann: Phase 2 cross-theoretical precedents
+
+These three works are **reading candidates** identified via bibliographic/publisher/author records, not local PDF imports. A source-grounded cross-reading is recorded in [SUMMARIES.md](SUMMARIES.md#laclau–luhmann-dialogue-phase-2-literature-synthesis-25-september-2026); the two uploaded introductions by Moeller (2006) and Baraldi, Corsi and Esposito (2021) are already indexed and summarized there.
+
+### Urs Stäheli — *Politik der Entparadoxierung. Zur Artikulation von Hegemonie- und Systemtheorie* (1998)
+
+- **In:** Oliver Marchart (ed.), *Das Undarstellbare der Politik. Zur Hegemonietheorie Ernesto Laclaus*, Turia & Kant, pp. 52–66.
+- **Verification:** [University of Hamburg bibliography](https://www.wiso.uni-hamburg.de/en/fachbereich-sowi/professuren/staeheli/team/lehrstuhl-mitarbeiter/staeheli-urs.html).
+- **Why read:** Direct dialogue between hegemony and systems theory; explore paradox/deparadoxification without reducing system/environment distinction to Laclaudian antagonism.
+
+### Bob Jessop — *The relevance of Luhmann's systems theory and of Laclau and Mouffe's discourse analysis to the elaboration of Marx's state theory* (2008)
+
+- **In:** German published chapter in Hirsch, Kannankulam and Wissel (eds.), *Der Staat der bürgerlichen Gesellschaft*, Nomos, pp. 157–179.
+- **English preprint:** [Author's site](https://bobjessop.wordpress.com/2014/02/09/the-relevance-of-luhmanns-systems-theory-and-of-laclau-and-mouffes-discourse-analysis-to-the-elaboration-of-marxs-state-theory/).
+- **Why read:** Explicit critical comparison of differentiated systems, the political and state-theoretical structures; test where the two accounts complement or conflict.
+
+### Niels Åkerstrøm Andersen — *Discursive Analytical Strategies: Understanding Foucault, Koselleck, Laclau, Luhmann* (2003)
+
+- **Publisher:** Policy Press. ISBN 9781861344397. [Publisher record](https://www.degruyterbrill.com/document/doi/10.56687/9781447342205/html).
+- **Why read:** Distinct analytical strategies for discourse and systems observation; a methodological model for triangulation without declaring ontological identity.
+
+**Phase boundary:** These are Phase 2 exploratory literature candidates. They do not amend the locked Phase 1 paper or its method.
