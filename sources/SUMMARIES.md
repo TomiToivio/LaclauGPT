@@ -1371,3 +1371,47 @@ The book is even more relevant to the emerging **Phase 2 network / systems layer
 
 **Potential follow-up:** Add an optional **protocol/infrastructure metadata layer** to LaclauGPT documentation that records the collection protocol, platform/API/browser mechanism, access constraints, transformation pipeline, model endpoint and storage path for each dataset. The theoretical payoff would be a clean separation between (1) discourse content, (2) network relations and (3) the protocols that condition their observability. For Phase 2, Galloway can also help frame the Castells + Luhmann/Esposito network-systems layer by keeping technical architecture, communication and control analytically distinct.
 
+
+## Laclau–Luhmann dialogue: Phase 2 literature synthesis (25 September 2026)
+
+**Status and source distinction:** The two uploaded introductory books are already summarized individually above: Hans-Georg Moeller, *Luhmann Explained* (2006), and Claudio Baraldi, Giancarlo Corsi and Elena Esposito, *Unlocking Luhmann* (2021). The three works below are externally identified **reading candidates**, not locally processed PDFs or claims of a completed full-text review. The synthesis at the end is a LaclauGPT research proposal, not a conclusion attributed to these authors. Do not change the locked Phase 1 theory or coding procedure on this basis.
+
+### Urs Stäheli — *Politik der Entparadoxierung. Zur Artikulation von Hegemonie- und Systemtheorie* (1998)
+
+**Bibliographic note:** In Oliver Marchart (ed.), *Das Undarstellbare der Politik. Zur Hegemonietheorie Ernesto Laclaus*, Vienna: Turia & Kant, pp. 52–66. Verified in the University of Hamburg author's bibliography: https://www.wiso.uni-hamburg.de/en/fachbereich-sowi/professuren/staeheli/team/lehrstuhl-mitarbeiter/staeheli-urs.html .
+
+**Core question / contribution:** An explicitly named articulation of hegemony theory and systems theory, centered on the politics of deparadoxification. It is a direct precedent for testing the relationship between political articulation and systems-theoretical paradox, rather than merely comparing the traditions by analogy.
+
+**LaclauGPT relevance (interpretive):** Investigate whether the system/environment distinction, constitutive exclusions, and the handling of paradox can be compared to hegemonic boundary-making and articulation. Do **not** equate system/environment with antagonism or operational closure with discursive exclusion.
+
+**Limitations:** Full chapter not reviewed here; the title and bibliographic record support identifying the direct connection, not detailed claims about its argument. Read the primary chapter before incorporating its propositions into a manuscript.
+
+### Bob Jessop — *The relevance of Luhmann's systems theory and of Laclau and Mouffe's discourse analysis to the elaboration of Marx's state theory* (2008)
+
+**Bibliographic note:** English preprint of the chapter published in German in Joachim Hirsch, John Kannankulam and Jens Wissel (eds.), *Der Staat der bürgerlichen Gesellschaft: Zum Staatsverständnis von Karl Marx*, Nomos, pp. 157–179. Author-hosted preprint: https://bobjessop.wordpress.com/2014/02/09/the-relevance-of-luhmanns-systems-theory-and-of-laclau-and-mouffes-discourse-analysis-to-the-elaboration-of-marxs-state-theory/ .
+
+**Core question / contribution:** Explicit comparison of systems theory and discourse theory in reconstructing the state. Jessop's preprint distinguishes Luhmann's treatment of politics as a function system from Laclau and Mouffe's emphasis on the ontology of the political. This is a critical comparison, not proof of theoretical equivalence.
+
+**LaclauGPT relevance (interpretive):** Use to formulate limits on moving from contingent hegemonic articulations to differentiated institutional structures. Distinguish an empirical actor, an organization, the political function system and a Laclaudian collective subject.
+
+**Limitations:** The state-theoretical purpose differs from AI26; inspect the full chapter before adopting Jessop's final evaluative argument.
+
+### Niels Åkerstrøm Andersen — *Discursive Analytical Strategies: Understanding Foucault, Koselleck, Laclau, Luhmann* (2003)
+
+**Bibliographic note:** Policy Press, 2003, ISBN 9781861344397; publisher record https://www.degruyterbrill.com/document/doi/10.56687/9781447342205/html . The book contains distinct treatments of Laclau and Luhmann and a concluding comparison of analytical strategies.
+
+**Core question / contribution:** A methodological juxtaposition of different ways of analyzing communication, discourse and observation, including Laclau's discourse theory and Luhmann's systems theory.
+
+**LaclauGPT relevance (interpretive):** Theories can be used as separately specified observation strategies without claiming a seamless, unified ontology. Keep concepts, evidence anchors, analytical inferences and validation distinct across layers.
+
+**Limitations:** Publisher description and contents verified; full book not reviewed here. Do not assert a precise synthesized method without reading it.
+
+### Cross-reading of the two uploaded introductions (source-grounded)
+
+- **Moeller, *Luhmann Explained*:** The existing summary emphasizes communication rather than persons as the elements of social systems; autopoiesis, operational closure, functional differentiation, world society, mass media and protest. For AI26, these are prompts for analyzing how an AI claim is taken up differently by science, markets, politics, law and media, not licenses to identify a function system from a source's platform alone.
+- **Baraldi, Corsi & Esposito, *Unlocking Luhmann*:** Its keyword architecture ties communication, meaning, complexity, system/environment, autopoiesis, observation, differentiation, semantics and structural coupling together. The authors explicitly warn that the glossary is a working aid rather than a substitute for Luhmann's texts. In particular, autopoiesis describes recursive communication and operational closure, not isolation from the environment; distinct operations of social and psychic systems must not be conflated.
+- **Analytical caution:** Functional systems, organizations, interactions, empirical arenas and networks of actor relations are distinct categories. Likewise, a Laclaudian nodal point is not a network-centrality measure, and a DNA agreement edge is not evidence of a Luhmannian structural coupling.
+
+**Provisional Phase 2 question:** Can an AI/AGI signifier coordinate differently coded communications across science, economy, politics, law and mass media without eliminating their operational autonomy? An empirical design could compare (1) source-backed communication events and system-specific self-descriptions; (2) actor–concept–stance–time DNA relations; and (3) Laclaudian signifiers, articulations, equivalence/difference and antagonistic frontiers. Castells informs observed networks and flows; Leifeld supplies the DNA bridge. This is a **proposal for triangulation**, not a deduction from Luhmann or a revision to Phase 1.
+
+---
