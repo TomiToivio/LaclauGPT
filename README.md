@@ -70,6 +70,8 @@ If you arrived here looking for the **paper or theory**, stay in this repository
 
 The current flagship research programme is **[LaclauGPT: Ideological contestation over AI](paper/PHASE_1_PAPER.md)**. The project's canonical theoretical and methodological contract is **[THEORY.md](THEORY.md)**. The four-phase development path linking paper(s), methodology, technology and the continuously running AI26 reference case is documented in **[docs/ROADMAP.md](docs/ROADMAP.md)**.
 
+AI26 Phase 2 runs on two machines as one system — Laskin as the primary always-on Collection + Analysis + Visualization node, and NooPunk supplying continuous browser collection with on-demand analysis. Their roles, shared namespace and cross-machine deduplication rules are documented in **[docs/AI26_EXECUTION_ARCHITECTURE.md](docs/AI26_EXECUTION_ARCHITECTURE.md)**.
+
 The framework is developed around Ernesto Laclau and Chantal Mouffe's discourse theory and Emilia Palonen's work on populism, polarisation and hegemonic dynamics, with project-specific extensions such as Critical AI Studies and sociotechnical imaginaries. The AI/AGI study is the main development case, but LaclauGPT is deliberately a **general research framework rather than a single-purpose AI ideology classifier**.
 
 > [!WARNING]
