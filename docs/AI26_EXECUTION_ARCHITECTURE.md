@@ -55,8 +55,9 @@ continuous analysis machine.
           +--------------+--------------+
           |                             |
    [Laskin] Analysis              [NooPunk] Analysis
-   continuous, local Ollama       on demand (local or cloud)
-   default model: gemma4:12b
+   continuous, local Ollama       on demand, user activated
+   default model: gemma4:12b      local:  gemma4:e2b      (default)
+          |                       cloud:  gemma4:31b-cloud (explicit opt-in)
           |                             |
           +--------------+--------------+
                          |
@@ -79,16 +80,34 @@ Two properties of this diagram matter more than the boxes:
 - **Scope.** This architecture is AI26 Phase 2 specific. The three pipeline
   modules are AI26 modules; project-specific execution paths for other studies do
   not live here.
-- **Model.** Laskin's continuous analysis defaults to a **local Ollama** model,
-  `gemma4:12b`, served on the Laskin host. Model selection is configuration, not
-  code, so a future model can be substituted without rewriting the pipeline.
+- **Laskin's model.** Laskin's continuous analysis defaults to a **local Ollama**
+  model, `gemma4:12b`, served on the Laskin host. Model selection is configuration,
+  not code, so a future model can be substituted without rewriting the pipeline.
+- **NooPunk's model options.** NooPunk is an interactive workstation with less GPU
+  capacity, so its analysis is user-activated and offers two explicit modes:
+
+  | Mode | Model | When |
+  | --- | --- | --- |
+  | **local** (default) | `gemma4:e2b` | lighter local testing on NooPunk's GPU |
+  | **cloud** | `gemma4:31b-cloud` | only when the operator explicitly asks for the stronger model |
+
+  **Cloud use is never silent.** An unrecognised model option is **rejected**, not
+  defaulted, and no path enables local-to-cloud fallback: the provider and model
+  actually used are recorded in provenance for every result, so a cloud-assisted
+  result is distinguishable from a local one after the fact. This mirrors the
+  meta-repo contract that pins `cloud_fallback` to `false`
+  (`schemas/distributed-run.schema.json`).
+- **Bounded work on NooPunk.** Its analysis claims a limited batch and exits rather
+  than draining the shared queue, so a testing session neither occupies the GPU
+  permanently nor competes with Laskin for the same work. The claim/lease and
+  idempotency rules below are what make that safe.
 - **Machine identity.** A machine is **execution provenance, never study
   identity.** No machine creates its own database, bucket, project ID, run ID or
   codebook. That rule is what keeps the two nodes one system, and it is already
   enforced by the module runbooks
   ([Collection](https://github.com/TomiToivio/LaclauGPT-Data-Collection/blob/main/docs/AI26_TWO_MACHINE_COLLECTION.md),
-  [Analysis](https://github.com/TomiToivio/LaclauGPT-Data-Analysis/blob/main/docs/AI26_LASKIN_ANALYSIS.md),
-  [Visualization](https://github.com/TomiToivio/LaclauGPT-Data-Visualization/blob/main/docs/AI26_LASKIN_DASHBOARD.md)).
+  [Analysis](https://github.com/TomiToivio/LaclauGPT-Data-Analysis/blob/main/docs/AI26_NOOPUNK_ANALYSIS.md),
+  [Visualization](https://github.com/TomiToivio/LaclauGPT-Data-Visualization/blob/main/docs/AI26_NOOPUNK_DASHBOARD.md)).
 
 ## The cross-machine contract
 
