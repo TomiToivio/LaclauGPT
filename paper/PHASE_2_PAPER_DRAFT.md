@@ -12,19 +12,15 @@
 
 ## Working title
 
-**LaclauGPT Phase 2: From Discourse to Discourse Networks and AI-Era Social Networks**
-
-Alternative subtitle:
-
-**A layered framework for political meaning, discourse coalitions, communication networks, and computational interoperability**
+**LaclauGPT Phase 2: From Laclaudian Discourse Analysis to Discourse Network Analysis and Social Network Analysis**
 
 ## Central purpose
 
 Phase 2 should develop LaclauGPT from an LLM-assisted discourse-analysis method into a layered computational social-science framework connecting:
 
-1. **Laclau Discourse Analysis:** how political meanings, identities, demands, frontiers, signifiers, and hegemonic projects are articulated;
-2. **Discourse Network Analysis:** which actors articulate, support, reject, or contest which concepts/claims, and how discourse coalitions change over time;
-3. **Social and Communication Network Analysis:** how actors, organizations, institutions, platforms, communication events, and AI-mediated relations are structurally connected.
+1. **Laclaudian Discourse Analysis:** This remains the same as in Phase 1 paper. 
+2. **Discourse Network Analysis:** This is basically a compatibility layer with https://github.com/leifeld-lab/dna and their papers like https://www.cogitatiopress.com/politicsandgovernance/article/view/3249.
+3. **Social Network Analysis:** Basic Social Network Analysis, with some background theory from Castells, Luhmann, Esposito, White etc. Basically we should not add extremely complex theory an keep it basic SNA? 
 
 The layers should be **interoperable but not theoretically collapsed into one another**.
 
