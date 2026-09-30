@@ -72,6 +72,7 @@ The current flagship research programme is **LaclauGPT: Ideological contestation
 - [Theory and methodology]({{ '/THEORY.html' | relative_url }})
 - [Roadmap](ROADMAP.md)
 - [Canonical data contract](CANONICAL_DATA_CONTRACT.md)
+- [AI26 Phase 2 execution architecture](AI26_EXECUTION_ARCHITECTURE.md)
 - [Plugin platform architecture](architecture/PLUGIN_PLATFORM_ARCHITECTURE.md)
 
 ## Historical research archive
