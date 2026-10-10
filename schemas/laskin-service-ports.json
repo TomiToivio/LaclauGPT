@@ -1,0 +1,35 @@
+{
+  "comment": "Ports the meta-repo's daily reports may cite. scripts/verify_reported_ports.py fails CI when docs/reports/*.md cites a port that is neither a declared service nor a declared retraction, so a port that was never checked cannot be restated as a measurement (issue #74). Adding a service here is a deliberate act and every entry must name something really bound on the machine. `retracted` is for a port that is known NOT to be a service: a report may name it while retracting it, but never beside a health signal.",
+  "machine": "laskin",
+  "ports": {
+    "8501": {
+      "service": "laclaugpt-visualization-ai26",
+      "kind": "visualization",
+      "ours": true,
+      "note": "Streamlit dashboard, bound to LACLAUGPT_VIS_SERVER_PORT. The ONLY visualization port: the service runs one Streamlit process (src/laclaugpt_visualization/service.py passes a single --server.port)."
+    },
+    "11435": {
+      "service": "ollama-analysis",
+      "kind": "inference",
+      "ours": true,
+      "note": "Tomi's own analysis Ollama."
+    },
+    "11434": {
+      "service": "ollama-other-user",
+      "kind": "inference",
+      "ours": false,
+      "note": "A DIFFERENT user's Ollama. Never treated as ours, and no models are loaded onto it."
+    },
+    "11500": {
+      "service": "vasamallama-gateway",
+      "kind": "inference",
+      "ours": true,
+      "note": "vasamallama model gateway."
+    }
+  },
+  "retracted": {
+    "8551": {
+      "note": "Asserted as a 'second dashboard' in the reports of 2026-10-04, -06, -07, -08 and -09 and in the standing maintenance spec, and repeated for six days. It was never a product endpoint: the visualization service exposes one port, and at most :8551 was an unmanaged orphan Streamlit process reparented to PID 1, which systemctl restart never touched (see the 2026-10-10 correction, issue #74). Listed so the record can name it while retracting it - never as a health signal."
+    }
+  }
+}
