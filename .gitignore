@@ -176,3 +176,14 @@ config/projects/*-sources.toml
 config/projects/*-sources.yaml
 docs/AI26_RSS_SOURCES.md
 docs/*_FEEDS*.md
+
+# Agent-internal working notes -- never publish (issue #78)
+# .hermes/plans/ holds agent planning notes and implementation drafts. They are working material,
+# not project documentation, and can quote private repositories or unfiled proposals. This is a
+# public repository, so one `git add -A` must not be able to publish them.
+.hermes/
+
+# Other agent-tooling directories that are agent-internal by nature.
+.specstory/
+.aider*
+.continue/
