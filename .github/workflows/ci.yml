@@ -28,6 +28,8 @@ jobs:
         run: python scripts/verify_cross_module_fixture.py
       - name: Verify AI26 two-machine runtime policy
         run: python scripts/verify_two_machine_policy.py
+      - name: Verify reported ports are declared
+        run: python scripts/verify_reported_ports.py
       - name: Verify optional messaging/task contract
         run: |
           python - <<'PY'
