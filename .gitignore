@@ -185,3 +185,8 @@ docs/*_FEEDS*.md
 # carry tracked .hermes/plans/ files on origin/main). Ignoring the whole directory is the fix;
 # keeping the notes outside the checkout is the stronger one.
 .hermes/
+
+# Other agent-tooling directories that are agent-internal by nature.
+.specstory/
+.aider*
+.continue/
