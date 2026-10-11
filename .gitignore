@@ -176,3 +176,12 @@ config/projects/*-sources.toml
 config/projects/*-sources.yaml
 docs/AI26_RSS_SOURCES.md
 docs/*_FEEDS*.md
+
+# Agent-internal working notes and per-session planning state (issue #78).
+# These are agent working notes, not project documentation: they are not reviewed, not part of
+# any deliverable, and they legitimately quote private repositories and local private paths by
+# name. Untracked-and-unignored is the dangerous state -- one `git add -A` publishes them, and
+# that has already happened in sibling public repos (NooPunk and LaclauGPT-Data-Analysis both
+# carry tracked .hermes/plans/ files on origin/main). Ignoring the whole directory is the fix;
+# keeping the notes outside the checkout is the stronger one.
+.hermes/
