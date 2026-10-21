@@ -1,23 +1,8 @@
-<!-- PHASE-BRANCH-POLICY:v1 -->
+## Development workflow and research phases
 
-## Mandatory phase-branch policy
+`main` is the active development branch. Create short-lived feature/fix branches from `main` and merge validated changes back to `main`. Research phases do not determine Git branch selection, and no `phase-N` branch synchronization is required. Existing phase branches can remain as historical references without being advanced or deleted.
 
-LaclauGPT is developed on persistent phase branches: `phase-0`, `phase-1`, `phase-2`, `phase-3`, and `phase-4`.
-
-**Current active/stable phase: Phase 1.** Therefore `main` must represent the current Phase-1 state and must stay synchronized with `phase-1`. The `phase-0` branch remains the preserved Phase 0 baseline and must not be repurposed or advanced.
-
-Before making any issue-driven change, an agent MUST determine the issue's intended phase from explicit issue text, title, labels, milestone, linked plan, or repository documentation. Then:
-
-1. Work from the matching persistent phase branch, e.g. a Phase-1 issue starts from `phase-1`, not `main` and not `phase-0`.
-2. Prefer a short-lived issue branch created from that phase branch, such as `issue-123-description`, and target the pull request back to the same `phase-N` branch.
-3. Never merge later-phase work into `main` while an earlier phase is current. Phase-2 through Phase-4 may advance independently without destabilizing the current Phase 1 line. `phase-0` remains the preserved Phase 0 baseline.
-4. Phase-0 maintenance fixes target `phase-0` only and do not move `main` backward. Current development and fixes target `phase-1`; after validation, keep `main` synchronized with `phase-1`.
-5. When the project officially advances phases, synchronize `main` to the newly active phase branch only after explicit human approval.
-6. If an issue has no phase information, treat it as belonging to the current phase unless the task or surrounding roadmap clearly says otherwise. Currently that means `phase-1`.
-7. Do not silently move work between phases. If implementation reveals that an issue belongs to another phase, update/document the issue or report the mismatch before merging.
-8. Preserve `TOMI-LOCKED`, privacy, public/private, runtime-data, scientific-method, and module-boundary rules on every phase branch.
-
-See `docs/PHASE_BRANCHING.md` for the repository-wide workflow.
+The programme is currently in **research Phase 1**. Phase 2 is optional and may be skipped. Phases 3 and 4 concern research analyses and results, not distinct coding or pipeline branches. Preserve all existing privacy, scientific-method, locked-paper, and module-boundary constraints.
 
 # AGENTS.md
 
