@@ -4,7 +4,7 @@
 > **#71** (NooPunk) define the two machine roles. This document describes them as
 > **one AI26 system**; it does not redefine module behaviour.
 >
-> **Phase:** AI26 Phase 2 only. It is not a description of Phase 1, and it does not
+> **Scope:** the current AI26 deployment only. It is not a description of earlier deployments, and it does not
 > apply to EP24, Brazil26 or Hungary26.
 >
 > **Privacy:** this file names machine **roles**, never machine addresses, ports,
@@ -18,7 +18,7 @@
 The question this document answers is not *"where is the code?"* but *"which
 machine does what, and how do the two stay one system rather than two corpora?"*
 
-AI26 Phase 2 runs on two machines. They are not two pipelines and not two
+The current AI26 deployment runs on two machines. They are not two pipelines and not two
 studies. They are two nodes that write into **one `ai26` namespace** with one
 schema, one provenance model, and one deduplication rule — differing only in
 which stages they run continuously and which on demand.
@@ -75,9 +75,9 @@ Two properties of this diagram matter more than the boxes:
    queue and writes the same collections under the same idempotency rule. Running
    it changes *who* processed an item, never *what the corpus is*.
 
-## Phase 2 specifics
+## Current deployment specifics
 
-- **Scope.** This architecture is AI26 Phase 2 specific. The three pipeline
+- **Scope.** This architecture describes the current AI26 deployment. The three pipeline
   modules are AI26 modules; project-specific execution paths for other studies do
   not live here.
 - **Laskin's model.** Laskin's continuous analysis defaults to a **local Ollama**
@@ -247,12 +247,12 @@ or degraded rather than filled in.
 - Machine-specific configuration belongs in the private root.
 - Reachability grants no authority between the nodes; the two machines coordinate
   through the shared contract, not through administrative control of each other.
-- This architecture is AI26 Phase 2. It is not a description of any other study
+- This architecture describes the current AI26 deployment. It is not a description of any other study
   and does not introduce project-specific execution paths into the modules.
 
 ## Related documents
 
-- [Roadmap](ROADMAP.md) — the four-phase development path
+- [Roadmap](ROADMAP.md) — the research programme and its roadmap
 - [Deployment profiles](DEPLOYMENT_PROFILES.md) — machine/execution profiles
 - [Distributed project storage](DISTRIBUTED_PROJECT_STORAGE.md) — the namespace contract
 - [Messaging and task queue](MESSAGING_TASK_QUEUE.md) — the optional Redis plane

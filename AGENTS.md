@@ -3,6 +3,8 @@
 `main` is the active development branch. Create short-lived feature/fix branches from `main` and merge validated changes back to `main`. Research phases do not determine Git branch selection, and no `phase-N` branch synchronization is required. Existing phase branches can remain as historical references without being advanced or deleted.
 
 The programme is currently in **research Phase 1**. Phase 2 is optional and may be skipped. Phases 3 and 4 concern research analyses and results, not distinct coding or pipeline branches. Preserve all existing privacy, scientific-method, locked-paper, and module-boundary constraints.
+Technical work is planned as incremental change to the current working modules. A paper advancing is not a reason to propose a "Phase 2 pipeline", a "Phase 3 architecture" or a replacement design: the next research phase adds requirements to the same code, contracts and datasets. Prefer the live loop — collect real AI26 data reliably, analyse it with the existing pipeline, visualize and inspect the outputs, fix what is observed, improve coverage — over any structural rewrite that is not needed by a concrete fault.
+
 
 # AGENTS.md
 

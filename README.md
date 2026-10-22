@@ -1,7 +1,11 @@
 # LaclauGPT
 
 > [!IMPORTANT]
-> **Current development phase: Phase 1.** `main` is based on and synchronized with `phase-1`. The `phase-0` branch remains the preserved Phase 0 baseline; Phase 0 documentation and code remain Phase 0 and are not reclassified as Phase 1.
+> **Phases describe research papers, not software generations.** `main` is the single active
+> development branch: create short-lived branches from it and merge validated changes back.
+> `phase-N` branches are preserved historical references and are not synchronised, advanced or
+> deleted. Paper 1 / research Phase 1 is the current manuscript; Collection, Analysis and
+> Visualization are one continuously maintained system whose studies are configuration and data.
 
 [![Meta-repo checks](https://github.com/TomiToivio/LaclauGPT/actions/workflows/ci.yml/badge.svg)](https://github.com/TomiToivio/LaclauGPT/actions/workflows/ci.yml)
 
@@ -68,9 +72,9 @@ Data Collection  ->  Data Analysis  ->  Data Visualization
 
 If you arrived here looking for the **paper or theory**, stay in this repository. If you want to **run or develop one pipeline stage**, use the corresponding peer repository above. If you want the **complete system**, keep the four repositories as siblings in one workspace.
 
-The current flagship research programme is **[LaclauGPT: Ideological contestation over AI](paper/PHASE_1_PAPER.md)**. The project's canonical theoretical and methodological contract is **[THEORY.md](THEORY.md)**. The four-phase development path linking paper(s), methodology, technology and the continuously running AI26 reference case is documented in **[docs/ROADMAP.md](docs/ROADMAP.md)**.
+The current flagship research programme is **[LaclauGPT: Ideological contestation over AI](paper/PHASE_1_PAPER.md)**. The project's canonical theoretical and methodological contract is **[THEORY.md](THEORY.md)**. The research programme — how its papers, methodology and the continuously running AI26 reference case relate — is documented in **[docs/ROADMAP.md](docs/ROADMAP.md)**.
 
-AI26 Phase 2 runs on two machines as one system — Laskin as the primary always-on Collection + Analysis + Visualization node, and NooPunk supplying continuous browser collection with on-demand analysis. Their roles, shared namespace and cross-machine deduplication rules are documented in **[docs/AI26_EXECUTION_ARCHITECTURE.md](docs/AI26_EXECUTION_ARCHITECTURE.md)**.
+The current AI26 deployment runs on two machines as one system — Laskin as the primary always-on Collection + Analysis + Visualization node, and NooPunk supplying continuous browser collection with on-demand analysis. Their roles, shared namespace and cross-machine deduplication rules are documented in **[docs/AI26_EXECUTION_ARCHITECTURE.md](docs/AI26_EXECUTION_ARCHITECTURE.md)**.
 
 The framework is developed around Ernesto Laclau and Chantal Mouffe's discourse theory and Emilia Palonen's work on populism, polarisation and hegemonic dynamics, with project-specific extensions such as Critical AI Studies and sociotechnical imaginaries. The AI/AGI study is the main development case, but LaclauGPT is deliberately a **general research framework rather than a single-purpose AI ideology classifier**.
 

@@ -8,6 +8,24 @@ At the same time, LaclauGPT is a general research framework and is continuously 
 
 The roadmap is iterative rather than strictly linear. New empirical findings can require methodological or technical changes, and new methods or technologies can require revisions to the paper. The four phases describe increasing research maturity rather than rigid software releases.
 
+> **Phases are research phases.** They describe the papers and their scientific programmes —
+> hypotheses, method and analyses — not software generations. Collection, Analysis and
+> Visualization are continuous, reusable components: a new paper adds requirements to the same
+> pipelines, contracts and datasets through ordinary validated changes. No phase transition
+> requires a rewrite, a new branch or a replacement architecture.
+
+## Near-term operational priority
+
+The priority is the working system rather than the next architecture:
+
+1. collect real AI26 data reliably — hourly cycles, source coverage, visible failures;
+2. analyse it with the existing pipeline and read the outputs critically;
+3. visualize and inspect the results;
+4. fix observed faults, improve quality and coverage, repeat.
+
+A later paper adds requirements to this loop when the research needs them. It does not trigger
+a rebuild.
+
 ## Guiding development cycle
 
 ```text
@@ -108,7 +126,7 @@ The methodology documentation should become sufficiently detailed that another r
 
 ### Technology
 
-By Phase 2 the **AI26 real-time Collection → Analysis → Visualization pipeline is running operationally**.
+In the current deployment the **AI26 real-time Collection → Analysis → Visualization pipeline is running operationally**.
 
 Technical work shifts from merely making the pipeline function toward reliability and research quality:
 
