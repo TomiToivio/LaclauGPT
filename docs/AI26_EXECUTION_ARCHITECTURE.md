@@ -18,7 +18,7 @@
 The question this document answers is not *"where is the code?"* but *"which
 machine does what, and how do the two stay one system rather than two corpora?"*
 
-AI26 Phase 2 runs on two machines. They are not two pipelines and not two
+The current AI26 deployment runs on two machines. They are not two pipelines and not two
 studies. They are two nodes that write into **one `ai26` namespace** with one
 schema, one provenance model, and one deduplication rule — differing only in
 which stages they run continuously and which on demand.

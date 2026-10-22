@@ -6,7 +6,9 @@ The current flagship programme, **AI26: Ideological contestation over AI**, is t
 
 At the same time, LaclauGPT is a general research framework and is continuously used for other research projects. Features developed through AI26 should therefore remain reusable across other studies rather than becoming hard-coded AI26-specific behavior.
 
-The roadmap is iterative rather than strictly linear. New empirical findings can require methodological or technical changes, and new methods or technologies can require revisions to the paper. The four phases describe increasing research maturity rather than rigid software releases.
+The roadmap is iterative rather than strictly linear. New empirical findings can require methodological or technical changes, and new methods or technologies can require revisions to the paper.
+
+**Phases belong to the research programme, not to the software.** A numbered phase is a paper and its scientific programme: its questions, theory, methodology and analyses. Data Collection, Data Analysis and Data Visualization are one continuously maintained system that a new phase adds requirements to — incrementally, through ordinary validated changes to the running modules. This roadmap therefore describes how research matures; it never schedules a rewrite, a branch switch or a replacement architecture for the technical stack.
 
 ## Guiding development cycle
 
@@ -25,7 +27,7 @@ Revisions to theory, methods and technology
      ↺
 ```
 
-Three tracks evolve together throughout all phases:
+Three tracks evolve together throughout the programme — one continuous software track, and a paper track that accumulates:
 
 1. **Paper(s) and theory** — the scientific argument, research questions, theoretical framework, methodological justification and empirical findings.
 2. **Methodology** — operationalisation of discourse theory, computational and LLM-assisted methods, validation, uncertainty, provenance and human-in-the-loop interpretation.

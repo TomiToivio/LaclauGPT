@@ -1,8 +1,14 @@
 ## Development workflow and research phases
 
-`main` is the active development branch. Create short-lived feature/fix branches from `main` and merge validated changes back to `main`. Research phases do not determine Git branch selection, and no `phase-N` branch synchronization is required. Existing phase branches can remain as historical references without being advanced or deleted.
+**Phases describe papers, not software.** "Phase 1–4" names the research programme's papers and their hypotheses, theory, methodology and analyses. Data Collection, Data Analysis and Data Visualization are **one continuously maintained software system**, not phase-specific codebases, branches, pipelines or scheduled rewrites. Technical work is an incremental change to the current working modules: fix what the live pipeline observes, improve coverage and quality, keep the contracts stable.
 
-The programme is currently in **research Phase 1**. Phase 2 is optional and may be skipped. Phases 3 and 4 concern research analyses and results, not distinct coding or pipeline branches. Preserve all existing privacy, scientific-method, locked-paper, and module-boundary constraints.
+Agents must not propose a "Phase 2 pipeline", a "Phase 3 architecture", a migration to the next technical phase, or a large replacement design merely because a paper advances. A new paper adds requirements incrementally to the same collectors, contracts, datasets and visualizations. Do not treat `phase-N` branches as development targets or keep Git `main` synchronized with them; existing phase branches are historical snapshots only.
+
+`main` is the active development branch. Create short-lived feature/fix branches from `main` and merge validated changes back to `main`.
+
+The programme is currently working on **research Phase 1** (Paper 1). Paper 2 is optional and may be skipped; Papers 3 and 4 concern further analyses and results of the same running system. Preserve all existing privacy, scientific-method, locked-paper, and module-boundary constraints.
+
+The near-term operational priority is to run the live AI26 deployment: collect real data reliably, analyse it with the existing pipelines, visualize and inspect the output, fix observed faults, and improve quality and coverage through ordinary validated changes. "Current pipeline", "AI26 deployment", "collection worker", "analysis workflow" and "visualization application" are the correct terms for that work; "Phase N code", "Phase N platform" and "software phase transition" are not.
 
 # AGENTS.md
 

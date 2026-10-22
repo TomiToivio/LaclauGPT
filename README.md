@@ -1,7 +1,7 @@
 # LaclauGPT
 
 > [!IMPORTANT]
-> **Current development phase: Phase 1.** `main` is based on and synchronized with `phase-1`. The `phase-0` branch remains the preserved Phase 0 baseline; Phase 0 documentation and code remain Phase 0 and are not reclassified as Phase 1.
+> **Phases describe papers, not software.** "Phase 1–4" names the research programme's papers and their methodology and analyses. Collection, Analysis and Visualization are one continuously maintained system: work happens as incremental changes to the current modules and the live AI26 deployment, never as a phase-triggered rewrite. `main` is the single development branch; `phase-N` branches are historical snapshots and are not kept in sync.
 
 [![Meta-repo checks](https://github.com/TomiToivio/LaclauGPT/actions/workflows/ci.yml/badge.svg)](https://github.com/TomiToivio/LaclauGPT/actions/workflows/ci.yml)
 
@@ -68,9 +68,9 @@ Data Collection  ->  Data Analysis  ->  Data Visualization
 
 If you arrived here looking for the **paper or theory**, stay in this repository. If you want to **run or develop one pipeline stage**, use the corresponding peer repository above. If you want the **complete system**, keep the four repositories as siblings in one workspace.
 
-The current flagship research programme is **[LaclauGPT: Ideological contestation over AI](paper/PHASE_1_PAPER.md)**. The project's canonical theoretical and methodological contract is **[THEORY.md](THEORY.md)**. The four-phase development path linking paper(s), methodology, technology and the continuously running AI26 reference case is documented in **[docs/ROADMAP.md](docs/ROADMAP.md)**.
+The current flagship research programme is **[LaclauGPT: Ideological contestation over AI](paper/PHASE_1_PAPER.md)**, whose manuscript is *Paper 1 / research Phase 1*. The project's canonical theoretical and methodological contract is **[THEORY.md](THEORY.md)**. How the successive papers, their methodology and the one continuously running software system develop together is documented in **[docs/ROADMAP.md](docs/ROADMAP.md)**.
 
-AI26 Phase 2 runs on two machines as one system — Laskin as the primary always-on Collection + Analysis + Visualization node, and NooPunk supplying continuous browser collection with on-demand analysis. Their roles, shared namespace and cross-machine deduplication rules are documented in **[docs/AI26_EXECUTION_ARCHITECTURE.md](docs/AI26_EXECUTION_ARCHITECTURE.md)**.
+The current AI26 distributed deployment runs on two machines as one system — Laskin as the primary always-on Collection + Analysis + Visualization node, and NooPunk supplying continuous browser collection with on-demand analysis. Their roles, shared namespace and cross-machine deduplication rules are documented in **[docs/AI26_EXECUTION_ARCHITECTURE.md](docs/AI26_EXECUTION_ARCHITECTURE.md)**.
 
 The framework is developed around Ernesto Laclau and Chantal Mouffe's discourse theory and Emilia Palonen's work on populism, polarisation and hegemonic dynamics, with project-specific extensions such as Critical AI Studies and sociotechnical imaginaries. The AI/AGI study is the main development case, but LaclauGPT is deliberately a **general research framework rather than a single-purpose AI ideology classifier**.
 
@@ -175,7 +175,7 @@ See [`docs/architecture/MODULAR_ARCHITECTURE.md`](docs/architecture/MODULAR_ARCH
 
 ## Scientific paper and theory
 
-The scientific paper lives at [`paper/PHASE_1_PAPER.md`](paper/PHASE_1_PAPER.md). Phase 1 is the current executable research-plan paper. Future paper plans are [`PHASE_2_PAPER_DRAFT.md`](paper/PHASE_2_PAPER_DRAFT.md), [`PHASE_3_PAPER_DRAFT.md`](paper/PHASE_3_PAPER_DRAFT.md), and [`PHASE_4_PAPER_DRAFT.md`](paper/PHASE_4_PAPER_DRAFT.md); these are outline/TODO plans, not completed manuscripts or findings. [`THEORY.md`](THEORY.md) is the canonical high-level theory and methodology source. [`docs/ROADMAP.md`](docs/ROADMAP.md) describes how successive paper versions, methodological development and the technical pipeline co-evolve through four phases, with AI26 continuously guiding development while other research projects exercise the general framework.
+The scientific paper lives at [`paper/PHASE_1_PAPER.md`](paper/PHASE_1_PAPER.md) — *Paper 1 / research Phase 1*, the current executable research-plan manuscript. Further paper plans are [`PHASE_2_PAPER_DRAFT.md`](paper/PHASE_2_PAPER_DRAFT.md), [`PHASE_3_PAPER_DRAFT.md`](paper/PHASE_3_PAPER_DRAFT.md), and [`PHASE_4_PAPER_DRAFT.md`](paper/PHASE_4_PAPER_DRAFT.md); these are outline/TODO plans, not completed manuscripts or findings. The filenames are historical and canonical. [`THEORY.md`](THEORY.md) is the canonical high-level theory and methodology source. [`docs/ROADMAP.md`](docs/ROADMAP.md) describes how successive papers and their methods add requirements to the same running pipeline, with AI26 continuously guiding incremental development while other research projects exercise the general framework.
 
 ## Where changes belong
 

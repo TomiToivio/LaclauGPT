@@ -12,7 +12,9 @@ LaclauGPT is an open social-science research framework for studying large textua
 
 ## Research status
 
-> **Draft research plan.** The current Phase 1 paper is a working research-plan manuscript. It has not been formally published or peer reviewed, and its arguments, methods, scope, and wording may change as the research develops.
+> **Draft research plan.** *Paper 1 / research Phase 1* is a working research-plan manuscript. It has not been formally published or peer reviewed, and its arguments, methods, scope, and wording may change as the research develops.
+
+**Phases describe papers, not software.** Collection, Analysis and Visualization are one continuously maintained system that each paper adds requirements to through incremental, validated changes — not a sequence of technical generations.
 
 ## About and authorship
 
@@ -72,7 +74,7 @@ The current flagship research programme is **LaclauGPT: Ideological contestation
 - [Theory and methodology]({{ '/THEORY.html' | relative_url }})
 - [Roadmap](ROADMAP.md)
 - [Canonical data contract](CANONICAL_DATA_CONTRACT.md)
-- [AI26 Phase 2 execution architecture](AI26_EXECUTION_ARCHITECTURE.md)
+- [AI26 distributed execution architecture](AI26_EXECUTION_ARCHITECTURE.md)
 - [Plugin platform architecture](architecture/PLUGIN_PLATFORM_ARCHITECTURE.md)
 
 ## Historical research archive

@@ -11,7 +11,7 @@ LaclauGPT has been under development by [Tomi Toivio](https://github.com/TomiToi
 
 It was originally created for the **EP24 research project** in connection with [HEPP](https://www.helsinki.fi/en/researchgroups/emotions-populism-and-polarisation) and [HSSH](https://www.helsinki.fi/en/helsinki-institute-social-sciences-and-humanities). The current version is guided primarily by the **AI26 research project** and is also used to support other research projects.
 
-LaclauGPT is organized as **four active repositories**. The main repository is the project and scientific-paper hub; the three peer repositories implement the executable research pipeline.
+LaclauGPT is organized as **four active repositories**. The main repository is the project and scientific-paper hub; the three peer repositories are the **one continuously maintained** executable system — Collection, Analysis and Visualization — that every research project configures rather than forks. Research papers have phases; the software does not.
 
 | Repository | Status | Responsibility |
 | --- | --- | --- |

@@ -56,7 +56,7 @@ Synthetic tests cover text-only source forms, cross-modal conflict, uncertain OC
 
 ## Ownership and Phase 0 safety
 
-The umbrella repository owns this methodological contract. Executable models, prompts, validation and canonical-pipeline integration live in TomiToivio/LaclauGPT-Data-Analysis. Legacy Puhti scripts remain historical/reference implementations and are not the canonical dependency. Phase 0 behavior remains unchanged; under the current repository policy, Phase 1 code and documentation live on `main` and the historical `phase-1` branch is synchronized with it.
+The umbrella repository owns this methodological contract. Executable models, prompts, validation and canonical-pipeline integration live in TomiToivio/LaclauGPT-Data-Analysis. Legacy Puhti scripts remain historical/reference implementations and are not the canonical dependency. Legacy Phase 0 behavior remains unchanged. Under the current policy the pipeline is one continuously maintained system on `main`, and the historical `phase-1` branch is a frozen snapshot rather than a parallel development line.
 
 ## References
 

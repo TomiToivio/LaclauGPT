@@ -4,7 +4,7 @@
 **Issue:** [LaclauGPT #61](https://github.com/TomiToivio/LaclauGPT/issues/61)  
 **Date:** 2026-09-20  
 **Implementation owner:** LaclauGPT-Data-Analysis.  
-**Branch boundary:** Phase 1 development now lands directly on `main`; the historical `phase-1` branch is kept synchronized with `main`.  
+**Branch boundary:** Research Phase 1 work lands directly on `main`; the historical `phase-1` branch is a frozen snapshot and is not kept in sync with it.  
 **Method contract:** `social-semiotic-preanalysis.v1`; canonical multimodal prompt resources use v2 provenance.
 
 This document records the design rationale for the implemented descriptive, evidence-preserving stage for text, images, video and audio before relational representation and Laclaudian interpretation. It does not revise the Phase 1 paper's discourse-theoretical framework. “Pre-analysis” here means the social-semiotic first pass; the paper also uses that word more broadly for provisional LLM-assisted discourse analysis.
@@ -317,7 +317,7 @@ Proposed pilot promotion gates: all structural tests pass; no unflagged fabricat
 
 ## 10. Phase isolation, rollout and rollback
 
-- Phase 1 implementation targets `main`; keep the historical `phase-1` branch synchronized with `main`.
+- Implementation targets `main`; the historical `phase-1` branch is frozen and is never re-synchronized.
 - Add an explicit opt-in profile/config selection for the new plugin chain, disabled by default. Proposed flags are design names, not currently supported CLI switches.
 - Do not change Phase 0 profiles, shared prompt versions, legacy Puhti scripts, deployed cron/Slurm jobs, persistent data schema or main/submodule pointers.
 - Begin with standalone pre-analysis and evidence export; then enable the dedicated downstream adapter in the Phase 1 pilot only.
