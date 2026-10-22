@@ -1,11 +1,10 @@
-# AI26 Phase 2 execution architecture — Laskin and NooPunk
+# Current AI26 distributed execution architecture — Laskin and NooPunk
 
 > **Status:** project-level architecture documentation. Issue **#70** (Laskin) and
 > **#71** (NooPunk) define the two machine roles. This document describes them as
 > **one AI26 system**; it does not redefine module behaviour.
 >
-> **Phase:** AI26 Phase 2 only. It is not a description of Phase 1, and it does not
-> apply to EP24, Brazil26 or Hungary26.
+> **Scope:** Current AI26 deployment; paper phases do not define infrastructure generations. Other studies have their own deployments.
 >
 > **Privacy:** this file names machine **roles**, never machine addresses, ports,
 > credentials, paths or account lists. Concrete values are deployment state and
@@ -18,7 +17,7 @@
 The question this document answers is not *"where is the code?"* but *"which
 machine does what, and how do the two stay one system rather than two corpora?"*
 
-AI26 Phase 2 runs on two machines. They are not two pipelines and not two
+The current AI26 deployment runs on two machines. They are not two pipelines and not two
 studies. They are two nodes that write into **one `ai26` namespace** with one
 schema, one provenance model, and one deduplication rule — differing only in
 which stages they run continuously and which on demand.

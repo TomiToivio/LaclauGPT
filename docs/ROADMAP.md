@@ -1,4 +1,6 @@
-# LaclauGPT research, methodology and technology roadmap
+# LaclauGPT research-paper roadmap and continuous technical development
+
+**Numbered phases describe research papers, not software generations.** Collection, Analysis and Visualization evolve continuously on `main` through small validated improvements. The current priority is real data collection, analysis, visualization and human review, not phase-triggered rewrites. Historical phase-named interfaces stay compatible.
 
 LaclauGPT is developed as a research framework in a continuous loop between **scientific writing**, **methodological development**, **technical implementation**, and **real research use**.
 
