@@ -54,7 +54,7 @@ Collection plugins MUST NOT perform substantive social-science interpretation. S
 
 Purpose: transform analysis-ready records into evidence-linked analytical results.
 
-Analysis has three stable phases:
+Analysis has three stable stages:
 
 ```text
 PREPROCESS -> PROCESS PLUGINS -> POSTPROCESS

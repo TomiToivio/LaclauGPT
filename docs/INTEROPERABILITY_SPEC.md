@@ -1157,7 +1157,7 @@ laclaugpt export csv --stdout
 
 # 27. Priority implementation roadmap
 
-## Phase 1 — Stable core interchange
+## Interoperability level 1 — Stable core interchange
 
 Implement first:
 
@@ -1172,7 +1172,7 @@ review states
 
 ---
 
-## Phase 2 — Collection interoperability
+## Interoperability level 2 — Collection interoperability
 
 Implement:
 
@@ -1187,7 +1187,7 @@ Minet integration SHOULD be particularly lightweight because its CSV/Unix design
 
 ---
 
-## Phase 3 — Discourse-analysis interoperability
+## Interoperability level 3 — Discourse-analysis interoperability
 
 Implement:
 
@@ -1198,7 +1198,7 @@ DATS adapter/plugin
 
 ---
 
-## Phase 4 — Qualitative-analysis interoperability
+## Interoperability level 4 — Qualitative-analysis interoperability
 
 Implement:
 
@@ -1210,7 +1210,7 @@ ATLAS.ti compatibility through QDPX
 
 ---
 
-## Phase 5 — Annotation and validation
+## Interoperability level 5 — Annotation and validation
 
 Implement:
 
@@ -1223,7 +1223,7 @@ adjudication
 
 ---
 
-## Phase 6 — Network and visualisation
+## Interoperability level 6 — Network and visualisation
 
 Implement:
 

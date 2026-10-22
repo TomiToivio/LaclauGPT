@@ -1,6 +1,6 @@
 # Cross-module RDF / knowledge-graph architecture
 
-**Status:** normative cross-module architecture, Phase-0 safe  
+**Status:** normative cross-module architecture, safe for the current pipeline  
 **Issue:** #60  
 **Scope:** LaclauGPT meta-repository plus Data Collection, Data Analysis and Data Visualization
 
@@ -10,7 +10,7 @@ LaclauGPT uses **one conceptual research graph with multiple physical backends**
 
 The canonical research objects remain authoritative. Knowledge-graph views are deterministic projections that preserve stable identity, evidence, provenance, uncertainty and human-review state.
 
-Phase-0 behavior MUST remain unchanged unless KG support is explicitly enabled.
+Current-pipeline behaviour MUST remain unchanged unless KG support is explicitly enabled.
 
 ## Architectural invariants
 
@@ -58,7 +58,7 @@ Core analytical objects:
 
 Interpretive objects MUST point to the exact evidence target and `prov:Activity` that generated them.
 
-### 3. Phase-2 DNA layer
+### 3. DNA layer (level 2)
 
 The DNA projection reuses actor, statement, concept and source identities.
 
@@ -73,7 +73,7 @@ Statement --AT_TIME--> time
 
 DNA import/export adapters should preserve qualifier/value fields and source/evidence references. LaclauGPT must not invent a parallel identity model for DNA.
 
-### 4. Phase-2 SNA layer
+### 4. SNA layer (level 2)
 
 SNA reuses account/person/organization identities and adds typed interaction edges:
 
@@ -192,7 +192,7 @@ Interpretive relations that need assertion-level metadata SHOULD be reified as a
 
 ### CSV / SQLite / DuckDB
 
-Phase-0/local reference representation:
+Current-pipeline / local reference representation:
 
 - `nodes.csv` / `nodes` table
 - `edges.csv` / `edges` table
@@ -258,15 +258,15 @@ The versioned context is `schemas/laclaugpt-context.v1.jsonld`.
 
 The baseline SHACL profile is `schemas/laclaugpt-rdf.shacl.ttl`.
 
-Validation should run before explicit RDF publication or persistent graph-store writes. Optional KG failure MUST NOT fail a normal Phase-0 run unless the project explicitly sets RDF/KG output as required.
+Validation should run before explicit RDF publication or persistent graph-store writes. Optional KG failure MUST NOT fail a normal current-pipeline run unless the project explicitly sets RDF/KG output as required.
 
-## Phase activation
+## Activation levels
 
-| Phase | KG behavior |
+| Level | KG behavior |
 | --- | --- |
-| Phase-0 | stable IDs, metadata/provenance mapping, optional export/import, fixtures, validation; disabled by default |
-| Phase-1 | Laclau analytical graph and evidence-linked role assignments |
-| Phase-2 | DNA and SNA projections/adapters activated without redesigning identity |
+| 0 (current pipeline) | stable IDs, metadata/provenance mapping, optional export/import, fixtures, validation; disabled by default |
+| 1 (analytical graph) | Laclau analytical graph and evidence-linked role assignments |
+| 2 (DNA/SNA) | DNA and SNA projections/adapters activated without redesigning identity |
 | Later | richer temporal/multimodal semantics, graph-native querying, provenance-aware GraphRAG |
 
 ## Module ownership
@@ -301,7 +301,7 @@ Graph retrieval is an optional context provider and does not replace full-text/v
 | local no-service mode | yes | no | no | file: yes |
 | graph traversal | bounded app/SQL | aggregation/app | native AQL | SPARQL when available |
 | JSON-LD/RDF export | yes | yes | yes | native |
-| Phase-0 default dependency | none | optional | optional | none |
+| Current-pipeline default dependency | none | optional | optional | none |
 
 ## Migration strategy
 
@@ -309,7 +309,7 @@ Graph retrieval is an optional context provider and does not replace full-text/v
 2. Materialize the same canonical objects into node/edge projections.
 3. Validate synthetic fixtures and RDF exports.
 4. Add backend adapters behind the shared interface.
-5. Activate DNA/SNA only in Phase-2 project profiles.
+5. Activate DNA/SNA only in level-2 project profiles.
 6. Never require a destructive migration merely to enable semantic export.
 
 ## Acceptance fixture
