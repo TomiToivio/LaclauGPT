@@ -10,7 +10,7 @@ description: Open research framework for LLM-assisted computational discourse an
 
 LaclauGPT is an open social-science research framework for studying large textual and multimodal corpora with computational methods and LLM assistance. It keeps interpretation traceable to source evidence, uncertainty, provenance, and human researcher review.
 
-## Research status
+## Research papers and continuous software\n\nResearch phases refer to the scientific papers, **not** separate code generations. Collection, Analysis and Visualization are continuously maintained modules. Current priorities are sustained empirical AI26 collection, analysis, visualization, validation and incremental improvement.\n\n## Research status
 
 > **Draft research plan.** The current Phase 1 paper is a working research-plan manuscript. It has not been formally published or peer reviewed, and its arguments, methods, scope, and wording may change as the research develops.
 
