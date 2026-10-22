@@ -29,7 +29,7 @@ which stages they run continuously and which on demand.
 | **Laskin** | **continuous** | never | **continuous** | **continuous** | cron + service |
 | **NooPunk** | supported | **continuous** | on demand | on demand | service |
 
-**Laskin is the primary always-on AI26 Phase 2 execution node.** It runs
+**Laskin is the primary always-on AI26 execution node.** It runs
 Collection, Analysis and Visualization continuously.
 
 **NooPunk supplies continuous browser collection** and can optionally run
@@ -74,9 +74,9 @@ Two properties of this diagram matter more than the boxes:
    queue and writes the same collections under the same idempotency rule. Running
    it changes *who* processed an item, never *what the corpus is*.
 
-## Phase 2 specifics
+## Deployment specifics
 
-- **Scope.** This architecture is AI26 Phase 2 specific. The three pipeline
+- **Scope.** This architecture describes the current AI26 deployment. The three pipeline
   modules are AI26 modules; project-specific execution paths for other studies do
   not live here.
 - **Laskin's model.** Laskin's continuous analysis defaults to a **local Ollama**
@@ -246,12 +246,12 @@ or degraded rather than filled in.
 - Machine-specific configuration belongs in the private root.
 - Reachability grants no authority between the nodes; the two machines coordinate
   through the shared contract, not through administrative control of each other.
-- This architecture is AI26 Phase 2. It is not a description of any other study
+- This architecture describes the current AI26 deployment. It is not a description of any other study
   and does not introduce project-specific execution paths into the modules.
 
 ## Related documents
 
-- [Roadmap](ROADMAP.md) — the four-phase development path
+- [Roadmap](ROADMAP.md) — research phases and the continuously maintained system
 - [Deployment profiles](DEPLOYMENT_PROFILES.md) — machine/execution profiles
 - [Distributed project storage](DISTRIBUTED_PROJECT_STORAGE.md) — the namespace contract
 - [Messaging and task queue](MESSAGING_TASK_QUEUE.md) — the optional Redis plane
