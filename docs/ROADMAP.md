@@ -10,6 +10,18 @@ At the same time, LaclauGPT is a general research framework and is continuously 
 
 The roadmap is iterative rather than strictly linear. New empirical findings can require methodological or technical changes, and new methods or technologies can require revisions to the paper. The four phases describe increasing research maturity rather than rigid software releases.
 
+## Near-term operational priority
+
+The priority is the working system rather than the next architecture:
+
+1. collect real AI26 data reliably — hourly cycles, source coverage, visible failures;
+2. analyse it with the existing pipeline and read the outputs critically;
+3. visualize and inspect the results, with human review of what the machine asserts;
+4. fix the faults that are observed, improve quality and coverage, and repeat.
+
+A later paper adds requirements to this loop when the research needs them. It does not trigger
+a rebuild, a new branch or a replacement architecture.
+
 ## Guiding development cycle
 
 ```text
