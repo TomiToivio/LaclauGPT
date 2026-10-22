@@ -1,6 +1,8 @@
 # LaclauGPT research-paper roadmap and continuous technical development
 
-**Numbered phases describe research papers, not software generations.** Collection, Analysis and Visualization evolve continuously on `main` through small validated improvements. The current priority is real data collection, analysis, visualization and human review, not phase-triggered rewrites. Historical phase-named interfaces stay compatible.\n\nLaclauGPT is developed as a research framework in a continuous loop between **scientific writing**, **methodological development**, **technical implementation**, and **real research use**.
+**Numbered phases describe research papers, not software generations.** Collection, Analysis and Visualization evolve continuously on `main` through small validated improvements. The current priority is real data collection, analysis, visualization and human review, not phase-triggered rewrites. Historical phase-named interfaces stay compatible.
+
+LaclauGPT is developed as a research framework in a continuous loop between **scientific writing**, **methodological development**, **technical implementation**, and **real research use**.
 
 The current flagship programme, **AI26: Ideological contestation over AI**, is the main reference case used to guide LaclauGPT development. AI26 is not merely a demonstration dataset or a final validation exercise. It is used continuously to test whether the theory, methodology, data contracts, collection system, analysis methods, visualizations and human-researcher workflows work together in practice.
 
