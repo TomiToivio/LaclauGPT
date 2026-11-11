@@ -89,31 +89,21 @@ Within each arena, sampling SHOULD be stratified so the held-out set contains:
 
 This size is a feasibility target rather than a power-derived optimum. It is large enough to expose recurrent errors across three arenas while remaining realistically double-coded and adjudicated. The final registered sample size SHOULD be justified against coder capacity before annotation starts.
 
-### Minimum cell size and pooling (#88)
+### Sparse-cell feasibility and reporting rules (AI26; issue #88)
 
-A stratum smaller than the minimum cell size MUST NOT be reported as an independently estimated
-cell. It is either pooled with an adjacent stratum, with the pooling stated wherever the result is
-reported, or reported as a qualitative illustration that carries no agreement statistic.
+Before drawing the held-out sample, freeze an eligible, analysed and inspectable sampling frame using the declared observation-window publication time, readiness, analysis availability, registered language scope, arena membership and duplicate groups. Report each exclusion reason separately. Never mix whole-store, all-date ready, in-window ready and in-window analysed denominators.
 
-The minimum cell size is **20 documents** unless the registered sampling manifest declares a
-different value. It is a declared number rather than an implicit judgement, so that a small cell is
-a stated limitation instead of a silently unstable estimate.
+The primary allocation covers the three declared arenas, with deliberate coverage of source/platform families and model outcome types, including substantive, uncertain, zero-code and abstained outputs. Language and predicted-formation intersections are coverage/diagnostic dimensions, not mandatory fully populated cells. Formations may overlap or remain unassigned; never force classifications to fill quotas. Register exact allocations before drawing the held-out set.
 
-This matters for the AI26 frame as measured on 2026-11-11: Finnish is 289 in-window documents
-across three arenas (elites 26, grassroots 152, parliamentary 107) and every Finnish cell comes
-from a single source type. `docs/AI26_STRATIFICATION_88.md` records the measurement and what each
-sampling alternative would cost.
+**Conservative minimum reportable subgroup: 30 independently double-coded eligible documents.** Below 30, do not publish a subgroup-specific chance-corrected agreement estimate. Report counts and descriptive or qualitative patterns instead. A subgroup of 30 or more still requires adequate category prevalence and non-degenerate marginals; 30 is a reporting guardrail, not a power or reliability guarantee. Any pooling across arenas, languages or formations must be preregistered, theoretically justified and accompanied by named components and denominators.
 
-Consequences that follow from the rule:
+Retain eligible Finnish-language documents as an independently double-coded exploratory cross-language robustness subset where feasible. Report Finnish subgroup composition and evidence-linked disagreements, but do not assert Finnish-specific, English–Finnish, or arena-by-language agreement unless the reporting requirements are met. Aggregate metrics must disclose language and arena composition and are not by themselves evidence of cross-language generalisation.
 
-- an `arena × language` cell below the threshold is not used to claim cross-language agreement;
-- a `source type` stratum that exists in only one platform inside a language cannot be populated
-  at all, and MUST be reported as absent rather than merged into a neighbouring cell without
-  saying so;
-- records with no arena (the 286 `external-link-fetcher` children, #336) MUST be excluded from the
-  stratified draw and reported separately; they are not a stratum;
-- agreement statistics are reported per cell, with the cell size, and never only as a corpus-wide
-  aggregate.
+Exclude records lacking a defensible arena assignment from three-arena agreement denominators; show their numbers, source mix and fraction of the appropriate frozen frame as a coverage limitation, without silently relabelling them. Unknown-language records cannot enter language-specific estimates unless verified. Missing analysis results are neither zero-code outputs nor abstentions. Report absent first-party parliamentary proceedings separately from Finnish party/government communications, and record source outages and backlog gaps.
+
+Before unblinding, register the corpus snapshot, frame query, exact window, language scope by arena, audited cell sizes, allocations, minimum size, pooling rules, planned metrics and denominators. Preserve existing independent double-coding, leakage prevention, adjudication and robustness requirements.
+
+**Non-frozen tracking evidence:** On 2026-11-10 an audit counted 4,620 ready records across all publication dates, of which 286 lacked an arena, 269 were labelled Finnish (25 in elites), and 1,587 had no analysis result. These are not the in-window analysed evaluation denominator. The elites configuration declared English-only despite Finnish records; this language-scope discrepancy needs an explicit owner decision before freezing the sample.
 
 ### Sampling manifest
 
@@ -129,7 +119,6 @@ The restricted sampling manifest MUST record at least:
 - duplicate-group identifier;
 - inclusion/exclusion status and reason;
 - split: development or held-out evaluation;
-- minimum cell size used for the stratified draw, and any pooling applied;
 - collector identifier and collector commit/version;
 - matcher/parser identifier where relevant;
 - preprocessing/transformation versions;

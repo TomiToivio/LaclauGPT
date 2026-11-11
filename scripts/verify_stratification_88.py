@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
-"""Offline guard for the §4.2 stratification rule (#88).
+"""Offline guard for the §4.2 sparse-cell rule (#88, decided in #89).
 
-Issue #88 measured the AI26 frame and showed that the paper's stratification promise cannot be met
-as written: Finnish is a 289-document total across three arenas and every Finnish cell comes from a
-single source type. The fix that landed is a declared minimum cell size with a pooling rule, so a
-small cell is a stated limitation instead of a silently unstable agreement statistic.
+Issue #88 measured the AI26 frame and showed the paper's stratification promise could not be met as
+written: Finnish is a 289-document total across three arenas, the elites × fi cell is 26, and every
+Finnish cell comes from a single source type. #89 merged the rule that makes §4.2 executable — a
+reportable subgroup needs 30 independently double-coded eligible documents, pooling must be
+preregistered and justified, and arena-less records are counted separately.
 
-Nothing checked that rule. A future edit could delete the threshold, drop the pooling sentence, or
-quietly reintroduce "records with no arena" as a stratum, and CI would stay green — which is exactly
-the failure mode this file exists to catch.
+Nothing checked that rule. A later edit could delete the threshold, soften "do not publish a
+subgroup-specific estimate" into a suggestion, or let the paper promise cross-product strata again,
+and CI would stay green. This is the drift this file exists to catch.
 
 Offline and dependency-free, like its siblings in this directory. Run:
     python3 scripts/verify_stratification_88.py
@@ -16,73 +17,72 @@ Offline and dependency-free, like its siblings in this directory. Run:
 
 from __future__ import annotations
 
-import re
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PROTOCOL = ROOT / "docs" / "VALIDATION_PROTOCOL.md"
+PAPER = ROOT / "paper" / "PHASE_1_PAPER.md"
 RECORD = ROOT / "docs" / "AI26_STRATIFICATION_88.md"
 
-#: The declared minimum, spelled out rather than inferred. Changing the number is a decision and
-#: should require changing this guard too.
-MINIMUM_CELL_SIZE = 20
+#: The merged guardrail. Changing the number is a research decision, not a refactor.
+MINIMUM_SUBGROUP = "30"
+
+PROTOCOL_CLAUSES = (
+    # The number itself, with the sentence that gives it force.
+    f"Conservative minimum reportable subgroup: {MINIMUM_SUBGROUP}",
+    "Below 30, do not publish a subgroup-specific chance-corrected agreement estimate",
+    # The honest hedge: 30 stops a publication, it does not make 31 reliable.
+    "30 is a reporting guardrail, not a power or reliability guarantee",
+    # Pooling is allowed, but only as a declared act with named parts.
+    "Any pooling across arenas, languages or formations must be preregistered",
+)
+
+PAPER_CLAUSES = (
+    # §4.2 must preregister the threshold rather than leave it to whoever draws the sample.
+    "minimum reportable cell size",
+    # Arena-less records are counted, not assigned.
+    "counted separately",
+    # Small cells are exploratory unless the pooling is justified.
+    "pooled only under a stated theoretical justification",
+    # The claim that #88 showed was impossible without the rule.
+    "sufficient independently double-coded cases in every reported subgroup",
+)
 
 
-def fail(problems: list[str], message: str) -> None:
-    problems.append(message)
+def check(path: Path, clauses: tuple[str, ...], label: str, problems: list[str]) -> None:
+    if not path.exists():
+        problems.append(f"missing {path.relative_to(ROOT)}")
+        return
+    text = path.read_text(encoding="utf-8")
+    for clause in clauses:
+        if clause not in text:
+            problems.append(f"{label} lost its clause: {clause!r}")
 
 
 def main() -> int:
     problems: list[str] = []
-    for path in (PROTOCOL, RECORD):
-        if not path.exists():
-            fail(problems, f"missing {path.relative_to(ROOT)}")
-    if problems:
-        for problem in problems:
-            print(f"FAIL {problem}", file=sys.stderr)
-        return 1
+    check(PROTOCOL, PROTOCOL_CLAUSES, "the validation protocol", problems)
+    check(PAPER, PAPER_CLAUSES, "paper §4.2", problems)
 
-    protocol = PROTOCOL.read_text(encoding="utf-8")
-    record = RECORD.read_text(encoding="utf-8")
-
-    # 1. The rule exists and is a section of the sampling design, not a stray sentence.
-    if "Minimum cell size and pooling (#88)" not in protocol:
-        fail(problems, "the protocol lost its minimum-cell-size section (#88)")
-
-    # 2. The threshold is declared, with the number the study actually uses.
-    if not re.search(r"\*\*20 documents\*\*|minimum cell size is \*\*20\*\*", protocol):
-        fail(problems, f"the protocol no longer declares a minimum cell size of {MINIMUM_CELL_SIZE}")
-
-    # 3. Below the threshold there is no independent estimate — the pooling rule itself.
-    for phrase in ("MUST NOT be reported as an independently estimated", "pooled", "qualitative illustration"):
-        if phrase not in protocol:
-            fail(problems, f"the pooling rule lost its '{phrase}' clause")
-
-    # 4. Arena-blank records are not a stratum. This is the 286 that #88 is partly about.
-    if "records with no arena" not in protocol.lower():
-        fail(problems, "the protocol no longer excludes arena-blank records from the stratified draw")
-    if "286" not in protocol:
-        fail(problems, "the protocol no longer names the arena-blank count it excludes")
-
-    # 5. The manifest records the decision, so a draw can be reproduced.
-    if "minimum cell size used for the stratified draw" not in protocol:
-        fail(problems, "the sampling manifest no longer records the minimum cell size")
-
-    # 6. The measurement that justifies the rule is still available and still says what it found.
-    for phrase in ("289", "Finnish", "second source type"):
-        if phrase not in record:
-            fail(problems, f"the #88 measurement record lost its '{phrase}' evidence")
-
-    # 7. The paper's §4.2 remains the author's text: the record must say the agent did not write it.
-    if "does not edit `paper/PHASE_1_PAPER.md`" not in record:
-        fail(problems, "the record no longer states that §4.2 is the author's text to write")
+    if not RECORD.exists():
+        problems.append(f"missing {RECORD.relative_to(ROOT)}")
+    else:
+        record = RECORD.read_text(encoding="utf-8")
+        for phrase in ("289", "elites × fi", "286", "30"):
+            if phrase not in record:
+                problems.append(f"the #88 measurement record lost its '{phrase}' evidence")
+        if "does not edit `paper/PHASE_1_PAPER.md`" not in record:
+            problems.append("the record no longer states that §4.2 is the author's text")
 
     if problems:
         for problem in problems:
             print(f"FAIL {problem}", file=sys.stderr)
         return 1
-    print(f"OK stratification rule intact: minimum cell size {MINIMUM_CELL_SIZE}, pooling declared")
+    print(
+        f"OK sparse-cell rule intact: minimum reportable subgroup {MINIMUM_SUBGROUP}, "
+        "pooling declared, arena-less records counted separately"
+    )
     return 0
 
 
