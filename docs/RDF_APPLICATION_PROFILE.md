@@ -90,7 +90,9 @@ Nodal-point, floating-signifier and empty-signifier status are contextual analyt
 
 - `laclaugpt:articulates`
 - `laclaugpt:participatesInFormation`
-- `laclaugpt:hasDiscursiveRole`\n- `laclaugpt:role`\n- `laclaugpt:concept`
+- `laclaugpt:hasDiscursiveRole`
+- `laclaugpt:role`
+- `laclaugpt:concept`
 - `laclaugpt:hasEquivalentMoment`
 - `laclaugpt:constructsAntagonism`
 - `laclaugpt:constructsFrontier`
